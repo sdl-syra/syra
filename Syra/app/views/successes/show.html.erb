@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @success.label %>
+</p>
+
+<p>
+  <strong>Urlimagevalidate:</strong>
+  <%= @success.urlImageValidate %>
+</p>
+
+<p>
+  <strong>Urlimageunvalidate:</strong>
+  <%= @success.urlImageUnvalidate %>
+</p>
+
+<p>
+  <strong>Locked:</strong>
+  <%= @success.locked %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @success.user %>
+</p>
+
+<%= link_to 'Edit', edit_success_path(@success) %> |
+<%= link_to 'Back', successes_path %>

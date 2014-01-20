@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ispaid:</strong>
+  <%= @proposition.isPaid %>
+</p>
+
+<p>
+  <strong>Isaccepted:</strong>
+  <%= @proposition.isAccepted %>
+</p>
+
+<p>
+  <strong>Motifcancelled:</strong>
+  <%= @proposition.motifCancelled %>
+</p>
+
+<p>
+  <strong>Proposition:</strong>
+  <%= @proposition.proposition %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @proposition.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @proposition.user %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @proposition.service %>
+</p>
+
+<%= link_to 'Edit', edit_proposition_path(@proposition) %> |
+<%= link_to 'Back', propositions_path %>
