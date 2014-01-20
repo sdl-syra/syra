@@ -1,0 +1,37 @@
+<%= form_for(@success) do |f| %>
+  <% if @success.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@success.errors.count, "error") %> prohibited this success from being saved:</h2>
+
+      <ul>
+      <% @success.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :label %><br>
+    <%= f.text_field :label %>
+  </div>
+  <div class="field">
+    <%= f.label :urlImageValidate %><br>
+    <%= f.text_field :urlImageValidate %>
+  </div>
+  <div class="field">
+    <%= f.label :urlImageUnvalidate %><br>
+    <%= f.text_field :urlImageUnvalidate %>
+  </div>
+  <div class="field">
+    <%= f.label :locked %><br>
+    <%= f.check_box :locked %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

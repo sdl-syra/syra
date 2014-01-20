@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  isPaid: false
+  isAccepted: false
+  motifCancelled: false
+  proposition: 2014-01-20
+  comment: MyText
+  user_id: 
+  service_id: 
+
+two:
+  isPaid: false
+  isAccepted: false
+  motifCancelled: false
+  proposition: 2014-01-20
+  comment: MyText
+  user_id: 
+  service_id: 

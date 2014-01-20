@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  levelUser: 1
+  XPUser: 1
+  user_id: 
+
+two:
+  levelUser: 1
+  XPUser: 1
+  user_id: 

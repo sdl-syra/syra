@@ -1,0 +1,39 @@
+<h1>Listing propositions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ispaid</th>
+      <th>Isaccepted</th>
+      <th>Motifcancelled</th>
+      <th>Proposition</th>
+      <th>Comment</th>
+      <th>User</th>
+      <th>Service</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @propositions.each do |proposition| %>
+      <tr>
+        <td><%= proposition.isPaid %></td>
+        <td><%= proposition.isAccepted %></td>
+        <td><%= proposition.motifCancelled %></td>
+        <td><%= proposition.proposition %></td>
+        <td><%= proposition.comment %></td>
+        <td><%= proposition.user %></td>
+        <td><%= proposition.service %></td>
+        <td><%= link_to 'Show', proposition %></td>
+        <td><%= link_to 'Edit', edit_proposition_path(proposition) %></td>
+        <td><%= link_to 'Destroy', proposition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Proposition', new_proposition_path %>

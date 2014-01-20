@@ -1,4 +1,20 @@
 Syra::Application.routes.draw do
+  resources :addresses
+
+  resources :categories
+
+  resources :hobbies
+
+  resources :evaluations
+
+  resources :propositions
+
+  resources :services
+
+  resources :successes
+
+  resources :levels
+
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
