@@ -1,7 +1,7 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(@user.errors.count, "error") %>Impossible de creer cet utilisateur :</h2>
 
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
@@ -12,25 +12,34 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    Prénom :<br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :lastName %><br>
+    Nom :<br>
     <%= f.text_field :lastName %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    E-mail<br>
     <%= f.text_field :email %>
   </div>
   <div class="field">
+    Confirmer votre E-mail<br>
+    <%= f.text_field :email_confirmation %>
+  </div
+  ><!--<div class="field">
     <%= f.label :money %><br>
     <%= f.text_field :money %>
-  </div>
+  </div>-->
   <div class="field">
     <%= f.label :password %><br>
-    <%= f.text_field :password %>
+    <%= f.password_field :password %>
   </div>
+  <div class="field">
+    Confirmer votre password <br>
+  </div>
+  
+  <!--
   <div class="field">
     <%= f.label :biography %><br>
     <%= f.text_area :biography %>
@@ -50,7 +59,7 @@
   <div class="field">
     <%= f.label :address_id %><br>
     <%= f.text_field :address_id %>
-  </div>
+  </div>-->
   <div class="actions">
     <%= f.submit %>
   </div>
