@@ -14,9 +14,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-<<<<<<< HEAD
 
 # Ignore .project
-=======
->>>>>>> c910daad4df0286867e9268cf8b51d13bef75a75
 /../.project
+
+# Ignore schema
+/db/schema.rb
