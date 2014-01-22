@@ -1,54 +1,39 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @user.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:lastName) %>:</strong></dt>
+  <dd><%= @user.lastName %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= @user.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:money) %>:</strong></dt>
+  <dd><%= @user.money %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:password) %>:</strong></dt>
+  <dd><%= @user.password %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:biography) %>:</strong></dt>
+  <dd><%= @user.biography %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:isPremium) %>:</strong></dt>
+  <dd><%= @user.isPremium %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:level_id) %>:</strong></dt>
+  <dd><%= @user.level_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:success_id) %>:</strong></dt>
+  <dd><%= @user.success_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:address_id) %>:</strong></dt>
+  <dd><%= @user.address_id %></dd>
+</dl>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @user.lastName %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Money:</strong>
-  <%= @user.money %>
-</p>
-
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
-
-<p>
-  <strong>Biography:</strong>
-  <%= @user.biography %>
-</p>
-
-<p>
-  <strong>Ispremium:</strong>
-  <%= @user.isPremium %>
-</p>
-
-<p>
-  <strong>Level:</strong>
-  <%= @user.level %>
-</p>
-
-<p>
-  <strong>Success:</strong>
-  <%= @user.success %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @user.address %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              users_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_user_path(@user), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              user_path(@user),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

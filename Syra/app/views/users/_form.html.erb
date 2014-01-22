@@ -1,67 +1,93 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %>Impossible de creer cet utilisateur :</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="center">
+  <div class="control-group">
+    <div class="control-label">
+      Prenom
     </div>
-  <% end %>
-
-  <div class="field">
-    Prénom :<br>
-    <%= f.text_field :name %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    Nom :<br>
-    <%= f.text_field :lastName %>
+  <div class="control-group">
+    <div class="control-label">
+      Nom
+    </div>
+    <div class="controls">
+      <%= f.text_field :lastName, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    E-mail<br>
-    <%= f.text_field :email %>
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    Confirmer votre E-mail<br>
-    <%= f.text_field :email_confirmation %>
-  </div
-  ><!--<div class="field">
-    <%= f.label :money %><br>
-    <%= f.text_field :money %>
+   <div class="control-group">
+    <div class="control-label">
+      Confirmation e-mail
+    </div>
+    <div class="controls">
+      <%= f.text_field :email_confirmation, :class => 'text_field' %>
+    </div>
+  </div>
+ <!--<div class="control-group">
+    <%= f.label :money, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :money, :class => 'text_field' %>
+    </div>
   </div>-->
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
+  <div class="control-group">
+    <div class="control-label">
+      Mot de passe
+    </div>
+    <div class="controls">
+      <%= f.password_field :password, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    Confirmer votre password <br>
-    <%= f.password_field :password_confirmation %>
+   <div class="control-group">
+    <div id="confirm_mdp" class="control-label">
+      Confirmation mot de passe
+    </div>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, :class => 'text_field' %>
+    </div>
   </div>
-  
-  <!--
-  <div class="field">
-    <%= f.label :biography %><br>
-    <%= f.text_area :biography %>
+ <!--
+  <div class="control-group">
+    <%= f.label :biography, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :biography, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :isPremium %><br>
-    <%= f.check_box :isPremium %>
+  <div class="control-group">
+    <%= f.label :isPremium, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :isPremium, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :level_id %><br>
-    <%= f.text_field :level_id %>
+  <div class="control-group">
+    <%= f.label :level_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :level_id, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :success_id %><br>
-    <%= f.text_field :success_id %>
+  <div class="control-group">
+    <%= f.label :success_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :success_id, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :address_id %><br>
-    <%= f.text_field :address_id %>
-  </div>-->
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control-group">
+    <%= f.label :address_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address_id, :class => 'text_field' %>
+    </div>
+  </div>
+  -->
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                users_path, :class => 'btn' %>
+  </div>
   </div>
 <% end %>
