@@ -11,7 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.references :level, index: true
       t.references :success, index: true
       t.references :address, index: true
-
+      t.integer :age
       t.timestamps
     end
   end

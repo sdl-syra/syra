@@ -11,8 +11,12 @@ class User < ActiveRecord::Base
   belongs_to :success
   belongs_to :address
   has_many :services
-  def self.authenticate_safely(user_name, password)
-       where("user_name = ? AND password = ?", user_name, password).first
+  def self.authenticate_safely(email, password)
+    where("email = ? AND password = ?", email, password).first
   end
 
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+  end
 end

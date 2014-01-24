@@ -1,4 +1,5 @@
 Syra::Application.routes.draw do
+  get "sessions/new"
   resources :addresses
 
   resources :categories
@@ -16,6 +17,12 @@ Syra::Application.routes.draw do
   resources :levels
 
   resources :users
+  
+  resources :sessions, :only => [:new, :create, :destroy]
+
+  get '/signup',  :to => 'users#new'
+  get '/signin',  :to => 'sessions#new'
+  get '/signout', :to => 'sessions#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

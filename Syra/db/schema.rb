@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20140120180545) do
     t.integer  "level_id"
     t.integer  "success_id"
     t.integer  "address_id"
+    t.integer  "age"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
