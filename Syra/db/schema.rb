@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140120180545) do
+ActiveRecord::Schema.define(version: 20140124163913) do
 
   create_table "addresses", force: true do |t|
     t.integer  "number"
@@ -115,6 +115,8 @@ ActiveRecord::Schema.define(version: 20140120180545) do
     t.integer  "age"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "encrypted_password"
+    t.string   "salt"
   end
 
   add_index "users", ["address_id"], name: "index_users_on_address_id"
