@@ -4,18 +4,30 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
   <dd><%= @user.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:lastName) %>:</strong></dt>
+  <dt><strong><%= model_class.human_attribute_name("Prénom") %>:</strong></dt>
   <dd><%= @user.lastName %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dt><strong><%= model_class.human_attribute_name("Age") %>:</strong></dt>
+  <% if @user.age.nil? %>
+  	<dd> Age non renseigné  </dd>
+  <% else %>
+  	<dd><%= @user.age %></dd>
+  <% end %>
+  <dt><strong><%= model_class.human_attribute_name("Téléphone") %>:</strong></dt>
+  <% if @user.phone.nil? %>
+  	<dd> Téléphone non renseigné  </dd>
+  <% else %>
+  	<dd><%= @user.phone %></dd>
+  <% end %>
+  <dt><strong><%= model_class.human_attribute_name("Email") %>:</strong></dt>
   <dd><%= @user.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:money) %>:</strong></dt>
-  <dd><%= @user.money %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:password) %>:</strong></dt>
-  <dd><%= @user.password %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:biography) %>:</strong></dt>
-  <dd><%= @user.biography %></dd>
+  <dt><strong><%= model_class.human_attribute_name("Adresse") %>:</strong></dt>
+  <% if @user.address.nil? %>
+  	<dd> Adresse non renseignée  </dd>
+  <% else %>
+	<dd><%= @user.address.number %> <%= @user.address.street %> <%= @user.address.postalCode %> <%= @user.address.town %></dd>
+  <% end %>
   <dt><strong><%= model_class.human_attribute_name(:isPremium) %>:</strong></dt>
   <dd><%= @user.isPremium %></dd>
   <dt><strong><%= model_class.human_attribute_name(:level_id) %>:</strong></dt>
@@ -25,6 +37,20 @@
   <dt><strong><%= model_class.human_attribute_name(:address_id) %>:</strong></dt>
   <dd><%= @user.address_id %></dd>
 </dl>
+
+<div>
+  <strong>Biographie</strong>
+  <% if @user.biography.nil? %>
+  	<p> Aucune biographie </p>
+  <% else %>
+	<p><%= @user.biography %></p>
+  <% end %>
+</div>
+
+<div>
+  <strong>Hobbies</strong>
+
+</div>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
