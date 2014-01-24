@@ -34,7 +34,8 @@ class UsersController < ApplicationController
         format.json { render action: 'show', status: :created, location: @user }
       else
         @titre = "Sign up"
-        render 'new'
+        format.html { render action: 'new' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
