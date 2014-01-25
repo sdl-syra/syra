@@ -9,7 +9,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :phone
       t.text :biography
       t.boolean :isPremium
-      t.integer :age
       t.references :level, index: true
       t.references :success, index: true
       t.references :address, index: true
