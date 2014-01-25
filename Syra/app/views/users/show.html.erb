@@ -1,9 +1,11 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1>Profil</h1>
 </div>
 
-<dl class="dl-horizontal">
+<%= image_tag("profilPicExample.png", height: 150, width: 150, style:"float : left") %>
+
+<dl class="dl-horizontal" style="float : left">
   <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
   <dd><%= @user.name %></dd>
   <dt><strong><%= model_class.human_attribute_name("Prénom") %>:</strong></dt>
@@ -34,8 +36,6 @@
   <dd><%= @user.level_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:success_id) %>:</strong></dt>
   <dd><%= @user.success_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:address_id) %>:</strong></dt>
-  <dd><%= @user.address_id %></dd>
 </dl>
 
 <div>
@@ -52,6 +52,10 @@
 
 </div>
 
+
+
+<% if false %>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               users_path, :class => 'btn'  %>
@@ -63,3 +67,5 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+
+<% end %>
