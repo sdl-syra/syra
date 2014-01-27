@@ -1,9 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessor :password
-  validates :name, presence: true
-  validates :name, :presence => {:message => 'Vous devez indiquer un prénom'}
-  validates :lastName, presence: true
-  validates :lastName, :presence => {:message => 'Vous devez indiquer un nom'}
+  validates :name, presence: true ,:presence => {:message => 'Vous devez indiquer un prénom'}
+  validates :lastName, presence: true ,:presence => {:message => 'Vous devez indiquer un nom'}
   validates :password, confirmation: true, :confirmation => {:message => 'Les mots de passe ne correspondent pas'}
   validates :password_confirmation, presence: true , :presence => {:message => 'Vous devez confirmer votre mot de passe'}
   validates :email, confirmation: true, :confirmation => {:message => 'Les emails ne correspondent pas'}
