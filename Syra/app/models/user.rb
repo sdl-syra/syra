@@ -13,7 +13,9 @@ class User < ActiveRecord::Base
   has_many :services
   has_and_belongs_to_many :hobbies
   def self.authenticate_safely(email, password)
-    where("email = ? AND password = ?", email, password).first
+    user = find_by_email(email)
+    return nil  if user.nil?
+    return user if user.has_password?(password)    
   end
 
   def self.authenticate_with_salt(id, cookie_salt)
