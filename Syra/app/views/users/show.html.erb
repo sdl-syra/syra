@@ -16,19 +16,21 @@
   <% else %>
   	<dd><%= @user.age %></dd>
   <% end %>
-  <dt><strong><%= model_class.human_attribute_name("Téléphone") %>:</strong></dt>
-  <% if @user.phone.nil? %>
-  	<dd> Non renseigné  </dd>
-  <% else %>
-  	<dd><%= @user.phone %></dd>
-  <% end %>
-  <dt><strong><%= model_class.human_attribute_name("Email") %>:</strong></dt>
-  <dd><%= @user.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name("Adresse") %>:</strong></dt>
-  <% if @user.address.nil? %>
-  	<dd> Non renseignée  </dd>
-  <% else %>
-	<dd><%= @user.address.number %> <%= @user.address.street %> <%= @user.address.postalCode %> <%= @user.address.town %></dd>
+  <% if current_user == @user %>
+	  <dt><strong><%= model_class.human_attribute_name("Téléphone") %>:</strong></dt>
+	  <% if @user.phone.nil? %>
+	  	<dd> Non renseigné  </dd>
+	  <% else %>
+	  	<dd><%= @user.phone %></dd>
+	  <% end %>
+	  <dt><strong><%= model_class.human_attribute_name("Email") %>:</strong></dt>
+	  <dd><%= @user.email %></dd>
+	  <dt><strong><%= model_class.human_attribute_name("Adresse") %>:</strong></dt>
+	  <% if @user.address.nil? %>
+	  	<dd> Non renseignée  </dd>
+	  <% else %>
+		<dd><%= @user.address.number %> <%= @user.address.street %> <%= @user.address.postalCode %> <%= @user.address.town %></dd>
+	  <% end %>
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:isPremium) %>:</strong></dt>
   <dd><%= @user.isPremium %></dd>
@@ -48,18 +50,28 @@
 </div>
 
 <div>
-
-  <strong>Hobbies</strong>
-
+	<div id="hobbiesconsult">
+ 	<strong>Hobbies</strong>
+ 	<!-- affichage classique -->
+	 	<% @user.hobbies do |hobby| %>
+	 		<label><%= hobby.label %></label>
+	 	<% end %>
+	</div>
+	<% if current_user == @user %>
+		<%= button_to_function "Editer", "toggleModeHobbies()", id: "buttonToggle" %>
+		 <!-- mode edition -->
+		<div id="hobbiesedit" style="display:none">
+			<% Hobby.all.each do |hobby| %>	
+			<label><%= hobby.label %>
+					<%= check_box_tag "user[hobby_ids][]", hobby.id, @user.hobbies.include?(hobby) %>
+			</label>
+			<% end %>
+			<%= button_to_function "Valider", "alert('SURPRISE');toggleModeHobbies()", id: "buttonToggle" %>
+		</div>
+	<% end %>
+	
 </div>
 
-<div>
- <% Hobby.all.each do |hobby| %>
-	<label><%= hobby.label %>
-		<%= check_box_tag "user[hobby_ids][]", hobby.id, @user.hobbies.include?(hobby) %>
-	</label>
- <% end %>
-</div>
 
 
 <% if false %>
@@ -75,3 +87,4 @@
               :class => 'btn btn-danger' %>
 </div>
 <% end %>
+

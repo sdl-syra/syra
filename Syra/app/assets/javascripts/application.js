@@ -14,3 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+function toggleModeHobbies() {
+	var hobbiesedit = document.getElementById("hobbiesedit");
+	var buttonToggle = document.getElementById("buttonToggle");
+	if (hobbiesedit.style.display == "block") {
+		hobbiesedit.style.display = "none";
+		buttonToggle.style.display = "block";
+	} else {
+		buttonToggle.style.display = "none";
+		hobbiesedit.style.display = "block";
+	}
+}
+
