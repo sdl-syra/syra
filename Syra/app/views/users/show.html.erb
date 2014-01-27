@@ -12,13 +12,13 @@
   <dd><%= @user.lastName %></dd>
   <dt><strong><%= model_class.human_attribute_name("Age") %>:</strong></dt>
   <% if @user.age.nil? %>
-  	<dd> Age non renseigné  </dd>
+  	<dd> Non renseigné  </dd>
   <% else %>
   	<dd><%= @user.age %></dd>
   <% end %>
   <dt><strong><%= model_class.human_attribute_name("Téléphone") %>:</strong></dt>
   <% if @user.phone.nil? %>
-  	<dd> Téléphone non renseigné  </dd>
+  	<dd> Non renseigné  </dd>
   <% else %>
   	<dd><%= @user.phone %></dd>
   <% end %>
@@ -26,7 +26,7 @@
   <dd><%= @user.email %></dd>
   <dt><strong><%= model_class.human_attribute_name("Adresse") %>:</strong></dt>
   <% if @user.address.nil? %>
-  	<dd> Adresse non renseignée  </dd>
+  	<dd> Non renseignée  </dd>
   <% else %>
 	<dd><%= @user.address.number %> <%= @user.address.street %> <%= @user.address.postalCode %> <%= @user.address.town %></dd>
   <% end %>
@@ -52,10 +52,16 @@
 
 </div>
 
+<div>
+ <% Hobby.all.each do |hobby| %>
+	<label><%= hobby.label %>
+		<%= check_box_tag "user[hobby_ids][]", hobby.id, @user.hobbies.include?(hobby) %>
+	</label>
+ <% end %>
+</div>
 
 
 <% if false %>
-
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               users_path, :class => 'btn'  %>
@@ -67,5 +73,4 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
-
 <% end %>
