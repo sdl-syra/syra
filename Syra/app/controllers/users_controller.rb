@@ -2,8 +2,12 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   # GET /users
   # GET /users.json
+
   def index
-    @users = User.all
+    @q = User.search(params[:q])
+    if params[:q].present?
+    @users = @q.result(distinct: true)
+    end
   end
 
   # GET /users/1
@@ -72,7 +76,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :isPremium, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone)
+    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :isPremium, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q)
   end
 
 end
