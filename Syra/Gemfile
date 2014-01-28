@@ -4,9 +4,16 @@ source 'https://rubygems.org'
 # gem "therubyracer"
 # gem 'bootstrap-sass', '~> 2.3.1.0'
 
+
 # Ransack : moteur de recherche
 gem "ransack", github: "activerecord-hackery/ransack"
 
+
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'oauth2'
+>>>>>>> Stashed changes
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 

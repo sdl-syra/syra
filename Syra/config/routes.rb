@@ -1,4 +1,5 @@
 Syra::Application.routes.draw do
+  devise_for :users
   get "sessions/new"
   resources :addresses
 
@@ -20,9 +21,12 @@ Syra::Application.routes.draw do
   
   resources :sessions, :only => [:new, :create, :destroy]
 
+  get '/auth/:provider/callback' => 'authentifications#create'
   get '/signup',  :to => 'users#new'
   get '/signin',  :to => 'sessions#new'
   get '/signout', :to => 'sessions#destroy'
+  
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,107 +1,97 @@
 <%= form_for @user, :html => { :class => 'form-horizontal', :role => 'form' } do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-            <h2><%= pluralize(@user.errors.count, "erreur") %></h2>
-      <ul>
-        <% @user.errors.messages.values.each do |msg| %>
-          <% msg.each do  |m| %>
-              <li><%= m %></li>
-          <%end %>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">
-      Prenom
-    </label>
-    <div class="col-sm-5">
-      <%= f.text_field :name, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">
-      Nom
-    </label>
-    <div class="col-sm-5">
-      <%= f.text_field :lastName, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">
-      email
-    </label>
-    <div class="col-sm-5">
-      <%= f.text_field :email, :class => 'text_field' %>
-    </div>
-  </div>
-   <div class="form-group">
-    <label class="col-sm-2 control-label">
-      Confirmation e-mail
-    </label>
-    <div class="col-sm-5">
-      <%= f.text_field :email_confirmation, :class => 'text_field' %>
-    </div>
-  </div>
- <!--<div class="control-group">
-    <%= f.label :money, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :money, :class => 'text_field' %>
-    </div>
-  </div>-->
-  <div class="form-group">
-    <label class="col-sm-2 control-label">
-      Mot de passe
-    </label>
-    <div class="col-sm-5">
-      <%= f.password_field :password, :class => 'text_field' %>
-    </div>
-  </div>
-   <div class="form-group">
-    <label class="col-sm-2 control-label">
-      Confirmation mot de passe
-    </label>
-    <div class="col-sm-5">
-      <%= f.password_field :password_confirmation, :class => 'text_field' %>
-    </div>
-  </div>
- <!--
-  <div class="control-group">
-    <%= f.label :biography, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :biography, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :isPremium, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :isPremium, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :level_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :level_id, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :success_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :success_id, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :address_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :address_id, :class => 'text_field' %>
-    </div>
-  </div>
-  -->
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-      users_path, :class => 'btn' %>
-  </div>
-  </div>
+<% if @user.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@user.errors.count, "erreur") %></h2>
+	<ul>
+		<% @user.errors.messages.values.each do |msg| %>
+		<% msg.each do  |m| %>
+		<li>
+			<%= m %>
+		</li>
+		<%end %>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<div class="form-group">
+	<label class="col-sm-2 control-label"> Prenom </label>
+	<div class="col-sm-5">
+		<%= f.text_field :name, :class => 'text_field' %>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label"> Nom </label>
+	<div class="col-sm-5">
+		<%= f.text_field :lastName, :class => 'text_field' %>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label"> email </label>
+	<div class="col-sm-5">
+		<%= f.text_field :email, :class => 'text_field' %>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label"> Confirmation e-mail </label>
+	<div class="col-sm-5">
+		<%= f.text_field :email_confirmation, :class => 'text_field' %>
+	</div>
+</div>
+<!--<div class="control-group">
+<%= f.label :money, :class => 'control-label' %>
+<div class="controls">
+<%= f.text_field :money, :class => 'text_field' %>
+</div>
+</div>-->
+<div class="form-group">
+	<label class="col-sm-2 control-label"> Mot de passe </label>
+	<div class="col-sm-5">
+		<%= f.password_field :password, :class => 'text_field' %>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label"> Confirmation mot de passe </label>
+	<div class="col-sm-5">
+		<%= f.password_field :password_confirmation, :class => 'text_field' %>
+	</div>
+</div>
+<!--
+<div class="control-group">
+<%= f.label :biography, :class => 'control-label' %>
+<div class="controls">
+<%= f.text_field :biography, :class => 'text_field' %>
+</div>
+</div>
+<div class="control-group">
+<%= f.label :isPremium, :class => 'control-label' %>
+<div class="controls">
+<%= f.text_field :isPremium, :class => 'text_field' %>
+</div>
+</div>
+<div class="control-group">
+<%= f.label :level_id, :class => 'control-label' %>
+<div class="controls">
+<%= f.text_field :level_id, :class => 'text_field' %>
+</div>
+</div>
+<div class="control-group">
+<%= f.label :success_id, :class => 'control-label' %>
+<div class="controls">
+<%= f.text_field :success_id, :class => 'text_field' %>
+</div>
+</div>
+<div class="control-group">
+<%= f.label :address_id, :class => 'control-label' %>
+<div class="controls">
+<%= f.text_field :address_id, :class => 'text_field' %>
+</div>
+</div>
+-->
+<div class="form-group">
+	<div class="col-sm-offset-2 col-sm-10">
+		<%= f.submit nil, :class => 'btn btn-primary' %>
+		<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+		users_path, :class => 'btn' %>
+	</div>
+</div>
 <% end %>
