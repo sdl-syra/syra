@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140128144712) do
+ActiveRecord::Schema.define(version: 20140131100030) do
 
   create_table "addresses", force: true do |t|
     t.integer  "number"
@@ -47,6 +47,11 @@ ActiveRecord::Schema.define(version: 20140128144712) do
   end
 
   add_index "evaluations", ["proposition_id"], name: "index_evaluations_on_proposition_id"
+
+  create_table "followings", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "hobbies", force: true do |t|
     t.string   "label"
@@ -120,8 +125,8 @@ ActiveRecord::Schema.define(version: 20140128144712) do
     t.string   "email"
     t.string   "money"
     t.string   "password"
-    t.text     "biography"
     t.string   "phone"
+    t.text     "biography"
     t.boolean  "isPremium"
     t.integer  "level_id"
     t.integer  "success_id"
