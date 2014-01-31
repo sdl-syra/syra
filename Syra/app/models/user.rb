@@ -21,12 +21,13 @@ class User < ActiveRecord::Base
   has_many :services
   has_and_belongs_to_many :hobbies
   has_many :authentifications, :dependent => :delete_all
+  
   def apply_omniauth(auth)
-    # In previous omniauth, 'user_info' was used in place of 'raw_info'
+    
     self.email = auth['extra']['raw_info']['email']
-    self.name = auth['extra']['raw_info']['last_name']
-    self.lastName = auth['extra']['raw_info']['first_name']
-    # Again, saving token is optional. If you haven't created the column in authentications table, this will fail
+    self.name = auth['extra']['raw_info']['first_name']
+    self.lastName = auth['extra']['raw_info']['last_name']
+    
     authentifications.build(:provider => auth['provider'], :uid => auth['uid'])
   end
 
