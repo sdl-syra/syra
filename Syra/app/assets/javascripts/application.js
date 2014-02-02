@@ -17,12 +17,15 @@
 function toggleModeHobbies() {
 	var hobbiesedit = document.getElementById("hobbiesedit");
 	var buttonToggle = document.getElementById("buttonToggle");
+	var currenthobbies = document.getElementById("currenthobbies");
 	if (hobbiesedit.style.display == "block") {
 		hobbiesedit.style.display = "none";
 		buttonToggle.style.display = "block";
+		currenthobbies.style.display = "block";
 	} else {
 		buttonToggle.style.display = "none";
 		hobbiesedit.style.display = "block";
+		currenthobbies.style.display = "none";
 	}
 }
 

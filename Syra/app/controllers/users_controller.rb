@@ -56,6 +56,19 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  # GET /users/1/update_hobbies
+  def update_hobbies
+    @user = current_user
+    @user.hobbies.delete_all
+    params[:user][:hobby_ids].reject!(&:empty?)
+    @user.hobbies = Hobby.find(params[:user][:hobby_ids])
+    
+    respond_to do |format|
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { head :no_content }
+    end
+  end
 
   # DELETE /users/1
   # DELETE /users/1.json

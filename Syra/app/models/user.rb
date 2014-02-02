@@ -11,13 +11,13 @@ class User < ActiveRecord::Base
   validates :name, presence: true ,:presence => {:message => 'Vous devez indiquer un prénom'}
   validates :lastName, presence: true ,:presence => {:message => 'Vous devez indiquer un nom'}
   validates :password, confirmation: true, :confirmation => {:message => 'Les mots de passe ne correspondent pas'}
-  validates :password_confirmation, presence: true , :presence => {:message => 'Vous devez confirmer votre mot de passe'}
+  validates :password_confirmation, presence: true , :presence => {:on => :create, :message => 'Vous devez confirmer votre mot de passe'}
   validates :email, confirmation: true, :confirmation => {:message => 'Les emails ne correspondent pas'}
   validates :email, uniqueness: true , :uniqueness => {:message => 'Votre email est déjà pris'}
-  validates :email_confirmation, presence: true , :presence => {:message => 'Vous devez confirmer votre email'}
+  validates :email_confirmation, presence: true , :presence => {:on => :create, :message => 'Vous devez confirmer votre email'}
   belongs_to :level
   belongs_to :success
-  belongs_to :address
+  belongs_to :address 
   has_many :services
   has_and_belongs_to_many :hobbies
   has_many :authentifications, :dependent => :delete_all

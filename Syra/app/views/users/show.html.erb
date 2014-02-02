@@ -51,22 +51,22 @@
 
 <div>
 	<div id="hobbiesconsult">
- 	<strong>Hobbies</strong>
- 	<!-- affichage classique -->
-	 	<% @user.hobbies do |hobby| %>
-	 		<label><%= hobby.label %></label>
-	 	<% end %>
+ 	<strong>Hobbies</strong></br>
+ 		<div id="currenthobbies">
+ 		<!-- affichage classique -->
+	 		<% @user.hobbies.each do |hobby| %>
+	 			<span><%= hobby.label %></span>
+	 		<% end %>
+		</div>
 	</div>
 	<% if current_user == @user %>
 		<%= button_to_function "Editer", "toggleModeHobbies()", id: "buttonToggle" %>
 		 <!-- mode edition -->
 		<div id="hobbiesedit" style="display:none">
-			<% Hobby.all.each do |hobby| %>	
-			<label><%= hobby.label %>
-					<%= check_box_tag "user[hobby_ids][]", hobby.id, @user.hobbies.include?(hobby) %>
-			</label>
+			<%= form_for @user, url: {action: "update_hobbies"}, method: :get do |f| %>
+				<%= f.collection_check_boxes :hobby_ids, Hobby.all, :id, :label %>
+				<%= f.submit %>
 			<% end %>
-			<%= button_to_function "Valider", "alert('SURPRISE');toggleModeHobbies()", id: "buttonToggle" %>
 		</div>
 	<% end %>
 	
