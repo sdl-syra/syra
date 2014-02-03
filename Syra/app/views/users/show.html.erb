@@ -3,7 +3,13 @@
   <h1>Profil</h1>
 </div>
 
-<%= image_tag("profilPicExample.png", height: 150, width: 150, style:"float : left") %>
+<script src="/app/assets/javascripts/dropzone.js"></script>
+
+<form action="/file-upload"
+      class="dropzone"
+      id="my-dropzone"></form>
+
+
 
 <dl class="dl-horizontal" style="float : left">
   <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
