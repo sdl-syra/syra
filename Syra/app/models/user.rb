@@ -73,8 +73,4 @@ class User < ActiveRecord::Base
     Digest::SHA2.hexdigest(string)
   end
 
-  def follow!(followed)
-    followings.create!(:user => self)
-  end
-
 end

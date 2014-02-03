@@ -25,8 +25,11 @@ Syra::Application.routes.draw do
   get '/signup',  :to => 'users#new'
   get '/signin',  :to => 'sessions#new'
   get '/signout', :to => 'sessions#destroy'
+
   
   get '/users/:id/update_hobbies', :to => 'users#update_hobbies', :as => 'update_hobbies'
+
+  get '/users/:id/follow', :to => 'users#follow'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

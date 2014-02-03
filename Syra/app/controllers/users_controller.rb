@@ -70,6 +70,12 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/follow
+  def follow
+
+  end
+
+
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy

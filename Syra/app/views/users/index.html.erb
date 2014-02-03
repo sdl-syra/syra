@@ -48,11 +48,19 @@
         <td><%= user.address_id %></td>
         <td><%=l user.created_at %></td>
         <td>
-          <%= link_to t('.show', :default => t("helpers.links.show")),
+          <% if signed_in? %>
+            <% if user.email != @current_user.email then %>
+              <%= form_for user, url: {action: "follow"}, method: :get do |f| %>
+                <% user %>
+                <%= f.submit 'ajouter en ami' %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%= link_to 'Voir',
                       user_path(user), :class => 'btn btn-mini' %>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+          <%= link_to 'Editer',
                       edit_user_path(user), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          <%= link_to 'Supprimer',
                       user_path(user),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
