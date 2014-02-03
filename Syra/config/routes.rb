@@ -1,4 +1,5 @@
 Syra::Application.routes.draw do
+  get "pages/accueil"
   #devise_for :users
   get "sessions/new"
   resources :addresses
@@ -85,4 +86,5 @@ Syra::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  root :to => "pages#accueil"
 end
