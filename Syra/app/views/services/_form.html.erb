@@ -55,13 +55,13 @@
 <div class="form-group">
 	<label class="col-sm-2 control-label"> Adresse (pour test only)</label>
 	<div class="col-sm-5">
-		<%= f.text_field :address_id, :value => current_user, :disabled => true, :class => 'text_field' %>
+		<%= f.text_field :address_id, :value => current_user.address, :disabled => true, :class => 'text_field' %>
 	</div>
 </div>
 <div class="form-group">
 	<label class="col-sm-2 control-label"> Utilisateur (pour test only)</label>
 	<div class="col-sm-5">
-		<%= f.text_field :user_id, :value => current_user, :disabled => true, :class => 'text_field' %>
+		<%= f.text_field :user_id, :value => current_user.lastName, :disabled => true, :class => 'text_field' %>
 	</div>
 </div>
   	
