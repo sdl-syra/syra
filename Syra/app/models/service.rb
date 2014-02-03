@@ -14,6 +14,5 @@ class Service < ActiveRecord::Base
   def default_values
     self.isGiven = 0 if self.isGiven.nil?
     self.isFinished = 0 if self.isFinished.nil?
-    self.user = @current_user 
   end
 end
