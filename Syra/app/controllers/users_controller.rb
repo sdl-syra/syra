@@ -72,7 +72,10 @@ class UsersController < ApplicationController
 
   # GET /users/follow
   def follow
-
+    respond_to do |format|
+        format.html { redirect_to '/users', notice: 'User was successfully updated.' }
+        format.json { head :no_content }
+    end
   end
 
 

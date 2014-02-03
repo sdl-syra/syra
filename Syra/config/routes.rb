@@ -30,7 +30,7 @@ Syra::Application.routes.draw do
   
   get '/users/:id/update_hobbies', :to => 'users#update_hobbies', :as => 'update_hobbies'
 
-  get '/users/:id/follow', :to => 'users#follow'
+  get '/users/:id/follow', :to => 'users#follow', :as => 'follow_user'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
