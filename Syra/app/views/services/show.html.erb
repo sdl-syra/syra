@@ -21,7 +21,11 @@
   <dt><strong><%= model_class.human_attribute_name(:price) %> : </strong></dt>
   <dd><%= @service.price %></dd>
   <dt><strong><%= model_class.human_attribute_name(:address) %> : </strong></dt>
-  <dd><%= @service.address %></dd>
+  <% if @service.user.address.nil? or @service.user.address=="" %>
+  	<dd> Non renseignée  </dd>
+  <% else %>
+  	<dd><%= @service.user.address %></dd>
+  <% end %>
   <dt><strong><%= model_class.human_attribute_name(:user) %> : </strong></dt>
   <% if @service.user.nil?  %>
   	<dd> Non renseigné  </dd>
@@ -31,6 +35,11 @@
   <dt><strong><%= model_class.human_attribute_name(:isFinished) %> : </strong></dt>
   <dd><%= @service.isFinished %></dd>
 </dl>
+
+<div class="form-image">
+ <dt><strong><%= model_class.human_attribute_name(:image) %> : </strong></dt>
+  	<dd><%= image_tag @service.image_url(:thumb).to_s %></dd>
+</div>
 
 <div class="form-actions">
   <%= link_to t('.edit', :default => t("helpers.links.edit")),

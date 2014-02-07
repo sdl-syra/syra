@@ -8,6 +8,9 @@ source 'https://rubygems.org'
 # Ransack : moteur de recherche
 gem "ransack", github: "activerecord-hackery/ransack"
 
+# Used to upload pictures
+gem 'carrierwave'
+gem 'rmagick'
 
 gem 'devise'
 gem 'omniauth'

@@ -1,4 +1,4 @@
-<%= form_for @service, :html => { :class => 'form-horizontal', :role => 'form' } do |f| %>
+<%= form_for @service, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
 <% if @service.errors.any? %>
 <div id="error_explanation">
 	<h2><%= pluralize(@service.errors.count, "error") %> prohibited this service from being saved:</h2>
@@ -17,6 +17,18 @@
 	<label class="col-sm-2 control-label"> Titre </label>
 	<div class="col-sm-5">
 		<%= f.text_field :title, :class => 'text_field' %>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label"> Image </label>
+	<div class="col-sm-5">
+		<%= f.file_field :image, :class => 'file_field' %>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label"> Image précédente </label>
+	<div class="col-sm-5">
+	  	<dd><%= image_tag @service.image_url(:thumb).to_s %></dd>
 	</div>
 </div>
 <div class="form-group">

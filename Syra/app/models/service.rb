@@ -10,6 +10,8 @@ class Service < ActiveRecord::Base
   belongs_to :category
   belongs_to :user
   
+  mount_uploader :image, ServiceImageUploader
+  
   before_save :default_values
   def default_values
     self.isGiven = 0 if self.isGiven.nil?
