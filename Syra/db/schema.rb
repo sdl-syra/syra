@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140131100030) do
+ActiveRecord::Schema.define(version: 20140207132930) do
 
   create_table "addresses", force: true do |t|
     t.integer  "number"
@@ -49,9 +49,15 @@ ActiveRecord::Schema.define(version: 20140131100030) do
   add_index "evaluations", ["proposition_id"], name: "index_evaluations_on_proposition_id"
 
   create_table "followings", force: true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "followings", ["followed_id"], name: "index_followings_on_followed_id"
+  add_index "followings", ["follower_id", "followed_id"], name: "index_followings_on_follower_id_and_followed_id", unique: true
+  add_index "followings", ["follower_id"], name: "index_followings_on_follower_id"
 
   create_table "hobbies", force: true do |t|
     t.string   "label"
@@ -88,6 +94,16 @@ ActiveRecord::Schema.define(version: 20140131100030) do
 
   add_index "propositions", ["service_id"], name: "index_propositions_on_service_id"
   add_index "propositions", ["user_id"], name: "index_propositions_on_user_id"
+
+  create_table "relationships", force: true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
+  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
   create_table "services", force: true do |t|
     t.string   "title"

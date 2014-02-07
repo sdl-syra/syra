@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
-  has_many :followings
-  has_many :followers, through: :followings
+  has_many :relationships, :dependent => :destroy, :foreign_key => "follower_id"
+  has_many :following, :through => :relationships, :source => :followed
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -52,6 +52,14 @@ class User < ActiveRecord::Base
 
   def has_password?(password_soumis)
     encrypted_password == encrypt(password_soumis)
+  end
+
+  def following?(followed)
+    relationships.find_by_followed_id(followed)
+  end
+  
+  def follow!(followed)
+    relationships.create!(:followed_id => followed.object_id)
   end
 
   private
