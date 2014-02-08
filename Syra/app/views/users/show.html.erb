@@ -4,10 +4,9 @@
 </div>
 
 
-<form action="/file-upload"
-      class="dropzone"
-      id="my-awesome-dropzone">
-</form>
+<%= form_for @user, html: {class: "dropzone"}, url: {action: "upload_avatar"}, method: :post do |f| %>
+		<%= f.submit %>
+<% end %>
 
 
 

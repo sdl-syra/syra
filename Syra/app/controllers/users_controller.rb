@@ -2,11 +2,10 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   # GET /users
   # GET /users.json
-
   def index
     @q = User.search(params[:q])
     if params[:q].present?
-    @users = @q.result(distinct: true)
+      @users = @q.result(distinct: true)
     end
   end
 
@@ -56,17 +55,24 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   # GET /users/1/update_hobbies
   def update_hobbies
     @user = current_user
     @user.hobbies.delete_all
     params[:user][:hobby_ids].reject!(&:empty?)
     @user.hobbies = Hobby.find(params[:user][:hobby_ids])
-    
+
     respond_to do |format|
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
+      format.html { redirect_to @user, notice: 'User was successfully updated.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def upload_avatar
+    uploaded_io = params[:user][:avatar]
+    File.open(Rails.root.join('app', 'assets','images', uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
     end
   end
 

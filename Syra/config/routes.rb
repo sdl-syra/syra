@@ -29,6 +29,8 @@ Syra::Application.routes.draw do
 
   
   get '/users/:id/update_hobbies', :to => 'users#update_hobbies', :as => 'update_hobbies'
+  
+  post '/users/:id/upload_avatar' , :to => 'users#upload_avatar'
 
   get '/users/:id/follow', :to => 'users#follow', :as => 'follow_user'
 
