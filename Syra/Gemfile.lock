@@ -186,7 +186,10 @@ PLATFORMS
 DEPENDENCIES
   best_in_place!
   carrierwave
+
+>>>>>>> Stashed changes
   aws-sdk
+  carrierwave
   coffee-rails (~> 4.0.0)
   devise
   jbuilder (~> 1.2)
