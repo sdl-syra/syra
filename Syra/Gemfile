@@ -63,3 +63,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+#in place ftw!
+gem "best_in_place", :git => 'https://github.com/aaronchi/best_in_place.git'
