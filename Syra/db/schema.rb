@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20140207150236) do
 
-
   create_table "addresses", force: true do |t|
     t.integer  "number"
     t.string   "street"
@@ -50,15 +49,9 @@ ActiveRecord::Schema.define(version: 20140207150236) do
   add_index "evaluations", ["proposition_id"], name: "index_evaluations_on_proposition_id"
 
   create_table "followings", force: true do |t|
-    t.integer  "follower_id"
-    t.integer  "followed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "followings", ["followed_id"], name: "index_followings_on_followed_id"
-  add_index "followings", ["follower_id", "followed_id"], name: "index_followings_on_follower_id_and_followed_id", unique: true
-  add_index "followings", ["follower_id"], name: "index_followings_on_follower_id"
 
   create_table "hobbies", force: true do |t|
     t.string   "label"
@@ -137,6 +130,9 @@ ActiveRecord::Schema.define(version: 20140207150236) do
 
   add_index "successes", ["user_id"], name: "index_successes_on_user_id"
 
+  create_table "user_hobbies", force: true do |t|
+  end
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "lastName"
@@ -146,10 +142,10 @@ ActiveRecord::Schema.define(version: 20140207150236) do
     t.string   "phone"
     t.text     "biography"
     t.boolean  "isPremium"
+    t.integer  "age"
     t.integer  "level_id"
     t.integer  "success_id"
     t.integer  "address_id"
-    t.integer  "age"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password"
@@ -169,5 +165,10 @@ ActiveRecord::Schema.define(version: 20140207150236) do
   add_index "users", ["level_id"], name: "index_users_on_level_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["success_id"], name: "index_users_on_success_id"
+
+  create_table "users_hobbies", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "hobby_id"
+  end
 
 end
