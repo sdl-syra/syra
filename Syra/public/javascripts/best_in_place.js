@@ -1,23 +1,4 @@
-/*
-        BestInPlace (for jQuery)
-        version: 0.1.0 (01/01/2011)
-        @requires jQuery >= v1.4
-        @requires jQuery.purr to display pop-up windows
 
-        By Bernat Farrero based on the work of Jan Varwig.
-        Examples at http://bernatfarrero.com
-
-        Licensed under the MIT:
-          http://www.opensource.org/licenses/mit-license.php
-
-        Usage:
-
-        Attention.
-        The format of the JSON object given to the select inputs is the following:
-        [["key", "value"],["key", "value"]]
-        The format of the JSON object given to the checkbox inputs is the following:
-        ["falseValue", "trueValue"]
-*/
 
 function BestInPlaceEditor(e) {
   this.element = jQuery(e);
@@ -133,8 +114,8 @@ BestInPlaceEditor.prototype = {
   initNil: function() {
     if (this.element.html() == "")
     {
-      this.isNil = true
-      this.element.html(this.nil)
+      this.isNil = true;
+      this.element.html(this.nil);
     }
   },
 
@@ -220,7 +201,7 @@ BestInPlaceEditor.forms = {
       if (this.inner_class != null) {
         output += ' class="' + this.inner_class + '"';
       }
-      output += '></form>'
+      output += '></form>';
       this.element.html(output);
       this.setHtmlAttributes();
       this.element.find('input')[0].select();
@@ -468,7 +449,7 @@ jQuery.fn.best_in_place = function() {
           }
         });
 
-        // And this line is to catch the browser paste event
+        
         $textarea.live('input paste',function(e){ setTimeout( update, 250); });
 
         // Run update once when elastic is initialized
