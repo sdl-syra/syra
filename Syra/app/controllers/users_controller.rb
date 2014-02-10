@@ -51,7 +51,7 @@ class UsersController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { respond_with_bip(@user) }
+        format.json { render json: @user.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
