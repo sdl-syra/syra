@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   end
 
   def followedBy?(follower)
-   relationships.find_by_follower_id(follower)
+   Relationship.find_by follower_id: follower, followed_id: self.id
   end
 
   private
