@@ -67,6 +67,33 @@
 	
 </div>
 
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td>Les utilisateurs que je suis (follow)</td>
+    </tr>
+    <%  @user.following.each do |follow| %>
+      <tr>
+        <td><%= follow.name %></td>
+        <td><%= follow.lastName %></td>
+     </tr>
+   <%end %>
+  <tr>
+    <% if current_user == @user %>
+      <td> Les utilisateurs qui me suivent </td>
+    <% else %>
+      <td> Les utilisateurs qui le suivent </td>
+    <% end %>
+  </tr>
+  <%  @user.follower.each do |follow| %>
+      <tr>
+        <td><%= follow.name %></td>
+        <td><%= follow.lastName %></td>
+     </tr>
+    <%end %>
+  </tbody>
+</table>
+
 
 
 <% if false %>

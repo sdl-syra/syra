@@ -50,8 +50,10 @@
         <td>
           <% if signed_in? %>
             <% if user.email != current_user.email then %>
-               <%= link_to 'Ajouter en ami',
+              <% if user.followedBy?(current_user) != nil %>
+               <%= link_to 'Suivre',
                  follow_user_path(user, :user => user), :class => 'btn btn-mini' %>
+             <% end %>
             <% end %>
           <% end %>
           <%= link_to 'Voir',

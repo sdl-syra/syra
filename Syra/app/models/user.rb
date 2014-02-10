@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
 
   has_many :relationships, :dependent => :destroy, :foreign_key => "follower_id"
+  has_many :reverse_relationships, :dependent => :destroy, :foreign_key => "followed_id",:class_name => "Relationship"
   has_many :following, :through => :relationships, :source => :followed
+  has_many :follower, :through => :reverse_relationships, :source => :follower
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -59,7 +61,11 @@ class User < ActiveRecord::Base
   end
   
   def follow!(followed)
-    relationships.create!(:followed_id => followed.object_id)
+    relationships.create!(:followed_id => followed)
+  end
+
+  def followedBy?(follower)
+   relationships.find_by_follower_id(follower)
   end
 
   private
