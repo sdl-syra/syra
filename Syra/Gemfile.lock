@@ -184,11 +184,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  best_in_place!
-  carrierwave
-
->>>>>>> Stashed changes
   aws-sdk
+  best_in_place!
   carrierwave
   coffee-rails (~> 4.0.0)
   devise

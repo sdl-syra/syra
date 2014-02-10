@@ -31,7 +31,7 @@
         <td><%= service.address %></td>
     	<td><%= service.category.name %></td>
    	 	<td><%= service.user %></td>
-   	 	<td><%= service.image %></td>
+      <td><img src='<%= service.image_url(:thumb) %>' alt='toto' /></td>
         <td>
           <%= link_to 'Voir',
                       service_path(service), :class => 'btn btn-mini' %>
