@@ -19,7 +19,7 @@ Syra::Application.routes.draw do
   resources :levels
 
   resources :users
-  
+
   resources :sessions, :only => [:new, :create, :destroy]
 
   get '/auth/:provider/callback' => 'authentifications#create'
@@ -27,9 +27,11 @@ Syra::Application.routes.draw do
   get '/signin',  :to => 'sessions#new'
   get '/signout', :to => 'sessions#destroy'
 
-  
+  get '/createService', :to => 'services#new'
+  get '/recherche', :to=> 'services#index'
+
   get '/users/:id/update_hobbies', :to => 'users#update_hobbies', :as => 'update_hobbies'
-  
+
   post '/users/:id/upload_avatar' , :to => 'users#upload_avatar'
 
   get '/users/:id/follow', :to => 'users#follow', :as => 'follow_user'

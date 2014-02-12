@@ -37,9 +37,19 @@
 			</p>
 			<row style="text-align:center">
 				<p>
-					<a class="btn btn-primary btn-lg" role="button">Proposer un service</a>
+					<%= link_to "Proposer un service" , createService_path, :id => "button_id", :class => "btn btn-primary btn-lg" %>
 				</p>
 			</row>
+			
+			<form class="navbar-form navbar-right" role="form">
+				<div class="form-group">
+					<input type="text" placeholder="Ex: Tondre la pelouse, Cours de chant etc..." class="form-control">
+				</div>
+				<%= link_to "Rechercher" , recherche_path, :id => "button_id", :class => "btn btn-info" %>
+				<!--<button type="submit" class="btn btn-success">
+					Rechercher
+				</button>
+-->			</form>
 		</div>
 	</div>
 
