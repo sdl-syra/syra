@@ -23,9 +23,9 @@ Syra::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
 
   get '/auth/:provider/callback' => 'authentifications#create'
-  get '/signup',  :to => 'users#new'
-  get '/signin',  :to => 'sessions#new'
-  get '/signout', :to => 'sessions#destroy'
+  get '/signup',  :to => 'users#new', via: :get
+  get '/signin',  :to => 'sessions#new', via: :get
+  delete '/signout', :to => 'sessions#destroy', via: :delete
   
 
   get '/createService', :to => 'services#new'

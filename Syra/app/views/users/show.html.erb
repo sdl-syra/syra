@@ -4,9 +4,9 @@
 </div>
 
 <dl class="dl-horizontal" style="float : left">
-  <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
-  <dd><%= @user.name %></dd>
   <dt><strong><%= model_class.human_attribute_name("Prénom") %>:</strong></dt>
+  <dd><%= @user.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
   <dd><%= @user.lastName %></dd>
   <dt><strong><%= model_class.human_attribute_name("Age") %>:</strong></dt>
  <dd><%= best_in_place @user, :age, :type => :input, :nil => "Non renseigné" %></dd>
