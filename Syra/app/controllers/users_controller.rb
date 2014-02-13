@@ -31,7 +31,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         sign_in @user
-        flash[:success] = "Bienvenue dans l'Application Exemple !"
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else

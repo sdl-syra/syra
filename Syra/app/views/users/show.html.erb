@@ -4,12 +4,6 @@
 </div>
 
 
-<%= form_for @user, html: {class: "dropzone"}, url: {action: "upload_avatar"}, method: :post do |f| %>
-		<%= f.submit %>
-<% end %>
-
-
-
 <dl class="dl-horizontal" style="float : left">
   <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
   <dd><%= @user.name %></dd>
