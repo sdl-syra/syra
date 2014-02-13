@@ -19,25 +19,38 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Syra</a>
-			</div>
-
+				<!-- <a class="navbar-brand" href="#">Syra</a> -->
+				<%= link_to "Syra" , root_path, :class => "navbar-brand" %>
+     		</div>
+      		<% if signed_in? then %>
+			<div class="navbar-collapse collapse">
+				<form class="navbar-form navbar-right" role="form">
+					<div class="form-group">
+            			<p STYLE="color:#FFFFFF">Connecté en tant que : <%= current_user.name %> <%= current_user.lastName%></p>
+					</div>
+					<button type="submit" class="btn btn-success">
+						Se deconnecter
+					</button>	
+					<!-- <%= link_to "Déconnexion", signout_path, :method => :delete %> -->
+				</form>
+     		</div><!--/.navbar-collapse-->
+      
+     		<% else %>
 			<div class="navbar-form navbar-right">
 				<%= form_for(:session, :url => sessions_path) do |f| %>
 				<div class="field">
 					<%= f.text_field :email, :placeholder => "Email" %>
 					<%= f.password_field :password, :placeholder => "Mot de passe"%>
 
+
 					<%= f.submit "Sign in " , class: 'btn btn-success'%>
 					<% end %>
 					<%= link_to "Sign up" , signup_path, :id => "button_id", :class => "btn btn-info" %>
 				</div>
-
-			</div><!--/.navbar-collapse-->
-
+     		</div><!--/.navbar-collapse -->
+   			<% end %>
 		</div>
-	</div>
+</div>
 
 <%= yield %>
 
-</html>
