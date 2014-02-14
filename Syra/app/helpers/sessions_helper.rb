@@ -22,8 +22,13 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def redirect_signup
+    redirect_to signup_path
+  end
+
   def sign_out
     cookies.delete(:remember_token)
     @current_user = nil
   end
+
 end

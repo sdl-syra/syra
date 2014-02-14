@@ -1,3 +1,4 @@
+
 class SessionsController < ApplicationController
   def new
     @titre = "S'identifier"
@@ -21,4 +22,5 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_path
   end
+
 end

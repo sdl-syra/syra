@@ -27,11 +27,9 @@
 					<div class="navbar-form navbar-right">
             			<p STYLE="color:#FFFFFF">Connecté en tant que : <%= current_user.name %> <%= current_user.lastName%></p>
 						<%= button_to "Déconnexion", signout_path, :method => :delete, :class=>"btn btn-danger" %>
-					<!-- 
-						<%= link_to "Déconnexion", signout_path, :method => :delete, :class=>"btn btn-danger" %> 
-						<%= button_to "Déconnexion", signout_path, :method => :delete, :class=>"btn btn-danger" %>
-					-->
 					</div>
+
+				</form>
      		</div><!--/.navbar-collapse-->
       
      		<% else %>
@@ -42,9 +40,9 @@
 					<%= f.password_field :password, :placeholder => "Mot de passe"%>
 
 
-					<%= f.submit "Sign in " , class: 'btn btn-success'%>
+					<%= f.submit "Se connecter" , class: 'btn btn-success'%>
 					<% end %>
-					<%= link_to "Sign up" , signup_path, :id => "button_id", :class => "btn btn-info" %>
+					<%= link_to "S'inscrire" , signup_path, :id => "button_id", :class => "btn btn-info" %>
 				</div>
      		</div><!--/.navbar-collapse -->
    			<% end %>

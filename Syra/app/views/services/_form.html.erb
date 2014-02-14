@@ -4,11 +4,11 @@
 	<h2><%= pluralize(@service.errors.count, "error") %> prohibited this service from being saved:</h2>
 	<ul>
 		<% @service.errors.messages.values.each do |msg| %>
-			<% msg.each do  |m| %>
-				<li>
-					<%= m %>
-				</li>
-			<%end %>
+		<% msg.each do  |m| %>
+		<li>
+			<%= m %>
+		</li>
+		<%end %>
 		<% end %>
 	</ul>
 </div>
@@ -28,21 +28,24 @@
 <div class="form-group">
 	<label class="col-sm-2 control-label"> Image précédente </label>
 	<div class="col-sm-5">
-	  		<%= # image_tag @service.image_url(:thumb).to_s 
-	  		%>
-	  	<% if @service.image_url=="/uploads/service/image/placeholder/default.png"%>
-   	 		<dd><img src='/uploads/service/image/placeholder/thumb_default.png' alt='Image not found' /></dd>
-   	 	<%else%>
-   	 		<dd><a href='<%=@service.image_url.to_s%>' target="_blank"><img src='<%= @service.image_url(:thumb).to_s %>' alt='Image not found' /></a></dd>
-   	 	<%end%>
+		<%= # image_tag @service.image_url(:thumb).to_s
+%>
+		<% if @service.image_url=="/uploads/service/image/placeholder/default.png"%>
+		<dd><img src='/uploads/service/image/placeholder/thumb_default.png' alt='Image not found' />
+		</dd>
+		<%else%>
+		<dd>
+			<a href='<%= @service.image_url.to_s%>' target="_blank"><img src='<%= @service.image_url(:thumb).to_s %>' alt='Image not found' /></a>
+		</dd>
+		<%end%>
 	</div>
 </div>
 <div class="form-group">
 	<label class="col-sm-2 control-label"> Type </label>
 	<div class="col-sm-5">
-	<%= f.radio_button :isGiven, true, :checked => true %> 
+		<%= f.radio_button :isGiven, true, :checked => true %>
 		<%= label :isGiven, 'Je propose un service' %></br>
-	<%= f.radio_button :isGiven, false %> 
+		<%= f.radio_button :isGiven, false %>
 		<%= label :isGiven, 'Je recherche un service' %>
 	</div>
 </div>
@@ -82,7 +85,6 @@
 		<%= f.text_field :user_id, :value => current_user.lastName, :disabled => true, :class => 'text_field' %>
 	</div>
 </div>
-  	
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">

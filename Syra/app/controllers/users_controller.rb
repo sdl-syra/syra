@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_filter :redirect_signup, unless: :signed_in?, :only => [:index]
   # GET /users
   # GET /users.json
   def index
@@ -82,11 +83,10 @@ class UsersController < ApplicationController
     logger.info "test"
     #logger.info @user.following?(params[:user])
     respond_to do |format|
-        format.html { redirect_to '/users', notice: 'User was successfully updated.' }
-        format.json { head :no_content }
+      format.html { redirect_to '/users', notice: 'User was successfully updated.' }
+      format.json { head :no_content }
     end
   end
-
 
   # DELETE /users/1
   # DELETE /users/1.json
