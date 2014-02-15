@@ -9,18 +9,22 @@
   <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
   <dd><%= @user.lastName %></dd>
   <dt><strong><%= model_class.human_attribute_name("Age") %>:</strong></dt>
- <dd><%= best_in_place @user, :age, :type => :input, :nil => "Non renseigné" %></dd>
+  <% if current_user != @user and @user.age.nil? %>
+		<dd>Non renseigné</dd>
+  <% end %>
+  <dd><%= best_in_place_if current_user==@user, @user, :age, :type => :input, :nil => "Non renseigné" %></dd>
   <% if current_user == @user %>
 	  <dt><strong><%= model_class.human_attribute_name("Téléphone") %>:</strong></dt>
-	  <dd><%= best_in_place @user, :phone, :type => :input, :nil => "Non renseigné" %></dd>
+	  <dd><%= best_in_place_if current_user==@user, @user, :phone, :type => :input, :nil => "Non renseigné" %></dd>
 	  <dt><strong><%= model_class.human_attribute_name("Email") %>:</strong></dt>
 	  <dd><%= @user.email %></dd>
 	  <dt><strong><%= model_class.human_attribute_name("Adresse") %>:</strong></dt>
-	  <% if @user.address.nil? %>
-	  	<dd> Non renseignée  </dd>
-	  <% else %>
-		<dd><%= @user.address.number %> <%= @user.address.street %> <%= @user.address.postalCode %> <%= @user.address.town %></dd>
-	  <% end %>
+	  <dd><%= best_in_place_if current_user==@user, @user.address, :number, :type => :input, :nil => "[numero]" %>
+	  	 rue 
+	  	<%= best_in_place_if current_user==@user, @user.address, :street, :type => :input, :nil => "[rue]" %>
+	  	<%= best_in_place_if current_user==@user, @user.address, :postalCode, :type => :input, :nil => "[code postal]" %>
+	  	<%= best_in_place_if current_user==@user, @user.address, :town, :type => :input, :nil => "[ville]" %></dd>
+
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:isPremium) %>:</strong></dt>
   <dd><%= @user.isPremium %></dd>
@@ -33,7 +37,7 @@
 
 <div>
   <strong>Biographie</strong>
-	<div><%= best_in_place @user, :biography, :type => :textarea, :nil => "Aucune biographie" %></div>
+	<div><%= best_in_place_if current_user==@user, @user, :biography, :type => :textarea, :nil => "Aucune biographie" %></div>
 </div>
 
 <div>
