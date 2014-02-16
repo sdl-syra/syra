@@ -64,5 +64,11 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-#in place ftw!
+#in place ftw! Editing metod
 gem "best_in_place", :git => 'https://github.com/aaronchi/best_in_place.git'
+
+# Use birthday for birthday dates
+gem "birthday"
+
+# For jquery-ui, not supported anymore by jquery-rails
+gem "jquery-ui-rails"

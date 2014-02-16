@@ -46,7 +46,7 @@ class AddressesController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @address.errors, status: :unprocessable_entity }
+        format.json { render json: @address.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

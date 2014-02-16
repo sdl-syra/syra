@@ -17,11 +17,13 @@
 //= require best_in_place
 //= require jquery.purr
 //= require best_in_place.purr
+//= require jquery.ui.all
 
 $(document).ready(function() {
   /* Activating Best In Place */
   jQuery(".best_in_place").best_in_place();
 });
+
 
 function toggleModeHobbies() {
 	var hobbiesedit = document.getElementById("hobbiesedit");

@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :services
   has_and_belongs_to_many :hobbies
   has_many :authentifications, :dependent => :delete_all
+  acts_as_birthday :birthday
   
   def apply_omniauth(auth)
     
