@@ -68,17 +68,23 @@
 	
 </div>
 
-<table class="table table-striped">
-  <tbody>
+<table class="table table-hover">
+  <thead>
     <tr>
       <td>Les utilisateurs que je suis (follow)</td>
     </tr>
+  </thead>
+    <tbody>
     <%  @user.following.each do |follow| %>
       <tr>
         <td><%= follow.name %></td>
         <td><%= follow.lastName %></td>
      </tr>
    <%end %>
+   </tbody>
+</table>
+<table class="table table-hover">
+  <thead>
   <tr>
     <% if current_user == @user %>
       <td> Les utilisateurs qui me suivent </td>
@@ -86,6 +92,8 @@
       <td> Les utilisateurs qui le suivent </td>
     <% end %>
   </tr>
+  </thead>
+  <tbody>
   <%  @user.follower.each do |follow| %>
       <tr>
         <td><%= follow.name %></td>
