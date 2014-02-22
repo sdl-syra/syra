@@ -9,9 +9,6 @@
   <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
   <dd><%= @user.lastName %></dd>
   <dt><strong><%= model_class.human_attribute_name("Age") %>:</strong></dt>
-  <% if current_user != @user and @user.birthday.nil? %>
-		<dd>Non renseigné</dd>
-  <% end %>
   <% if current_user == @user %>
   	<dd><%= best_in_place_if current_user==@user, @user, :birthday, :type => :date, :nil => "mm/jj/aaaa" %></dd>
   <% else %>
@@ -41,7 +38,11 @@
 
 <div>
   <strong>Biographie</strong>
-	<div><%= best_in_place_if current_user==@user, @user, :biography, :type => :textarea, :nil => "Aucune biographie" %></div>
+    <% if @user == current_user %>
+		<div><%= best_in_place_if current_user==@user, @user, :biography, :type => :textarea, :nil => "Aucune biographie" %></div>
+	<% else %>
+		<div><% if @user.biography.nil? %>Non renseignée<% else %>@user.biography<% end %></div>
+	<% end %>
 </div>
 
 <div>
