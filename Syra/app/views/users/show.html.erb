@@ -10,9 +10,19 @@
   <dd><%= @user.lastName %></dd>
   <dt><strong><%= model_class.human_attribute_name("Age") %>:</strong></dt>
   <% if current_user == @user %>
-  	<dd><%= best_in_place_if current_user==@user, @user, :birthday, :type => :date, :nil => "mm/jj/aaaa" %></dd>
+  	<dd>
+  		<div id="currentbirthday">
+  			<% if @user.birthday.nil? %>Non renseigné<% else %><%= @user.birthday_age %>ans<% end %>
+  		</div>
+  		<div id="birthdayedit" style="display:none">
+  		<%= form_for @user do |f| %>
+			<%= f.date_select :birthday, :order => [:day, :month, :year] %>
+			<%= f.submit 'Valider' %>
+		<% end %>
+		</div>
+	</dd>
   <% else %>
-  	<% if @user.birthday.nil? %><dd>Non renseigné</dd><% else %><dd><%= @user.birthday_age %></dd><% end %>
+  	<% if @user.birthday.nil? %><dd>Non renseigné</dd><% else %><dd><%= @user.birthday_age %>ans</dd><% end %>
   <% end %>
   <% if current_user == @user %>
 	  <dt><strong><%= model_class.human_attribute_name("Téléphone") %>:</strong></dt>
@@ -34,7 +44,6 @@
   <dt><strong><%= model_class.human_attribute_name(:success_id) %>:</strong></dt>
   <dd><%= @user.success_id %></dd>
 </dl>
-
 
 <div>
   <strong>Biographie</strong>

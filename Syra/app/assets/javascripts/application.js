@@ -20,7 +20,7 @@
 //= require jquery.ui.all
 
 $(document).ready(function() {
-  /* Activating Best In Place */
+
   jQuery(".best_in_place").best_in_place();
 });
 
@@ -40,3 +40,9 @@ function toggleModeHobbies() {
 	}
 }
 
+$(document).ready(function(){
+    $('#currentbirthday').click(function() {  
+        $('#birthdayedit').toggle();
+        $('#currentbirthday').toggle();
+    });
+});
