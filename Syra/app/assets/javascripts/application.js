@@ -20,25 +20,16 @@
 //= require jquery.ui.all
 
 $(document).ready(function() {
-
   jQuery(".best_in_place").best_in_place();
 });
 
 
-function toggleModeHobbies() {
-	var hobbiesedit = document.getElementById("hobbiesedit");
-	var buttonToggle = document.getElementById("buttonToggle");
-	var currenthobbies = document.getElementById("currenthobbies");
-	if (hobbiesedit.style.display == "block") {
-		hobbiesedit.style.display = "none";
-		buttonToggle.style.display = "block";
-		currenthobbies.style.display = "block";
-	} else {
-		buttonToggle.style.display = "none";
-		hobbiesedit.style.display = "block";
-		currenthobbies.style.display = "none";
-	}
-}
+$(document).ready(function(){
+    $('#currenthobbies').click(function() {  
+        $('#hobbiesedit').toggle();
+        $('#currenthobbies').toggle();
+    });
+});
 
 $(document).ready(function(){
     $('#currentbirthday').click(function() {  

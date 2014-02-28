@@ -55,17 +55,15 @@
 </div>
 
 <div>
-	<div id="hobbiesconsult">
  	<strong>Hobbies</strong></br>
- 		<div id="currenthobbies">
- 		<!-- affichage classique -->
-	 		<% @user.hobbies.each do |hobby| %>
-	 			<span><%= hobby.label %></span>
-	 		<% end %>
-		</div>
+	<!-- affichage classique -->
+	<div <% if current_user == @user %>id="currenthobbies" <% end %> >
+		<% if @user.hobbies.size == 0 %> Aucun hobby <% end %>
+ 		<% @user.hobbies.each do |hobby| %>
+ 			<span><%= hobby.label %></span>
+ 		<% end %>
 	</div>
 	<% if current_user == @user %>
-		<%= button_to_function "Editer", "toggleModeHobbies()", id: "buttonToggle" %>
 		 <!-- mode edition -->
 		<div id="hobbiesedit" style="display:none">
 			<%= form_for @user, url: {action: "update_hobbies"}, html: {id: "form_edit_hobbies"}, method: :get do |f| %>
@@ -74,8 +72,6 @@
 			<% end %>
 		</div>
 	<% end %>
-	
-	
 </div>
 
 <table class="table table-hover">
