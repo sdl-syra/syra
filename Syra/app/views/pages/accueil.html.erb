@@ -25,10 +25,53 @@
 			</form>
 		</div>
 	</div>
+<% lesServices = Service.where(isFinished: false).limit(4).order("RANDOM()")%>
+<% if lesServices.size > 0 %>
+	<div class="container">  
+      <!-- Example row of columns -->  
+      <div class="row">  
+        <div class="span4">  
+          <h2>Services en ligne</h2>  
+          <div id="carouselServices" class="carousel slide">  
+            <!-- Carousel items -->  
+          <div class="carousel-inner">  
+			<% activeItemUnique = 1 %>
+			
+			<% lesServices.each do  |s| %>
+				<% if activeItemUnique %>
+					<div class="item active">
+					<% activeItemUnique = 0 %>
+				<% else %>
+					<div class="item">
+				<% end %>
+		
+			<div class="col-md-3">
+				 <% username = s.user.name + ' ' + s.user.lastName %>
+				 <h2><%= link_to s.title, service_path(s) %></h2>
+				 <!-- <p><%= link_to image_tag(s.image_url(:thumb).to_s), service_path(s) %></p>	-->
+				 <p><%= s.description %></p>
+				 <p><a class="btn btn-default" href="<%= service_path(s) %>" role="button">Plus de details &raquo;</a>
+				 <!-- <p><%= button_to "Plus de details »", service_path(s), :class=>"btn btn-default" %></p> -->
+				 <!-- <p>Posté par <%= link_to username, user_path(s.user) %></p> -->
+				 <p>Posté par <%= link_to s.user.name, user_path(s.user) %></p>
+			</div>
+		</div>
+	<% end %>
+  </div>  
+  <!-- Carousel nav -->  
+<!--  <a class="carousel-control left" href="#carouselServices" data-slide="prev">‹</a>  
+  <a class="carousel-control right" href="#carouselServices" data-slide="next">›</a>  -->
+</div>  
+</div>  
+</div>  
+</div>
+</div>
 
-	<div class="container">
+<% else %>
+<div class="container">
 		<!-- Example row of columns -->
 		<div class="row">
+			<h2>Services en ligne</h2> 
 			<div class="col-md-4">
 				<h2>Tondre la pelouse</h2>
 				<p>
@@ -57,7 +100,9 @@
 				</p>
 			</div>
 		</div>
-
+</div>
+<% end %>
+	<div>
 		<hr>
 
 		<footer>

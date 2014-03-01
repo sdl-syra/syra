@@ -9,28 +9,36 @@
   <dt><strong><%= model_class.human_attribute_name(:isGiven) %> : </strong></dt>
   <dd><%= @service.isGiven %></dd>
   <dt><strong><%= model_class.human_attribute_name(:category) %> : </strong></dt>
-  <dd><%= @service.category.name %></dd>
+  <dd><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></dd>
   <dt><strong><%= model_class.human_attribute_name(:description) %> : </strong></dt>
   <dd><%= @service.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:disponibility) %> : </strong></dt>
   <% if @service.disponibility.nil? or @service.disponibility=="" %>
-  	<dd> Non renseignée  </dd>
+  	<dd> Non renseignées  </dd>
   <% else %>
   	<dd><%= @service.disponibility %></dd>
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:price) %> : </strong></dt>
   <dd><%= @service.price %></dd>
   <dt><strong><%= model_class.human_attribute_name(:address) %> : </strong></dt>
-  <% if @service.user.address.nil? or @service.user.address=="" %>
-  	<dd> Non renseignée  </dd>
+
+
+
+  <!-- A modifier lors de la modif du type de l'adresse -->
+  <% if @service.address.nil? or @service.address=="" %>
+  	<dd> Non renseignée </dd>
   <% else %>
-  	<dd><%= @service.user.address %></dd>
+  	<dd><%= @service.address.number %> rue <%= @service.address.street %>, <%= @service.address.town %></dd>
   <% end %>
+  
+  
+  
   <dt><strong><%= model_class.human_attribute_name(:user) %> : </strong></dt>
   <% if @service.user.nil?  %>
   	<dd> Non renseigné  </dd>
   <% else %>
-  	<dd><%= @service.user %></dd>
+  	<% username = @service.user.name + ' ' + @service.user.lastName%>
+  	<dd><%= link_to username, user_path(@service.user) %></dd>
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:isFinished) %> : </strong></dt>
   <dd><%= @service.isFinished %></dd>
