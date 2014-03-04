@@ -5,11 +5,18 @@
 
 <%= search_form_for @q do |f| %>
 
-  <label> Prénom </label>
-  <%= f.text_field :name_cont %>
-  <label> Nom </label>
-  <%= f.text_field :lastName_cont %>
-  <%= f.submit %>
+  <label class="col-sm-2 control-label"> Prénom </label>
+  <div class="col-sm-1">
+   <%= f.text_field :name_cont %>
+ </div>
+ <label class="col-sm-2 control-label"> Nom </label>
+ <div class="col-sm-1">
+   <%= f.text_field :lastName_cont %>
+ </div>
+ <br />
+ <div class ="col-sm-2">
+   <%= f.submit %>
+ </div>
 <% end %>
 
 

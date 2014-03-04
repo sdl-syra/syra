@@ -84,9 +84,8 @@
   </thead>
     <tbody>
     <%  @user.following.each do |follow| %>
-      <tr>
-        <td><%= follow.name %></td>
-        <td><%= follow.lastName %></td>
+        <% username = follow.name + ' ' + follow.lastName %>
+        <td><%= link_to username, user_path(follow) %></td>
      </tr>
    <%end %>
    </tbody>
@@ -103,9 +102,9 @@
   </thead>
   <tbody>
   <%  @user.follower.each do |follow| %>
-      <tr>
-        <td><%= follow.name %></td>
-        <td><%= follow.lastName %></td>
+    <tr>
+      <% username = follow.name + ' ' + follow.lastName %>
+        <td><%= link_to username, user_path(follow) %></td>
      </tr>
     <%end %>
   </tbody>
@@ -122,6 +121,23 @@
       <tr>
         <td> <%= service.title %> </td>
         <td> <%= service.id %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <td> Mes propositions </td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.propositions.each do |proposition| %>
+      <tr>
+        <td> <%= proposition.id %> </td>
+        <td> <%= proposition.comment %> </td>
+        <td> <%= User.find(proposition.user_id) %> </td>
       </tr>
     <% end %>
   </tbody>
