@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, :dependent => :destroy, :foreign_key => "followed_id",:class_name => "Relationship"
   has_many :following, :through => :relationships, :source => :followed
   has_many :follower, :through => :reverse_relationships, :source => :follower
+  has_many :services
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

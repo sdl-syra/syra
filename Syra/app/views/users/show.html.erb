@@ -111,6 +111,21 @@
   </tbody>
 </table>
 
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <td> Les Services que je propose </td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.services.each do |service| %>
+      <tr>
+        <td> <%= service.title %> </td>
+        <td> <%= service.id %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 
 <% if false %>
