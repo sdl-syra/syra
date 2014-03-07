@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20140207150236) do
     t.date     "birthday"
     t.integer  "level_id"
     t.integer  "success_id"
-    t.integer  "address_id"
+    t.string  "address"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password"
