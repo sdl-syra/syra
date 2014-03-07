@@ -18,7 +18,8 @@
   		<%= form_for @user do |f| %>
 			<%= f.date_select :birthday, :order => [:day, :month, :year], :use_month_names =>
 			['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet',
-				'Aout', 'Septembre', 'Octobre', 'Novembre','Decembre'] %>
+				'Aout', 'Septembre', 'Octobre', 'Novembre','Decembre'],
+				:start_year => Time.now.year-1, :end_year => 1920 %>
 			<%= f.submit 'Valider' %>
 		<% end %>
 		</div>
