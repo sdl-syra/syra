@@ -7,6 +7,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:price) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
@@ -24,6 +25,7 @@
   <tbody>
     <% @services.each do |service| %>
       <tr>
+      	<td><%= service.id %></td>
         <td><%= service.title %></td>
         <td><%= service.price %></td>
         <td><%= service.description %></td>
@@ -36,28 +38,31 @@
 		<% if service.address.nil?%>
 			<td> null </td>
 		<% else %>
-			<td><a href="<%= address_path(service.address) %>"><%= service.address.number %> rue <%= service.address.street %>, <%= service.address.town %></a></td>
+			<td><%= service.address %></td>
         <% end %>
     	
     		
     	<% if service.category.nil?%>
 			<td> null </td>
 		<% else %>
-			<td><a href="<%= category_path(service.category) %>"><%= service.category.name %></a></td>
+			<td><a href="<%= category_path(service.category) %>">[<%= service.category.id %>]<%= service.category.name %></a></td>
         <% end %>
         
         
         <% if service.user.nil?%>
 			<td> null </td>
 		<% else %>
-			<td><a href="<%= user_path(service.user) %>"><%= service.user.name %> <%= service.user.lastName %></a></td>
+			<td><a href="<%= user_path(service.user) %>">[<%= service.user.id %>]<%= service.user.name %> <%= service.user.lastName %></a></td>
         <% end %>
    	 	
    	 	
    	 	<% if service.image_url.to_s=="/uploads/service/image/placeholder/default.png"%>
    	 		<td><img src='/uploads/service/image/placeholder/index_default.png' alt='Image not found' /></td>
    	 	<%else%>
-   	 		<td><a href='<%=service.image_url.to_s%>' target="_blank"><img src='<%= service.image_url(:index).to_s %>' alt='Image not found' /></a></td>
+   	 		<td>
+   	 			<!-- ><a href='<%= service.image_url(:thumb).to_s%>' target="_blank"><img src='<%= service.image_url(:index).to_s %>' alt='Image not found' /></a>-->
+   	 			<img src='<%= service.image_url(:index).to_s %>' alt='Image not found' />
+   	 		</td>
    	 	<%end%>
         <td>
           <%= link_to 'Voir',

@@ -28,7 +28,7 @@
   <% if @service.address.nil? or @service.address=="" %>
   	<dd> Non renseignée </dd>
   <% else %>
-  	<dd><%= @service.address.number %> rue <%= @service.address.street %>, <%= @service.address.town %></dd>
+  	<dd><%= @service.address %></dd>
   <% end %>
   
   
@@ -51,7 +51,10 @@
 	  	<% if @service.image_url=="/uploads/service/image/placeholder/default.png"%>
    	 		<dd><img src='/uploads/service/image/placeholder/thumb_default.png' alt='Image not found' /></dd>
    	 	<%else%>
-   	 		<dd><a href='<%=@service.image_url.to_s%>' target="_blank"><img src='<%= @service.image_url(:thumb).to_s %>' alt='Image not found' /></a></dd>
+   	 		<dd>
+   	 			<!-- <a href='<%=@service.image_url(:thumb).to_s%>' target="_blank"><img src='<%= @service.image_url(:thumb).to_s %>' alt='Image not found' /></a> -->
+   	 			<img src='<%= @service.image_url(:thumb).to_s %>' alt='Image not found' />
+   	 		</dd>
    	 	<%end%>
 </div>
 

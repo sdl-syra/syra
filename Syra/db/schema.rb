@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140207150236) do
+ActiveRecord::Schema.define(version: 20140308153032) do
 
   create_table "addresses", force: true do |t|
     t.integer  "number"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20140207150236) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
+    t.string   "address"
   end
 
   add_index "services", ["address_id"], name: "index_services_on_address_id"
@@ -145,7 +146,7 @@ ActiveRecord::Schema.define(version: 20140207150236) do
     t.date     "birthday"
     t.integer  "level_id"
     t.integer  "success_id"
-    t.string  "address"
+    t.string   "address"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password"
@@ -159,12 +160,6 @@ ActiveRecord::Schema.define(version: 20140207150236) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
   end
-
-  add_index "users", ["address_id"], name: "index_users_on_address_id"
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["level_id"], name: "index_users_on_level_id"
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["success_id"], name: "index_users_on_success_id"
 
   create_table "users_hobbies", id: false, force: true do |t|
     t.integer "user_id"

@@ -14,7 +14,7 @@
 </div>
 <% end %>
 <div class="form-group">
-	<label class="col-sm-2 control-label"> Titre </label>
+	<label class="col-sm-2 control-label"> Titre* </label>
 	<div class="col-sm-5">
 		<%= f.text_field :title, :class => 'text_field' %>
 	</div>
@@ -23,24 +23,23 @@
 	<label class="col-sm-2 control-label"> Image </label>
 	<div class="col-sm-5">
 		<%= f.file_field :image, :class => 'file_field' %>
+		<%= f.hidden_field :image_cache %>
+		<!-- <%= image_tag(@service.image_url(:thumb).to_s) if @service.image? %> -->
 	</div>
 </div>
+<% if @service.image? %>
 <div class="form-group">
-	<label class="col-sm-2 control-label"> Image précédente </label>
+	<label class="col-sm-2 control-label"> Image temporaire </label>
 	<div class="col-sm-5">
-		<!-- <%= image_tag @service.image_url(:thumb).to_s %> -->
-		<% if @service.image_url=="/uploads/service/image/placeholder/default.png"%>
-		<dd><img src='/uploads/service/image/placeholder/thumb_default.png' alt='Image not found' />
-		</dd>
-		<%else%>
 		<dd>
-			<a href='<%= @service.image_url.to_s%>' target="_blank"><img src='<%= @service.image_url(:thumb).to_s %>' alt='Image not found' /></a>
+			<!-- <a href='<%= @service.image_url(:thumb).to_s%>' target="_blank"><img src='<%= @service.image_url(:thumb).to_s %>' alt='Image not found' /></a> -->
+			<img src='<%= @service.image_url(:thumb).to_s %>' alt='Image not found' /> 
 		</dd>
-		<%end%>
 	</div>
 </div>
+<% end %>
 <div class="form-group">
-	<label class="col-sm-2 control-label"> Type </label>
+	<label class="col-sm-2 control-label"> Type* </label>
 	<div class="col-sm-5">
 		<%= f.radio_button :isGiven, true, :checked => true %>
 		<%= label :isGiven, 'Je propose un service', :value => true %></br>
@@ -49,13 +48,13 @@
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-2 control-label"> Catégorie </label>
+	<label class="col-sm-2 control-label"> Catégorie* </label>
 	<div class="col-sm-5">
 		<%= f.collection_select :category_id, Category.all, :id, :name, :prompt => "Sélectionnez la catégorie" %>
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-2 control-label"> Description </label>
+	<label class="col-sm-2 control-label"> Description* </label>
 	<div class="col-sm-5">
 		<%= f.text_area :description, :class => 'text_area' %>
 	</div>
@@ -67,10 +66,20 @@
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-2 control-label"> Prix </label>
+	<label class="col-sm-2 control-label"> Adresse* </label>
+	<div class="col-sm-5">
+		<%= f.text_field :address, :class => 'text_field', :value => current_user.address %>
+		<%= link_to_function "Mon adresse", "remplirAdresse()", :class => 'btn btn-primary'%>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label"> Prix* </label>
 	<div class="col-sm-5">
 		<%= f.number_field :price, :class => 'number_field' %>
 	</div>
+</div>
+<div class="help-block">
+	<p class="help-block">Les champs marqués d’un astérisque (*) sont obligatoires. </p>
 </div>
 
 <div class="form-group">
