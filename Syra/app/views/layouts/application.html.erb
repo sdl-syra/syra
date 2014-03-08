@@ -1,52 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Syra</title>
-  <%= stylesheet_link_tag    "application" %>
-  <link rel="stylesheet" href="../../assets/bootstrap.css">
-  <link href="jumbotron.css" rel="stylesheet">
-  <%= javascript_include_tag "application" %>
-<link rel="stylesheet" href="../../assets/bootstrap.min.js">
-  <%= csrf_meta_tags %>
-</head>
+	<head>
+		<title>Syra</title>
+		<%= stylesheet_link_tag    "application" %>
+		<link rel="stylesheet" href="../../assets/bootstrap.css">
+		<link href="jumbotron.css" rel="stylesheet">
+		<!-- Custom Google Web Font -->
+		<link href="font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<!-- <a class="navbar-brand" href="#">Syra</a> -->
-				<%= link_to "Syra" , root_path, :class => "navbar-brand" %>
-     		</div>
-      		<% if signed_in? then %>
-			<div class="navbar-collapse collapse">
-					<div class="navbar-form navbar-right">
-            			<p STYLE="color:#FFFFFF">Connecté en tant que : <%= current_user.name %> <%= current_user.lastName%>
-        				 <%= link_to "Déconnexion", signout_path, :method => :delete, :class=>"btn btn-danger" %></p>
-						<!-- <%= button_to "Déconnexion", signout_path, :method => :delete, :class=>"btn btn-danger" %></p> -->
-					</div>
-     		</div><!--/.navbar-collapse-->
-      
-     		<% else %>
-			<div class="navbar-form navbar-right">
-				<%= form_for(:session, :url => sessions_path) do |f| %>
-				<div class="field">
-					<%= f.text_field :email, :placeholder => "Email" %>
-					<%= f.password_field :password, :placeholder => "Mot de passe"%>
+		<!-- Add custom CSS here -->
+		<link href="landing-page.css" rel="stylesheet">
+		<%= javascript_include_tag "application" %>
+		<link rel="stylesheet" href="../../assets/bootstrap.min.js">
+		<%= csrf_meta_tags %>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+	</head>
 
-
-					<%= f.submit "Se connecter" , class: 'btn btn-success'%>
-					<% end %>
-					<%= link_to "S'inscrire" , signup_path, :id => "button_id", :class => "btn btn-info" %>
-				</div>
-     		</div><!--/.navbar-collapse -->
-   			<% end %>
-		</div>
-</div>
-
-<%= yield %>
+	<%= yield %>
 
