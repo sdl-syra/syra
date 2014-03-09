@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
   validates :email_confirmation, presence: true , :presence => {:on => :create, :message => 'Vous devez confirmer votre email'}
   validates :phone, allow_nil: true, numericality: { only_integer: true, :message => "Format incorrect" }
   belongs_to :level
-  belongs_to :success 
+  belongs_to :success
+  belongs_to :address 
   has_many :services
   has_and_belongs_to_many :hobbies
   has_many :authentifications, :dependent => :delete_all

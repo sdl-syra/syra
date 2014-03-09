@@ -29,6 +29,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.address = Address.new
+    @user.level = Level.new
+    @user.level.levelUser = 1
+    @user.level.XPUser = 0
+    @user.isPremium = false
     respond_to do |format|
       if @user.save
         sign_in @user
@@ -45,6 +49,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    UsersHelper.grant_xp(@user,150);
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -107,7 +112,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :isPremium, :level_id, :success_id, :address, :email_confirmation, :password_confirmation, :phone,:q, :birthday)
+    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :isPremium, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q, :birthday)
   end
 
 end

@@ -14,10 +14,7 @@
 ActiveRecord::Schema.define(version: 20140308153032) do
 
   create_table "addresses", force: true do |t|
-    t.integer  "number"
-    t.string   "street"
-    t.string   "postalCode"
-    t.string   "town"
+    t.string   "label"
     t.float    "x"
     t.float    "y"
     t.datetime "created_at"
@@ -146,7 +143,7 @@ ActiveRecord::Schema.define(version: 20140308153032) do
     t.date     "birthday"
     t.integer  "level_id"
     t.integer  "success_id"
-    t.string   "address"
+    t.integer  "address_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password"
