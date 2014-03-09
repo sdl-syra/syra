@@ -15,6 +15,7 @@ class PropositionsController < ApplicationController
   # GET /propositions/new
   def new
     @proposition = Proposition.new
+    @serv = Service.find(params[:service])
   end
 
   # GET /propositions/1/edit
@@ -25,6 +26,7 @@ class PropositionsController < ApplicationController
   # POST /propositions.json
   def create
     @proposition = Proposition.new(proposition_params)
+    @proposition.user = current_user
 
     respond_to do |format|
       if @proposition.save

@@ -71,3 +71,9 @@
 	<%= link_to t('.back', :default => t("helpers.links.back")),
 			services_path, :class => 'btn'  %>
 </div>
+
+<div class="form-actions">
+  <% if @service.user != current_user %>
+    <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id)%>
+<%end%>
+</div>

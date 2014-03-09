@@ -12,18 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :isPaid %><br>
-    <%= f.check_box :isPaid %>
-  </div>
-  <div class="field">
-    <%= f.label :isAccepted %><br>
-    <%= f.check_box :isAccepted %>
-  </div>
-  <div class="field">
-    <%= f.label :motifCancelled %><br>
-    <%= f.check_box :motifCancelled %>
-  </div>
-  <div class="field">
     <%= f.label :proposition %><br>
     <%= f.date_select :proposition %>
   </div>
@@ -31,14 +19,7 @@
     <%= f.label :comment %><br>
     <%= f.text_area :comment %>
   </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :service_id %><br>
-    <%= f.text_field :service_id %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

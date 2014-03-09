@@ -18,7 +18,7 @@ class Service < ActiveRecord::Base
   after_save :delete_default_image
   
   def default_values    
-    # self.address = self.user.address if self.address.nil?
+    self.address = self.user.address if self.address.nil?
     self.isGiven = 0 if self.isGiven.nil?
     self.isFinished = 0 if self.isFinished.nil?
     if self.image_changed? and self.image_was.to_s!="/uploads/service/image/placeholder/default.png"
