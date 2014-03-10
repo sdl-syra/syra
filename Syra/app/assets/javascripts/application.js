@@ -37,3 +37,9 @@ $(document).ready(function(){
         $('#currentbirthday').toggle();
     });
 });
+
+$(document).ready(function(){
+    $('#carouselServices').carousel({
+        interval: 1000
+    });
+});
