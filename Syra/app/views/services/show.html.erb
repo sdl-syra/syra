@@ -25,10 +25,10 @@
 
 
   <!-- A modifier lors de la modif du type de l'adresse -->
-  <% if @service.address.nil? or @service.address=="" %>
+  <% if @service.address.nil? or @service.address.label=="" %>
   	<dd> Non renseignée </dd>
   <% else %>
-  	<dd><%= @service.address %></dd>
+  	<dd><%= @service.address.label %></dd>
   <% end %>
   
   

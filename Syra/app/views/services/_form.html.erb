@@ -68,7 +68,7 @@
 <div class="form-group">
 	<label class="col-sm-2 control-label"> Adresse* </label>
 	<div class="col-sm-5">
-		<%= f.text_field :address, :class => 'text_field', :value => current_user.address %>
+		<%= f.text_field :address_label, :class => 'text_field', :value => current_user.address.label %>
 		<%= link_to_function "Mon adresse", "remplirAdresse()", :class => 'btn btn-primary'%>
 	</div>
 </div>
