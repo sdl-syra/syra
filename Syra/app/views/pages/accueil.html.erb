@@ -1,221 +1,183 @@
 <body>
 
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#"><strong>Syra<strong> <em>beta</em></a>
-			</div>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><strong>Syra<strong> <em>beta</em></a>
+            </div>
 
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					<!--<li><a href="#about">About</a>
-					</li>-->
-					<li>
-						<a href="#services">Se connecter</a>
-					</li>
-					<li>
-						<a href="#contact">S'inscrire</a>
-					</li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!--<li><a href="#about">About</a>
+                    </li>-->
+                    <li><a href="#services">Se connecter</a>
+                    </li>
+                    <li><a href="#contact">S'inscrire</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
-	<div class="intro-header">
+    <div class="intro-header">
 
-		<div class="container">
+        <div class="container">
 
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="intro-message">
-						<h1>Bienvenue sur Syra</h1>
-						<h3>Système d'échange local informatisé</h3>
-						<hr class="intro-divider">
-						<ul class="list-inline intro-social-buttons">
-							<li>
-								<a href="#" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Proposer un service</span></a>
-							</li>
-							<li>
-								<a href="#" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Rechercher un service</span></a>
-						</ul>
-					</div>
-				</div>
-			</div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1>Bienvue sur Syra</h1>
+                        <h3>Système d'échange local informatisé</h3>
+                        <hr class="intro-divider">
+                        <ul class="list-inline intro-social-buttons">
+                            <li><a href="#" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Proposer un service</span></a>
+                            </li>
+                            <li><a href="#" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Rechercher un service</span></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+        <!-- /.container -->
 
-			<form class="navbar-form navbar-left" role="form">
-				<div class="form-group">
-					<input type="text" placeholder="Ex: Tondre la pelouse, Cours de chant etc..." class="form-control">
-				</div>
+    </div>
+    <!-- /.intro-header -->
 
-				<%= link_to "Rechercher" , recherche_path, :id => "button_id", :class => "btn btn-info" %>
+    <div class="content-section-a">
 
-			</form>
+        <div class="container">
 
-		</div>
-		<!-- /.container -->
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Syra,
+                        <br>Qu'est ce que c'est ?</h2>
+                    <p class="lead">Syra est une plateforme de partage de services. Chaque service est monnayé via une monnaie virtuelle.</br>
+                        Les services peuvent être de tout type, tondre la pelouse, réparé un ordinateur, faire un gateau. Le concept a été calqué sur celui du <a href="http://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27%C3%A9change_local">SEL</a></p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <!--><images class="img-responsive" src="images/ipad.png" alt="">-->
+                    	<%= link_to image_tag("ipad.png"),  :class => 'img-responsive' %>
+                </div>
+            </div>
 
-	</div>
-	<!-- /.intro-header -->
+        </div>
+        <!-- /.container -->
 
-	<div class="content-section-a">
+    </div>
+    <!-- /.content-section-a -->
 
-		<div class="container">
+    <div class="content-section-b">
 
-			<div class="row">
-				<div class="col-lg-5 col-sm-6">
-					<hr class="section-heading-spacer">
-					<div class="clearfix"></div>
-					<h2 class="section-heading">Syra,
-					<br>
-					Qu'est ce que c'est ?</h2>
-					<p class="lead">
-						Syra est une plateforme de partage de services. Chaque service est monnayé via une monnaie virtuelle.</br>
-						Les services peuvent être de tout type, tondre la pelouse, réparé un ordinateur, faire un gateau. Le concept a été calqué sur celui du <a href="http://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27%C3%A9change_local">SEL</a>
-					</p>
-				</div>
-				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
-					<!--><images class="img-responsive" src="images/ipad.png" alt="">-->
-					<%= link_to image_tag("ipad.png"),  :class => 'img-responsive' %>
-				</div>
-			</div>
+        <div class="container">
 
-		</div>
-		<!-- /.container -->
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Un profil
+                        <br>qui vous correspond</h2>
+                    <p class="lead">Votre page personnelle reflète, en partie, vos centres d'intérêts, votre mode de vie et votre philosophie, il est donc essentiel de la compléter entièrement. Votre profil représente également le premier élément que les autres membres verront de vous, c'est donc sur cette base qu'ils fonderont leur première impression.</p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="images/doge.png" alt="">
+                    <%= link_to image_tag("doge.png"),  :class => 'img-responsive' %>
+                </div>
+            </div>
 
-	</div>
-	<!-- /.content-section-a -->
+        </div>
+        <!-- /.container -->
 
-	<div class="content-section-b">
+    </div>
+    <!-- /.content-section-b -->
 
-		<div class="container">
+    <div class="content-section-a">
 
-			<div class="row">
-				<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-					<hr class="section-heading-spacer">
-					<div class="clearfix"></div>
-					<h2 class="section-heading">Un profil
-					<br>
-					qui vous correspond</h2>
-					<p class="lead">
-						Votre page personnelle reflète, en partie, vos centres d'intérêts, votre mode de vie et votre philosophie, il est donc essentiel de la compléter entièrement. Votre profil représente également le premier élément que les autres membres verront de vous, c'est donc sur cette base qu'ils fonderont leur première impression.
-					</p>
-				</div>
-				<div class="col-lg-5 col-sm-pull-6  col-sm-6">
-					<img class="img-responsive" src="images/doge.png" alt="">
-					<%= link_to image_tag("doge.png"),  :class => 'img-responsive' %>
-				</div>
-			</div>
+        <div class="container">
 
-		</div>
-		<!-- /.container -->
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Une communauté active
+                        <br>et avant tout une plateforme sociale.</h2>
+                    <p class="lead">This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="images/phones.png" alt="">
+                    <%= link_to image_tag("phones.png"),  :class => 'img-responsive' %>
+                </div>
+            </div>
 
-	</div>
-	<!-- /.content-section-b -->
+        </div>
+        <!-- /.container -->
 
-	<div class="content-section-a">
+    </div>
+    <!-- /.content-section-a -->
 
-		<div class="container">
+    <div class="banner">
 
-			<div class="row">
-				<div class="col-lg-5 col-sm-6">
-					<hr class="section-heading-spacer">
-					<div class="clearfix"></div>
-					<h2 class="section-heading">Une communauté active
-					<br>
-					et avant tout une plateforme sociale.</h2>
-					<p class="lead">
-						This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.
-					</p>
-				</div>
-				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
-					<img class="img-responsive" src="images/phones.png" alt="">
-					<%= link_to image_tag("phones.png"),  :class => 'img-responsive' %>
-				</div>
-			</div>
+        <div class="container">
 
-		</div>
-		<!-- /.container -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Retrouvez-nous sur</h2>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-inline banner-social-buttons">
+                        <li><a href="https://twitter.com" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                        <li><a href="https://github.com" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <li><a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Google+</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-	</div>
-	<!-- /.content-section-a -->
+        </div>
+        <!-- /.container -->
 
-	<div class="banner">
+    </div>
+    <!-- /.banner -->
 
-		<div class="container">
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="#home">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Syra 2014. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-			<div class="row">
-				<div class="col-lg-6">
-					<h2>Retrouvez-nous sur</h2>
-				</div>
-				<div class="col-lg-6">
-					<ul class="list-inline banner-social-buttons">
-						<li>
-							<a href="https://twitter.com" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-						</li>
-						<li>
-							<a href="https://github.com" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-						</li>
-						<li>
-							<a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Google+</span></a>
-						</li>
-					</ul>
-				</div>
-			</div>
-
-		</div>
-		<!-- /.container -->
-
-	</div>
-	<!-- /.banner -->
-
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<ul class="list-inline">
-						<li>
-							<a href="#home">Home</a>
-						</li>
-						<li class="footer-menu-divider">
-							&sdot;
-						</li>
-						<li>
-							<a href="#about">About</a>
-						</li>
-						<li class="footer-menu-divider">
-							&sdot;
-						</li>
-						<li>
-							<a href="#services">Services</a>
-						</li>
-						<li class="footer-menu-divider">
-							&sdot;
-						</li>
-						<li>
-							<a href="#contact">Contact</a>
-						</li>
-					</ul>
-					<p class="copyright text-muted small">
-						Copyright &copy; Syra 2014. All Rights Reserved
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-	<!-- JavaScript -->
-	<script src="js/jquery-1.10.2.js"></script>
-	<script src="js/bootstrap.js"></script>
+    <!-- JavaScript -->
+    <script src="../../assets/javascripts/jquery-1.10.2.js"></script>
+    <script src="../../assets/javascripts/bootstrap.js"></script>
 
 </body>
 

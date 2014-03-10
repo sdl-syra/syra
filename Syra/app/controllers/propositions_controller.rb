@@ -15,7 +15,6 @@ class PropositionsController < ApplicationController
   # GET /propositions/new
   def new
     @proposition = Proposition.new
-    @serv = Service.find(params[:service])
   end
 
   # GET /propositions/1/edit
