@@ -20,7 +20,7 @@ class Service < ActiveRecord::Base
   def default_values    
     self.isGiven = 0 if self.isGiven.nil?
     self.isFinished = 0 if self.isFinished.nil?
-    if self.image_changed? and self.image_was.to_s!="/uploads/service/image/placeholder/default.png"
+    if self.image_changed? and self.image_was.to_s!="/assets/image/image_service_default.png"
       delete_old_images
     end
   end
@@ -39,7 +39,7 @@ class Service < ActiveRecord::Base
   
   # supprime l'image uploade(grand format) pour ne conserver que les versions "thumb" et "index"
   def delete_default_image 
-    if self.image_url.to_s!="/uploads/service/image/placeholder/default.png"
+    if self.image_url.to_s!="/assets/image/image_service_default.png"
       imgDir = "public/uploads/service/image/" + self.id.to_s
       accepted_formats = [".jpg", ".jpeg", ".png", ".gif"]
       # pour chaque fichier

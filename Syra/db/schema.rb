@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140308153032) do
+ActiveRecord::Schema.define(version: 20140310192250) do
 
   create_table "addresses", force: true do |t|
     t.string   "label"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20140308153032) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
+    t.string   "address"
   end
 
   add_index "services", ["address_id"], name: "index_services_on_address_id"
@@ -155,6 +156,7 @@ ActiveRecord::Schema.define(version: 20140308153032) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "avatar"
   end
 
   add_index "users", ["address_id"], name: "index_users_on_address_id"

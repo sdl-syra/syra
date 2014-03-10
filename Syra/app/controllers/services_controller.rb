@@ -58,6 +58,14 @@ class ServicesController < ApplicationController
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
   def update
+    tmp = service_params[:address_label]
+    @service = Service.new(service_params.except(:address_label))
+    if tmp != ""
+      ad = Address.new
+      ad.label = tmp
+      ad.save
+      @service.address = ad
+    end
     respond_to do |format|
       if @service.update(service_params)
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }

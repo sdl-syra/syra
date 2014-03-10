@@ -28,6 +28,43 @@ class User < ActiveRecord::Base
   has_many :authentifications, :dependent => :delete_all
   acts_as_birthday :birthday
   
+  mount_uploader :avatar, ProfilAvatarUploader 
+  
+  before_save :default_values
+  after_save :delete_default_image
+  
+  def default_values    
+    if self.avatar_changed? and self.avatar_was.to_s!="/assets/image/avatar_profil_default.png"
+      delete_old_images
+    end
+  end
+  
+  # supprime les images contenues dans le dossier
+  def delete_old_images  
+    imgDir = "public/uploads/user/avatar/" + self.id.to_s
+    accepted_formats = [".jpg", ".jpeg", ".png", ".gif"]
+    # pour chaque fichier
+    Dir.foreach(imgDir) do |file|
+       if accepted_formats.include? File.extname(file.to_s)
+          File.unlink("#{imgDir}/#{file}")
+       end
+    end
+  end
+  
+  # supprime l'image uploade(grand format) pour ne conserver que les versions "thumb" et "index"
+  def delete_default_image 
+    if self.avatar_url.to_s!="/assets/image/avatar_profil_default.png"
+      imgDir = "public/uploads/user/avatar/" + self.id.to_s
+      accepted_formats = [".jpg", ".jpeg", ".png", ".gif"]
+      # pour chaque fichier
+      Dir.foreach(imgDir) do |file|
+         if !file.to_s.include?("thumb_") and !file.to_s.include?("index_") and accepted_formats.include? File.extname(file.to_s)
+              File.unlink("#{imgDir}/#{file}")
+         end
+      end
+    end
+  end
+  
   def apply_omniauth(auth)
     
     self.email = auth['extra']['raw_info']['email']

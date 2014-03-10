@@ -48,8 +48,8 @@
  <dt><strong><%= model_class.human_attribute_name(:image) %> : </strong></dt>
   		<%= # image_tag @service.image_url(:thumb).to_s 
 		%>
-	  	<% if @service.image_url=="/uploads/service/image/placeholder/default.png"%>
-   	 		<dd><img src='/uploads/service/image/placeholder/thumb_default.png' alt='Image not found' /></dd>
+	  	<% if @service.image_url=="/assets/image/image_service_default.png"%>
+   	 		<dd><img src='/assets/image/thumb_image_service_default.png' alt='Image not found' /></dd>
    	 	<%else%>
    	 		<dd>
    	 			<!-- <a href='<%=@service.image_url(:thumb).to_s%>' target="_blank"><img src='<%= @service.image_url(:thumb).to_s %>' alt='Image not found' /></a> -->

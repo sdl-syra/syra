@@ -4,6 +4,19 @@
 </div>
 
 <dl class="dl-horizontal" style="float : left">
+	<dd>
+  	  	<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
+   	 			<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' />
+   	 	<%else%>
+   	 			<img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' />
+   	 	<%end%>
+   	 	<% if @user == current_user %>
+	   	 	<%= form_for @user, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
+				<%= f.file_field :avatar, :class => 'file_field' %>
+				<%= f.submit nil, :value => "Modifier", :class => 'btn btn-primary' %>
+			<% end %>
+		<% end %>
+	</dd>
   <dt><strong><%= model_class.human_attribute_name("Prénom") %>:</strong></dt>
   <dd><%= @user.name %></dd>
   <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
@@ -51,13 +64,12 @@
   <dt><strong><%= model_class.human_attribute_name(:success_id) %>:</strong></dt>
   <dd><%= @user.success_id %></dd>
 </dl>
-
 <div>
   <strong>Biographie</strong>
     <% if @user == current_user %>
 		<div><%= best_in_place_if current_user==@user, @user, :biography, :type => :textarea, :nil => "Aucune biographie" %></div>
 	<% else %>
-		<div><% if @user.biography.nil? %>Non renseignée<% else %>@user.biography<% end %></div>
+		<div><% if @user.biography.nil? %>Non renseignée<% else %><%=@user.biography%><% end %></div>
 	<% end %>
 </div>
 
@@ -84,7 +96,11 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <td>Les utilisateurs que je suis (follow)</td>
+   	<% if current_user == @user %>
+      <td> Les utilisateurs que je suis (follow) </td>
+    <% else %>
+      <td> Les utilisateurs que <%= @user.name %> suit </td>
+    <% end %>
     </tr>
   </thead>
     <tbody>
@@ -118,13 +134,17 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <td> Les Services que je propose </td>
+   	<% if current_user == @user %>
+      <td> Les services que je propose </td>
+    <% else %>
+      <td> Les services que <%= @user.name %> propose </td>
+    <% end %>
     </tr>
   </thead>
   <tbody>
     <% @user.services.each do |service| %>
       <tr>
-        <td> <%= service.title %> </td>
+        <td> <%= link_to service.title, service_path(service) %> </td>
         <td> <%= service.id %> </td>
       </tr>
     <% end %>
@@ -134,15 +154,15 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <td> Mes propositions </td>
+      <td> Mes propositions (masquer cette partie pour les autres?)</td>
     </tr>
   </thead>
   <tbody>
     <% @user.propositions.each do |proposition| %>
       <tr>
         <td> <%= proposition.id %> </td>
-        <td> <%= proposition.comment %> </td>
-        <td> <%= User.find(proposition.user_id) %> </td>
+        <td> <%= link_to proposition.comment, proposition_path(proposition) %> </td>
+        <td> <%= link_to User.find(proposition.user_id).name,user_path(User.find(proposition.user_id)) %> </td>
       </tr>
     <% end %>
   </tbody>
