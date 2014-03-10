@@ -9,6 +9,12 @@ class UsersController < ApplicationController
       @users = @q.result(distinct: true)
     end
   end
+  
+  # GET /users
+  # GET /users.json
+  def admin
+    @users = User.all
+  end
 
   # GET /users/1
   # GET /users/1.json

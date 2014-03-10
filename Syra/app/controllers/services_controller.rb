@@ -12,6 +12,12 @@ class ServicesController < ApplicationController
     end
   end
 
+  # GET /services
+  # GET /services.json
+  def admin
+    @services = Service.all
+  end
+
   # GET /services/1
   # GET /services/1.json
   def show
@@ -29,7 +35,14 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.json
   def create
-    @service = Service.new(service_params)
+    tmp = service_params[:address_label]
+    @service = Service.new(service_params.except(:address_label))
+    if tmp != ""
+      ad = Address.new
+      ad.label = tmp
+      ad.save
+      @service.address = ad
+    end
     @service.user = current_user
     respond_to do |format|
       if @service.save
@@ -74,6 +87,6 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :isFinished, :image, :address, :category_id, :user_id)
+      params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :isFinished, :image, :address_label, :category_id, :user_id)
     end
 end

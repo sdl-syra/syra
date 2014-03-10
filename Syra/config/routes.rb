@@ -26,10 +26,16 @@ Syra::Application.routes.draw do
 
   get '/signup',  :to => 'users#new'
   get '/signin',  :to => 'sessions#new'
+
   delete '/signout', :to => 'sessions#destroy'
 
   
-
+  get '/admin/services',  :to => 'services#admin'
+  get '/admin/users',  :to => 'users#admin'
+  
+  
+  
+  
   get '/create_service', :to => 'services#new'
   get '/recherche', :to=> 'services#index'
 

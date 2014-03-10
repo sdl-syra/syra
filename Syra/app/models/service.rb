@@ -4,11 +4,11 @@ class Service < ActiveRecord::Base
   validates :title, presence: true ,:presence => {:message => 'Vous devez indiquer un titre'}
   validates :category_id, presence: true ,:presence => {:message => 'Vous devez choisir une catégorie'}
   validates :description, presence: true ,:presence => {:message => 'Vous devez indiquer une description'}
-  validates :address, presence: true ,:presence => {:message => 'Vous devez indiquer une adresse'}
+  validates :address_id, presence: true ,:presence => {:message => 'Vous devez indiquer une adresse'}
   validates :price, presence: true ,:presence => {:message => 'Vous devez indiquer un prix'}
   validates :price, :numericality => {:only_integer => true}, :numericality => {:message => '$("input.numeric").numeric() à intégrer'}
 
-  # belongs_to :address
+  belongs_to :address
   belongs_to :category
   belongs_to :user
   
@@ -18,7 +18,6 @@ class Service < ActiveRecord::Base
   after_save :delete_default_image
   
   def default_values    
-    self.address = self.user.address if self.address.nil?
     self.isGiven = 0 if self.isGiven.nil?
     self.isFinished = 0 if self.isFinished.nil?
     if self.image_changed? and self.image_was.to_s!="/uploads/service/image/placeholder/default.png"
