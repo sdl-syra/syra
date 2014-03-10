@@ -4,6 +4,21 @@
 </div>
 
 
+<%= search_form_for @q do |f| %>
+
+  <label class="col-sm-2 control-label"> Titre du service </label>
+  <div class="col-sm-1">
+   <%= f.text_field :title_or_description_cont %>
+ </div>
+
+ <br />
+ <div class ="col-sm-2">
+   <%= f.submit %>
+ </div>
+<% end %>
+
+
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -23,6 +38,7 @@
   </thead>
 
   <tbody>
+  	<% if not @services == nil %>
     <% @services.each do |service| %>
       <tr>
       	<td><%= service.id %></td>
@@ -75,6 +91,7 @@
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>
