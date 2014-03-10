@@ -32,17 +32,32 @@
                 <a class="navbar-brand" href="#"><strong>Syra<strong> <em>beta</em></a>
             </div>
 
+            <% if signed_in? then %>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <!--<li><a href="#about">About</a>
                     </li>-->
-                    <li><a href="#services">Se connecter</a>
+                    <li><a href="#services">Connecté en tant que <%= current_user.name %> <%= current_user.lastName %></a>
                     </li>
-                    <li><a href="#contact">S'inscrire</a>
+                    <li><%= link_to "Déconnexion", signout_path, :method => :delete %>
                     </li>
                 </ul>
-            </div>
+              </div>
+
+            <% else %>
+            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!--<li><a href="#about">About</a>
+                    </li>-->
+                    <li><%= link_to "Se connecter" , signin_path, :id => "button_id" %>
+                    </li>
+                    <li><%= link_to "S'inscrire" , signup_path, :id => "button_id" %>
+                    </li>
+                </ul>
+              </div>
+            <% end %>
+
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
