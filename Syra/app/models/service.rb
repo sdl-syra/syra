@@ -11,44 +11,45 @@ class Service < ActiveRecord::Base
   belongs_to :address
   belongs_to :category
   belongs_to :user
-  
+
   mount_uploader :image, ServiceImageUploader
-  
+
   before_save :default_values
   after_save :delete_default_image
   
-  def default_values    
+
+  def default_values
     self.isGiven = 0 if self.isGiven.nil?
     self.isFinished = 0 if self.isFinished.nil?
     if self.image_changed? and self.image_was.to_s!="/assets/image/image_service_default.png"
       delete_old_images
     end
   end
-  
+
   # supprime les images contenues dans le dossier
-  def delete_old_images  
+  def delete_old_images
     imgDir = "public/uploads/service/image/" + self.id.to_s
     accepted_formats = [".jpg", ".jpeg", ".png", ".gif"]
     # pour chaque fichier
     Dir.foreach(imgDir) do |file|
-       if accepted_formats.include? File.extname(file.to_s)
-          File.unlink("#{imgDir}/#{file}")
-       end
+      if accepted_formats.include? File.extname(file.to_s)
+        File.unlink("#{imgDir}/#{file}")
+      end
     end
   end
-  
+
   # supprime l'image uploade(grand format) pour ne conserver que les versions "thumb" et "index"
-  def delete_default_image 
+  def delete_default_image
     if self.image_url.to_s!="/assets/image/image_service_default.png"
       imgDir = "public/uploads/service/image/" + self.id.to_s
       accepted_formats = [".jpg", ".jpeg", ".png", ".gif"]
       # pour chaque fichier
       Dir.foreach(imgDir) do |file|
-         if !file.to_s.include?("thumb_") and !file.to_s.include?("index_") and accepted_formats.include? File.extname(file.to_s)
-              File.unlink("#{imgDir}/#{file}")
-         end
+        if !file.to_s.include?("thumb_") and !file.to_s.include?("index_") and accepted_formats.include? File.extname(file.to_s)
+          File.unlink("#{imgDir}/#{file}")
+        end
       end
     end
   end
-  
+
 end

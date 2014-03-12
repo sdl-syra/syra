@@ -10,6 +10,13 @@ GIT
       polyamorous (~> 0.6.0)
 
 GIT
+  remote: git://github.com/kristianmandrup/social-buttons.git
+  revision: 607ff6ddb18202c5f0576236f068299e6aad267e
+  specs:
+    social-buttons (0.3.8)
+      rails (>= 3.0.0)
+
+GIT
   remote: https://github.com/aaronchi/best_in_place.git
   revision: 1152e2256afd485e66602833fd99d09d60994841
   specs:
@@ -206,6 +213,7 @@ DEPENDENCIES
   ransack!
   rmagick
   sdoc
+  social-buttons!
   sqlite3
   therubyracer
   turbolinks

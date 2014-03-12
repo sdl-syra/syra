@@ -12,7 +12,7 @@ Syra::Application.routes.draw do
 
   resources :propositions
 
-  resources :services
+  #resources :services
 
   resources :successes
 
@@ -22,6 +22,12 @@ Syra::Application.routes.draw do
 
   resources :sessions, :only => [:new, :create, :destroy]
 
+  resources :services do
+    collection do
+      get '/search', :to => 'services#search', :as => :search
+    end
+  end
+
   get '/auth/:provider/callback' => 'authentifications#create'
 
   get '/signup',  :to => 'users#new'
@@ -29,13 +35,9 @@ Syra::Application.routes.draw do
 
   delete '/signout', :to => 'sessions#destroy'
 
-  
   get '/admin/services',  :to => 'services#admin'
   get '/admin/users',  :to => 'users#admin'
-  
-  
-  
-  
+
   get '/create_service', :to => 'services#new'
   get '/recherche', :to=> 'services#index'
 
@@ -46,7 +48,6 @@ Syra::Application.routes.draw do
   get '/users/:id/follow', :to => 'users#follow', :as => 'follow_user'
 
   get '/map', :to => 'pages#map'
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -8,6 +8,8 @@ gem "therubyracer"
 gem 'paperclip'
 gem 'aws-sdk'
 
+# Partage réseaux sociaux
+gem "social-buttons", git: "git://github.com/kristianmandrup/social-buttons.git"
 
 # Ransack : moteur de recherche
 gem "ransack", github: "activerecord-hackery/ransack"

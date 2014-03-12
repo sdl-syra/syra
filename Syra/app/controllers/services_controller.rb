@@ -6,10 +6,16 @@ class ServicesController < ApplicationController
   def index
     @q = Service.search(params[:q])
     if params[:q].present?
+      puts params
       @services = @q.result(distinct: true)
     else
       @services = Service.all
     end
+  end
+
+  def search
+    index
+    render :index
   end
 
   # GET /services
@@ -39,9 +45,9 @@ class ServicesController < ApplicationController
     @service = Service.new(service_params.except(:address_label))
     if tmp != ""
       ad = Address.new
-      ad.label = tmp
-      ad.save
-      @service.address = ad
+    ad.label = tmp
+    ad.save
+    @service.address = ad
     end
     @service.user = current_user
     respond_to do |format|
@@ -62,9 +68,9 @@ class ServicesController < ApplicationController
     @service = Service.new(service_params.except(:address_label))
     if tmp != ""
       ad = Address.new
-      ad.label = tmp
-      ad.save
-      @service.address = ad
+    ad.label = tmp
+    ad.save
+    @service.address = ad
     end
     respond_to do |format|
       if @service.update(service_params)
@@ -88,13 +94,14 @@ class ServicesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_service
-      @service = Service.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def service_params
-      params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :isFinished, :image, :address_label, :category_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_service
+    @service = Service.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def service_params
+    params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :isFinished, :image, :address_label, :category_id, :user_id)
+  end
 end

@@ -4,7 +4,7 @@
 </div>
 
 
-<%= search_form_for @q do |f| %>
+<%= search_form_for @q, url: search_services_path, html: {:method => 'get'} do |f| %>
 
   <label class="col-sm-2 control-label"> Titre du service </label>
   <div class="col-sm-1">

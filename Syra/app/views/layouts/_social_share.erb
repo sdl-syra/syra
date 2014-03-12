@@ -1,0 +1,12 @@
+<div class="social-share">
+	<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button_count"></div>
+	<div class="fb-like" " >
+		<%= like_button(Constants.facebook_app_id)%></div>
+	<div class="google-plus">
+		<%= google_plus_button(size: "medium", href: "url", annotation: "bubble") %>
+	</div>
+	<div class="twitter-tweet">
+		<%= tweet_button(url: "url", text: "title", count: "horizontal") %> 
+	</div>
+</div>
+
