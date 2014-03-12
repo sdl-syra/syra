@@ -77,3 +77,34 @@
     <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id)%>
 <%end%>
 </div>
+<% if @service.address != nil then %>
+  
+  <%= javascript_tag do %>
+  
+  window.onload = function() {
+  var myLatLng = new google.maps.LatLng(<%= @service.address.y %>,<%= @service.address.x %>);
+
+  var myMapOptions = {
+    zoom:16,
+    center:myLatLng,
+    mapTypedId: google.maps.MapTypeId.ROADMAP
+  };
+
+  var myMap = new google.maps.Map(
+    document.getElementById('map'),
+    myMapOptions
+    );
+
+  var myMarker = new google.maps.Marker({
+    position: myLatLng,
+    map: myMap,
+    title: "<%= @service.title %>"
+  });
+
+  }
+
+
+
+  <% end %>
+<% end %>
+<div id="map"> </div>
