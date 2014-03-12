@@ -12,7 +12,6 @@ Syra::Application.routes.draw do
 
   resources :propositions
 
-  #resources :services
 
   resources :successes
 
