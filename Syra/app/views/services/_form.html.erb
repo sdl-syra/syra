@@ -68,7 +68,7 @@
 <div class="form-group">
 	<label class="col-sm-2 control-label"> Adresse* </label>
 	<div class="col-sm-5">
-		<%= f.text_field :address_label, :class => 'text_field', :value => current_user.address.label %>
+    <%= f.text_field :address_label, :class => 'text_field', :value => current_user.address.label, :id => "addresspicker_map" %>
 		<%= link_to_function "Mon adresse", "remplirAdresse()", :class => 'btn btn-primary'%>
 	</div>
 </div>
@@ -83,10 +83,33 @@
 </div>
 
 <div class="form-group">
-	<div class="col-sm-offset-2 col-sm-10">
-		<%= f.submit nil, :class => 'btn btn-primary' %>
+  <div class="col-sm-offset-2 col-sm-10">
+
+    <%= f.submit nil, :class => 'btn btn-primary' %>
 		<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
 		services_path, :class => 'btn' %>
 	</div>
 </div>
+
+<%= f.fields_for :address,@service.address do |adr| %>
+  <%= adr.hidden_field :x %>
+  <%= adr.hidden_field :y %>
 <% end %>
+
+<% end %>
+
+<div class='clearfix'>
+
+  <div class='map-wrapper'>
+    <label id="geo_label" for="reverseGeocode"> Activer le marqueur pour définir l'adresse du service ? </label>
+      <select type=hidden id="reverseGeocode">
+        <option value="false" selected>Non</option>
+        <option value="true">Oui</option>
+      </select>
+
+      <div id="map"></div>
+      <div id="legend">Vous pouvez deplacer le marqueur et le déposer à votre Adresse</div>
+    </div>
+</div>
+
+

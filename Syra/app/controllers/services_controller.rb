@@ -41,13 +41,19 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.json
   def create
+    puts service_params
     tmp = service_params[:address_label]
-    @service = Service.new(service_params.except(:address_label))
+    tmpx = service_params[:address][:x]
+    puts " TEST TMPX " + tmpx
+    tmpy = service_params[:address][:y]
+    @service = Service.new(service_params.except(:address_label, :address))
     if tmp != ""
       ad = Address.new
-    ad.label = tmp
-    ad.save
-    @service.address = ad
+      ad.x = tmpx
+      ad.label = tmp
+      ad.y = tmpy
+      ad.save
+      @service.address = ad
     end
     @service.user = current_user
     respond_to do |format|
@@ -95,13 +101,16 @@ class ServicesController < ApplicationController
 
   private
 
+
   # Use callbacks to share common setup or constraints between actions.
   def set_service
     @service = Service.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def service_params
-    params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :isFinished, :image, :address_label, :category_id, :user_id)
-  end
+ 
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def service_params
+      params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :isFinished, :image, :address_label, :category_id, :user_id,address: [:x,:y])
+    end
+
 end
