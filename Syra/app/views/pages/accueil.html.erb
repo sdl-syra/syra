@@ -1,5 +1,4 @@
 <body>
-
 	<div id="fb-root"></div>
 	<script>
 		( function(d, s, id) {
@@ -27,20 +26,20 @@
 
 						<ul class="list-inline intro-social-buttons">
 							<li>
-
-								<%= search_form_for @q, url: search_services_path, html: {:method => 'get'} do |f| %>
-								<p>
-									<%= f.text_field :title_or_description_cont %>
-									<%= f.submit  %>
-								</p>
-								<% end %>
-
-							</li>
-							<li>
 								<a href="#" class="btn btn-default btn-lg"><span class="network-name">Proposer un service</span></a>
 							</li>
 							<li>
 								<a href="#" class="btn btn-default btn-lg"><span class="network-name">Rechercher un service</span></a>
+							</li>
+						</ul>
+						<ul class="list-inline intro-social-buttons">
+							<li>
+								<%= search_form_for @q, url: search_services_path, html: {:method => 'get'} do |f| %>
+								<p>
+									<%= f.text_field :title_or_description_cont %>
+									<%= f.submit "Rechercher un service à proximité", class: "btn btn-sm btn-default"  %>
+								</p>
+								<% end %>
 							</li>
 						</ul>
 					</div>
@@ -210,7 +209,5 @@
 	<!-- JavaScript -->
 	<script src="../../assets/javascripts/jquery-1.10.2.js"></script>
 	<script src="../../assets/javascripts/bootstrap.js"></script>
-
 </body>
-
 </html>
