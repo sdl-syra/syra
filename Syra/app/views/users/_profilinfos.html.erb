@@ -73,23 +73,28 @@
 				</div>
 				<!-- /input-group -->
 			</li>
-			<li style="text-align: center">
-
+			<li>
+				<a>
 				<% if @user == current_user %>
-				<%= form_for @user, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
-				<label for="user_avatar"> <% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%> <img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' /> <%else%> <img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' /> <%end%> </label>
-				<%= f.file_field :avatar, :class => 'file_field', :style => 'display:none' %>
-				<%= f.submit nil, :value => "Modifier", :class => 'btn btn-primary' %>
-				<% end %>
+					<%= form_for @user, :html => { :class => '', :role => 'form', :multipart => true } do |f| %>
+							<label for="user_avatar" class="form-group">
+							<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%> 
+								<img src='/assets/image/thumb_avatar_profil_default.png' class='img-circle' alt='Image not found' /> 
+							<%else%> 
+								<img src='<%= @user.avatar_url(:thumb).to_s %>' class='img-circle' alt='Image not found' /> 
+							<%end%> 
+							</label>
+						<%= f.file_field :avatar, :class => 'file_field', :style => 'display:none' %><br/>
+						<%= f.submit nil, :value => "Modifier", :class => 'btn btn-primary' %>
+					<% end %>
 				<% else %>
-				<label for="user_avatar">
-					<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
-						<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' />
-					<%else%>
-						<img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' />
-					<%end%>
-				</label>
+						<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
+							<img src='/assets/image/thumb_avatar_profil_default.png' class='img-circle' alt='Image not found' />
+						<%else%>
+							<img src='<%= @user.avatar_url(:thumb).to_s %>' class='img-circle' alt='Image not found' />
+						<%end%>
 				<% end %>
+				</a>
 			</li>
 			<li>
 				<a> <%= @user.name %> </a>
@@ -101,7 +106,16 @@
 				<% if current_user == @user %>
 				<a>
 				<div id="currentbirthday">
-					<% if @user.birthday.nil? %>Non renseigné<% else %><%= @user.birthday_age %>ans<% end %>
+					<% if @user.birthday.nil? %>
+						Âge non renseigné
+					<% else %>
+						<%= @user.birthday_age %>
+						<% if @user.birthday_age>1 %>
+							ans
+						<% else %>
+							an
+						<% end %>
+					<% end %>
 				</div>
 				<div id="birthdayedit" style="display:none">
 					<%= form_for @user do |f| %>
@@ -114,7 +128,7 @@
 				</div> </a>
 				<% else %>
 				<% if @user.birthday.nil? %>
-				<a> Non renseigné </a>
+				<a> Âge non renseigné </a>
 				<% else %>
 				<a> <%= @user.birthday_age %>ans </a><% end %>
 				<% end %>
@@ -130,26 +144,23 @@
 			</li>
 
 			<li>
-				<a> <%= best_in_place_if current_user==@user, @user.address, :label, :type => :input, :nil => "Adresse à remplacer" %> </a>
+				<a> <%= best_in_place_if current_user==@user, @user.address, :label, :type => :input, :nil => "Adresse non renseignée" %> </a>
 			</li>
 
 			<% end %>
 
 			<li>
 				<a> <% if @user.isPremium==true %>
-				premium
+				Membre premium
 				<% else %>
 				N'est pas premium
 				<%end%> </a>
 			</li>
-
-			<li>
-				<a> Level <%= @user.level.levelUser %> </a>
-			</li>
-
-			<li>
-				<a> <%= @user.success_id %> </a>
-			</li>
+			<li> 
+					<a> Succès <%= @user.success_id %> </a>
+			</li>		
+			<li> 
+					<a> Level <%= @user.level.levelUser %> </a>
 			<li>
 				<a> Expérience </a>
 				<div class="progress progress-striped">

@@ -49,7 +49,7 @@
 					<!--<li><a href="#about">About</a>
 					</li>-->
 					<li>
-						<a href="#services">Connecté en tant que <%= current_user.name %> <%= current_user.lastName %></a>
+						<a href="<%= user_path(current_user.id) %>">Connecté en tant que <%= current_user.name %> <%= current_user.lastName %></a>
 					</li>
 					<li>
 						<%= link_to "Déconnexion", signout_path, :method => :delete %>
