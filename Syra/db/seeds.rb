@@ -49,10 +49,17 @@ a4 = Address.create(label:'25 rue Royale', x: 5, y: 4)
 l4 = Level.create(levelUser:1,XPUser:0)
 
 
-user4 = User.create!(name: 'Julien', lastName: 'Duquesnoy', password:'12345678', email:'djulien59@hotmail.fr', money: '12',
-           phone:'0619332090',biography:'Bla Bla Biographie',isPremium:true,level_id:l4.id,address_id:a4.id,
+user4 = User.create!(name: 'Julien', lastName: 'Duquesnoy', password:'12345678', email:'djulien59@hotmail.fr', money: '99999999',
+           phone:'0619333333',biography:'Bla Bla Biographie',isPremium:true,level_id:l4.id,address_id:a4.id,
            email_confirmation:'djulien59@hotmail.fr',password_confirmation:'12345678')
 
+a5 = Address.create(label:'25 rue de Calais', x: 5, y: 4)
+l5 = Level.create(levelUser:1,XPUser:0)
+
+
+user4 = User.create!(name: 'Terry', lastName: 'Mainvis', password:'12345678', email:'terry.mainvis@gmail.com', money: '12',
+           phone:'0600000000',biography:'Bla Bla Biographie',isPremium:false,level_id:l5.id,address_id:a5.id,
+           email_confirmation:'terry.mainvis@gmail.com',password_confirmation:'12345678')
 
 
 Service.create(title: 'cours informatique',price: 20,description: 'JE SUIS UN GEEK',disponibility: 'quand tu veux bb',
