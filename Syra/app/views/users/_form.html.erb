@@ -1,40 +1,39 @@
-<form class="form-signin" role="form">
-	<%= form_for @user, :html => { :class => 'form-horizontal', :role => 'form' } do |f| %>
-	<% if @user.errors.any? %>
-	<div id="error_explanation">
-		<h2><%= pluralize(@user.errors.count, "erreur") %></h2>
-		<ul>
-			<% @user.errors.messages.values.each do |msg| %>
-			<% msg.each do  |m| %>
-			<li>
-				<%= m %>
-			</li>
-			<%end %>
-			<% end %>
-		</ul>
-	</div>
-	<% end %>
+<%= form_for @user, :html => { :class => 'form-signin', :role => 'form' } do |f| %>
+<% if @user.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@user.errors.count, "erreur") %></h2>
+	<ul>
+		<% @user.errors.messages.values.each do |msg| %>
+		<% msg.each do  |m| %>
+		<li>
+			<%= m %>
+		</li>
+		<%end %>
+		<% end %>
+	</ul>
+</div>
+<% end %>
 
-	<div class="field">
-		<%= f.text_field :name, :class=>"form-control", :placeholder => "Nom" %>
-	</div>
-	<div class="field">
-		<%= f.text_field :lastName, :class=>"form-control", :placeholder => "Prénom" %>
-	</div>
-	<div class="field">
-		<%= f.text_field :email, :class=>"form-control", :placeholder => "E-mail" %>
-	</div>
-	<div class="field">
-		<%= f.text_field :email_confirmation, :class=>"form-control", :placeholder => "Confirmez votre e-mail" %>
-	</div>
-	<div class="field">
-		<%= f.password_field :password, :class=>"form-control", :placeholder => "Mot de passe" %>
-	</div>
-	<div class="field">
-		<%= f.password_field :password_confirmation, :class=>"form-control", :placeholder => "Confirmez votre mot de passe" %>
-	</div>
-	<div class="actions">
-		<%= f.submit "Je crée mon compte", :class => 'btn btn-lg btn-primary btn-block' %>
-	</div>
-</form>
+<div class="field">
+	<%= f.text_field :lastName, :class=>"form-control", :placeholder => "Nom" %>
+</div>
+<div class="field">
+	<%= f.text_field :name, :class=>"form-control", :placeholder => "Prénom" %>
+</div>
+<div class="field">
+	<%= f.text_field :email, :class=>"form-control", :placeholder => "E-mail" %>
+</div>
+<div class="field">
+	<%= f.text_field :email_confirmation, :class=>"form-control", :placeholder => "Confirmez votre e-mail" %>
+</div>
+<div class="field">
+	<%= f.password_field :password, :class=>"form-control", :placeholder => "Mot de passe" %>
+</div>
+<div class="field">
+	<%= f.password_field :password_confirmation, :class=>"form-control", :placeholder => "Confirmez votre mot de passe" %>
+</div>
+<div class="actions">
+	<%= f.submit "Je crée mon compte", :class => 'btn btn-lg btn-primary btn-block' %>
+</div>
+
 <% end %>

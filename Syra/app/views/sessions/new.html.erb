@@ -2,7 +2,7 @@
 	<form class="form-signin" role="form">
 		<h1>Identification</h1>
 
-		<%= form_for(:session, :url => sessions_path, :class=>"form-signin") do |f| %>
+		<%= form_for(:session, :url => sessions_path, :html => { :class => 'form-signin', :role => 'form' }) do |f| %>
 
 		<div class="field">
 			<%= f.text_field :email, :class=>"form-control", :placeholder => "Adresse e-mail" %>
