@@ -1,0 +1,19 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+    <% if current_user == @user %>
+      <td> Les services que je propose </td>
+    <% else %>
+      <td> Les services que <%= @user.name %> propose </td>
+    <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.services.each do |service| %>
+      <tr>
+        <td> <%= link_to service.title, service_path(service) %> </td>
+        <td> <%= service.id %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
