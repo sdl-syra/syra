@@ -45,6 +45,13 @@ user3 = User.create!(name: 'Xavier', lastName: 'Koma', password:'12345678', emai
            phone:'0601280156',biography:'Bla Bla Biographie',isPremium:false,level_id:l3.id,address_id:a3.id,
            email_confirmation:'xavierkoma@gmail.com',password_confirmation:'12345678')
 
+a4 = Address.create(label:'25 rue Royale', x: 5, y: 4)
+l4 = Level.create(levelUser:1,XPUser:0)
+
+
+user4 = User.create!(name: 'Julien', lastName: 'Duquesnoy', password:'12345678', email:'djulien59@hotmail.fr', money: '12',
+           phone:'0619332090',biography:'Bla Bla Biographie',isPremium:true,level_id:l4.id,address_id:a4.id,
+           email_confirmation:'djulien59@hotmail.fr',password_confirmation:'12345678')
 
 
 
