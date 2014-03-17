@@ -1,27 +1,28 @@
-<h1>Identification</h1>
+<div class="container">
+	<form class="form-signin" role="form">
+		<h1>Identification</h1>
 
-<%= form_for(:session, :url => sessions_path) do |f| %>
+		<%= form_for(:session, :url => sessions_path, :class=>"form-signin") do |f| %>
 
-
-<div class="field">
-	<%= f.label :email, "eMail" %>
-	<br />
-	<%= f.text_field :email %>
+		<div class="field">
+			<%= f.text_field :email, :class=>"form-control", :placeholder => "Adresse e-mail" %>
+		</div>
+		<div class="field">
+			<%= f.password_field :password, :class=>"form-control", :placeholder => "Mot de passe" %>
+		</div>
+		<div class="actions">
+			<%= f.submit "S'identifier ", :class=>"btn btn-lg btn-primary btn-block" %>
+		</div>
+		<div>
+			<br/>
+			<br/>
+			<p>
+				Pas encore inscrit ? <%= link_to "S'inscrire !", signup_path %>
+			</p>
+			<p>
+				Connexion avec votre compte Facebook : <%= link_to 'Login with Facebook', '/auth/facebook/' %>
+			</p>
+		</div>
+		<% end %>
+	</form>
 </div>
-<div class="field">
-	<%= f.label :password, "Mot de passe" %>
-	<br />
-	<%= f.password_field :password %>
-</div>
-<div class="actions">
-	<%= f.submit "S'identifier " %>
-</div>
-<% end %>
-
-<p>
-	Pas encore inscrit ? <%= link_to "S'inscrire !", signup_path %>
-</p>
-
-<p>
-Connexion avec votre compte Facebook : <%= link_to 'Login with Facebook', '/auth/facebook/' %>
-</p>
