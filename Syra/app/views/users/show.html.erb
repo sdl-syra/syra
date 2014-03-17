@@ -1,69 +1,10 @@
-<%- model_class = User -%>
+
 <div class="page-header">
   <h1>Profil</h1>
 </div>
 
-<dl class="dl-horizontal" style="float : left">
-	<dd>
-  	  	<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
-   	 			<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' />
-   	 	<%else%>
-   	 			<img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' />
-   	 	<%end%>
-   	 	<% if @user == current_user %>
-	   	 	<%= form_for @user, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
-				<%= f.file_field :avatar, :class => 'file_field' %>
-				<%= f.submit nil, :value => "Modifier", :class => 'btn btn-primary' %>
-			<% end %>
-		<% end %>
-	</dd>
-  <dt><strong><%= model_class.human_attribute_name("Prénom") %>:</strong></dt>
-  <dd><%= @user.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name("Nom") %>:</strong></dt>
-  <dd><%= @user.lastName %></dd>
-  <dt><strong><%= model_class.human_attribute_name("Age") %>:</strong></dt>
-  <% if current_user == @user %>
-  	<dd>
-  		<div id="currentbirthday">
-  			<% if @user.birthday.nil? %>Non renseigné<% else %><%= @user.birthday_age %>ans<% end %>
-  		</div>
-  		<div id="birthdayedit" style="display:none">
-  		<%= form_for @user do |f| %>
-			<%= f.date_select :birthday, :order => [:day, :month, :year], :use_month_names =>
-			['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet',
-				'Aout', 'Septembre', 'Octobre', 'Novembre','Decembre'],
-				:start_year => Time.now.year-1, :end_year => 1920 %>
-			<%= f.submit 'Valider' %>
-		<% end %>
-		</div>
-	</dd>
-  <% else %>
-  	<% if @user.birthday.nil? %><dd>Non renseigné</dd><% else %><dd><%= @user.birthday_age %>ans</dd><% end %>
-  <% end %>
-  <% if current_user == @user %>
-	  <dt><strong><%= model_class.human_attribute_name("Téléphone") %>:</strong></dt>
-	  <dd><%= best_in_place_if current_user==@user, @user, :phone, :type => :input, :nil => "XXXXXXXX" %></dd>
-	  <dt><strong><%= model_class.human_attribute_name("Email") %>:</strong></dt>
-	  <dd><%= @user.email %></dd>
-	  <dt><strong><%= model_class.human_attribute_name("Adresse") %>:</strong></dt>
-	  <dd><%= best_in_place_if current_user==@user, @user.address, :label, :type => :input, :nil => "Non renseignée" %></dd>
+<%= render :partial => 'profilinfos' %>
 
-  <% end %>
-  <dt><strong><%= model_class.human_attribute_name(:isPremium) %>:</strong></dt>
-  <dd><%= @user.isPremium %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:level_id) %>:</strong></dt>
-  <dd><%= @user.level.levelUser %></dd>
-  <dt><strong>XP:</strong></dt>
-  <dd><%= @user.level.XPUser%></dd>
-
-  <div class="progress progress-striped">
-    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= @user.level.XPUser%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @user.level.XPUser%>%">
-      <span class="sr-only"><%= @user.level.XPUser%>% Complete</span>
-    </div>
-  </div>
-  <dt><strong><%= model_class.human_attribute_name(:success_id) %>:</strong></dt>
-  <dd><%= @user.success_id %></dd>
-</dl>
 <div>
   <strong>Biographie</strong>
     <% if @user == current_user %>
