@@ -74,14 +74,17 @@
 				<!-- /input-group -->
 			</li>
 			<li style="text-align: center">
-				<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
-				<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' />
-				<%else%>
-				<img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' />
-				<%end%>
+
 				<% if @user == current_user %>
 				<%= form_for @user, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
-				<%= f.file_field :avatar, :class => 'file_field' %>
+				<label for="user_avatar">
+					<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
+						<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' />
+					<%else%>
+						<img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' />
+					<%end%>
+				</label>
+				<%= f.file_field :avatar, :class => 'file_field', :style => 'display:none' %>
 				<%= f.submit nil, :value => "Modifier", :class => 'btn btn-primary' %>
 				<% end %>
 				<% end %>
