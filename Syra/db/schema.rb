@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20140310192250) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
+    t.string   "address"
   end
 
   add_index "services", ["address_id"], name: "index_services_on_address_id"
