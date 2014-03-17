@@ -87,6 +87,14 @@
 				<%= f.file_field :avatar, :class => 'file_field', :style => 'display:none' %>
 				<%= f.submit nil, :value => "Modifier", :class => 'btn btn-primary' %>
 				<% end %>
+				<% else %>
+				<label for="user_avatar">
+					<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
+						<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' />
+					<%else%>
+						<img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' />
+					<%end%>
+				</label>
 				<% end %>
 			</li>
 			<li>
