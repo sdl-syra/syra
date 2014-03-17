@@ -77,13 +77,7 @@
 
 				<% if @user == current_user %>
 				<%= form_for @user, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
-				<label for="user_avatar">
-					<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
-						<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' />
-					<%else%>
-						<img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' />
-					<%end%>
-				</label>
+				<label for="user_avatar"> <% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%> <img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' /> <%else%> <img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' /> <%end%> </label>
 				<%= f.file_field :avatar, :class => 'file_field', :style => 'display:none' %>
 				<%= f.submit nil, :value => "Modifier", :class => 'btn btn-primary' %>
 				<% end %>
@@ -98,80 +92,63 @@
 				<% end %>
 			</li>
 			<li>
-				<a>
-					<%= @user.name %>
-				</a>
+				<a> <%= @user.name %> </a>
 			</li>
 			<li>
-				<a>
-					<%= @user.lastName %>
-				</a>
+				<a> <%= @user.lastName %> </a>
 			</li>
 			<li>
 				<% if current_user == @user %>
 				<a>
-					<div id="currentbirthday">
-						<% if @user.birthday.nil? %>Non renseigné<% else %><%= @user.birthday_age %>ans<% end %>
-					</div>
-					<div id="birthdayedit" style="display:none">
-						<%= form_for @user do |f| %>
-						<%= f.date_select :birthday, :order => [:day, :month, :year], :use_month_names =>
-              ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet',
-                'Aout', 'Septembre', 'Octobre', 'Novembre','Decembre'],
-              :start_year => Time.now.year-1, :end_year => 1920 %>
-						<%= f.submit 'Valider' %>
-						<% end %>
-					</div>
-				</a>
+				<div id="currentbirthday">
+					<% if @user.birthday.nil? %>Non renseigné<% else %><%= @user.birthday_age %>ans<% end %>
+				</div>
+				<div id="birthdayedit" style="display:none">
+					<%= form_for @user do |f| %>
+					<%= f.date_select :birthday, :order => [:day, :month, :year], :use_month_names =>
+            ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet',
+              'Aout', 'Septembre', 'Octobre', 'Novembre','Decembre'],
+            :start_year => Time.now.year-1, :end_year => 1920 %>
+					<%= f.submit 'Valider' %>
+					<% end %>
+				</div> </a>
 				<% else %>
 				<% if @user.birthday.nil? %>
-				<a>
-					Non renseigné
-				</a>
+				<a> Non renseigné </a>
 				<% else %>
-				<a>
-					<%= @user.birthday_age %>ans
-				</a><% end %>
+				<a> <%= @user.birthday_age %>ans </a><% end %>
 				<% end %>
 			</li>
 
 			<% if current_user == @user %>
 			<li>
-				<a>
-					<%= best_in_place_if current_user==@user, @user, :phone, :type => :input, :nil => "XXXXXXXX" %>
-				</a>
+				<a> <%= best_in_place_if current_user==@user, @user, :phone, :type => :input, :nil => "XXXXXXXX" %> </a>
 			</li>
 
 			<li>
-				<a>
-					<%= @user.email %>
-				</a>
+				<a> <%= @user.email %> </a>
 			</li>
 
 			<li>
-				<a>
-					<%= best_in_place_if current_user==@user, @user.address, :label, :type => :input, :nil => "Adresse à remplacer" %>
-				</a>
+				<a> <%= best_in_place_if current_user==@user, @user.address, :label, :type => :input, :nil => "Adresse à remplacer" %> </a>
 			</li>
 
 			<% end %>
 
 			<li>
-				<a>
-					<%= @user.isPremium %>
-				</a>
+				<a> <% if @user.isPremium==true %>
+				premium
+				<% else %>
+				N'est pas premium
+				<%end%> </a>
 			</li>
 
 			<li>
-				<a>
-					Level <%= @user.level.levelUser %>
-				</a>
+				<a> Level <%= @user.level.levelUser %> </a>
 			</li>
 
 			<li>
-				<a>
-					<%= @user.success_id %>
-				</a>
+				<a> <%= @user.success_id %> </a>
 			</li>
 			<li>
 				<a> Expérience </a>
@@ -182,8 +159,8 @@
 				</div>
 			</li>
 
-	</ul>
-	<!-- /#side-menu -->
+		</ul>
+		<!-- /#side-menu -->
 	</div>
 	<!-- /.sidebar-collapse -->
 </nav>

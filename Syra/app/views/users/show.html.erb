@@ -138,7 +138,11 @@ user_path(@user),
 											<td><%= service.created_at %></td>
 											<td><%= service.title %></td>
 											<td><%= service.category.name %></td>
-											<td><%= service.isFinished %></td>
+											<td> <% if service.isFinished==true %>
+											Terminé
+											<% else %>
+											En cours
+											<%end%> </td>
 											<td><%= service.price %></td>
 										</tr>
 										<% end %>
