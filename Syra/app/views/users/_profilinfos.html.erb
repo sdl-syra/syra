@@ -73,7 +73,7 @@
 				</div>
 				<!-- /input-group -->
 			</li>
-			<li>
+			<li style="text-align: center">
 				<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
 				<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' />
 				<%else%>
@@ -86,27 +86,19 @@
 				<% end %>
 				<% end %>
 			</li>
-			</br>
 			<li>
-				<div class="progress progress-striped">
-					<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= @user.level.XPUser%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @user.level.XPUser%>%">
-						<span class="sr-only"><%= @user.level.XPUser%>% Complete</span>
-					</div>
-				</div>
-			</li>
-			<li>
-				<dd>
+				<a>
 					<%= @user.name %>
-				</dd>
+				</a>
 			</li>
 			<li>
-				<dd>
+				<a>
 					<%= @user.lastName %>
-				</dd>
+				</a>
 			</li>
 			<li>
 				<% if current_user == @user %>
-				<dd>
+				<a>
 					<div id="currentbirthday">
 						<% if @user.birthday.nil? %>Non renseigné<% else %><%= @user.birthday_age %>ans<% end %>
 					</div>
@@ -119,60 +111,66 @@
 						<%= f.submit 'Valider' %>
 						<% end %>
 					</div>
-				</dd>
+				</a>
 				<% else %>
 				<% if @user.birthday.nil? %>
-				<dd>
+				<a>
 					Non renseigné
-				</dd>
+				</a>
 				<% else %>
-				<dd>
+				<a>
 					<%= @user.birthday_age %>ans
-				</dd><% end %>
+				</a><% end %>
 				<% end %>
 			</li>
 
 			<% if current_user == @user %>
 			<li>
-				<dd>
+				<a>
 					<%= best_in_place_if current_user==@user, @user, :phone, :type => :input, :nil => "XXXXXXXX" %>
-				</dd>
+				</a>
 			</li>
 
 			<li>
-				<dd>
+				<a>
 					<%= @user.email %>
-				</dd>
+				</a>
 			</li>
 
 			<li>
-				<dd>
+				<a>
 					<%= best_in_place_if current_user==@user, @user.address, :label, :type => :input, :nil => "Adresse à remplacer" %>
-				</dd>
+				</a>
 			</li>
 
 			<% end %>
 
 			<li>
-				<dd>
+				<a>
 					<%= @user.isPremium %>
-				</dd>
+				</a>
 			</li>
 
 			<li>
-				<dd>
-					<%= @user.level.levelUser %>
-				</dd>
+				<a>
+					Level <%= @user.level.levelUser %>
+				</a>
 			</li>
 
 			<li>
-				<dd>
+				<a>
 					<%= @user.success_id %>
-				</dd>
+				</a>
+			</li>
+			<li>
+				<a> Expérience </a>
+				<div class="progress progress-striped">
+					<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= @user.level.XPUser%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @user.level.XPUser%>%">
+						<span class="sr-only"><%= @user.level.XPUser%>% Complete</span>
+					</div>
+				</div>
 			</li>
 
-	</div>
-	</li>
 	</ul>
 	<!-- /#side-menu -->
 	</div>
