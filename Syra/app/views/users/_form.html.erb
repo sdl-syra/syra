@@ -1,59 +1,40 @@
-<%= form_for @user, :html => { :class => 'form-horizontal', :role => 'form' } do |f| %>
-<% if @user.errors.any? %>
-<div id="error_explanation">
-	<h2><%= pluralize(@user.errors.count, "erreur") %></h2>
-	<ul>
-		<% @user.errors.messages.values.each do |msg| %>
-		<% msg.each do  |m| %>
-		<li>
-			<%= m %>
-		</li>
-		<%end %>
-		<% end %>
-	</ul>
-</div>
-<% end %>
-<div class="form-group">
-	<label class="col-sm-2 control-label"> Prenom </label>
-	<div class="col-sm-5">
-		<%= f.text_field :name, :class => 'text_field' %>
+<form class="form-signin" role="form">
+	<%= form_for @user, :html => { :class => 'form-horizontal', :role => 'form' } do |f| %>
+	<% if @user.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@user.errors.count, "erreur") %></h2>
+		<ul>
+			<% @user.errors.messages.values.each do |msg| %>
+			<% msg.each do  |m| %>
+			<li>
+				<%= m %>
+			</li>
+			<%end %>
+			<% end %>
+		</ul>
 	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-2 control-label"> Nom </label>
-	<div class="col-sm-5">
-		<%= f.text_field :lastName, :class => 'text_field' %>
+	<% end %>
+
+	<div class="field">
+		<%= f.text_field :name, :class=>"form-control", :placeholder => "Nom" %>
 	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-2 control-label"> email </label>
-	<div class="col-sm-5">
-		<%= f.text_field :email, :class => 'text_field' %>
+	<div class="field">
+		<%= f.text_field :lastName, :class=>"form-control", :placeholder => "Prénom" %>
 	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-2 control-label"> Confirmation e-mail </label>
-	<div class="col-sm-5">
-		<%= f.text_field :email_confirmation, :class => 'text_field' %>
+	<div class="field">
+		<%= f.text_field :email, :class=>"form-control", :placeholder => "E-mail" %>
 	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-2 control-label"> Mot de passe </label>
-	<div class="col-sm-5">
-		<%= f.password_field :password, :class => 'text_field' %>
+	<div class="field">
+		<%= f.text_field :email_confirmation, :class=>"form-control", :placeholder => "Confirmez votre e-mail" %>
 	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-2 control-label"> Confirmation mot de passe </label>
-	<div class="col-sm-5">
-		<%= f.password_field :password_confirmation, :class => 'text_field' %>
+	<div class="field">
+		<%= f.password_field :password, :class=>"form-control", :placeholder => "Mot de passe" %>
 	</div>
-</div>
-<div class="form-group">
-	<div class="col-sm-offset-2 col-sm-10">
-		<%= f.submit nil, :class => 'btn btn-primary' %>
-		<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-		users_path, :class => 'btn' %>
+	<div class="field">
+		<%= f.password_field :password_confirmation, :class=>"form-control", :placeholder => "Confirmez votre mot de passe" %>
 	</div>
-</div>
+	<div class="actions">
+		<%= f.submit "Je crée mon compte", :class => 'btn btn-lg btn-primary btn-block' %>
+	</div>
+</form>
 <% end %>
