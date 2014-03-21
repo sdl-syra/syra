@@ -51,6 +51,8 @@ Syra::Application.routes.draw do
   get '/equipe', :to => 'pages#equipe'
   
   get '/contact', :to => 'pages#contact'
+  
+  get '/services_footer', :to => 'pages#services_footer'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

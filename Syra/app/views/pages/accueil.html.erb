@@ -1,57 +1,56 @@
-<body>
-	<div id="fb-root"></div>
-	<script>
-		( function(d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id))
-					return;
-				js = d.createElement(s);
-				js.id = id;
-				js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=199279863613884";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
-	</script>
-	<div id="fb-root"></div>
+<div id="fb-root"></div>
+<script>
+	( function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=199279863613884";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk')); 
+</script>
+<div id="fb-root"></div>
 
-	<div class="intro-header">
+<div class="intro-header">
 
-		<div class="container">
+	<div class="container">
 
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="intro-message">
-						<h1>Bienvenue sur Syra</h1>
-						<h3>Système d'échange local informatisé</h3>
-						<hr class="intro-divider">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="intro-message">
+					<h1>Bienvenue sur Syra</h1>
+					<h3>Système d'échange local informatisé</h3>
+					<hr class="intro-divider">
 
-						<ul class="list-inline intro-social-buttons">
-							<li>
-								<a href="#" class="btn btn-default btn-lg"><span class="network-name">Proposer un service</span></a>
-							</li>
-							<li>
-								<a href="#" class="btn btn-default btn-lg"><span class="network-name">Rechercher un service</span></a>
-							</li>
-						</ul>
-						<ul class="list-inline intro-social-buttons">
-							<li>
-								<%= search_form_for @q, url: search_services_path, html: {:method => 'get'} do |f| %>
-								<p>
-									<%= f.text_field :title_or_description_cont %>
-									<%= f.submit "Rechercher un service à proximité", class: "btn btn-sm btn-default"  %>
-								</p>
-								<% end %>
-							</li>
-						</ul>
-					</div>
+					<ul class="list-inline intro-social-buttons">
+						<li>
+							<a href="#" class="btn btn-default btn-lg"><span class="network-name">Proposer un service</span></a>
+						</li>
+						<li>
+							<a href="#" class="btn btn-default btn-lg"><span class="network-name">Rechercher un service</span></a>
+						</li>
+					</ul>
+					<ul class="list-inline intro-social-buttons">
+						<li>
+							<%= search_form_for @q, url: search_services_path, html: {:method => 'get'} do |f| %>
+							<p>
+								<%= f.text_field :title_or_description_cont %>
+								<%= f.submit "Rechercher un service à proximité", class: "btn btn-sm btn-default"  %>
+							</p>
+							<% end %>
+						</li>
+					</ul>
 				</div>
 			</div>
-
 		</div>
-		<!-- /.container -->
 
 	</div>
-	<!-- /.intro-header -->
-	
+	<!-- /.container -->
+
+</div>
+<!-- /.intro-header -->
+
 <% nbServicesDansCarousel = 12 %>
 <% nbServicesParLigne = 4 %> <!-- Modifier la classe de la balise /!\ css -->
 
@@ -59,207 +58,178 @@
 <% if lesServices.size > 0 %>
 <div class="container">
 	<div class="col-md-12">
-     	<h1>Services en ligne</h1>
+		<h1>Services en ligne</h1>
 
-    	<div class="well">
-        	<div id="carouselServices" class="carousel slide">
-   		 <!-- Carousel items -->
-        	<div class="carousel-inner">
-       		 <% i = 1 %>
-            	<% lesServices.each do |s| %>
-       			 <% if i==1 %>
-           			 <div class="item active">
-           				 <div class="row">
-           		 <% elsif i%nbServicesParLigne == 1 %>
-           			 <div class="item">
-           				 <div class="row">
-           		 <% end %>
-                        	<div class="col-sm-3">
-   							 <h2><%= link_to s.title, service_path(s) %></h2>
-   							 <p><%= truncate(s.description, :length => 50) %></p>
-   							 <p><a class="btn btn-default" href="<%= service_path(s) %>" role="button">Plus de details &raquo;</a>
-   							 <p>Posté par <%= link_to s.user.name, user_path(s.user) %></p>
-                        	</div>
-      				 <% if i%nbServicesParLigne == 0 %>
-                        	</div> <!--/row-->
-                    	</div> <!--/item-->
-           		 <% end %>
-           		 <% i+=1 %>
-            	<% end %>
-            	<% if lesServices.size%nbServicesParLigne != 0 %>
-                        	</div> <!--/row-->
-                  		 </div> <!--/item-->
-            	<% end %>
-           	 
-            	</div> <!--/carousel-inner-->
-            	<% if lesServices.size>nbServicesParLigne %>
-            	<a class="left carousel-control" href="#carouselServices" data-slide="prev" style=" padding-top:10%;width:5%;">‹</a>
-            	<a class="right carousel-control" href="#carouselServices" data-slide="next" style=" padding-top:10%;width:5%;">›</a>
-            	<% end %>
+		<div class="well">
+			<div id="carouselServices" class="carousel slide">
+				<!-- Carousel items -->
+				<div class="carousel-inner">
+					<% i = 1 %>
+					<% lesServices.each do |s| %>
+					<% if i==1 %>
+					<div class="item active">
+						<div class="row">
+							<% elsif i%nbServicesParLigne == 1 %>
+							<div class="item">
+								<div class="row">
+									<% end %>
+									<div class="col-sm-3">
+										<h2><%= link_to s.title, service_path(s) %></h2>
+										<p>
+											<%= truncate(s.description, :length => 50) %>
+										</p>
+										<p>
+											<a class="btn btn-default" href="<%= service_path(s) %>" role="button">Plus de details &raquo;</a>
+										<p>
+											Posté par <%= link_to s.user.name, user_path(s.user) %>
+										</p>
+									</div>
+									<% if i%nbServicesParLigne == 0 %>
+								</div>
+								<!--/row-->
+							</div>
+							<!--/item-->
+							<% end %>
+							<% i+=1 %>
+							<% end %>
+							<% if lesServices.size%nbServicesParLigne != 0 %>
+						</div>
+						<!--/row-->
+					</div>
+					<!--/item-->
+					<% end %>
 
-        	</div> <!--/carouselServices-->
-    	</div> <!--/well-->
+				</div>
+				<!--/carousel-inner-->
+				<% if lesServices.size>nbServicesParLigne %>
+				<a class="left carousel-control" href="#carouselServices" data-slide="prev" style=" padding-top:10%;width:5%;">‹</a>
+				<a class="right carousel-control" href="#carouselServices" data-slide="next" style=" padding-top:10%;width:5%;">›</a>
+				<% end %>
+
+			</div>
+			<!--/carouselServices-->
+		</div>
+		<!--/well-->
 	</div>
-</div> <!--/container-->
+</div>
+<!--/container-->
 <% end %>
 
+<div class="content-section-a">
 
-	<div class="content-section-a">
+	<div class="container">
 
-		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-5 col-sm-6">
-					<hr class="section-heading-spacer">
-					<div class="clearfix"></div>
-					<h2 class="section-heading">Syra,
-					<br>
-					Qu'est ce que c'est ?</h2>
-					<p class="lead">
-						Syra est une plateforme de partage de services. Chaque service est monnayé via une monnaie virtuelle.</br>
-						Les services peuvent être de tout type, tondre la pelouse, réparé un ordinateur, faire un gateau. Le concept a été calqué sur celui du <a href="http://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27%C3%A9change_local">SEL</a>
-					</p>
-				</div>
-				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
-					<%= link_to image_tag("ipad.png", class: 'img-responsive') %>
-				</div>
+		<div class="row">
+			<div class="col-lg-5 col-sm-6">
+				<hr class="section-heading-spacer">
+				<div class="clearfix"></div>
+				<h2 class="section-heading">Syra,
+				<br>
+				Qu'est ce que c'est ?</h2>
+				<p class="lead">
+					Syra est une plateforme de partage de services. Chaque service est monnayé via une monnaie virtuelle.</br>
+					Les services peuvent être de tout type, tondre la pelouse, réparé un ordinateur, faire un gateau. Le concept a été calqué sur celui du <a href="http://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27%C3%A9change_local">SEL</a>
+				</p>
 			</div>
-
+			<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+				<%= link_to image_tag("ipad.png", class: 'img-responsive') %>
+			</div>
 		</div>
-		<!-- /.container -->
 
 	</div>
-	<!-- /.content-section-a -->
+	<!-- /.container -->
 
-	<div class="content-section-b">
+</div>
+<!-- /.content-section-a -->
 
-		<div class="container">
+<div class="content-section-b">
 
-			<% form_tag recherche_path, :method => 'get' do %>
-			<p>
-				<%= text_field_tag :index, params[:q] %>
-				<%= submit_tag "Search", :name => nil %>
-			</p>
-			<% end %>
-			<div class="row">
-				<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-					<hr class="section-heading-spacer">
-					<div class="clearfix"></div>
-					<h2 class="section-heading">Un profil
-					<br>
-					qui vous correspond</h2>
-					<p class="lead">
-						Votre page personnelle reflète, en partie, vos centres d'intérêts, votre mode de vie et votre philosophie, il est donc essentiel de la compléter entièrement. Votre profil représente également le premier élément que les autres membres verront de vous, c'est donc sur cette base qu'ils fonderont leur première impression.
-					</p>
-				</div>
-				<div class="col-lg-5 col-sm-pull-6  col-sm-6">
-					<img class="img-responsive" src="images/doge.png" alt="">
-					<%= link_to image_tag("doge.png", class: 'img-responsive') %>
-				</div>
+	<div class="container">
+
+		<% form_tag recherche_path, :method => 'get' do %>
+		<p>
+			<%= text_field_tag :index, params[:q] %>
+			<%= submit_tag "Search", :name => nil %>
+		</p>
+		<% end %>
+		<div class="row">
+			<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+				<hr class="section-heading-spacer">
+				<div class="clearfix"></div>
+				<h2 class="section-heading">Un profil
+				<br>
+				qui vous correspond</h2>
+				<p class="lead">
+					Votre page personnelle reflète, en partie, vos centres d'intérêts, votre mode de vie et votre philosophie, il est donc essentiel de la compléter entièrement. Votre profil représente également le premier élément que les autres membres verront de vous, c'est donc sur cette base qu'ils fonderont leur première impression.
+				</p>
 			</div>
-
+			<div class="col-lg-5 col-sm-pull-6  col-sm-6">
+				<img class="img-responsive" src="images/doge.png" alt="">
+				<%= link_to image_tag("doge.png", class: 'img-responsive') %>
+			</div>
 		</div>
-		<!-- /.container -->
 
 	</div>
-	<!-- /.content-section-b -->
+	<!-- /.container -->
 
-	<div class="content-section-a">
+</div>
+<!-- /.content-section-b -->
 
-		<div class="container">
+<div class="content-section-a">
 
-			<div class="row">
-				<div class="col-lg-5 col-sm-6">
-					<hr class="section-heading-spacer">
-					<div class="clearfix"></div>
-					<h2 class="section-heading">Une communauté active
-					<br>
-					et avant tout une plateforme sociale.</h2>
-					<p class="lead">
-						This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.
-					</p>
-				</div>
-				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
-					<img class="img-responsive" src="images/phones.png" alt="">
-					<%= link_to image_tag("phones.png", class: 'img-responsive') %>
-				</div>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-5 col-sm-6">
+				<hr class="section-heading-spacer">
+				<div class="clearfix"></div>
+				<h2 class="section-heading">Une communauté active
+				<br>
+				et avant tout une plateforme sociale.</h2>
+				<p class="lead">
+					This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.
+				</p>
 			</div>
-
+			<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+				<img class="img-responsive" src="images/phones.png" alt="">
+				<%= link_to image_tag("phones.png", class: 'img-responsive') %>
+			</div>
 		</div>
-		<!-- /.container -->
 
 	</div>
-	<!-- /.content-section-a -->
+	<!-- /.container -->
 
-	<div class="banner">
+</div>
+<!-- /.content-section-a -->
 
-		<div class="container">
+<div class="banner">
 
-			<div class="row">
-				<div class="col-lg-6">
-					<h2>Retrouvez-nous sur</h2>
-				</div>
-				<div class="col-lg-6">
-					<ul class="list-inline banner-social-buttons">
+	<div class="container">
 
-						<%= render 'layouts/social_share', :title => "I wanna share XXX", :url => "http://www.some_site_you_really_want_to_share.com" %>
-
-						<li>
-							<a href="https://twitter.com" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-						</li>
-						<li>
-							<a href="https://github.com" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-						</li>
-						<li>
-							<a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Google+</span></a>
-						</li>
-					</ul>
-				</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<h2>Retrouvez-nous sur</h2>
 			</div>
+			<div class="col-lg-6">
+				<ul class="list-inline banner-social-buttons">
 
+					<%= render 'layouts/social_share', :title => "I wanna share XXX", :url => "http://www.some_site_you_really_want_to_share.com" %>
+
+					<li>
+						<a href="https://twitter.com" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+					</li>
+					<li>
+						<a href="https://github.com" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+					</li>
+					<li>
+						<a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Google+</span></a>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<!-- /.container -->
 
 	</div>
-	<!-- /.banner -->
+	<!-- /.container -->
 
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<ul class="list-inline">
-						<li>
-							<a href="#home">Acceuil</a>
-						</li>
-						<li class="footer-menu-divider">
-							&sdot;
-						</li>
-						<li>
-							<a href="#about">L'Equipe</a>
-						</li>
-						<li class="footer-menu-divider">
-							&sdot;
-						</li>
-						<li>
-							<a href="#service">Service</a>
-						</li>
-						<li class="footer-menu-divider">
-							&sdot;
-						</li>
-						<li>
-							<a href="#contact">Contactez-nous</a>
-						</li>
-					</ul>
-					<p class="copyright text-muted small">
-						Copyright &copy; Syra 2014. All Rights Reserved
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-	<!-- JavaScript -->
-	<script src="../../assets/javascripts/jquery-1.10.2.js"></script>
-	<script src="../../assets/javascripts/bootstrap.js"></script>
-</body>
-</html>
+</div>
+<!-- /.banner -->
