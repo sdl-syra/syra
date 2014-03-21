@@ -2,38 +2,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
-<script>
 
-
-
-function GoogleMap(position) {  
-    var location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  
-    var map = new google.maps.Map(document.getElementById('map'), {  
-                    zoom: 10,  
-                    disableDefaultUI: true,   
-                    mapTypeId: google.maps.MapTypeId.TERRAIN,  
-                });  
-    var marker = new google.maps.Marker({  
-                    map: map,  
-                    position: location,  
-                    animation: google.maps.Animation.DROP,  
-                    title: "This is your location"  
-                });  
-    map.setCenter(location);  
-}
-function showError() {  
-    alert("Location can't be found");  
-} 
-
-window.onload = function() {
-	if (navigator.geolocation) {  
-	    navigator.geolocation.getCurrentPosition(GoogleMap, showError);  
-	}  
-	else {  
-    	alert("Your browser does not support Geolocation.");  
-	}
-}   
-</script>
 
 <%- model_class = Service -%>
 <div class="page-header">
@@ -138,5 +107,72 @@ window.onload = function() {
             
           </br>
 
-          <div id="map">
-   </div>
+<%= javascript_tag do %>
+
+function addMarkerArray( markersArray, map)
+    { 
+        for(var i = 0; i < markersArray.length ; i++) 
+        {
+          var latitude2 = markersArray[i].y;
+          var longitude2 = markersArray[i].x;
+          var myLatlng2 = new google.maps.LatLng(latitude2,longitude2);
+          var marker2 = new google.maps.Marker({
+              position: myLatlng2,
+              map: map,
+              title:"One title"
+          });
+        }
+    }
+
+function GoogleMap(position) {  
+    var location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    var myMapOptions = {
+      zoom:8,
+      center:location,
+      mapTypedId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(
+      document.getElementById('map'),
+      myMapOptions
+    );
+    var marker = new google.maps.Marker({  
+                    map: map,  
+                    position: location,  
+                    animation: google.maps.Animation.DROP,  
+                    title: "This is your location"  
+                });  
+    map.setCenter(location);
+    var myJSON = [
+{lat : 10.010232,long: 34.123232},
+{lat : 23.122323,long: 76.343434},
+{lat : 43.123434,long: 74.12343}
+]; //Test data
+
+      $.getJSON('services', function(data) {
+        // you can access your data here in the "data" variable passed to this success handler
+        
+          addMarkerArray(data,map);          
+      });  
+  
+}
+
+function showError() {  
+    alert("Location can't be found");  
+} 
+
+window.onload = function() {
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(GoogleMap, showError);  
+  }  
+  else {  
+      alert("Your browser does not support Geolocation.");  
+  }
+}   
+<% end %>
+
+
+
+<div id="map">
+</div>

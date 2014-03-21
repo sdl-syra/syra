@@ -10,6 +10,14 @@ class ServicesController < ApplicationController
       @services = @q.result(distinct: true)
     else
       @services = Service.all
+      address = []
+      @services.each do |service|
+        address << Address.find(service.address_id)
+      end 
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: address }
+      end
     end
   end
 
