@@ -8,6 +8,14 @@ class ServicesController < ApplicationController
     if params[:q].present?
       puts params
       @services = @q.result(distinct: true)
+      address = []
+      @services.each do |service|
+        address << Address.find(service.address_id)
+      end 
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: address }
+      end
     else
       @services = Service.all
       address = []
@@ -21,10 +29,6 @@ class ServicesController < ApplicationController
     end
   end
 
-  def search
-    index
-    render :index
-  end
 
   # GET /services
   # GET /services.json

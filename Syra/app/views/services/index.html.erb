@@ -10,7 +10,7 @@
 </div>
 
 
-<%= search_form_for @q, url: search_services_path, html: {:method => 'get'} do |f| %>
+<%= search_form_for @q, url: index_services_path, html: {:method => 'post'} do |f| %>
 
   <label class="col-sm-2 control-label"> Titre du service </label>
   <div class="col-sm-1">
@@ -163,9 +163,8 @@ function GoogleMap(position) {
 {lat : 43.123434,long: 74.12343}
 ]; //Test data
 
-      $.getJSON('', function(data) {
+      $.getJSON('/services', function(data) {
         // you can access your data here in the "data" variable passed to this success handler
-        
           addMarkerArray(data,map);          
       });  
   
