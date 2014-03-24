@@ -73,13 +73,13 @@
 				</div>
 				<!-- /input-group -->
 			</li>
-			<li>
+			<li class="avatar_li">
 				<a>
 				<% if @user == current_user %>
 					<%= form_for @user, :html => { :class => '', :role => 'form', :multipart => true } do |f| %>
-							<label for="user_avatar" class="form-group">
+							<label for="user_avatar">
 							<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%> 
-								<img src='/assets/image/thumb_avatar_profil_default.png' class='img-circle' alt='Image not found' /> 
+								<img src='/assets/image/thumb_avatar_profil_default.png' class='img-circle avatar_li' alt='Image not found' /> 
 							<%else%> 
 								<img src='<%= @user.avatar_url(:thumb).to_s %>' class='img-circle' alt='Image not found' /> 
 							<%end%> 
