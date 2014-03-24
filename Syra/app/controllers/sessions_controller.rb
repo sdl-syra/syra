@@ -22,5 +22,13 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_path
   end
+  
+  def set_current_position
+    position = []
+    position << 3.17
+    position << 2.0
+    session[:current_position] = position
+    redirect_to '/hobbies'
+  end
 
 end

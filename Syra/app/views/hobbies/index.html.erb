@@ -22,6 +22,9 @@
   </tbody>
 </table>
 
+<%= link_to "Localisez moi", test_path %>
+<% if session[:current_position].nil? %> current_position == nil <%else%> <%= session[:current_position] %><%end%>
+
 <br>
 
 <%= link_to 'New Hobby', new_hobby_path %>
