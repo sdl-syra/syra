@@ -32,6 +32,12 @@
 <div class="field">
 	<%= f.password_field :password_confirmation, :class=>"form-control", :placeholder => "Confirmez votre mot de passe" %>
 </div>
+<div class="field">
+	<!-- <%= label_tag(:accept_conditions, "J'accepte les conditions générales et la charte d'utilisation") %>
+	<%= check_box_tag(:accept_conditions) %> -->
+	<%= f.check_box :accept_conditions, :as => :boolean, input_html: {checked:   false} %>
+	J'accepte les <a href="#"> conditions générales</a> et la <a href="#">charte d'utilisation</a>
+</div>
 <div class="actions">
 	<%= f.submit "Je crée mon compte", :class => 'btn btn-lg btn-primary btn-block' %>
 </div>

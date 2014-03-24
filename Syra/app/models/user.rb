@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true , :uniqueness => {:message => 'Votre email est déjà pris'}
   validates :email_confirmation, presence: true , :presence => {:on => :create, :message => 'Vous devez confirmer votre email'}
   validates :phone, allow_nil: true, numericality: { only_integer: true, :message => "Format incorrect" }
+  validates :accept_conditions, :inclusion => {:in => [true]}
   belongs_to :level
   belongs_to :success
   belongs_to :address 

@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 20140310192250) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "avatar"
+    t.boolean  "accept_conditions"
   end
 
   add_index "users", ["address_id"], name: "index_users_on_address_id"
