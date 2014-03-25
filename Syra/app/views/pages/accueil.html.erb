@@ -33,7 +33,7 @@
 					</ul>
 					<ul class="list-inline intro-social-buttons">
 						<li>
-							<%= search_form_for @q, url: index_services_path, html: {:method => 'post'} do |f| %>
+							<%= search_form_for @q, url: index_services_path, html: {:method => 'get'} do |f| %>
 							<p>
 								<%= f.text_field :title_or_description_cont %>
 								<%= f.submit "Rechercher un service à proximité", class: "btn btn-sm btn-default"  %>
