@@ -74,25 +74,25 @@
 				<!-- /input-group -->
 			</li>
 			<li>
-				    <!-- Button to trigger modal -->
-				    <a href="#myModal" role="button" tabindex="-1" class="btn" data-toggle="modal" remote="true" data-target="#myModal">
-						<img src='/assets/image/thumb_avatar_profil_default.png' class='img-circle' alt='Image not found' />
+
+				<% if @user == current_user %>
+				    <!-- Button trigger modal -->
+				    <a href="#myModal" role="button" tabindex="-1" class="btn" data-toggle="modal" data-target="#myModal">
+						<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%> 
+							<img src='/assets/image/thumb_avatar_profil_default.png' class='img-circle' alt='Image not found' /> 
+						<%else%> 
+							<img src='<%= @user.avatar_url(:thumb).to_s %>' class='img-circle' alt='Image not found' /> 
+						<%end%>
 					</a>
-				     
-				    <!-- Modal -->
-				    <div id="myModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					    <div class="modal-header">
-						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						    <h3 id="myModalLabel">Modal header</h3>
-					    </div>
-					    <div class="modal-body">
-						    <p>One fine body…</p>
-					    </div>
-					    <div class="modal-footer">
-						    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-						    <button class="btn btn-primary">Save changes</button>
-					    </div>
-				    </div>
+				<% else %>
+					<a class="avatar_li">
+						<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%> 
+							<img src='/assets/image/thumb_avatar_profil_default.png' class='img-circle' alt='Image not found' /> 
+						<%else%> 
+							<img src='<%= @user.avatar_url(:thumb).to_s %>' class='img-circle' alt='Image not found' /> 
+						<%end%>
+					</a>
+				<% end %>
 					
 					
 					
@@ -150,10 +150,18 @@
 					<% end %>
 				</div> </a>
 				<% else %>
-				<% if @user.birthday.nil? %>
-				<a> Âge non renseigné </a>
-				<% else %>
-				<a> <%= @user.birthday_age %>ans </a><% end %>
+					<% if @user.birthday.nil? %>
+						<a> Âge non renseigné </a>
+					<% else %>
+						<a> 
+							<%= @user.birthday_age %>
+							<% if @user.birthday_age>1 %>
+								ans
+							<% else %>
+								an
+							<% end %> 
+						</a>
+					<% end %>
 				<% end %>
 			</li>
 
