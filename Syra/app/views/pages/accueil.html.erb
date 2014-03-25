@@ -35,7 +35,13 @@
 						<li>
 							<%= search_form_for @q, url: index_services_path, html: {:method => 'get'} do |f| %>
 							<p>
-								<%= f.text_field :title_or_description_cont %>
+              <%= f.text_field :title_or_description_cont %>
+
+  <%= f.fields_for :address do |adr| %>
+    <%= adr.hidden_field :x %>
+    <%= adr.hidden_field :y %>
+  <% end %>
+
 								<%= f.submit "Rechercher un service à proximité", class: "btn btn-sm btn-default"  %>
 							</p>
 							<% end %>

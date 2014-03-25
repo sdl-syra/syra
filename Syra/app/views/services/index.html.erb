@@ -11,35 +11,34 @@
 
 
 <%= search_form_for @q, url: index_services_path, html: {:method => 'get'} do |f| %>
-
+  
   <label class="col-sm-2 control-label"> Titre du service </label>
   <div class="col-sm-1">
    <%= f.text_field :title_or_description_cont %>
- </div>
-
- <br />
- <div class ="col-sm-2">
-   <%= f.submit %>
- </div>
-<% end %>
-
+   </div>
+   <br />
+   <div class ="col-sm-2">
+     <%= f.submit "test" %>
+   </div>
+  <% end %>
 
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:price) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
-      <th><%= model_class.human_attribute_name(:disponibility) %></th>
-      <th><%= model_class.human_attribute_name(:isGiven) %></th>
-      <th><%= model_class.human_attribute_name(:isFinished) %></th>
-      <th><%= model_class.human_attribute_name(:address) %></th>
-      <th><%= model_class.human_attribute_name(:category) %></th>
-      <th><%= model_class.human_attribute_name(:user) %></th>
-      <th><%= model_class.human_attribute_name(:image) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:id) %></th>
+        <th><%= model_class.human_attribute_name(:title) %></th>
+        <th><%= model_class.human_attribute_name(:price) %></th>
+        <th><%= model_class.human_attribute_name(:description) %></th>
+        <th><%= model_class.human_attribute_name(:disponibility) %></th>
+        <th><%= model_class.human_attribute_name(:isGiven) %></th>
+        <th><%= model_class.human_attribute_name(:isFinished) %></th>
+        <th><%= model_class.human_attribute_name(:address) %></th>
+        <th><%= model_class.human_attribute_name(:category) %></th>
+        <th><%= model_class.human_attribute_name(:user) %></th>
+        <th><%= model_class.human_attribute_name(:image) %></th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
 
@@ -126,7 +125,8 @@ function addMarkerArray( markersArray, map)
 
 function GoogleMap(position) {  
     var location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
+    $('#q_address_x').val(position.coords.latitude);
+    $('#q_address_y').val(position.coords.longitude);
     var myMapOptions = {
       zoom:8,
       center:location,
@@ -176,12 +176,17 @@ function showError() {
 
 window.onload = function() {
   if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(GoogleMap, showError);  
+      navigator.geolocation.getCurrentPosition(GoogleMap, showError);
   }  
   else {  
       alert("Your browser does not support Geolocation.");  
   }
-}   
+}
+
+function redirectionGeoloc() {
+  window.open('<%= request.original_url %>'+"&lat="+3+"&long="+50);
+}
+
 <% end %>
 
 
