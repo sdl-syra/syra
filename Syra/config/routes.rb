@@ -27,6 +27,8 @@ Syra::Application.routes.draw do
     end
   end
 
+  post '/set_geolocation' => 'services#set_geolocation'
+
   get '/auth/:provider/callback' => 'authentifications#create'
 
   get '/signup',  :to => 'users#new'

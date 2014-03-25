@@ -4,10 +4,6 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    position = []
-    position << params[:q][:x]
-    position << params[:q][:y]
-    session[:current_position] = position
     
     @q = Service.search(params[:q])
     if params[:q].present?
@@ -34,6 +30,10 @@ class ServicesController < ApplicationController
     end
   end
  
+  def set_geolocation
+    session[:location] = {:latitude => params[:latitude], :longitude => params[:longitude]}
+  end
+
 
   # GET /services
   # GET /services.json

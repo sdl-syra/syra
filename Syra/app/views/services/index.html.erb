@@ -16,10 +16,6 @@
   <div class="col-sm-1">
    <%= f.text_field :title_or_description_cont %>
  </div>
-  <%= f.fields_for :address do |adr| %>
-    <%= adr.hidden_field :x %>
-    <%= adr.hidden_field :y %>
-  <% end %>
  <br />
  <div class ="col-sm-2">
    <%= f.submit "test" %>
@@ -181,6 +177,10 @@ function showError() {
 window.onload = function() {
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(GoogleMap, showError);
+      navigator.geolocation.getCurrentPosition(function(pos){
+        $.post('/set_geolocation', {latitude: pos.coords.latitude, longitude: pos.coords.longitude})
+        /* document.cookie = document.cookie + '; latitude=pos.coords.latitude; longitude=pos.coords.longitude' */
+    });
   }  
   else {  
       alert("Your browser does not support Geolocation.");  
@@ -194,6 +194,6 @@ function redirectionGeoloc() {
 <% end %>
 
 
-<%= session[:current_position] %>
+<%= session[:location] %>
 <div id="map">
 </div>
