@@ -1,13 +1,13 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:new]
+  skip_before_filter :verify_authenticity_token
   # GET /services
   # GET /services.json
   def index
     
     @q = Service.search(params[:q])
     if params[:q].present?
-      puts params
       @services = @q.result(distinct: true)
       address = []
       @services.each do |service|
@@ -31,7 +31,9 @@ class ServicesController < ApplicationController
   end
  
   def set_geolocation
+    puts params
     session[:location] = {:latitude => params[:latitude], :longitude => params[:longitude]}
+    render :index
   end
 
 
