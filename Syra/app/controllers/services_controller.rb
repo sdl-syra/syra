@@ -4,6 +4,11 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
+    position = []
+    position << 3.17
+    position << 2.0
+    session[:current_position] = position
+ 
     @q = Service.search(params[:q])
     if params[:q].present?
       puts params
@@ -28,7 +33,7 @@ class ServicesController < ApplicationController
       end
     end
   end
-
+ 
 
   # GET /services
   # GET /services.json

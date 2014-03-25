@@ -28,7 +28,6 @@ class SessionsController < ApplicationController
     position << 3.17
     position << 2.0
     session[:current_position] = position
-    redirect_to '/hobbies'
   end
 
 end

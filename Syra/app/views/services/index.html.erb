@@ -10,7 +10,7 @@
 </div>
 
 
-<%= search_form_for @q, url: index_services_path, html: {:method => 'post'} do |f| %>
+<%= search_form_for @q, url: index_services_path, html: {:method => 'get'} do |f| %>
 
   <label class="col-sm-2 control-label"> Titre du service </label>
   <div class="col-sm-1">
@@ -113,6 +113,7 @@ function addMarkerArray( markersArray, map)
     { 
         for(var i = 0; i < markersArray.length ; i++) 
         {
+          alert(markersArray[i].label);
           var latitude2 = markersArray[i].y;
           var longitude2 = markersArray[i].x;
           var myLatlng2 = new google.maps.LatLng(latitude2,longitude2);
@@ -163,8 +164,8 @@ function GoogleMap(position) {
 {lat : 43.123434,long: 74.12343}
 ]; //Test data
 
-      $.getJSON('/services', function(data) {
-        // you can access your data here in the "data" variable passed to this success handler
+      $.getJSON('', function(data) {
+      // you can access your data here in the "data" variable passed to this success handler
           addMarkerArray(data,map);          
       });  
   
@@ -185,6 +186,6 @@ window.onload = function() {
 <% end %>
 
 
-
+<%= session[:current_position] %>
 <div id="map">
 </div>
