@@ -180,7 +180,6 @@ window.onload = function() {
       navigator.geolocation.getCurrentPosition(function(pos){
         $.post('/set_geolocation', {latitude: pos.coords.latitude, longitude: pos.coords.longitude})
         /* document.cookie = document.cookie + '; latitude=pos.coords.latitude; longitude=pos.coords.longitude' */
-        alert(pos.coords.latitude);
     });
   }  
   else {  

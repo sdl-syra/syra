@@ -31,7 +31,6 @@ class ServicesController < ApplicationController
   end
  
   def set_geolocation
-    puts params
     session[:location] = {:latitude => params[:latitude], :longitude => params[:longitude]}
     render :index
   end
