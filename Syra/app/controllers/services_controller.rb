@@ -6,7 +6,17 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     
-    @q = Service.search(params[:q])
+    
+    if params[:recherche_service]
+      @q = Service.where(:isGiven => true).search(params[:q])
+      
+    else
+      if params[:propose_service]
+       @q = Service.where(:isGiven => false).search(params[:q])
+      end
+    end
+    
+    #@q = Service.search(params[:q])
     if params[:q].present?
       @services = @q.result(distinct: true)
       address = []
@@ -28,6 +38,8 @@ class ServicesController < ApplicationController
         format.json { render json: address }
       end
     end
+    
+    
   end
  
   def set_geolocation
