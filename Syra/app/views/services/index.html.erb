@@ -168,7 +168,8 @@ function showError() {
     alert("Location can't be found");  
 } 
 
-window.onload = function() {
+
+$(document).ready(function() {
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(GoogleMap, showError);
       navigator.geolocation.getCurrentPosition(function(pos){
@@ -179,13 +180,15 @@ window.onload = function() {
   else {  
       alert("Your browser does not support Geolocation.");  
   }
-}
+});
 
+/*
 function redirectionGeoloc() {
   window.open('<%= request.original_url %>'+"&lat="+3+"&long="+50);
 }
-
+*/
 <% end %>
+
 
 
 <%= session[:location] %>
