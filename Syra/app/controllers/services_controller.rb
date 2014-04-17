@@ -1,7 +1,7 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:new]
-  skip_before_filter :verify_authenticity_token
+  skip_before_filter :verify_authenticity_token, :only => :set_geolocation
   # GET /services
   # GET /services.json
   def index
@@ -18,7 +18,7 @@ class ServicesController < ApplicationController
     
     #@q = Service.search(params[:q])
     if params[:q].present?
-      @services = @q.result(distinct: true)
+      @services = @q.result(distinct: true).order('title')
       address = []
       @services.each do |service|
         address << Address.find(service.address_id)
@@ -28,11 +28,12 @@ class ServicesController < ApplicationController
         format.json { render json: address }
       end
     else
-      @services = Service.all
+      @services = Service.find(:all)
       address = []
       @services.each do |service|
-        address << Address.find(service.address_id)
+        address << address.find(service.address_id)
       end 
+      @services.sort! { |a, b| a.address <=> b.address }
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: address }
