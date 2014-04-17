@@ -10,47 +10,6 @@
 
 
 
-<%= javascript_include_tag "jquery.Jcrop.min" %>
-	<script type="text/javascript" charset="utf-8">
-
-		// Remember to invoke within jQuery(window).load(...)
-		// If you don't, Jcrop may not initialize properly
-		function() {
-		
-			$('#jcrop_target').Jcrop({
-				onChange: showPreview,
-				onSelect: showPreview,
-		    	onRelease: hidePreview,
-				aspectRatio: 1
-			});
-		
-		  var $preview = $('#preview');
-		  // Our simple event handler, called from onChange and onSelect
-		  // event handlers, as per the Jcrop invocation above
-		  function showPreview(coords)
-		  {
-		    if (parseInt(coords.w) > 0)
-		    {
-		      var rx = 100 / coords.w;
-		      var ry = 100 / coords.h;
-		
-		      $preview.css({
-		        width: Math.round(rx * 500) + 'px',
-		        height: Math.round(ry * 370) + 'px',
-		        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-		        marginTop: '-' + Math.round(ry * coords.y) + 'px'
-		      }).show();
-		    }
-		  }
-		
-		  function hidePreview()
-		  {
-		    $preview.stop().fadeOut('fast');
-		  }
-		
-		});
-	</script>
-	
 	
 	
 	
@@ -157,56 +116,6 @@ user_path(@user),
 </div>
 
 <% end %>-->					
-					<!-- Modal -->
-					<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					        <h4 class="modal-title" id="myModalLabel">Changer de photo de profil</h4>
-					      </div>
-					      <div class="modal-body">
-					      
-
-					      	
-					      	
-					      	<!-- This is the image we're attaching Jcrop to -->
-					<!-- 		<img src="http://jcrop-cdn.tapmodo.com/v0.9.10/demos/demo_files/pool.jpg" id="jcrop_target" />
-							<div style="width:100px;height:100px;overflow:hidden;margin-left:5px;">
-								<img src="http://jcrop-cdn.tapmodo.com/v0.9.10/demos/demo_files/pool.jpg" id="preview" class='img-circle' />
-							</div>			-->		      	
-					      	
-							<%= form_for @user, :html => { :class => '', :role => 'form', :multipart => true } do |f| %>
-								<% if @user.avatar_url=="/assets/image/avatar_profil_default.png"%>
-									<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' id="jcrop_target" />
-									<div class="pull-right">
-										<img src='/assets/image/thumb_avatar_profil_default.png' alt='Image not found' id="preview" class='img-circle' style="width:150px;height:150px;overflow:hidden;margin-left:5px;" />
-										<small class="text-muted">Aperçu</small>
-									</div>
-								<%else%>
-									<img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' />
-									<div class="pull-right">
-										<img src='<%= @user.avatar_url(:thumb).to_s %>' alt='Image not found' id="preview" class='img-circle' style="width:150px;height:150px;overflow:hidden;margin-left:5px;" />
-										<small class="text-muted">Aperçu</small>
-									</div>
-								<%end%>
-								
-								<%= f.file_field :avatar, :class => 'file_field', :style => 'display:none' %><br/>
-					      
-					      </div>
-					      <div class="modal-footer">
-								<label for="user_avatar" class="btn btn-primary"> Choisir </label>
-								<button class="btn btn-danger" >Supprimer</button>
-								<%= f.submit nil, :value => "Sauver", :class => 'btn btn-success' %>
-								<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-					      </div>
-				      
-					      
-					      	<% end %>
-					    </div>
-					  </div>
-					</div>
-
 
 
 <div id="page-wrapper">
