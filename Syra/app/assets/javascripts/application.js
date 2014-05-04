@@ -24,14 +24,14 @@ $(document).ready(function() {
 });
 
 
-$(document).ready(function(){
+$(document).on('page:load',function(){
     $('#currenthobbies').click(function() {  
         $('#hobbiesedit').toggle();
         $('#currenthobbies').toggle();
     });
 });
 
-$(document).ready(function(){
+$(document).on('page:load',function(){
     $('#currentbirthday').click(function() {  
         $('#birthdayedit').toggle();
         $('#currentbirthday').toggle();
