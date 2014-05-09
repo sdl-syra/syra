@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20140310192250) do
   create_table "propositions", force: true do |t|
     t.boolean  "isPaid"
     t.boolean  "isAccepted"
-    t.boolean  "motifCancelled"
+    t.text  "motifCancelled"
     t.date     "proposition"
     t.text     "comment"
     t.integer  "user_id"
