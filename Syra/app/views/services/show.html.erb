@@ -6,33 +6,32 @@
   <script src="../../assets/jquery.ui.addresspicker.js"></script>
  
 <%- model_class = Service -%>
-<div class="page-header">
-  <h1>Service</h1>
-</div>
 
+
+<!--
 <dl class="dl-horizontal" style="float : left">
-  <dt><strong><%= model_class.human_attribute_name(:title) %> : </strong></dt>
-  <dd><%= @service.title %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:isGiven) %> : </strong></dt>
-  <dd><%= @service.isGiven %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:category) %> : </strong></dt>
-  <dd><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %> : </strong></dt>
-  <dd><%= @service.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:disponibility) %> : </strong></dt>
+  <dt><%= model_class.human_attribute_name(:title) %> : </dt>
+  <dd><strong><%= @service.title %></strong></dd>
+  <dt><%= model_class.human_attribute_name(:isGiven) %> : </dt>
+  <dd><strong><%= @service.isGiven %></strong></dd>
+  <dt><%= model_class.human_attribute_name(:category) %> :</dt>
+  <dd><strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong></dd>
+  <dt><%= model_class.human_attribute_name(:description) %> : </dt>
+  <dd><strong><%= @service.description %></dd></strong>
+  <dt><%= model_class.human_attribute_name(:disponibility) %> : </dt>
   <% if @service.disponibility.nil? or @service.disponibility=="" %>
-  	<dd> Non renseignées  </dd>
+  	<strong><dd> Non renseignées  </dd>
   <% else %>
-  	<dd><%= @service.disponibility %></dd>
+  	<dd><%= @service.disponibility %></dd></strong>
   <% end %>
-  <dt><strong><%= model_class.human_attribute_name(:price) %> : </strong></dt>
-  <dd><%= @service.price %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:address) %> : </strong></dt>
+  <dt><%= model_class.human_attribute_name(:price) %> : </dt>
+  <dd><strong><%= @service.price %></strong></dd>
+  <dt><%= model_class.human_attribute_name(:address) %> :</dt>
 
 
 
   <!-- A modifier lors de la modif du type de l'adresse -->
-  <% if @service.address.nil? or @service.address.label=="" %>
+  <!--<% if @service.address.nil? or @service.address.label=="" %>
   	<dd> Non renseignée </dd>
   <% else %>
   	<dd><%= @service.address.label %></dd>
@@ -65,7 +64,7 @@
 			services_path, :class => 'btn'  %>
 </div>
 
-<div class="form-actions">
+<div class="btn btn-primary btn-lg">
   <% if @service.user != current_user %>
     <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id)%>
 <%end%>
@@ -99,5 +98,96 @@
 
 
   <% end %>
-<% end %>
+<% end %> 
 <div id="map"> </div>
+-->
+
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1><%= @service.title %></h1>
+        <p class="lead">"<%= @service.description %>"</p>
+        <p>
+  <% if @service.user != current_user %>
+    <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
+<%end%>
+</p>
+       <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p> -->
+      
+      <table style="text-align">
+  <dt>Dans la catégorie <strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong></dt>
+
+  <dt>Ayant pour disponibilité(s) 
+  <% if @service.disponibility.nil? or @service.disponibility=="" %>
+  	<strong> Non renseignées
+  <% else %>
+  	<%= @service.disponibility %></strong>
+  <% end %>
+  <dt>Le prix est de <strong><%= @service.price %> HP</strong></dt>  
+  
+  <dt> Proposé par 
+  <% if @service.user.nil?  %>
+  	Non renseigné
+  <% else %>
+  	<% username = @service.user.name + ' ' + @service.user.lastName%>
+  	<%= link_to username, user_path(@service.user) %>
+  <% end %> à 
+    <% if @service.address.nil? or @service.address.label=="" %>
+  	<dd> Non renseignée </dd>
+  <% else %>
+  	<dd><%= @service.address.label %></dd>
+  <% end %>
+  </dt>
+  </br>
+  <dt><strong>Ce service <% if @service.isFinished==false %> est terminé... dommage! <% else %> n'est pas encore terminé! Dépéchez-vous! <%end%></dt>
+	</br>
+	<div class="form-actions">
+	<% if @service.user == current_user %>
+		<%= link_to t('.edit', :default => t("helpers.links.edit")),
+			edit_service_path(@service), :class => 'btn' %>
+		<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+			service_path(@service),
+			:method => 'delete',
+			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+			:class => 'btn btn-danger' %>
+	<%end%>
+	<%= link_to t('.back', :default => t("helpers.links.back")),
+			services_path, :class => 'btn btn-small'  %>
+</div>
+
+
+<% if @service.address != nil then %>
+  
+  <%= javascript_tag do %>
+  
+  window.onload = function() {
+  var myLatLng = new google.maps.LatLng(<%= @service.address.y %>,<%= @service.address.x %>);
+
+  var myMapOptions = {
+    zoom:16,
+    center:myLatLng,
+    mapTypedId: google.maps.MapTypeId.ROADMAP
+  };
+
+  var myMap = new google.maps.Map(
+    document.getElementById('map'),
+    myMapOptions
+    );
+
+  var myMarker = new google.maps.Marker({
+    position: myLatLng,
+    map: myMap,
+    title: "<%= @service.title %>"
+  });
+
+  }
+
+
+
+  <% end %>
+<% end %> 
+<dt id="map" style="text-align:center"> </dt>
+</table>
+
+<div>
+
+
