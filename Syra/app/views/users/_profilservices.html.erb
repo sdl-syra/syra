@@ -17,6 +17,7 @@
                       <th>Catégories</th>
                       <th>Etat</th>
                       <th>Montant</th>
+                      <th>Propositions</th>
                       <% else %>
                         Aucun service
                        <% end %>
@@ -35,6 +36,7 @@
                       En cours
                       <%end%> </td>
                       <td><%= service.price %></td>
+                      <td><%= link_to service.propositions.size,service_path(service) %> </td>
                     </tr>
                     <% end %>
                   </tbody>
