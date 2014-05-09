@@ -40,6 +40,6 @@ $(document).on('page:load',function(){
 
 $(document).ready(function(){
     $('#carouselServices').carousel({
-        interval: 1000
+        interval: 4000
     });
 });
