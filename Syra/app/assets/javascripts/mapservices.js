@@ -65,7 +65,7 @@ function showError() {
 } 
 
 
-$(document).ready(function() {
+window.onload = function() {
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(GoogleMap, showError);
       navigator.geolocation.getCurrentPosition(function(pos){
@@ -76,4 +76,4 @@ $(document).ready(function() {
   else {  
       alert("Your browser does not support Geolocation.");  
   }
-});
+};

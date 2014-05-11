@@ -1,4 +1,9 @@
 <%- model_class = User -%>
+
+<% content_for :head do %>
+	<%= javascript_include_tag "profil" %>
+<% end %>
+
 <div class="wrap">
 	<% if @user==current_user %>
 		<h1>Bonjour, <%= @user.name %>.</h1>

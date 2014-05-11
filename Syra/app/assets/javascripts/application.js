@@ -13,34 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+
 //= require best_in_place
 //= require jquery.purr
 //= require best_in_place.purr
 //= require jquery.ui.all
-
-$(document).ready(function() {
-  jQuery(".best_in_place").best_in_place();
-});
-
-var toggleHobbies = function(){
-    $('#currenthobbies').click(function() {  
-        $('#hobbiesedit').toggle();
-        $('#currenthobbies').toggle();
-    });
-};
-
-var toggleBirthday = function(){
-    $('#currentbirthday').click(function() {  
-        $('#birthdayedit').toggle();
-        $('#currentbirthday').toggle();
-    });
-};
-
-$(document).ready(toggleHobbies);
-$(document).on('page:load',toggleHobbies);
-$(document).ready(toggleBirthday);
-$(document).on('page:load',toggleBirthday);
 
 $(document).ready(function(){
     $('#carouselServices').carousel({
