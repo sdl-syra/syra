@@ -43,7 +43,7 @@
 					<% end %>
 				</div>
 				<div id="birthdayedit" style="display:none">
-					<%= form_for @user do |f| %>
+					<%= form_for @user, remote:true do |f| %>
 					<%= f.date_select :birthday, :order => [:day, :month, :year], :use_month_names =>
             ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet',
               'Aout', 'Septembre', 'Octobre', 'Novembre','Decembre'],

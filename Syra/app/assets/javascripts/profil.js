@@ -1,6 +1,6 @@
-$(document).ready(function() {
+var launchBestInPlace = function() {
   jQuery(".best_in_place").best_in_place();
-});
+};
 
 var toggleHobbies = function(){
     $('#currenthobbies').click(function() {  
@@ -16,7 +16,7 @@ var toggleBirthday = function(){
     });
 };
 
+
+$(document).ready(launchBestInPlace);
 $(document).ready(toggleHobbies);
-$(document).on('page:load',toggleHobbies);
 $(document).ready(toggleBirthday);
-$(document).on('page:load',toggleBirthday);

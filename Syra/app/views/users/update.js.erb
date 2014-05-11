@@ -1,0 +1,10 @@
+$('#profilinfos').html("<%= j render 'profilinfos' %>");
+
+var toggleBirthday = function(){
+    $('#currentbirthday').click(function() {  
+        $('#birthdayedit').toggle();
+        $('#currentbirthday').toggle();
+    });
+};
+
+$(document).ready(toggleBirthday);

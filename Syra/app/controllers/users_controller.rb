@@ -64,6 +64,7 @@ class UsersController < ApplicationController
         format.html { render action: 'edit' }
         format.json { render json: @user.errors.full_messages, status: :unprocessable_entity }
       end
+      format.js
     end
   end
 
