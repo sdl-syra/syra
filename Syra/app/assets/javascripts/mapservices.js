@@ -61,7 +61,7 @@ function GoogleMap(position) {
 }
 
 function showError() {  
-    alert("Location cant be found");  
+    console.log("Location cant be found");  
 } 
 
 
