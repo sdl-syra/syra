@@ -39,10 +39,12 @@
                         <% end %>
                       </td>
                       <td><%= link_to 'Voir',proposition_path(prop) %> 
-                      <% if prop.isAccepted == nil %>
-                        <%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop) %>
-                        <%= link_to 'Refuser', refuser_prop_service_path(@service, :prop => prop) %>
-                      <% end %>
+                      <% if @service.user == current_user %>
+	                      <% if prop.isAccepted == nil %>
+	                        <%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop) %>
+	                        <%= link_to 'Refuser', refuser_prop_service_path(@service, :prop => prop) %>
+	                      <% end %>
+	                  <% end %>
                       </td>
                     </tr>
                     <% end %>
