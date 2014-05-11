@@ -138,7 +138,6 @@
 </p>
        <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p> -->
       
-      <table style="text-align">
   <dt>Dans la catégorie <strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong></dt>
 
   <dt>Ayant pour disponibilité(s) 
@@ -179,12 +178,8 @@
 			services_path, :class => 'btn btn-small'  %>
 </div>
 
-<% if @service.user == current_user %>
+<%= render :partial => 'servicepropositions' %>
 
-          <%= render :partial => 'servicepropositions' %>
-
-
-<% end %>
 
 <% if @service.address != nil then %>
   
