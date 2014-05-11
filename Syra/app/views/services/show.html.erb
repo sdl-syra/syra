@@ -107,9 +107,34 @@
         <h1><%= @service.title %></h1>
         <p class="lead">"<%= @service.description %>"</p>
         <p>
-  <% if @service.user != current_user %>
-    <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
-<%end%>
+          <% if signed_in? %>
+            <% if @service.user != current_user %>
+              <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
+            <%end%>
+          <% else %>
+            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
+                               Faire une proposition
+            </button>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                             <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
+                                </div>
+                                <div class="modal-body">
+                                        Vous devez être connecté(e) pour pouvoir faire une proposition.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                                </div>
+                             </div>
+                            </div>
+                        </div>
+
+
+
+          <% end %>
 </p>
        <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p> -->
       
@@ -154,6 +179,12 @@
 			services_path, :class => 'btn btn-small'  %>
 </div>
 
+<% if @service.user == current_user %>
+
+          <%= render :partial => 'servicepropositions' %>
+
+
+<% end %>
 
 <% if @service.address != nil then %>
   

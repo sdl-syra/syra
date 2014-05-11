@@ -47,6 +47,8 @@ Syra::Application.routes.draw do
   post '/users/:id/upload_avatar' , :to => 'users#upload_avatar'
 
   get '/users/:id/follow', :to => 'users#follow', :as => 'follow_user'
+  get '/services/:id/accepterProp', :to => 'services#accepterProp', :as => 'accepter_prop_service'
+  get '/services/:id/refuserProp', :to => 'services#refuserProp', :as => 'refuser_prop_service'
 
   get '/map', :to => 'pages#map'
   

@@ -131,6 +131,29 @@ class ServicesController < ApplicationController
     end
   end
 
+
+  def accepterProp
+    prop = Proposition.find(params[:prop])
+    prop.isAccepted = true
+    prop.save
+
+    respond_to do |format|
+      format.html { redirect_to(:back) }
+      format.json { head :no_content }
+    end
+  end
+
+  def refuserProp
+    prop = Proposition.find(params[:prop])
+    prop.isAccepted = false
+    prop.save
+
+    respond_to do |format|
+      format.html { redirect_to(:back) }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
 

@@ -13,6 +13,7 @@
                       <% if @user.propositions.size>0 %>
                       <th>#</th>
                       <th>Service</th>
+                      <th>Etat</th>
                       <th></th>
                       <% else %>
                         Aucune proposition
@@ -24,6 +25,15 @@
                     <tr>
                       <td><%= prop.id %></td>
                       <td><%= link_to Service.find(prop.service_id).title,service_path(Service.find(prop.service_id)) %></td>
+                      <td>
+                        <% if prop.isAccepted == nil %>
+                            En attente
+                        <% elsif prop.isAccepted == false %>
+                            Refusée
+                        <% else %>
+                            Acceptée
+                        <% end %>
+                      </td>
                       <td><%= link_to 'Voir',proposition_path(prop) %> </td>
                     </tr>
                     <% end %>
