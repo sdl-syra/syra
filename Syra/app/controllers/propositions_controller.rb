@@ -6,6 +6,11 @@ class PropositionsController < ApplicationController
   def index
     @propositions = Proposition.all
   end
+  
+  # GET /admin/propositions
+  def admin
+    @propositions = Proposition.all
+  end
 
   # GET /propositions/1
   # GET /propositions/1.json

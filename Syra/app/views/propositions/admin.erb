@@ -58,25 +58,26 @@
 	        <% if proposition.user.nil?%>
 				null
 			<% else %>
-				<a href="<%= user_path(proposition.user) %>"><%= proposition.user.name %> <%= proposition.user.lastName %></a>
+				<a href="<%= user_path(proposition.user) %>">[<%= proposition.user.id %>]<%= proposition.user.name %> <%= proposition.user.lastName %></a>
 	        <% end %>
         </td>
         <td>
 	        <% if proposition.service.nil?%>
 				null
 			<% else %>
-				<a href="<%= service_path(proposition.service) %>"><%= proposition.service.title %></a>
+				<a href="<%= service_path(proposition.service) %>">[<%= proposition.service.id %>]<%= proposition.service.title %></a>
 	        <% end %>
 		</td>
         <td>
-        <% if proposition.user == current_user or proposition.user = proposition.service.user %>
           <%= link_to 'Voir',
                       proposition_path(proposition), :class => 'btn btn-mini' %>
-          <% if proposition.user == current_user %>
-	          <%= link_to 'Editer',
-	                      edit_proposition_path(proposition,:service => proposition.service.id), :class => 'btn btn-mini' %>
-	      <% end %>
-        <% end %>
+          <%= link_to 'Editer',
+                      edit_proposition_path(proposition,:service => proposition.service.id), :class => 'btn btn-mini' %>
+          <%= link_to 'Supprimer',
+                      proposition_path(proposition),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
     <% end %>

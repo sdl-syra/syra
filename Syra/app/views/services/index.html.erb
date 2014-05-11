@@ -53,40 +53,42 @@
         <td><%= service.isGiven %></td>
         <td><%= service.isFinished %></td>
         
-        
-        <!-- A modifier lors de la modif du type de l'adresse -->
+        <td>
 		<% if service.address.nil?%>
-			<td> null </td>
+			 null 
 		<% else %>
-			<td><%= service.address.label %></td>
+			<%= service.address.label %>
         <% end %>
-    	
-    		
+    	</td>
+    	<td>
     	<% if service.category.nil?%>
-			<td> null </td>
+			null
 		<% else %>
-			<td><a href="<%= category_path(service.category) %>">[<%= service.category.id %>]<%= service.category.name %></a></td>
+			<a href="<%= category_path(service.category) %>"><%= service.category.name %></a>
         <% end %>
-        
-        
+        </td>
+        <td>
         <% if service.user.nil?%>
-			<td> null </td>
+			null
 		<% else %>
-			<td><a href="<%= user_path(service.user) %>">[<%= service.user.id %>]<%= service.user.name %> <%= service.user.lastName %></a></td>
+			<a href="<%= user_path(service.user) %>"><%= service.user.name %> <%= service.user.lastName %></a>
         <% end %>
-   	 	
+   	 	</td>
    	 	
 
         <td>
           <%= link_to 'Voir',
                       service_path(service), :class => 'btn btn-mini' %>
-          <%= link_to 'Editer',
-                      edit_service_path(service), :class => 'btn btn-mini' %>
-          <%= link_to 'Supprimer',
-                      service_path(service),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
+          <% if service.user == current_user %>
+	          <%= link_to 'Editer',
+	                      edit_service_path(service), :class => 'btn btn-mini' %>
+	          <%= link_to 'Supprimer',
+	                      service_path(service),
+	                      :method => :delete,
+	                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+	                      :class => 'btn btn-mini btn-danger' %>
+	     <% end %>
+        </td>
       </tr>
     <% end %>
     <% end %>

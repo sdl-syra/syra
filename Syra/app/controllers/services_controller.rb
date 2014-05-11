@@ -50,8 +50,7 @@ class ServicesController < ApplicationController
   end
 
 
-  # GET /services
-  # GET /services.json
+  # GET /admin/services
   def admin
     @services = Service.all
   end
