@@ -13,6 +13,7 @@ Address.delete_all
 Level.delete_all
 Service.delete_all
 Category.delete_all
+Proposition.delete_all
 
 
 c1 = Category.create(name: 'informatique')
