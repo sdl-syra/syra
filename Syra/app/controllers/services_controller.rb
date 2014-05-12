@@ -101,16 +101,21 @@ class ServicesController < ApplicationController
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
   def update
+    puts service_params
     tmp = service_params[:address_label]
-    @service = Service.new(service_params.except(:address_label))
+    tmpx = service_params[:address][:x]
+    puts " TEST TMPX " + tmpx
+    tmpy = service_params[:address][:y]
     if tmp != ""
       ad = Address.new
-    ad.label = tmp
-    ad.save
-    @service.address = ad
+      ad.x = tmpx
+      ad.label = tmp
+      ad.y = tmpy
+      ad.save
+      @service.address = ad
     end
     respond_to do |format|
-      if @service.update(service_params)
+      if @service.update(service_params.except(:address_label, :address))
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { head :no_content }
       else
