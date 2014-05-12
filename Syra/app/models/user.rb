@@ -23,21 +23,25 @@ class User < ActiveRecord::Base
   validates :accept_conditions, :inclusion => {:in => [true]}
   belongs_to :level
   belongs_to :success
-  belongs_to :address 
+  belongs_to :address
   has_many :services
   has_and_belongs_to_many :hobbies
   has_many :authentifications, :dependent => :delete_all
-  acts_as_birthday :birthday 
- 
-  
+  acts_as_birthday :birthday
   def apply_omniauth(auth)
-    
+
     self.email = auth['extra']['raw_info']['email']
     self.name = auth['extra']['raw_info']['first_name']
     self.lastName = auth['extra']['raw_info']['last_name']
     self.remote_avatar_url = auth[:info][:image]
-    
+
     authentifications.build(:provider => auth['provider'], :uid => auth['uid'])
+  end
+  
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
   end
 
   def self.authenticate_facebook(email)
@@ -66,13 +70,20 @@ class User < ActiveRecord::Base
   def following?(followed)
     relationships.find_by_followed_id(followed)
   end
-  
+
   def follow!(followed)
     relationships.create!(:followed_id => followed)
   end
 
   def followedBy?(follower)
-   Relationship.find_by follower_id: follower, followed_id: self.id
+    Relationship.find_by follower_id: follower, followed_id: self.id
+  end
+
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    UserMailer.password_reset(self).deliver
   end
 
   private

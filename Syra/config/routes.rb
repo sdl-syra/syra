@@ -1,4 +1,5 @@
 Syra::Application.routes.draw do
+  get "password_resets/new"
   get "pages/accueil"
   #devise_for :users
   get "sessions/new"
@@ -20,7 +21,9 @@ Syra::Application.routes.draw do
   resources :users
 
   resources :sessions, :only => [:new, :create, :destroy]
-
+  
+  resources :password_resets
+  
   resources :services do
     collection do
       get '/search', :to => 'services#index', :as => :index

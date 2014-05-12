@@ -58,9 +58,9 @@ a5 = Address.create(label:'25 rue de Calais', x: 5, y: 4)
 l5 = Level.create(levelUser:1,XPUser:0)
 
 
-user5 = User.create!(name: 'Terry', lastName: 'Mainvis', password:'12345678', email:'terry.mainvis@gmail.com', money: '12',
-           phone:'0600000000',biography:'Bla Bla Biographie',isPremium:false,level_id:l5.id,address_id:a5.id,
-           email_confirmation:'terry.mainvis@gmail.com',password_confirmation:'12345678',accept_conditions:true)
+#user5 = User.create!(name: 'Terry', lastName: 'Mainvis', password:'12345678', email:'terry.mainvis@gmail.com', money: '12',
+ #          phone:'0600000000',biography:'Bla Bla Biographie',isPremium:false,level_id:l5.id,address_id:a5.id,
+#           email_confirmation:'terry.mainvis@gmail.com',password_confirmation:'12345678',accept_conditions:true)
            
 Hobby.create(label:'Informatique')
 Hobby.create(label:'Natation')
