@@ -98,7 +98,7 @@
                 self._geocode(request, response);
             },
             updater: function(item) {
-                var ui = {item: self._mapped[item]}
+                var ui = {item: self._mapped[item]};
                 self._focusAddress(null, ui);
                 self._selectAddress(null, ui);
                 return item;
@@ -217,18 +217,18 @@
         }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK && results) {
                 for (var i = 0; i < results.length; i++) {
-                  result = results[i]
-                  g = result.geometry
+                  result = results[i];
+                  g = result.geometry;
                   g.location = new google.maps.LatLng(g.location.lat, g.location.lng);
                   g.viewport = new google.maps.LatLngBounds(
                     new google.maps.LatLng(g.viewport.southwest.lat, g.viewport.southwest.lng),
                     new google.maps.LatLng(g.viewport.northeast.lat, g.viewport.northeast.lng)
-                  )
+                  );
                   result.label =  results[i].formatted_address;
                 }
             }
             response(results);
-        })
+        });
     },
 
     _findInfo: function(result, type) {
@@ -279,7 +279,7 @@
         }
       }
       return -1;
-    }
+    };
   }
 
 })( jQuery );
