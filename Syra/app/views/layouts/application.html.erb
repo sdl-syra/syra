@@ -63,7 +63,7 @@
 			          <b class="caret"></b></a>
 			          <ul class="dropdown-menu">
 						<% Notification.where(user: User.find(current_user.id)).order(:is_checked).each do |n| %>
-							<li><a href="<%=n.url%>"><%=n.created_at%> <%=n.label%></a></li>
+							<li><a href="<%="http://localhost:3000/"+n.url%>"><%=n.created_at%> <%=n.label%></a></li>
 						<%end%>
 			          </ul>
 			        </li>
