@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140417204547) do
+ActiveRecord::Schema.define(version: 20140517174927) do
 
   create_table "addresses", force: true do |t|
     t.string   "label"
     t.float    "x"
     t.float    "y"
+    t.float    "distance"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -71,10 +72,23 @@ ActiveRecord::Schema.define(version: 20140417204547) do
 
   add_index "levels", ["user_id"], name: "index_levels_on_user_id"
 
+  create_table "notifications", force: true do |t|
+    t.string   "label"
+    t.string   "glyph_cat"
+    t.string   "url"
+    t.date     "date"
+    t.boolean  "is_checked"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
+
   create_table "propositions", force: true do |t|
     t.boolean  "isPaid"
     t.boolean  "isAccepted"
-    t.boolean  "motifCancelled"
+    t.text     "motifCancelled"
     t.date     "proposition"
     t.text     "comment"
     t.integer  "user_id"
@@ -158,8 +172,6 @@ ActiveRecord::Schema.define(version: 20140417204547) do
     t.string   "last_sign_in_ip"
     t.string   "avatar"
     t.boolean  "accept_conditions"
-    t.string   "password_reset_token"
-    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["address_id"], name: "index_users_on_address_id"

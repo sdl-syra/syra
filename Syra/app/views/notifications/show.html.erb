@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @notification.id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @notification.user %>
+</p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @notification.label %>
+</p>
+
+<p>
+  <strong>Glyph cat:</strong>
+  <%= @notification.glyph_cat %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @notification.url %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @notification.date %>
+</p>
+
+<p>
+  <strong>Is checked:</strong>
+  <%= @notification.is_checked %>
+</p>
+
+<%= link_to 'Edit', edit_notification_path(@notification) %> |
+<%= link_to 'Back', notifications_path %>

@@ -31,11 +31,20 @@ class PropositionsController < ApplicationController
   def create
     @proposition = Proposition.new(proposition_params)
     @proposition.user = current_user
-
+    
     respond_to do |format|
       if @proposition.save
         format.html { redirect_to @proposition, notice: 'Proposition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @proposition }
+        
+        notification = Notification.new
+        notification.user = @proposition.service.user
+        notification.label = "Une nouvelle proposition vous attend ! YAY"
+        notification.is_checked = false
+        notification.date = Date.today
+        notification.url = "propositions/"+@proposition.id.to_s
+        notification.save
+        
       else
         format.html { render action: 'new' }
         format.json { render json: @proposition.errors, status: :unprocessable_entity }

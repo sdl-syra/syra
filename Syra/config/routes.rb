@@ -1,4 +1,6 @@
 Syra::Application.routes.draw do
+  resources :notifications
+
   get "password_resets/new"
   get "pages/accueil"
   #devise_for :users

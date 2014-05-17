@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 
+  user: 
+  label: MyString
+  glyph_cat: MyString
+  object_id: 
+  date: 2014-05-17
+  is_checked: false
+
+two:
+  id: 
+  user: 
+  label: MyString
+  glyph_cat: MyString
+  object_id: 
+  date: 2014-05-17
+  is_checked: false
