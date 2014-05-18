@@ -70,6 +70,13 @@ class NotificationsController < ApplicationController
      format.json { head :no_content }
     end
   end
+  
+  def checkedall
+    Notification.where(user: User.find(current_user.id),is_checked: false).each do |n|
+      n.is_checked=true;
+      n.save
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

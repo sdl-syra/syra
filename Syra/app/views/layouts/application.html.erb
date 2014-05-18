@@ -29,6 +29,12 @@
 		<meta name="description" content="Syra echande de services SEL">
 		<meta name="author" content="Maxime Boutrouille Terry Mainvis Maxime Prud'homme Julien Dusquesnoy Xavier Koma">
 		<%= favicon_link_tag 'favicon.ico' %>
+		<script type="text/javascript">
+			function resetBadgeNotif() {
+				$("#badgeNotif").hide();
+				$.ajax("<%=all_notif_checked_path%>")
+			}
+		</script>
 	</head>
 
 	<body data-no-turbolink> 
@@ -54,19 +60,19 @@
 						<a href="<%= user_path(current_user.id) %>">Connecté en tant que <%= current_user.name %> <%= current_user.lastName %></a>
 					</li>
 					<li class="dropdown">
-			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notifications
+			          <a href="#" onclick="resetBadgeNotif()" class="dropdown-toggle" data-toggle="dropdown">Notifications
 			          	<% if (Notification.where(user: User.find(current_user.id),is_checked: false).count>0) %>
-			          		<span class="badge">
+			          		<span id="badgeNotif" class="badge">
 			          			<%=Notification.where(user: User.find(current_user.id),is_checked: false).count%>
 			          		</span>
 			          	<%end%>
 			          <b class="caret"></b></a>
 			          <ul class="dropdown-menu">
-			          	<% if (Notification.where(user: User.find(current_user.id),is_checked: false).count==0) %>
+			          	<% if (Notification.where(user: User.find(current_user.id)).count==0) %>
 			          		<li><a href=#>Aucune notification</a></li>
 			          	<%else%>
 							<% Notification.where(user: User.find(current_user.id)).order(:is_checked,created_at: :desc).take(10).each do |n| %>
-								<li><a href="<%="http://localhost:3000/"+n.url%>">
+								<li <%if n.is_checked==false%>style='background-color:yellow'<%end%>><a href="<%="http://localhost:3000/"+n.url%>">
 									<%if time_ago_in_words(n.created_at).end_with?"h" and time_ago_in_words(n.created_at).gsub("Il y a","").sub("h","").to_i>12%>
 										<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
 									<%else%>
