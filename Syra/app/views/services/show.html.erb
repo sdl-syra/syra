@@ -107,11 +107,11 @@
         <h1><%= @service.title %></h1>
         <p class="lead">"<%= @service.description %>"</p>
         <p>
-          <% if signed_in? %>
+          <% if signed_in? and @service.isFinished==false %>
             <% if @service.user != current_user %>
               <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
             <%end%>
-          <% else %>
+          <% elsif @service.isFinished==false %>
             <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
                                Faire une proposition
             </button>
@@ -135,13 +135,14 @@
 
 
           <% end %>
+          
 </p>
        <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p> -->
       
   <dt>Dans la catégorie <strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong></dt>
 
   <dt>Ayant pour disponibilité(s) 
-  <% if @service.disponibility.nil? or @service.disponibility=="" %>
+  <% if @service.disponibility.blank? %>
   	<strong> Non renseignées
   <% else %>
   	<%= @service.disponibility %></strong>
@@ -162,7 +163,7 @@
   <% end %>
   </dt>
   </br>
-  <dt><strong>Ce service <% if @service.isFinished==false %> est terminé... dommage! <% else %> n'est pas encore terminé! Dépéchez-vous! <%end%></dt>
+  <dt><strong>Ce service <% if @service.isFinished==true %> est terminé... dommage! <% else %> n'est pas encore terminé! Dépéchez-vous! <%end%></dt>
 	</br>
 	<div class="form-actions">
 	<% if @service.user == current_user %>

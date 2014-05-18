@@ -1,6 +1,114 @@
 
 <%- model_class = Proposition -%>
 <div class="jumbotron">
+	<% if @proposition.service.user == current_user %>
+    <div class="modal fade" id="modalRefus" tabindex="-1" role="dialog" aria-labelledby="modalRefusLabel" aria-hidden="true">
+        <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modalRefusLabel">Refuser la proposition <%= @proposition.id %> de <%= @proposition.user.name %></h4>
+            </div>
+            <div class="modal-body">
+            	<%= form_for @proposition, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
+				Motif de refus :
+				<%= f.text_area :motifCancelled, :class => 'form-control' %>
+				<%= f.hidden_field :isAccepted, value: false %>
+				<%= f.hidden_field :isPaid, value: false %>
+            </div>
+            <div class="modal-footer">
+            	<%= f.submit 'Refuser', :class => 'btn btn-danger' %>
+            	<% end %>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+            </div>
+         </div>
+        </div>
+    </div>
+    <% end %>
+    
+    
+    
+    
+    <div class="jumbotron">
+        <h1>
+        	Proposition
+		</h1>
+        <p class="lead">
+        	Concernant le service 
+        	<a href="<%= service_path(@proposition.service) %>">
+				"<%= @proposition.service.title %>"
+			</a>			
+        </p>
+        <dt><strong>
+        	Proposée par 
+        	<a href="<%= user_path(@proposition.user) %>">
+				<%= @proposition.user.name %> <%= @proposition.user.lastName %>
+			</a>
+        </dt>
+        <dt><strong>
+        	pour le <%= @proposition.proposition %>
+        </dt>
+        <dt><strong>
+        	Cette proposition 
+        	<% if @proposition.isAccepted.nil? %>
+				est toujours en attente de réponse!
+			<% elsif @proposition.isAccepted == false %>
+				a été refusée 
+				<% if @proposition.motifCancelled.blank? %>
+					sans motif particulier.
+				<% else %>
+					pour le motif suivant : <br/>
+					<%= @proposition.motifCancelled %>
+				<% end %>
+			<% else %>
+				a été acceptée!
+			<% end %>
+        </dt>
+        <% if @proposition.isAccepted == true %>
+        <dt><strong>
+        	L'échange 
+        	<% if @proposition.isPaid.nil? %>
+				ne s'est pas encore réalisé.
+			<% elsif @proposition.isPaid == false %>
+				ne s'est pas réalisé.
+			<% else %>
+				a été réalisé
+			<% end %>
+        </dt>
+		<% end %>
+  	</br>
+<div class="form-actions">
+    <% if @proposition.isAccepted.nil? %>
+		<% if @proposition.user == current_user %>
+			<%= link_to t('.edit', :default => t("helpers.links.edit")),
+				edit_proposition_path(@proposition,:service => @proposition.service.id), :class => 'btn btn-lg btn-info' %>
+		<% end %>
+		<% if @proposition.service.user == current_user %>
+	            <%= link_to 'Accepter', accepter_prop_service_path(@proposition.service, :prop => @proposition), 
+	            :class => 'btn btn-lg btn-success' %>
+	            <button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#modalRefus">
+	                               Refuser
+	            </button>
+		<% end %>
+	<% elsif @proposition.service.isFinished==false and @proposition.service.user != current_user %>
+		 <%= link_to 'Nouvelle proposition', new_proposition_path(:service => @proposition.service.id), {:class=> "btn btn-lg btn-info"}%>
+	<% end %>
+	<%= link_to t('.back', :default => t("helpers.links.back")),
+			service_path(@proposition.service), :class => 'btn btn-lg'  %>
+</div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!--
+    
 	<div class="row">
 		<div class="col-lg-8">
 <dl class="dl-horizontal" style="float : left">
@@ -14,7 +122,7 @@
 	<dd><strong><%= @proposition.proposition %></strong></dd>
 	<dt><%= model_class.human_attribute_name(:comment) %> : </dt>
 	<dd><strong>
-	<% if @proposition.comment == nil or @proposition.comment ==''%>
+	<% if @proposition.comment.blank?%>
 		Pas de commentaire
 	<% else %>
 		<%= @proposition.comment %>
@@ -22,7 +130,7 @@
 	</strong></dd>
 	<dt><%= model_class.human_attribute_name(:isAccepted) %> : </dt>
 	<dd><strong>
-		<% if @proposition.isAccepted == nil %>
+		<% if @proposition.isAccepted.nil? %>
 			En attente
 		<% elsif @proposition.isAccepted == false %>
 			Refusée
@@ -33,7 +141,7 @@
 	<% if @proposition.isAccepted == false %>
 		<dt><%= model_class.human_attribute_name(:motifCancelled) %> : </dt>
 		<dd><strong>
-			<% if @proposition.motifCancelled == nil or @proposition.motifCancelled ==''%>
+			<% if @proposition.motifCancelled.blank? %>
 				Pas de motif
 			<% else %>
 				<%= @proposition.motifCancelled %>
@@ -42,7 +150,7 @@
 	<% end %>
 	<dt><%= model_class.human_attribute_name(:isPaid) %> : </dt>
 	<dd><strong>
-		<% if @proposition.isPaid == nil %>
+		<% if @proposition.isPaid.nil? %>
 			En attente
 		<% elsif @proposition.isPaid == false %>
 			Non
@@ -60,11 +168,20 @@
 <div class="form-actions">
 	<% if @proposition.user == current_user %>
 		<%= link_to t('.edit', :default => t("helpers.links.edit")),
-			edit_proposition_path(@proposition,:service => @proposition.service.id), :class => 'btn' %>
+			edit_proposition_path(@proposition,:service => @proposition.service.id), :class => 'btn btn-lg btn-info' %>
 	<%end%>
+	<% if @proposition.service.user == current_user %>
+          <% if @proposition.isAccepted.nil? %>
+            <%= link_to 'Accepter', accepter_prop_service_path(@proposition.service, :prop => @proposition), 
+            :class => 'btn btn-lg btn-success' %>
+            <button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#modalRefus">
+                               Refuser
+            </button>
+          <% end %>
+	<% end %>
 	<%= link_to t('.back', :default => t("helpers.links.back")),
-			propositions_path, :class => 'btn btn-small'  %>
+			propositions_path, :class => 'btn btn-lg'  %>
 </div>
 	</div>
 	</div>
-</div>
+-->

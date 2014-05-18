@@ -18,11 +18,11 @@
   </thead>
 
   <tbody>
-  	<% if not @propositions == nil %>
+  	<% if not @propositions.nil? %>
     <% @propositions.each do |proposition| %>
       <tr>
       	<td>
-	      	<% if proposition.isPaid == nil %>
+	      	<% if proposition.isPaid.nil? %>
 				En attente
 			<% elsif proposition.isPaid == false %>
 				Non
@@ -31,7 +31,7 @@
 			<% end %>
 		</td>
 		<td>
-	      	<% if proposition.isAccepted == nil %>
+	      	<% if proposition.isAccepted.nil? %>
 				En attente
 			<% elsif proposition.isAccepted == false %>
 				Refusée
@@ -40,7 +40,7 @@
 			<% end %>
 		</td>
 		<td>
-	        <% if proposition.motifCancelled == nil or proposition.motifCancelled ==''%>
+	        <% if proposition.motifCancelled.blank? %>
 				Pas de motif
 			<% else %>
 				<%= proposition.motifCancelled %>
@@ -48,21 +48,21 @@
 		</td>
         <td><%= proposition.proposition %></td>
 	        <td>
-	        <% if proposition.comment == nil or proposition.comment ==''%>
+	        <% if proposition.comment.blank? %>
 				Pas de commentaire
 			<% else %>
 				<%= proposition.comment %>
 			<% end %>
 		</td>
 		<td>
-	        <% if proposition.user.nil?%>
+	        <% if proposition.user.nil? %>
 				null
 			<% else %>
 				<a href="<%= user_path(proposition.user) %>"><%= proposition.user.name %> <%= proposition.user.lastName %></a>
 	        <% end %>
         </td>
         <td>
-	        <% if proposition.service.nil?%>
+	        <% if proposition.service.nil? %>
 				null
 			<% else %>
 				<a href="<%= service_path(proposition.service) %>"><%= proposition.service.title %></a>

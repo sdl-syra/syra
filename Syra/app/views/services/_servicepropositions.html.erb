@@ -1,6 +1,6 @@
 <div class="panel panel-default">
         <div class="panel-heading">
-        
+        	        
         <% if @service.user == current_user %>
 			<i class="fa fa-bar-chart-o fa-fw"></i> Les propositions
 			<% @lesServices = @service.propositions %>
@@ -26,9 +26,33 @@
                   </thead>
                   <tbody>
                     <% @lesServices.each do |prop| %>
+                    
+                    <div class="modal fade" id="modalRefus<%= prop.id %>" tabindex="-1" role="dialog" aria-labelledby="modalRefusLabel" aria-hidden="true">
+				        <div class="modal-dialog">
+				         <div class="modal-content">
+				            <div class="modal-header">
+				                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				                <h4 class="modal-title" id="modalRefusLabel">Refuser la proposition <%= prop.id %> de <%= prop.user.name %></h4>
+				            </div>
+				            <div class="modal-body">
+				            	<%= form_for prop, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
+								Motif de refus :
+								<%= f.text_area :motifCancelled, :class => 'form-control' %>
+								<%= f.hidden_field :isAccepted, value: false %>
+								<%= f.hidden_field :isPaid, value: false %>
+				            </div>
+				            <div class="modal-footer">
+				            	<%= f.submit 'Refuser', :class => 'btn btn-danger' %>
+				            	<% end %>
+				                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+				            </div>
+				         </div>
+				        </div>
+				    </div>
+  
                     <tr>
                       <td><%= prop.id %></td>
-                      <td><%= link_to User.find(prop.user_id).lastName,user_path(User.find(prop.user_id)) %></td>
+                      <td><%= link_to prop.user.name,user_path(prop.user) %></td>
                       <td>
                         <% if prop.isAccepted == nil %>
                             En attente
@@ -38,11 +62,15 @@
                             Acceptée
                         <% end %>
                       </td>
-                      <td><%= link_to 'Voir',proposition_path(prop) %> 
+                      <td><%= link_to 'Voir', proposition_path(prop), {:class=>"btn-link"} %> 
                       <% if @service.user == current_user %>
-	                      <% if prop.isAccepted == nil %>
-	                        <%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop) %>
-	                        <%= link_to 'Refuser', refuser_prop_service_path(@service, :prop => prop) %>
+	                      <% if prop.isAccepted.nil? %>
+	                        <%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop), {:class=>"btn-link"} %>
+	                        <button class="btn-link" data-toggle="modal" data-target="#modalRefus<%= prop.id %>">
+                               Refuser
+            				</button>
+	                        <%= # link_to 'Refuser', refuser_prop_service_path(@service, :prop => prop) 
+	                        %>
 	                      <% end %>
 	                  <% end %>
                       </td>
