@@ -72,7 +72,7 @@
 			          		<li><a href=#>Aucune notification</a></li>
 			          	<%else%>
 							<% Notification.where(user: User.find(current_user.id),is_checked: false).order(created_at: :desc).each do |n| %>
-								<li <%if n.is_checked==false%>style='background-color:yellow'<%end%>><a href="<%="http://localhost:3000/"+n.url%>">
+								<li <%if n.is_checked==false%>style='background-color:#F0E68C'<%end%>><a href="<%="http://localhost:3000/"+n.url%>">
 									<%if time_ago_in_words(n.created_at).end_with?"h" and time_ago_in_words(n.created_at).gsub("Il y a","").sub("h","").to_i>12%>
 										<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
 									<%else%>
