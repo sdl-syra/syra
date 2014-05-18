@@ -24,3 +24,14 @@ en:
   errors:
     # The default format to use in full error messages.
     format: "%{message}"
+  datetime:
+    distance_in_words:
+      less_than_x_minutes:
+        one: "Moins de 1mn"
+        other: "Moins de %{count}mn"
+      about_x_hours:
+        one: "Il y a %{count}h"
+        other: "Il y a %{count}h"
+      x_minutes:
+        one: "Il y a %{count}mn"
+        other: "Il y a %{count}mn"

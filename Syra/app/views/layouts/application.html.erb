@@ -43,7 +43,7 @@
 				</button>
 				<a class="navbar-brand" href="/"><strong>Syra</strong> <em>beta</em></a>
 			</div>
-
+			
 			<% if signed_in? then %>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
@@ -62,8 +62,18 @@
 			          	<%end%>
 			          <b class="caret"></b></a>
 			          <ul class="dropdown-menu">
-						<% Notification.where(user: User.find(current_user.id)).order(:is_checked).each do |n| %>
-							<li><a href="<%="http://localhost:3000/"+n.url%>"><%=n.created_at%> <%=n.label%></a></li>
+			          	<% if (Notification.where(user: User.find(current_user.id),is_checked: false).count==0) %>
+			          		<li><a href=#>Aucune notification</a></li>
+			          	<%else%>
+							<% Notification.where(user: User.find(current_user.id)).order(:is_checked,created_at: :desc).take(10).each do |n| %>
+								<li><a href="<%="http://localhost:3000/"+n.url%>">
+									<%if time_ago_in_words(n.created_at).end_with?"h" and time_ago_in_words(n.created_at).gsub("Il y a","").sub("h","").to_i>12%>
+										<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
+									<%else%>
+										<i><%=time_ago_in_words(n.created_at)%></i>
+									<%end%>
+									<%=n.label%></a></li>
+							<%end%>
 						<%end%>
 			          </ul>
 			        </li>

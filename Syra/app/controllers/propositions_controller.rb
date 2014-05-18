@@ -39,7 +39,7 @@ class PropositionsController < ApplicationController
         
         notification = Notification.new
         notification.user = @proposition.service.user
-        notification.label = "Nouvelle proposition !"
+        notification.label = "Nouvelle proposition pour '"+@proposition.service.title+"'"
         notification.is_checked = false
         notification.date = Date.today
         notification.url = "propositions/"+@proposition.id.to_s
