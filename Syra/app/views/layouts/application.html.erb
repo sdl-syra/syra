@@ -71,7 +71,7 @@
 			          	<% if (Notification.where(user: User.find(current_user.id)).count==0) %>
 			          		<li><a href=#>Aucune notification</a></li>
 			          	<%else%>
-							<% Notification.where(user: User.find(current_user.id)).order(:is_checked,created_at: :desc).take(10).each do |n| %>
+							<% Notification.where(user: User.find(current_user.id),is_checked: false).order(created_at: :desc).each do |n| %>
 								<li <%if n.is_checked==false%>style='background-color:yellow'<%end%>><a href="<%="http://localhost:3000/"+n.url%>">
 									<%if time_ago_in_words(n.created_at).end_with?"h" and time_ago_in_words(n.created_at).gsub("Il y a","").sub("h","").to_i>12%>
 										<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
@@ -79,6 +79,17 @@
 										<i><%=time_ago_in_words(n.created_at)%></i>
 									<%end%>
 									<%=n.label%></a></li>
+							<%end%>
+							<% if (Notification.where(user: User.find(current_user.id),is_checked: false).count<10) %>
+								<% Notification.where(user: User.find(current_user.id),is_checked: true).order(created_at: :desc).take(10-Notification.where(user: User.find(current_user.id),is_checked: false).count).each do |n| %>
+									<li <%if n.is_checked==false%>style='background-color:yellow'<%end%>><a href="<%="http://localhost:3000/"+n.url%>">
+										<%if time_ago_in_words(n.created_at).end_with?"h" and time_ago_in_words(n.created_at).gsub("Il y a","").sub("h","").to_i>12%>
+											<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
+										<%else%>
+											<i><%=time_ago_in_words(n.created_at)%></i>
+										<%end%>
+										<%=n.label%></a></li>
+								<%end%>
 							<%end%>
 							<li> <%= link_to 'Tout Supprimer',
 			                      delete_all_notifications_path,
