@@ -71,9 +71,9 @@ Hobby.create(label:'Mécanique')
 Hobby.create(label:'Lecture')
 
 
-Service.create(title: 'cours informatique',price: 20,description: 'JE SUIS UN GEEK',disponibility: 'quand tu veux bb',
+s1 = Service.create(title: 'cours informatique',price: 20,description: 'JE SUIS UN GEEK',disponibility: 'quand tu veux bb',
                isGiven: true, isFinished: true,
-               address_id: a2.id,category_id: c1.id,user_id:user1.id)
+               address_id: a2.id,category_id: c1.id,user_id:user2.id)
 
 
 s2 = Service.create(title: 'cours Rails',price: 30,description: 'Ruby !!',disponibility: 'a partir de 18h',
@@ -81,7 +81,7 @@ s2 = Service.create(title: 'cours Rails',price: 30,description: 'Ruby !!',dispon
                address_id: a2.id,category_id: c1.id,user_id:user2.id)
 
 
-Service.create(title: 'Jardinage',price: 30,description: 'surtout les fleurs',disponibility: 'a partir de 18h',
+s3 = Service.create(title: 'Jardinage',price: 30,description: 'surtout les fleurs',disponibility: 'a partir de 18h',
                isGiven: true, isFinished: false,
                address_id: a2.id,category_id: c2.id,user_id:user1.id)
 
@@ -105,4 +105,15 @@ Service.create(title: 'cours de piano',price: 30,description: 'medaille dor',dis
                isGiven: true, isFinished: false,
                address_id: a2.id,category_id: c4.id,user_id:user1.id)
 
-Proposition.create(isPaid: false, isAccepted: false, motifCancelled: false, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id)
+Proposition.create(isPaid: false, isAccepted: false, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s1.id)
+Proposition.create(isPaid: false, isAccepted: false, motifCancelled: 'Je ne suis pas dispo ce jour là.', proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id)
+Proposition.create(isPaid: nil, isAccepted: true, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id)
+Proposition.create(isPaid: true, isAccepted: true, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id)
+Proposition.create(isPaid: false, isAccepted: true, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id)

@@ -58,7 +58,7 @@
 					sans motif particulier.
 				<% else %>
 					pour le motif suivant : <br/>
-					<%= @proposition.motifCancelled %>
+					"<%= @proposition.motifCancelled %>"
 				<% end %>
 			<% else %>
 				a été acceptée!
@@ -72,7 +72,7 @@
 			<% elsif @proposition.isPaid == false %>
 				ne s'est pas réalisé.
 			<% else %>
-				a été réalisé
+				s'est réalisé.
 			<% end %>
         </dt>
 		<% end %>
@@ -90,7 +90,7 @@
 	                               Refuser
 	            </button>
 		<% end %>
-	<% elsif @proposition.service.isFinished==false and @proposition.service.user != current_user %>
+	<% elsif @proposition.service.isFinished==false and @proposition.service.user != current_user and @proposition.isAccepted==false %>
 		 <%= link_to 'Nouvelle proposition', new_proposition_path(:service => @proposition.service.id), {:class=> "btn btn-lg btn-info"}%>
 	<% end %>
 	<%= link_to t('.back', :default => t("helpers.links.back")),
