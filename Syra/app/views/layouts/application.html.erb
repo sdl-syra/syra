@@ -74,7 +74,11 @@
 									<%end%>
 									<%=n.label%></a></li>
 							<%end%>
-						<%end%>
+							<li> <%= link_to 'Tout Supprimer',
+			                      delete_all_notifications_path,
+			                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Voulez vous vraiment supprimer toutes les notifications ?')) },
+			                      :class => 'btn btn-mini btn-danger' %></li>
+				    	<%end%>
 			          </ul>
 			        </li>
 					<li>

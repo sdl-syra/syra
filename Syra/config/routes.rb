@@ -65,6 +65,8 @@ Syra::Application.routes.draw do
   get '/services_footer', :to => 'pages#services_footer'
   
   get '/test', :to => 'sessions#set_current_position'
+  
+  get '/delete_all_notifications', :to => 'notifications#deleteall'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
