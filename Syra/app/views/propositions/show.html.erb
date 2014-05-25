@@ -40,6 +40,9 @@
 			</a>			
         </p>
         <dt><strong>
+        	"<%= @proposition.comment %>"
+        </dt>
+        <dt><strong>
         	Proposée par 
         	<a href="<%= user_path(@proposition.user) %>">
 				<%= @proposition.user.name %> <%= @proposition.user.lastName %>
