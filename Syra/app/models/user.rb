@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   validates :email, confirmation: true, :confirmation => {:message => 'Les emails ne correspondent pas'}
   validates :email, uniqueness: true , :uniqueness => {:message => 'Votre email est déjà pris'}
   validates :email_confirmation, presence: true , :presence => {:on => :create, :message => 'Vous devez confirmer votre email'}
-  validates :phone, allow_nil: true, numericality: { only_integer: true, :message => "Format incorrect" }
+  validates :phone, allow_nil: true, numericality: { only_integer: true, :message => "Format incorrect" }, :length => { :minimum => 10, :maximum =>10, :message => "Format incorrect" }
   validates :accept_conditions, :inclusion => {:in => [true]}
   belongs_to :level
   belongs_to :success
