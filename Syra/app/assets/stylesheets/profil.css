@@ -11,7 +11,7 @@
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
-  display:inline-block !important;
+  display:inline-block;
 }
 .best_in_place:hover, .simili_bip:hover {
   padding-right: 1.5em;

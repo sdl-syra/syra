@@ -12,7 +12,7 @@ var toggleHobbies = function(){
 var toggleBirthday = function(){
     $('#currentbirthday').click(function() {  
         $('#birthdayedit').toggle();
-        $('#currentbirthday').toggle();
+        $('#currentbirthday').hide();
     });
 };
 
