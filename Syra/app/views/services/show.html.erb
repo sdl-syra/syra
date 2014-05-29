@@ -1,10 +1,11 @@
 
-  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-  <script src="../../assets/jquery.ui.addresspicker.js"></script>
- 
+  <% content_for :head do %>
+    <%= javascript_include_tag "jquery.min" %>
+    <%= javascript_include_tag "jquery-ui.min" %>
+  	<%= javascript_include_tag "jquery.ui.addresspicker" %>
+    <%= javascript_include_tag "googlemap" %>
+  <% end %> 
 <%- model_class = Service -%>
 
 
