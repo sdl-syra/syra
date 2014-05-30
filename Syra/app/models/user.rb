@@ -33,7 +33,9 @@ class User < ActiveRecord::Base
     self.email = auth['extra']['raw_info']['email']
     self.name = auth['extra']['raw_info']['first_name']
     self.lastName = auth['extra']['raw_info']['last_name']
-    self.remote_avatar_url = auth[:info][:image]
+    
+    #a reparer quand l'image sera op
+    #self.remote_avatar_url = auth[:info][:image]
 
     authentifications.build(:provider => auth['provider'], :uid => auth['uid'])
   end

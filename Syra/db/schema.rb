@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140517174927) do
+ActiveRecord::Schema.define(version: 20140518222723) do
+
+  create_table "activities", force: true do |t|
+    t.integer  "user_id"
+    t.string   "label"
+    t.string   "glyph_cat"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id"
 
   create_table "addresses", force: true do |t|
     t.string   "label"
     t.float    "x"
     t.float    "y"
-    t.float    "distance"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -88,7 +98,7 @@ ActiveRecord::Schema.define(version: 20140517174927) do
   create_table "propositions", force: true do |t|
     t.boolean  "isPaid"
     t.boolean  "isAccepted"
-    t.text     "motifCancelled"
+    t.boolean  "motifCancelled"
     t.date     "proposition"
     t.text     "comment"
     t.integer  "user_id"
@@ -172,6 +182,8 @@ ActiveRecord::Schema.define(version: 20140517174927) do
     t.string   "last_sign_in_ip"
     t.string   "avatar"
     t.boolean  "accept_conditions"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["address_id"], name: "index_users_on_address_id"

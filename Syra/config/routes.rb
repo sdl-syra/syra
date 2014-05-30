@@ -1,4 +1,6 @@
 Syra::Application.routes.draw do
+  resources :activities
+
   resources :notifications
 
   get "password_resets/new"
