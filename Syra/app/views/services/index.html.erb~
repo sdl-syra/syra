@@ -1,0 +1,140 @@
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<script>
+
+
+
+function GoogleMap(position) {  
+    var location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  
+    var map = new google.maps.Map(document.getElementById('map'), {  
+                    zoom: 10,  
+                    disableDefaultUI: true,   
+                    mapTypeId: google.maps.MapTypeId.TERRAIN,  
+                });  
+    var marker = new google.maps.Marker({  
+                    map: map,  
+                    position: location,  
+                    animation: google.maps.Animation.DROP,  
+                    title: "This is your location"  
+                });  
+    map.setCenter(location);  
+}
+function showError() {  
+    alert("Location can't be found");  
+} 
+
+window.onload = function() {
+	if (navigator.geolocation) {  
+	    navigator.geolocation.getCurrentPosition(GoogleMap, showError);  
+	}  
+	else {  
+    	alert("Your browser does not support Geolocation.");  
+	}
+}   
+</script>
+
+<%- model_class = Service -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+
+
+<%= search_form_for @q, url: search_services_path, html: {:method => 'get'} do |f| %>
+
+  <label class="col-sm-2 control-label"> Titre du service </label>
+  <div class="col-sm-1">
+   <%= f.text_field :title_or_description_cont %>
+ </div>
+
+ <br />
+ <div class ="col-sm-2">
+   <%= f.submit %>
+ </div>
+<% end %>
+
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:price) %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:disponibility) %></th>
+      <th><%= model_class.human_attribute_name(:isGiven) %></th>
+      <th><%= model_class.human_attribute_name(:isFinished) %></th>
+      <th><%= model_class.human_attribute_name(:address) %></th>
+      <th><%= model_class.human_attribute_name(:category) %></th>
+      <th><%= model_class.human_attribute_name(:user) %></th>
+      <th><%= model_class.human_attribute_name(:image) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  	<% if not @services == nil %>
+    <% @services.each do |service| %>
+      <tr>
+      	<td><%= service.id %></td>
+        <td><%= service.title %></td>
+        <td><%= service.price %></td>
+        <td><%= service.description %></td>
+        <td><%= service.disponibility %></td>
+        <td><%= service.isGiven %></td>
+        <td><%= service.isFinished %></td>
+        
+        
+        <!-- A modifier lors de la modif du type de l'adresse -->
+		<% if service.address.nil?%>
+			<td> null </td>
+		<% else %>
+			<td><%= service.address.label %></td>
+        <% end %>
+    	
+    		
+    	<% if service.category.nil?%>
+			<td> null </td>
+		<% else %>
+			<td><a href="<%= category_path(service.category) %>">[<%= service.category.id %>]<%= service.category.name %></a></td>
+        <% end %>
+        
+        
+        <% if service.user.nil?%>
+			<td> null </td>
+		<% else %>
+			<td><a href="<%= user_path(service.user) %>">[<%= service.user.id %>]<%= service.user.name %> <%= service.user.lastName %></a></td>
+        <% end %>
+   	 	
+   	 	
+   	 	<% if service.image_url.to_s=="/assets/image/image_service_default.png"%>
+   	 		<td><img src='/assets/image/index_image_service_default.png' alt='Image not found' /></td>
+   	 	<%else%>
+   	 		<td>
+   	 			<!-- ><a href='<%= service.image_url(:thumb).to_s%>' target="_blank"><img src='<%= service.image_url(:index).to_s %>' alt='Image not found' /></a>-->
+   	 			<img src='<%= service.image_url(:index).to_s %>' alt='Image not found' />
+   	 		</td>
+   	 	<%end%>
+        <td>
+          <%= link_to 'Voir',
+                      service_path(service), :class => 'btn btn-mini' %>
+          <%= link_to 'Editer',
+                      edit_service_path(service), :class => 'btn btn-mini' %>
+          <%= link_to 'Supprimer',
+                      service_path(service),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_service_path,
+            :class => 'btn btn-primary' %>
+            
+          </br>
+
+          <div id="map">
+   </div>
