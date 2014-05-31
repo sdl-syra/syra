@@ -18,6 +18,12 @@ var toggleBirthday = function(){
 
 function readURL(input) {
     if (input.files && input.files[0]) {
+    	var ext = input.value.split(".")[1].toUpperCase();
+    	if (ext != "PNG" && ext != "JPG" && ext != "JPEG") {
+    		alert("Formats jpg et png uniquement.");
+    		input.value = "";
+    		return;
+    	}
         var reader = new FileReader();
         reader.onload = function (e) {
             $('#imgtopreview').attr('src', e.target.result);

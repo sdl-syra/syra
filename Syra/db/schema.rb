@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(version: 20140518222723) do
     t.integer  "level_id"
     t.integer  "success_id"
     t.integer  "address_id"
+    t.boolean  "isAdmin"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password"
