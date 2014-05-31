@@ -41,7 +41,7 @@
 			</li>
 			<li>
 				<a id="avatarcontainer">
-				<span class="text-center" id="currentavatar">
+				<span class="text-center" id=<%if @user==current_user%>"currentavatar"<%end%>>
 					<% if @user.avatar.nil? %>
 						Aucune image
 					<%else%>
