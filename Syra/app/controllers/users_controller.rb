@@ -86,8 +86,14 @@ class UsersController < ApplicationController
 
   def upload_avatar
     uploaded_io = params[:user][:avatar]
-    File.open(Rails.root.join('app', 'assets','images', uploaded_io.original_filename), 'wb') do |file|
+    File.open(Rails.root.join('app', 'assets','images/avatars', current_user.id.to_s+'avatar.png'), 'wb') do |file|
       file.write(uploaded_io.read)
+    end
+    current_user.avatar = current_user.id.to_s+'avatar.png'
+    current_user.save
+    respond_to do |format|
+      format.html { redirect_to current_user, notice: 'User was successfully updated.' }
+      format.json { head :no_content }
     end
   end
 

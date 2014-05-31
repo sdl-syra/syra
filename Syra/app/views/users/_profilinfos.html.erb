@@ -1,5 +1,28 @@
 <%- model_class = User -%>
 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Prévisualisation</h4>
+      </div>
+      <div class="modal-body text-center">
+      	<ul class="nav">
+			<li><img src="#" id="imgtopreview" alt="avatar" onerror="this.src='/assets/noavatar.png'"/></li>
+		</ul>
+      </div>
+      <div class="modal-footer">
+        <%= form_for @user, method: :post, :url => url_for(:controller => 'users', :action => 'upload_avatar') do |f| %>
+		  <%= f.file_field :avatar %>
+		  <%= f.submit 'Valider', :class => 'btn btn-primary' %>
+		<% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <nav class="navbar-default navbar-static-side" role="navigation">
 	<div class="sidebar-collapse">
 		<ul class="nav" id="side-menu">
@@ -14,12 +37,18 @@
 				<!-- /input-group -->
 			</li>
 			<li>
-					
-					
-					
-					
 				
-				
+			</li>
+			<li>
+				<a id="avatarcontainer">
+				<span class="text-center" id="currentavatar">
+					<% if @user.avatar.nil? %>
+						Aucune image
+					<%else%>
+						<%=image_tag "avatars/"+@user.avatar, :class => "style_image" %>
+					<%end%>
+				</span>
+				</a>
 			</li>
 			<li>
 				<a> <%= @user.name %> </a>

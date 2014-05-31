@@ -22,3 +22,9 @@
   -webkit-box-shadow : 2px 2px 3px gray;
   -khtml-box-shadow : 2px 2px 3px gray;
 }
+.style_image {
+	max-width:100%
+}
+#currentavatar:hover {
+	cursor:pointer;
+}
