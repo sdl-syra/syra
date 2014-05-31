@@ -313,3 +313,14 @@ table.dataTable thead .sorting:after {
 	margin-left: auto;
   	margin-right: auto;
 }
+
+
+
+.announcement-heading {
+  font-size: 35px;
+  margin: 0;
+}
+
+.announcement-text {
+  margin: 0;
+}

@@ -64,6 +64,8 @@ Syra::Application.routes.draw do
   
   get '/contact', :to => 'pages#contact'
   
+  get '/administrator', :to => 'pages#administrator'
+  
   get '/services_footer', :to => 'pages#services_footer'
   
   get '/test', :to => 'sessions#set_current_position'

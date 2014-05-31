@@ -1,0 +1,247 @@
+<%- model_class = Service -%>
+<%- model_class = User -%>
+
+<div id="wrapper">
+	<div>
+		<div class="row">
+			<div class="col-lg-12">
+				<h1><i class="fa fa-dashboard"></i> Dashboard <small> de Syra</small></h1></br>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+						&times;
+					</button>
+					<strong>Bienvenue sur le dashboard de Syra!</strong> Vous trouverez toutes les infos utiles de Syra, le nombre de services proposés, le nombre de membres, les membres premium, etc.
+				</div>
+			</div>
+		</div><!-- /.row -->
+
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<i class="fa fa-users fa-5x"></i>
+							</div>
+							<div class="col-xs-6 text-right">
+								<p class="announcement-heading">
+									<strong><%= User.count %></strong>
+								</p>
+								<p class="announcement-text">
+									utilisateurs!
+								</p>
+							</div>
+						</div>
+					</div>
+					<a href="#">
+					<div class="panel-footer announcement-bottom">
+						<div class="row">
+							<div class="col-xs-6">
+								Voir nos utilisateurs
+							</div>
+							<div class="col-xs-6 text-right">
+								<i class="fa fa-arrow-circle-right"></i>
+							</div>
+						</div>
+					</div> </a>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<i class="fa fa-comments fa-5x"></i>
+							</div>
+							<div class="col-xs-6 text-right">
+								<p class="announcement-heading">
+									<%= Service.count %>
+								</p>
+								<p class="announcement-text">
+									services en ce moment
+								</p>
+							</div>
+						</div>
+					</div>
+					<a href="#">
+					<div class="panel-footer announcement-bottom">
+						<div class="row">
+							<div class="col-xs-6">
+								Voir tous les services
+							</div>
+							<div class="col-xs-6 text-right">
+								<i class="fa fa-arrow-circle-right"></i>
+							</div>
+						</div>
+					</div> </a>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="panel panel-danger">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<i class="fa fa-exclamation-triangle  fa-5x"></i>
+							</div>
+							<div class="col-xs-6 text-right">
+								<p class="announcement-heading">
+									0
+								</p>
+								<p class="announcement-text">
+									report(s)
+								</p>
+							</div>
+						</div>
+					</div>
+					<a href="#">
+					<div class="panel-footer announcement-bottom">
+						<div class="row">
+							<div class="col-xs-6">
+								Voir les reports
+							</div>
+							<div class="col-xs-6 text-right">
+								<i class="fa fa-arrow-circle-right"></i>
+							</div>
+						</div>
+					</div> </a>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<i class="fa fa-money fa-5x"></i>
+							</div>
+							<div class="col-xs-6 text-right">
+								<p class="announcement-heading">
+									56
+								</p>
+								<p class="announcement-text">
+									HP au total!
+								</p>
+							</div>
+						</div>
+					</div>
+					<a href="#">
+					<div class="panel-footer announcement-bottom">
+						<div class="row">
+							<div class="col-xs-6">
+								Injecter de l'argent
+							</div>
+							<div class="col-xs-6 text-right">
+								<i class="fa fa-arrow-circle-right"></i>
+							</div>
+						</div>
+					</div> </a>
+				</div>
+			</div>
+		</div><!-- /.row -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Statistiques</h3>
+					</div>
+					<div class="panel-body">
+						<div id="morris-chart-area"></div>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.row -->
+
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-key"></i> Liste des admins</h3>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover table-striped tablesorter">
+								<thead>
+									<tr>
+										<th> # <i class="fa fa-sort"></i></th>
+										<th>Nom</th>
+										<th>Prénom</th>
+										<th>E-mail</th>
+									</tr>
+								</thead>
+								<tbody>
+									<%  User.all.each do |user| %>
+									<%  if user.isAdmin == true %>
+									<tr>
+										<td><%= link_to user.id, user_path(user) %></td>
+										<td><%= user.name %></td>
+										<td><%= user.lastName %></td>
+										<td><%= user.email %></td>
+									</tr>
+									<% end %>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+						<div class="text-right">
+							<a href="#">Voir tous les admins <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-clock-o"></i> Activités récentes (à développer)</h3>
+					</div>
+					<div class="panel-body">
+						<div class="list-group">
+							<a href="#" class="list-group-item"> <span class="badge">just now</span> <i class="fa fa-calendar"></i> (à développer) </a>
+						</div>
+						<div class="text-right">
+							<a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-star "></i> Compte Premium </h3>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover table-striped tablesorter">
+								<thead>
+									<tr>
+										<th> # <i class="fa fa-sort"></i></th>
+										<th>Nom</th>
+										<th>Prénom</th>
+										<th>E-mail</th>
+									</tr>
+								</thead>
+								<tbody>
+									<%  User.all.each do |user| %>
+									<%  if user.isPremium == true %>
+									<tr>
+										<td><%= link_to user.id, user_path(user) %></td>
+										<td><%= user.name %></td>
+										<td><%= user.lastName %></td>
+										<td><%= user.email %></td>
+									</tr>
+									<% end %>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+						<div class="text-right">
+							<a href="#">Voir tous les premiums <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.row -->
+
+	</div><!-- /#page-wrapper -->
+
+</div>
+

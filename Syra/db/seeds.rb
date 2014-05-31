@@ -27,7 +27,7 @@ l1 = Level.create(levelUser:1,XPUser:0)
 
 user1 = User.create!(name: 'Maxime', lastName: 'Prudhomme', password:'12345678', email:'prudhommemaxime@gmail.com', money: '12',
            phone:'0601280156',biography:'Bla Bla Biographie',isPremium:false,level_id:l1.id,address_id:a1.id,
-           email_confirmation:'prudhommemaxime@gmail.com',password_confirmation:'12345678',accept_conditions:true)
+           email_confirmation:'prudhommemaxime@gmail.com',password_confirmation:'12345678',accept_conditions:true, isAdmin:false)
 
 
 a2 = Address.create(label:'rue Nationale Lille 59000', x: 5, y: 4)
@@ -36,7 +36,7 @@ l2 = Level.create(levelUser:1,XPUser:0)
 
 user2 = User.create!(name: 'Maxime', lastName: 'Boutrouille', password:'12345678', email:'boutrouillemaxime@gmail.com', money: '12',
            phone:'0601280156',biography:'Bla Bla Biographie',isPremium:false,level_id:l2.id,address_id:a2.id,
-           email_confirmation:'boutrouillemaxime@gmail.com',password_confirmation:'12345678',accept_conditions:true)
+           email_confirmation:'boutrouillemaxime@gmail.com',password_confirmation:'12345678',accept_conditions:true, isAdmin:false)
 
 a3 = Address.create(label:'83 rue Jacquemars gielee', x: 5, y: 4)
 l3 = Level.create(levelUser:1,XPUser:0)
@@ -44,7 +44,7 @@ l3 = Level.create(levelUser:1,XPUser:0)
 
 user3 = User.create!(name: 'Xavier', lastName: 'Koma', password:'12345678', email:'xavierkoma@gmail.com', money: '12',
            phone:'0601280156',biography:'Bla Bla Biographie',isPremium:false,level_id:l3.id,address_id:a3.id,
-           email_confirmation:'xavierkoma@gmail.com',password_confirmation:'12345678',accept_conditions:true)
+           email_confirmation:'xavierkoma@gmail.com',password_confirmation:'12345678',accept_conditions:true, isAdmin:true)
 
 a4 = Address.create(label:'25 rue Royale', x: 5, y: 4)
 l4 = Level.create(levelUser:1,XPUser:0)
@@ -52,7 +52,7 @@ l4 = Level.create(levelUser:1,XPUser:0)
 
 user4 = User.create!(name: 'Julien', lastName: 'Duquesnoy', password:'12345678', email:'djulien59@hotmail.fr', money: '99999999',
            phone:'0619333333',biography:'Bla Bla Biographie',isPremium:true,level_id:l4.id,address_id:a4.id,
-           email_confirmation:'djulien59@hotmail.fr',password_confirmation:'12345678',accept_conditions:true)
+           email_confirmation:'djulien59@hotmail.fr',password_confirmation:'12345678',accept_conditions:true, isAdmin:false)
 
 a5 = Address.create(label:'25 rue de Calais', x: 5, y: 4)
 l5 = Level.create(levelUser:1,XPUser:0)
