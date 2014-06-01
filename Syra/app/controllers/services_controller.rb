@@ -23,9 +23,9 @@ class ServicesController < ApplicationController
         address << Address.find(service.address_id)
       end 
       respond_to do |format|
-        format.js
+        #format.js
         format.html # index.html.erb
-        format.json { render json: address }
+        #format.json { render json: address }
       end
     else
       @services = Service.all
@@ -35,9 +35,9 @@ class ServicesController < ApplicationController
       end 
       @services.sort! { |a, b| b.address <=> a.address }
       respond_to do |format|
-        format.js
+        #format.js
         format.html # index.html.erb
-        format.json { render json: address }
+        #format.json { render json: address }
       end
     end
     
