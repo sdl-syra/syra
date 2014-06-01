@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20140518222723) do
     t.string   "label"
     t.float    "x"
     t.float    "y"
+    t.float    "distance"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
