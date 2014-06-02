@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   def self.authenticate_safely(email, password)
     user = find_by_email(email)
     return nil  if user.nil?
-    return user if user.has_password?(password)
+    return user if user.has_password?(password,user.encrypted_password)
   end
 
   def self.authenticate_with_salt(id, cookie_salt)
@@ -65,8 +65,8 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_password
 
-  def has_password?(password_soumis)
-    encrypted_password == encrypt(password_soumis)
+  def has_password?(password_soumis,password)
+    password == encrypt(password_soumis)
   end
 
   def following?(followed)
@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def encrypt(string)
-    secure_hash("#{salt}--#{string}")
+    secure_hash(string)
   end
 
   def make_salt
