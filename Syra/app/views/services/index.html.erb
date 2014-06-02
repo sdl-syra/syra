@@ -29,18 +29,18 @@
   <div id="avancedparams">
     <div class="row">
     <div class="col-xs-1 .col-sm-1"></div>
-    <div class="col-xs-2 .col-sm-3 ">
+    <div class="col-xs-2 .col-sm-3" id="check">
       <div class="row">
         <div class="col-md-1"></div>
         </br><div class="col-md-3"> Catégorie </div>
       </div>
-      <% @categories = Category.find(:all) 
+      <% @categories = Category.all
         @categories.each do |cat| %>
       <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-3 checkbox">
           <label>
-            <input type="checkbox" value="">
+              <%= check_box_tag "q[category_name_cont_any][]", cat.name %>
               <%= cat.name %>
           </label>
         </div>
@@ -54,19 +54,14 @@
     <br/><b><a id="regionB">Région </a></b>
     <div id="region">
       <div><b> Region : </b></div><br/>
-      <SELECT name="region" size="1">
-        <OPTION>Peu importe
-        <OPTION>Nord-Pas-De-Calais
-        <OPTION>Picardie
-        <OPTION>PACA
-      </SELECT>
+      <%= f.select :address_region_cont, options_for_select([['Selectionner',''],['Nord-Pas-de-Calais'],['Picardie']], :selected => :address_region) %>
     </div>
 
     <br/> <br/><B><a id="villeB">Ville</a></B>
 
     <div id="ville">
         <div><b> Ville : </b></div><br/>
-        <input type:"text"></input>  
+        <%= f.text_field :address_ville_cont, :id=>'ville_textfield' %>
     </div>
       
 
@@ -78,6 +73,8 @@
     <div class="row">
       <div id="slider_prix" class="col-md-3"></div>
     </div>
+    <%= f.hidden_field :price_lteq %>
+    <%= f.hidden_field :price_gteq %> 
     <br/>
     <br/>
     <div class="row">
@@ -111,6 +108,40 @@ $("#avancedClose").click(function() {
     cursor: "wait"
   });
   $( "#avanced" ).css("cursor", "pointer" );
+
+  // on vide les attributs avancés
+
+  // on decoche tout
+   var cases = $("#check").find(':checkbox');
+   cases.attr('checked', false);
+
+  // on supprime la ville
+  $("#ville_textfield:text").val('');
+
+  // on place le select à 'select'
+  $("#q_address_region_cont option:first").attr("selected", "selected");
+
+  // les valeurs min et max du prix
+   $("#slider_prix").slider({
+        range:  true,
+        min:    0,          // valeur min
+        max:    100,       // valeur max
+        values: [0, 40],   // position des 2 curseurs à l'initialisation
+         
+        // Action à effectuer lorsqu'on déplace l'un des curseur
+        slide: function(event, ui){
+            $('#prix_min').html(ui.values[0]);
+            $('#prix_max').html(ui.values[1]);
+            $('#q_price_gteq').val(ui.values[0]);
+            $('#q_price_lteq').val(ui.values[1]);
+        }
+    });
+    $('#prix_min').html($("#slider_prix").slider("values", 0));
+    $('#prix_max').html($("#slider_prix").slider("values", 1));
+    $('#q_price_gteq').val($("#slider_prix").slider("values", 0));
+    $('#q_price_lteq').val($("#slider_prix").slider("values", 1));
+
+
   $( "#avancedparams" ).slideUp( "fast", function() {
     $("#recherche").show();
     $( "#avancedClose" ).hide();
@@ -151,23 +182,30 @@ $("#villeB").click(function() {
 });
 
 jQuery(document).ready(function($){
+    // On vide le champs Ville
+    $("#ville_textfield:text").val('');
+
     // Création d'un slider dans l'élément id slider_prix
     $("#slider_prix").slider({
         range:  true,
         min:    0,          // valeur min
-        max:    1000,       // valeur max
-        values: [0, 600],   // position des 2 curseurs à l'initialisation
+        max:    100,       // valeur max
+        values: [0, 40],   // position des 2 curseurs à l'initialisation
          
         // Action à effectuer lorsqu'on déplace l'un des curseur
         slide: function(event, ui){
             $('#prix_min').html(ui.values[0]);
             $('#prix_max').html(ui.values[1]);
+            $('#q_price_gteq').val(ui.values[0]);
+            $('#q_price_lteq').val(ui.values[1]);
         }
     });
      
     // Initialisation des valeurs numériques au chargement de la page
     $('#prix_min').html($("#slider_prix").slider("values", 0));
     $('#prix_max').html($("#slider_prix").slider("values", 1));
+    $('#q_price_gteq').val($("#slider_prix").slider("values", 0));
+    $('#q_price_lteq').val($("#slider_prix").slider("values", 1));
 });
  
 </script>

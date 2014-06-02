@@ -75,14 +75,17 @@ class ServicesController < ApplicationController
     puts service_params
     tmp = service_params[:address_label]
     tmpx = service_params[:address][:x]
-    puts " TEST TMPX " + tmpx
     tmpy = service_params[:address][:y]
+    tmpr = service_params[:address][:region]
+    tmpv = service_params[:address][:ville]
     @service = Service.new(service_params.except(:address_label, :address))
     if tmp != ""
       ad = Address.new
       ad.x = tmpx
       ad.label = tmp
       ad.y = tmpy
+      ad.region = tmpr
+      ad.ville = tmpv
       ad.save
       @service.address = ad
     end
