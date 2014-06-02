@@ -4,6 +4,7 @@
     <%= javascript_include_tag "jquery-ui.min" %>
     <%= javascript_include_tag "googlemap" %>
   	<%= javascript_include_tag "mapservices" %>
+    <%= stylesheet_link_tag 'service' %>
   <% end %>
   
 
@@ -14,17 +15,97 @@
 
 
 <%= search_form_for @q, url: index_services_path, html: {:method => 'get'} do |f| %>
-  
-  <label class="col-sm-2 control-label"> Titre du service </label>
-  <div class="col-sm-1">
-   <%= f.text_field :title_or_description_cont %>
- </div>
- <br />
- <div class ="col-sm-2">
-   <%= f.submit "test" %>
- </div>
+  <div class="row">
+    <label class="col-sm-2 control-label"> Titre du service </label>
+    <div class="col-sm-1">
+      <%= f.text_field :title_or_description_cont %>
+    </div>
+    <div class ="col-sm-2">
+      <%= f.submit "rechercher" %>
+    </div>
+
+    <div class="col-sm-2">
+       <a id="avanced"> Paramètres avancés </a>
+    </div>
+  </div>
+  <div id="avancedparams" hidden="true">
+    <div class="row">
+    <div class="col-xs-6 .col-sm-3 ">
+      <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-3"> Catégorie </div>
+    </div>  
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-3 checkbox">
+        <label>
+          <input type="checkbox" value="">
+            jardinage
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-3 checkbox">
+        <label>
+          <input type="checkbox" value="">
+            informatique
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-3 checkbox">
+        <label>
+          <input type="checkbox" value="">
+            Aide à domicile
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class ="col-xs-6 .col-sm-3">
+    <div><b>Prix :</b></div><br/>
+    <div id="bornes_prix">De <span id="prix_min"></span> à <span id="prix_max"></span> HP</div>
+    <div id="slider_prix"></div>
+  </div>
+</div>
+</div>
 <% end %>
 
+<script>
+$("#avanced").click(function() {
+  $( this ).css({
+    borderStyle: "inset",
+    cursor: "wait"
+  });
+  $( "#avancedparams" ).slideDown( "fast", function() {
+    
+    $( "#avanced" ).css( "visibility", "hidden" );
+  });
+});
+
+jQuery(document).ready(function($){
+    // Création d'un slider dans l'élément id slider_prix
+    $("#slider_prix").slider({
+        range:  true,
+        min:    0,          // valeur min
+        max:    1000,       // valeur max
+        values: [0, 600],   // position des 2 curseurs à l'initialisation
+         
+        // Action à effectuer lorsqu'on déplace l'un des curseur
+        slide: function(event, ui){
+            $('#prix_min').html(ui.values[0]);
+            $('#prix_max').html(ui.values[1]);
+        }
+    });
+     
+    // Initialisation des valeurs numériques au chargement de la page
+    $('#prix_min').html($("#slider_prix").slider("values", 0));
+    $('#prix_max').html($("#slider_prix").slider("values", 1));
+});
+ 
+</script>
 
 
 <table class="table table-striped">

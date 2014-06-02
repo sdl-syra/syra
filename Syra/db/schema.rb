@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 20140518222723) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "avatar"
+    t.boolean "isAdmin"
     t.boolean  "accept_conditions"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
