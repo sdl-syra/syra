@@ -23,7 +23,7 @@ class ServicesController < ApplicationController
         address << Address.find(service.address_id)
       end 
       respond_to do |format|
-        #format.js
+        format.js
         format.html # index.html.erb
         format.json { render json: address }
       end
@@ -35,7 +35,7 @@ class ServicesController < ApplicationController
       end 
       @services.sort! { |a, b| b.address <=> a.address }
       respond_to do |format|
-        #format.js
+        format.js
         format.html # index.html.erb
         format.json { render json: address }
       end

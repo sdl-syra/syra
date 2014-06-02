@@ -67,6 +67,7 @@ function showError() {
 
 window.onload = function() {
   if (navigator.geolocation) {
+  	  $.ajaxSetup({ cache: false });
       navigator.geolocation.getCurrentPosition(GoogleMap, showError);
       navigator.geolocation.getCurrentPosition(function(pos){
         $.post('/set_geolocation', {latitude: pos.coords.latitude, longitude: pos.coords.longitude});
