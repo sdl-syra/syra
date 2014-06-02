@@ -25,7 +25,7 @@ class ServicesController < ApplicationController
       respond_to do |format|
         #format.js
         format.html # index.html.erb
-        #format.json { render json: address }
+        format.json { render json: address }
       end
     else
       @services = Service.all
@@ -37,7 +37,7 @@ class ServicesController < ApplicationController
       respond_to do |format|
         #format.js
         format.html # index.html.erb
-        #format.json { render json: address }
+        format.json { render json: address }
       end
     end
     
@@ -104,13 +104,16 @@ class ServicesController < ApplicationController
     puts service_params
     tmp = service_params[:address_label]
     tmpx = service_params[:address][:x]
-    puts " TEST TMPX " + tmpx
     tmpy = service_params[:address][:y]
+    tmpr = service_params[:address][:region]
+    tmpv = service_params[:address][:ville]
     if tmp != ""
       ad = Address.new
       ad.x = tmpx
       ad.label = tmp
       ad.y = tmpy
+      ad.region = tmpr
+      ad.ville = tmpv
       ad.save
       @service.address = ad
     end
@@ -169,7 +172,7 @@ class ServicesController < ApplicationController
  
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :isFinished, :address_label, :category_id, :user_id,address: [:x,:y])
+      params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :isFinished, :address_label, :category_id, :user_id,address: [:x,:y,:region,:ville])
     end
 
 end

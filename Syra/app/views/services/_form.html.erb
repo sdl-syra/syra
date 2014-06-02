@@ -75,6 +75,8 @@
 <%= f.fields_for :address,@service.address do |adr| %>
   <%= adr.hidden_field :x %>
   <%= adr.hidden_field :y %>
+  <%= adr.hidden_field :region %>
+  <%= adr.hidden_field :ville %>
 <% end %>
 
 <% end %>

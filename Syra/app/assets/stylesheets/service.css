@@ -1,3 +1,31 @@
 #avanced{
 	cursor: pointer;
 }
+
+#avancedparams{
+	display: none;
+}
+
+#regionB{
+	cursor: pointer;
+}
+
+#region{
+	display: none;
+}
+
+#ville{
+	display: none;
+}
+
+#villeB{
+	cursor: pointer;
+}
+
+#avancedClose{
+	cursor: pointer;
+}
+
+#map{
+	width:100%;
+}
