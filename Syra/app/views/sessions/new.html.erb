@@ -1,7 +1,9 @@
 
 <div class="container">
 		<h1>Identifies-toi! </h1>
-
+		<% if not flash[:error].nil? %>
+			<div class="col-md-offset-8 text-center alert alert-danger"><%= flash[:error] %></div>
+		<% end %>
 		<%= form_for(:session, :url => sessions_path, :html => { :class => 'form-signin', :role => 'form' }) do |f| %>
 
 		<div class="field">
