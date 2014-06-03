@@ -10,7 +10,7 @@ function addMarkerArray( markersArray, map)
           var marker2 = new google.maps.Marker({
               position: myLatlng2,
               map: map,
-              url:"localhost:3000/services/"+idService,
+              url: $(location).attr('href')+'/'+idService,
               title:titreService
           });
 
