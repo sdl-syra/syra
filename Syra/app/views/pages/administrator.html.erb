@@ -117,7 +117,9 @@
 								<p class="announcement-heading">
 									<% totalHP = 0 %>
 									<%  User.all.each do |user| %>
-										<% totalHP = totalHP + user.money.to_i %>
+										<% if not user.isAdmin?%>
+											<% totalHP = totalHP + user.money.to_i %>
+										<% end %>
 									<% end %>
 									<%= totalHP %>
 								</p>
@@ -127,7 +129,11 @@
 							</div>
 							<div class="col-xs-6 text-right">
 								<p class="announcement-heading">
+								<% if User.count != 0 %>
 									<%= totalHP/User.count%>
+								<% else %>
+									0
+								<% end %>
 								</p>
 								<p class="announcement-text">
 									HP/user en moyenne
