@@ -7,15 +7,16 @@ function addMarkerArray( markersArray, map)
           var myLatlng2 = new google.maps.LatLng(latitude2,longitude2);
           var titreService = markersArray[i].title;
           var idService = markersArray[i].id;
-          alert(idService);
+          //alert(idService);
           var marker2 = new google.maps.Marker({
               position: myLatlng2,
               map: map,
+              url: $(location).attr('href')+'/'+idService,
               title:titreService
           });
 
           google.maps.event.addListener(marker2, 'click', function() {
-            window.location.href = $(location).attr('href')+'/'+idService;
+            window.location.href = this.url;
           });
         }
     }
