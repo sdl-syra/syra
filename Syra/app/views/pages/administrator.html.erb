@@ -33,7 +33,7 @@
 							</div>
 						</div>
 					</div>
-					<a href="#">
+					<a href="/administrator/users">
 					<div class="panel-footer announcement-bottom">
 						<div class="row">
 							<div class="col-xs-6">
@@ -63,7 +63,7 @@
 							</div>
 						</div>
 					</div>
-					<a href="#">
+					<a href="/administrator/services">
 					<div class="panel-footer announcement-bottom">
 						<div class="row">
 							<div class="col-xs-6">
@@ -115,10 +115,22 @@
 							</div>
 							<div class="col-xs-6 text-right">
 								<p class="announcement-heading">
-									56
+									<% totalHP = 0 %>
+									<%  User.all.each do |user| %>
+										<% totalHP = totalHP + user.money.to_i %>
+									<% end %>
+									<%= totalHP %>
 								</p>
 								<p class="announcement-text">
 									HP au total!
+								</p>
+							</div>
+							<div class="col-xs-6 text-right">
+								<p class="announcement-heading">
+									<%= totalHP/User.count%>
+								</p>
+								<p class="announcement-text">
+									HP/user en moyenne
 								</p>
 							</div>
 						</div>
@@ -170,7 +182,7 @@
 								</thead>
 								<tbody>
 									<%  User.all.each do |user| %>
-									<%  if user.isAdmin == true %>
+									<%  if user.isAdmin? %>
 									<tr>
 										<td><%= link_to user.id, user_path(user) %></td>
 										<td><%= user.name %></td>
@@ -221,7 +233,7 @@
 								</thead>
 								<tbody>
 									<%  User.all.each do |user| %>
-									<%  if user.isPremium == true %>
+									<%  if user.isPremium? %>
 									<tr>
 										<td><%= link_to user.id, user_path(user) %></td>
 										<td><%= user.name %></td>

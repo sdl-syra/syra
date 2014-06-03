@@ -43,9 +43,9 @@ Syra::Application.routes.draw do
 
   delete '/signout', :to => 'sessions#destroy'
 
-  get '/admin/services',  :to => 'services#admin'
-  get '/admin/users',  :to => 'users#admin'
-  get '/admin/propositions',  :to => 'propositions#admin'
+  get '/administrator/services',  :to => 'services#admin'
+  get '/administrator/users',  :to => 'users#admin'
+  get '/administrator/propositions',  :to => 'propositions#admin'
 
   get '/create_service', :to => 'services#new'
   get '/recherche', :to=> 'services#index'
