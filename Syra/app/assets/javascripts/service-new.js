@@ -6,7 +6,7 @@ $(document).ready(function() {
       regionBias: "fr",
       updateCallback: showCallback,
       mapOptions: {
-        zoom: 4,
+        zoom: 12,
         center: new google.maps.LatLng($("#y").text(), $("#x").text()),
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP
