@@ -50,7 +50,6 @@
 	<label class="col-sm-2 control-label"> Adresse* </label>
 	<div class="col-sm-5">
     <%= f.text_field :address_label, :class => 'text_field', :value => current_user.address.label, :id => "addresspicker_map" %>
-		<%= link_to_function "Mon adresse", "remplirAdresse()", :class => 'btn btn-primary'%>
 	</div>
 </div>
 <div class="form-group">
@@ -95,4 +94,5 @@
     </div>
 </div>
 
-
+<div id="y" style="display:none"><%= current_user.address.y %></div>
+<div id="x" style="display:none"><%= current_user.address.x %></div>
