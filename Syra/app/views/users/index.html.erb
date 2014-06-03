@@ -4,32 +4,31 @@
 </div>
 
 <%= search_form_for @q do |f| %>
-
-  <label class="col-sm-2 control-label"> Prénom </label>
-   <%= f.text_field :name_cont %>
- <label class="col-sm-2 control-label"> Nom </label>
-   <%= f.text_field :lastName_cont %>
- <div class ="col-sm-2">
-   <%= f.submit %>
- </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+      <div class="input-group custom-search-form">
+      <%= f.text_field :name_or_lastName_cont, :placeholder =>"indiquez un nom ou un prénom", :class=>"form-control"%>
+      <span class="input-group-btn">
+        <%= button_tag( :class =>"btn btn-default") do %>
+            <i class="fa fa-search"></i>
+        <% end %>
+      </span>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:lastName) %></th>
+      <th>Prénom</th>
+      <th>Nom</th>
       <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:money) %></th>
-      <th><%= model_class.human_attribute_name(:password) %></th>
-      <th><%= model_class.human_attribute_name(:biography) %></th>
-      <th><%= model_class.human_attribute_name(:isPremium) %></th>
+      <th>Premium</th>
       <th><%= model_class.human_attribute_name(:level_id) %></th>
-      <th><%= model_class.human_attribute_name(:success_id) %></th>
-      <th><%= model_class.human_attribute_name(:address_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Adresse </th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -37,43 +36,31 @@
     <% if not @users == nil %>
      <%  @users.each do |user| %>
       <tr>
-        <td><%= link_to user.id, user_path(user) %></td>
         <td><%= user.name %></td>
         <td><%= user.lastName %></td>
         <td><%= user.email %></td>
-        <td><%= user.money %></td>
-        <td><%= user.password %></td>
-        <td><%= user.biography %></td>
-        <td><%= user.isPremium %></td>
-        <td><%= user.level_id %></td>
-        <td><%= user.success_id %></td>
-        <td><%= user.address_id %></td>
-        <td><%= user.created_at %></td>
+        <td><% if user.isPremium == false %> Non <% else %> Oui <% end %> </td>
+        <td><%= user.level.levelUser %></td>
+        <td><%= user.address.label %></td>
         <td>
           <% if signed_in? %>
             <% if user.email != current_user.email then %>
               <% if user.followedBy?(current_user) == nil %>
                <%= link_to 'Suivre',
-                 follow_user_path(user, :user => user), :class => 'btn btn-mini' %>
-             <% end %>
+                 follow_user_path(user, :user => user), :class => 'btn btn-primary' %>
+              <% end %>
+              <%= link_to 'Voir',
+                      user_path(user), :class => 'btn btn-info' %>
+            <% else %>
+              <%= link_to 'Voir',
+                      user_path(user), :class => 'btn btn-info' %>
+              <%= link_to 'Editer',
+                      edit_user_path(user), :class => 'btn btn-warning' %>
             <% end %>
           <% end %>
-          <%= link_to 'Voir',
-                      user_path(user), :class => 'btn btn-mini' %>
-          <%= link_to 'Editer',
-                      edit_user_path(user), :class => 'btn btn-mini' %>
-          <%= link_to 'Supprimer',
-                      user_path(user),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
     <% end %>
   <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_user_path,
-            :class => 'btn btn-primary' %>

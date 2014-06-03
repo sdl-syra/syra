@@ -18,9 +18,15 @@
 <%= search_form_for @q, url: index_services_path, html: {:method => 'get'} do |f| %>
   <div class="row">
     <div class="col-md-1"></div>
-    <div class="col-md-4"> Titre du service :
-      <%= f.text_field :title_or_description_cont %>
-      <%= f.submit "rechercher", :id => "recherche", :class => 'btn btn-primary'%>
+    <div class="col-md-2">
+      <div class="input-group custom-search-form">
+      <%= f.text_field :title_or_description_cont,:placeholder =>"Chercher un service", :class=>"form-control"%>
+       <span class="input-group-btn">
+        <%= button_tag( :class =>"btn btn-default",:id =>"recherche") do %>
+            <i class="fa fa-search"></i>
+        <% end %>
+      </span>
+    </div>
     </div>
 
     <div class="col-md-2">
