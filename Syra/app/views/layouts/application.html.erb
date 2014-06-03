@@ -96,11 +96,14 @@
 				        <li class="dropdown user-dropdown">
 			              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= current_user.name %> <%= current_user.lastName %> <b class="caret"></b></a>
 			              <ul class="dropdown-menu">
-			                <li><a href="<%= user_path(current_user.id) %>"><i class="fa fa-user"></i> Profile</a></li>
-			                <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
-			                <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+			                <li><a href="<%= user_path(current_user.id) %>"><i class="fa fa-user"></i> Profil</a></li>
+			                <li><a href="#"><i class="fa fa-envelope"></i> Messages <span class="badge">7</span></a></li>
+			                <li><a href="#"><i class="fa fa-gear"></i> Param&egrave;tres</a></li>
+			                <% if current_user.isAdmin? %>
+			                	<li><a href="/administrator"><i class="fa fa-wrench"></i> Administration</a></li>
+			                <% end %>
 			                <li class="divider"></li>
-			                <li><i class="fa fa-power-off"><%= link_to "Déconnexion", signout_path, :method => :delete %> </i> </li>
+			                <li><a href="<%=signout_path%>" rel="nofollow" data-method="delete"><i class="fa fa-power-off"></i> D&eacute;connexion</a></li>
 			              </ul>
 		        		</li>
 				        
