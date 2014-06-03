@@ -25,7 +25,7 @@ class ServicesController < ApplicationController
       respond_to do |format|
         format.js
         format.html # index.html.erb
-        format.json { render json: address }
+        format.json { render json: @services }
       end
     else
       @services = Service.all
@@ -37,7 +37,7 @@ class ServicesController < ApplicationController
       respond_to do |format|
         format.js
         format.html # index.html.erb
-        format.json { render json: address }
+        format.json { render json: @services }
       end
     end
     

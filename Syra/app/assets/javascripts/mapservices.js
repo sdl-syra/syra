@@ -2,16 +2,25 @@ function addMarkerArray( markersArray, map)
     { 
         for(var i = 0; i < markersArray.length ; i++) 
         {
-          var latitude2 = markersArray[i].y;
-          var longitude2 = markersArray[i].x;
+          var latitude2 = markersArray[i].address.y;
+          var longitude2 = markersArray[i].address.x;
           var myLatlng2 = new google.maps.LatLng(latitude2,longitude2);
+          var titreService = markersArray[i].title;
+          var idService = markersArray[i].id;
           var marker2 = new google.maps.Marker({
               position: myLatlng2,
               map: map,
-              title:"One title"
+              url:"localhost:3000/services/"+idService,
+              title:titreService
+          });
+
+          google.maps.event.addListener(marker2, 'click', function() {
+            window.location.href = marker2.url;
           });
         }
     }
+
+
 
 function GoogleMap(position) {  
     var location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
