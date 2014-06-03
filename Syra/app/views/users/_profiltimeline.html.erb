@@ -8,6 +8,60 @@
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<ul class="timeline">
+						
+										          	
+				          	<% lesActivites = Array.new %>
+				          	
+				          	<%  current_user.following.each do |follow| %>
+				          	
+				          		<% lesActivites.concat(Activity.where(user: User.find(follow.id))) %>
+							<% end %>
+
+							
+							<% lesActivites.sort_by {|activite| activite.date} %>
+							
+							<% lesActivites.each do |activite| %>
+							<% i = 0 %>
+							<% if (i%2 == 1) %>
+								<li>
+							<%else %>
+								<li class="timeline-inverted">	
+							<%end%>
+									<div class="timeline-badge">
+										<i class="fa fa-check"></i>
+									</div>
+									<div class="timeline-panel">
+										<div class="timeline-heading">
+											<h4 class="timeline-title">Test </h4>
+											<p>
+												<small class="text-muted"><i class="fa fa-time"></i>
+													<% t1 = Time.parse(activite.created_at.strftime "%d-%m-%Y %H:%M:%S")   %>
+													<%  t2 = Time.parse(Time.now.strftime "%d-%m-%Y %H:%M:%S")  %>
+													<% diffJour = (t2- t1)  / 86400 %>
+													<% diffHeure = (t2- t1)  / 3600 %>
+													<% diffMinute = (t2- t1)  / 60 %>
+													<% if ( diffJour > 1 )  %>
+														Il y a <%= diffJour.to_i %> jour(s)
+													<% elsif (diffHeure > 1)%>
+														Il y a <%= diffHeure.to_i %> heure(s)
+													<% elsif (diffMinute > 1)%>
+														Il y a <%= diffMinute.to_i %> minute(s)
+													<%else%>
+														Il y a <%= (t2-t1).to_i %> seconde(s)
+													<%end%>
+												</small>
+											</p>
+										</div>
+										<div class="timeline-body">
+											<p>
+												<%= activite.label %>
+											</p>
+										</div>
+									</div>
+								</li>
+								<% i = i+1 %>
+							<%end%>
+						
 						<li>
 							<div class="timeline-badge">
 								<i class="fa fa-check"></i>
