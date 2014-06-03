@@ -26,7 +26,7 @@
 
 					<ul class="list-inline intro-social-buttons">
 						<li>
-							<%= search_form_for @q, url: index_services_path, html: {:method => 'get'} do |f| %>
+							<%= search_form_for @q, url: index_services_path, html: {:method => 'post'} do |f| %>
 							<p>
 								<%= f.text_field :title_or_description_cont, :class=>"form-control", :placeholder => "Cours de natation, jardinage ..." %> </br>
 								<%= f.submit "Je recherche un service", class: "btn btn-default btn-lg", :name => "recherche_service"  %>

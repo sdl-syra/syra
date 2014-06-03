@@ -15,7 +15,7 @@
 </div>
 
 
-<%= search_form_for @q, url: index_services_path, html: {:method => 'get'} do |f| %>
+<%= search_form_for @q, url: index_services_path, html: {:method => 'post'} do |f| %>
   <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-2">
@@ -180,6 +180,10 @@
             </div>
 </div>
           </br>
+
+<div id="json" style="display:none">
+	<%=@services.to_json%>
+</div>
 
 <% #session[:location] %>
 <div id="map">
