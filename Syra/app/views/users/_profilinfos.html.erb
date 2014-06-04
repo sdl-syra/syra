@@ -42,9 +42,15 @@
 			<li>
 				<a id="avatarcontainer">
 				<span class="text-center" <%if @user==current_user%>id="currentavatar"<%end%>>
-					<% if @user.avatar.nil? %>
+
+					
+					<% if (@user.encrypted_password.nil?)%>
+						<%logger.info "COUCOU"%>
+						<%logger.info @user.avatar + "?type=large" %>
+						<img src= "<%=@user.avatar%>?type=large"/> 
+					<% elsif @user.avatar.nil? %>
 						Aucune image
-					<%else%>
+					<%else %>
 						<%=image_tag "avatars/"+@user.avatar, :class => "style_image" %>
 					<%end%>
 				</span>
