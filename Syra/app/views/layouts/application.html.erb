@@ -34,6 +34,16 @@
 				$("#badgeNotif").hide();
 				$.ajax("<%=all_notif_checked_path%>")
 			}
+			function deletenotif(li,id) {
+				li.remove();
+				$('.dropdown-menu').dropdown('toggle');
+				$.ajax({
+				  url: "/notifications/" + id,
+				  type: "post",
+				  dataType: "json",
+				  data: {"_method":"delete"}
+				});
+			}
 		</script>
 		<style type="text/css">
 		.scrollable-menu {
@@ -76,14 +86,14 @@
 				          	<% if (notifs.count==0) %>
 				          		<li><a href=#>Aucune notification</a></li>
 				          	<%else%>
-								<% notifs.order(is_checked: :desc,created_at: :desc).each do |n| %>
+								<% notifs.order(is_checked: :asc,created_at: :desc).each do |n| %>
 									<li <%if n.is_checked==false%>style='background-color:#F0E68C'<%end%>><a href="<%="http://localhost:3000/"+n.url%>">
 										<%if time_ago_in_words(n.created_at).end_with?"h" and time_ago_in_words(n.created_at).gsub("Il y a","").sub("h","").to_i>12%>
 											<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
 										<%else%>
 											<i><%=time_ago_in_words(n.created_at)%></i>
 										<%end%>
-										<%=n.label%></a></li>
+										<%=n.label%></a><button class="btn btn-mini btn-danger" onclick="deletenotif(this.parentNode,<%=n.id%>)"><span class="glyphicon glyphicon-trash"></span></button></li>
 								<%end%>
 								<li> <%= link_to 'Tout Supprimer',
 				                      delete_all_notifications_path,

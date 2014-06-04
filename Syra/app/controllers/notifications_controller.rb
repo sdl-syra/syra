@@ -56,7 +56,7 @@ class NotificationsController < ApplicationController
   def destroy
     @notification.destroy
     respond_to do |format|
-      format.html { redirect_to notifications_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end
