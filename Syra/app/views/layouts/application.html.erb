@@ -93,7 +93,7 @@
 										<%else%>
 											<i><%=time_ago_in_words(n.created_at)%></i>
 										<%end%>
-										<%=n.label%></a><button class="btn btn-mini btn-danger" onclick="deletenotif(this.parentNode,<%=n.id%>)"><span class="glyphicon glyphicon-trash"></span></button></li>
+										<%=n.label%> <button class="btn btn-mini btn-danger" onclick="deletenotif(this.parentNode.parentNode,<%=n.id%>)"><span class="glyphicon glyphicon-trash"></span></button></a></li>
 								<%end%>
 								<li> <%= link_to 'Tout Supprimer',
 				                      delete_all_notifications_path,
