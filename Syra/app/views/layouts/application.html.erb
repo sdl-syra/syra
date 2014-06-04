@@ -36,6 +36,10 @@
 			}
 			function deletenotif(li,id) {
 				li.remove();
+				if ($(".notifmenu").children().size()==1) {
+					$("#toutsupprnotif").remove();
+					$(".notifmenu").append("<li><a href=#>Aucune notification</a></li>");
+				}
 				$('.dropdown-menu').dropdown('toggle');
 				$.ajax({
 				  url: "/notifications/" + id,
@@ -82,7 +86,7 @@
 				          		</span>
 				          	<%end%>
 				          <b class="caret"></b></a>
-				          <ul class="dropdown-menu scrollable-menu">
+				          <ul class="dropdown-menu scrollable-menu notifmenu">
 				          	<% if (notifs.count==0) %>
 				          		<li><a href=#>Aucune notification</a></li>
 				          	<%else%>
@@ -95,7 +99,7 @@
 										<%end%>
 										<%=n.label%> <button class="btn btn-mini btn-danger" onclick="deletenotif(this.parentNode.parentNode,<%=n.id%>)"><span class="glyphicon glyphicon-trash"></span></button></a></li>
 								<%end%>
-								<li> <%= link_to 'Tout Supprimer',
+								<li id="toutsupprnotif"> <%= link_to 'Tout Supprimer',
 				                      delete_all_notifications_path,
 				                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Voulez vous vraiment supprimer toutes les notifications ?')) },
 				                      :class => 'btn btn-mini btn-danger' %></li>
