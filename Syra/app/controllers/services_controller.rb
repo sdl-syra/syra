@@ -98,7 +98,7 @@ class ServicesController < ApplicationController
         
         activite = Activity.new
         activite.user = current_user
-        activite.label = "Creation nouveau service"
+        activite.label = current_user.name + " a crée un nouveau service"
         activite.date = Date.today
         activite.save
         
