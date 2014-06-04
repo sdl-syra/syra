@@ -6,4 +6,12 @@ module UsersHelper
     user.level.XPUser = (user.level.XPUser+(xp*coeff))%100
     user.level.save
   end
+  
+  def self.create_activity(user, libelle)
+      activite = Activity.new
+      activite.user = user
+      activite.label = user.name + " " + libelle
+      activite.date = Date.today
+      activite.save
+  end
 end

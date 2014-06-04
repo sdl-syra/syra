@@ -19,24 +19,26 @@
 
 							
 							<% lesActivites.sort_by {|activite| activite.date} %>
-							
-							<% lesActivites.each do |activite| %>
 							<% i = 0 %>
+							<% lesActivites.each do |activite| %>
+							
 							<% if (i%2 == 1) %>
 								<li>
 							<%else %>
 								<li class="timeline-inverted">	
 							<%end%>
+							<% i = i+1 %>
+							
 									<div class="timeline-badge">
 										<i class="fa fa-check"></i>
 									</div>
 									<div class="timeline-panel">
 										<div class="timeline-heading">
-											<h4 class="timeline-title">Test </h4>
 											<p>
 												<small class="text-muted"><i class="fa fa-time"></i>
-													<% t1 = Time.parse(activite.created_at.strftime "%d-%m-%Y %H:%M:%S")   %>
-													<%  t2 = Time.parse(Time.now.strftime "%d-%m-%Y %H:%M:%S")  %>
+													<% t1 = Time.parse(activite.created_at.in_time_zone("Paris").strftime "%d-%m-%Y %H:%M:%S")   %>
+													<% t2 = Time.parse(Time.now.strftime "%d-%m-%Y %H:%M:%S")  %>
+
 													<% diffJour = (t2- t1)  / 86400 %>
 													<% diffHeure = (t2- t1)  / 3600 %>
 													<% diffMinute = (t2- t1)  / 60 %>
@@ -59,7 +61,7 @@
 										</div>
 									</div>
 								</li>
-								<% i = i+1 %>
+								
 							<%end%>
 						
 						<li>

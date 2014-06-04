@@ -103,6 +103,9 @@ class UsersController < ApplicationController
   def follow
     @user = current_user
     @user.follow!(params[:user])
+    
+    userSuivi = User.find(params[:user])
+    UsersHelper.create_activity(current_user, "suit " + userSuivi.name + " " + userSuivi.lastName)
     #logger.info @user.following?(params[:user])
     respond_to do |format|
       format.html { redirect_to '/users', notice: 'User was successfully updated.' }

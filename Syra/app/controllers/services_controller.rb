@@ -94,15 +94,7 @@ class ServicesController < ApplicationController
       if @service.save
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render action: 'show', status: :created, location: @service }
-        
-        
-        activite = Activity.new
-        activite.user = current_user
-        activite.label = current_user.name + " a crée un nouveau service"
-        activite.date = Date.today
-        activite.save
-        
-        
+        UsersHelper.create_activity(current_user, "a crée un nouveau service")
         
       else
         format.html { render action: 'new' }
