@@ -76,6 +76,10 @@ class NotificationsController < ApplicationController
       n.is_checked=true;
       n.save
     end
+    respond_to do |format|
+     format.html { redirect_to root_url }
+     format.json { head :no_content }
+    end
   end
 
   private
