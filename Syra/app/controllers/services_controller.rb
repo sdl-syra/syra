@@ -155,7 +155,7 @@ class ServicesController < ApplicationController
     prop = Proposition.find(params[:prop])
     prop.isAccepted = true
     prop.save
-
+    NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",prop.id.to_s)
     respond_to do |format|
       format.html { redirect_to(:back) }
       format.json { head :no_content }
@@ -168,7 +168,7 @@ class ServicesController < ApplicationController
     prop.save
     prop.user.money = prop.user.money + prop.price
     prop.user.save
-
+    NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",prop.id.to_s)
     respond_to do |format|
       format.html { redirect_to(:back) }
       format.json { head :no_content }

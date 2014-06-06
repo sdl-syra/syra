@@ -36,15 +36,7 @@ class PropositionsController < ApplicationController
       if @proposition.save
         format.html { redirect_to @proposition, notice: 'Proposition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @proposition }
-        
-        notification = Notification.new
-        notification.user = @proposition.service.user
-        notification.label = "Nouvelle proposition pour '"+@proposition.service.title+"'"
-        notification.is_checked = false
-        notification.date = Date.today
-        notification.url = "propositions/"+@proposition.id.to_s
-        notification.save
-        
+        NotificationsHelper.create_notif(@proposition.service.user,"Une nouvelle proposition pour '"+@proposition.service.title+"'",@proposition.id.to_s)
         current_user.money = current_user.money - Service.find(@proposition.service).price
         current_user.save
         
