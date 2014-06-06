@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20140518222723) do
     t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "price"
   end
 
   add_index "propositions", ["service_id"], name: "index_propositions_on_service_id"
@@ -162,7 +163,7 @@ ActiveRecord::Schema.define(version: 20140518222723) do
     t.string   "name"
     t.string   "lastName"
     t.string   "email"
-    t.string   "money"
+    t.integer  "money"
     t.string   "password"
     t.string   "phone"
     t.text     "biography"
