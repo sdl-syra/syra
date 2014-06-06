@@ -35,8 +35,9 @@
 				                <h4 class="modal-title" id="modalRefusLabel">Refuser la proposition <%= prop.id %> de <%= prop.user.name %></h4>
 				            </div>
 				            <div class="modal-body">
-				            	<%= form_for prop, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
+				            	<%= form_for prop, :url => url_for(:controller => 'services', :action => 'refuserProp'), :html => { :class => 'form-horizontal', :role => 'form'}, method: :get do |f| %>
 								Motif de refus :
+								<%= f.hidden_field :id, value: prop.id %>
 								<%= f.text_area :motifCancelled, :class => 'form-control' %>
 								<%= f.hidden_field :isAccepted, value: false %>
 								<%= f.hidden_field :isPaid, value: false %>

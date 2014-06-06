@@ -163,7 +163,8 @@ class ServicesController < ApplicationController
   end
 
   def refuserProp
-    prop = Proposition.find(params[:prop])
+    prop = Proposition.find(params[:proposition][:id])
+    prop.motifCancelled = params[:proposition][:motifCancelled]
     prop.isAccepted = false
     prop.isPaid = false
     prop.save
