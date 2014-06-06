@@ -30,6 +30,13 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def followers
+    @user=current_user
+    if not signed_in?
+      redirect_to '/signup'  
+    end
+  end
+
   # POST /users
   # POST /users.json
   def create
