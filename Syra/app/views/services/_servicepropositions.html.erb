@@ -39,8 +39,6 @@
 								Motif de refus :
 								<%= f.hidden_field :id, value: prop.id %>
 								<%= f.text_area :motifCancelled, :class => 'form-control' %>
-								<%= f.hidden_field :isAccepted, value: false %>
-								<%= f.hidden_field :isPaid, value: false %>
 				            </div>
 				            <div class="modal-footer">
 				            	<%= f.submit 'Refuser', :class => 'btn btn-danger' %>

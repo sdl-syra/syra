@@ -1,7 +1,7 @@
 
 <%- model_class = Proposition -%>
 <div class="jumbotron">
-	<% if @proposition.service.user == current_user %>
+	<% if @proposition.service.user == current_user and @proposition.isAccepted.nil? %>
     <div class="modal fade" id="modalRefus" tabindex="-1" role="dialog" aria-labelledby="modalRefusLabel" aria-hidden="true">
         <div class="modal-dialog">
          <div class="modal-content">
@@ -10,11 +10,10 @@
                 <h4 class="modal-title" id="modalRefusLabel">Refuser la proposition <%= @proposition.id %> de <%= @proposition.user.name %></h4>
             </div>
             <div class="modal-body">
-            	<%= form_for @proposition, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
+            	<%= form_for @proposition, :url => url_for(:controller => 'services', :action => 'refuserProp'), :html => { :class => 'form-horizontal', :role => 'form'}, method: :get do |f| %>
 				Motif de refus :
+				<%= f.hidden_field :id, value: @proposition.id %>
 				<%= f.text_area :motifCancelled, :class => 'form-control' %>
-				<%= f.hidden_field :isAccepted, value: false %>
-				<%= f.hidden_field :isPaid, value: false %>
             </div>
             <div class="modal-footer">
             	<%= f.submit 'Refuser', :class => 'btn btn-danger' %>
@@ -99,7 +98,7 @@
 	<% elsif @proposition.service.isFinished==false and @proposition.service.user != current_user and @proposition.isAccepted==false %>
 		 <%= link_to 'Nouvelle proposition', new_proposition_path(:service => @proposition.service.id), {:class=> "btn btn-lg btn-info"}%>
 	<% end %>
-	<%= link_to t('.back', :default => t("helpers.links.back")),
+	<%= link_to 'Retour',
 			service_path(@proposition.service), :class => 'btn btn-lg'  %>
 </div>
     
