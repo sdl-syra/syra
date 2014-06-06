@@ -72,6 +72,12 @@
 	                        <%= # link_to 'Refuser', refuser_prop_service_path(@service, :prop => prop) 
 	                        %>
 	                      <% end %>
+	                  <% else %>
+	                  	<%= link_to 'Supprimer',
+		                      proposition_path(prop),
+		                      :method => :delete,
+		                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+		                      :class => 'btn-link' %>
 	                  <% end %>
                       </td>
                     </tr>

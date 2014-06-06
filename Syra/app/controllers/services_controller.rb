@@ -136,9 +136,16 @@ class ServicesController < ApplicationController
   # DELETE /services/1
   # DELETE /services/1.json
   def destroy
+    lesPropositions = Proposition.where(service:@service)
+    userService = @service.user
+    lesPropositions.each do |p|
+      p.user.money = p.user.money + p.price
+      p.user.save
+      p.destroy
+    end
     @service.destroy
     respond_to do |format|
-      format.html { redirect_to services_url }
+      format.html { redirect_to user_path(userService) }
       format.json { head :no_content }
     end
   end
@@ -159,6 +166,8 @@ class ServicesController < ApplicationController
     prop = Proposition.find(params[:prop])
     prop.isAccepted = false
     prop.save
+    prop.user.money = prop.user.money + prop.price
+    prop.user.save
 
     respond_to do |format|
       format.html { redirect_to(:back) }

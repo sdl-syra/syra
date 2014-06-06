@@ -45,6 +45,9 @@ class PropositionsController < ApplicationController
         notification.url = "propositions/"+@proposition.id.to_s
         notification.save
         
+        current_user.money = current_user.money - Service.find(@proposition.service).price
+        current_user.save
+        
       else
         format.html { render action: 'new' }
         format.json { render json: @proposition.errors, status: :unprocessable_entity }
@@ -69,9 +72,12 @@ class PropositionsController < ApplicationController
   # DELETE /propositions/1
   # DELETE /propositions/1.json
   def destroy
+    serviceprop = @proposition.service
+    @proposition.user.money = @proposition.user.money + @proposition.price
+    @proposition.user.save
     @proposition.destroy
     respond_to do |format|
-      format.html { redirect_to propositions_url }
+      format.html { redirect_to service_path(serviceprop) }
       format.json { head :no_content }
     end
   end

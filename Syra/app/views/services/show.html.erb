@@ -108,34 +108,80 @@
         <h1><%= @service.title %></h1>
         <p class="lead">"<%= @service.description %>"</p>
         <p>
-          <% if signed_in? and @service.isFinished==false %>
+        <% if @service.isFinished==false %>
+          <% if signed_in?%>
             <% if @service.user != current_user %>
-              <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
-            <%end%>
-          <% elsif @service.isFinished==false %>
+            	<% prop_precedente = Proposition.where(user: current_user, service:@service) %>
+	            <% if current_user.money.to_i >= @service.price and prop_precedente.count()==0 %>
+	              <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
+	            <% elsif current_user.money < @service.price %>
+		            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
+		                   Faire une proposition
+		            </button>
+		            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		                <div class="modal-dialog">
+		                 <div class="modal-content">
+		                    <div class="modal-header">
+		                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
+		                    </div>
+		                    <div class="modal-body">
+		                    	 	Votre solde (<%= current_user.money %>hp) est insuffisant(<%= @service.price %>hp).
+		                    </div>
+		                    <div class="modal-footer">
+		                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+		                    </div>
+		                 </div>
+		                </div>
+		            </div>
+		       <% else %>
+		          <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
+		                   Faire une proposition
+		            </button>
+		            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		                <div class="modal-dialog">
+		                 <div class="modal-content">
+		                    <div class="modal-header">
+		                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
+		                    </div>
+		                    <div class="modal-body">
+		                    	<% if prop_precedente.count()==1 %>
+		                    	 	Vous avez déjà une <a href='<%= proposition_path(prop_precedente[0])%>'>proposition </a> en attente pour ce service.
+		                    	<% else %>
+		                    		Vous avez déjà des propositions en attente pour ce service.
+		                    	<% end %>
+		                    </div>
+		                    <div class="modal-footer">
+		                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+		                    </div>
+		                 </div>
+		                </div>
+		            </div>
+	            <% end %>
+	         <% end %>
+          <% else %>
             <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
-                               Faire une proposition
+                  Faire une proposition
             </button>
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
-                                </div>
-                                <div class="modal-body">
-                                        Vous devez être connecté(e) pour pouvoir faire une proposition.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-                                </div>
-                             </div>
-                            </div>
-                        </div>
-
-
-
+                <div class="modal-dialog">
+                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
+                    </div>
+                    <div class="modal-body">
+                            Vous devez être connecté(e) pour pouvoir faire une proposition.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                    </div>
+                 </div>
+                </div>
+            </div>
           <% end %>
+       <% end %>
           
 </p>
        <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p> -->
@@ -173,7 +219,7 @@
 		<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
 			service_path(@service),
 			:method => 'delete',
-			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Êtes-vous sûr?')) },
 			:class => 'btn btn-danger' %>
 	<%end%>
 	<%= link_to t('.back', :default => t("helpers.links.back")),
