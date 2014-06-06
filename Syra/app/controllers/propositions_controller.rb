@@ -82,6 +82,6 @@ class PropositionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def proposition_params
-      params.require(:proposition).permit(:isPaid, :isAccepted, :motifCancelled, :proposition, :comment, :user_id, :service_id)
+      params.require(:proposition).permit(:isPaid, :isAccepted, :motifCancelled, :proposition, :comment, :user_id, :service_id, :price)
     end
 end

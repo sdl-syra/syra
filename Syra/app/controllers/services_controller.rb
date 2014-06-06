@@ -165,6 +165,7 @@ class ServicesController < ApplicationController
   def refuserProp
     prop = Proposition.find(params[:prop])
     prop.isAccepted = false
+    prop.isPaid = false
     prop.save
     prop.user.money = prop.user.money + prop.price
     prop.user.save

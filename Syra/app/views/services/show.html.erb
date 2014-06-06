@@ -111,7 +111,7 @@
         <% if @service.isFinished==false %>
           <% if signed_in?%>
             <% if @service.user != current_user %>
-            	<% prop_precedente = Proposition.where(user: current_user, service:@service) %>
+            	<% prop_precedente = Proposition.where(user: current_user, service:@service, isAccepted:nil) %>
 	            <% if current_user.money.to_i >= @service.price and prop_precedente.count()==0 %>
 	              <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
 	            <% elsif current_user.money < @service.price %>

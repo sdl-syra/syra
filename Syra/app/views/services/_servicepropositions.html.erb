@@ -73,11 +73,13 @@
 	                        %>
 	                      <% end %>
 	                  <% else %>
-	                  	<%= link_to 'Supprimer',
-		                      proposition_path(prop),
-		                      :method => :delete,
-		                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-		                      :class => 'btn-link' %>
+		                  <% if prop.isAccepted.nil? %>
+		                  	<%= link_to 'Supprimer',
+			                      proposition_path(prop),
+			                      :method => :delete,
+			                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Êtes-vous sûr?')) },
+			                      :class => 'btn-link' %>
+			              <% end %>
 	                  <% end %>
                       </td>
                     </tr>
