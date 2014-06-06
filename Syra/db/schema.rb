@@ -163,7 +163,7 @@ ActiveRecord::Schema.define(version: 20140518222723) do
     t.string   "name"
     t.string   "lastName"
     t.string   "email"
-    t.integer  "money"
+    t.integer  "money",       default: 0
     t.string   "password"
     t.string   "phone"
     t.text     "biography"
