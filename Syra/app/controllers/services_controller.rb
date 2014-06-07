@@ -175,6 +175,8 @@ class ServicesController < ApplicationController
     else
       UserMailer.send_code(prop.user,serviceProp,prop).deliver
     end
+    UsersHelper.grant_xp(serviceProp.user,75)
+    UsersHelper.grant_xp(prop.user,75)
     NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",prop.id.to_s)
     respond_to do |format|
       format.html { redirect_to(:back) }
