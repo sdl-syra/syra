@@ -206,6 +206,18 @@
   <% if @service.user.nil?  %>
   	Non renseigné
   <% else %>
+  		
+			
+		<% if (@service.user.encrypted_password.nil?)%>
+				<img src= "<%=@service.user.avatar%>?type=large" class="img-circle" height=48 width=48> 
+		<% elsif @service.user.avatar.nil? %>
+			<%=image_tag "avatars/nopicture.png", :class => "img-circle", height: '48', width: '48' %>
+		<%else %>
+  			<% logger.info "test"%>
+  			<% logger.info @service.user.name %>
+  			<%=image_tag "avatars/"+@service.user.avatar, :class => "img-circle" , height: '48', width: '48'  %>
+  		<%end%>
+    
   	<% username = @service.user.name + ' ' + @service.user.lastName%>
   	<%= link_to username, user_path(@service.user) %>
   <% end %> à 

@@ -45,7 +45,6 @@
 
 					
 					<% if (@user.encrypted_password.nil?)%>
-						<%logger.info "COUCOU"%>
 						<%logger.info @user.avatar + "?type=large" %>
 						<img src= "<%=@user.avatar%>?type=large"/> 
 					<% elsif @user.avatar.nil? %>
