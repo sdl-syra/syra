@@ -65,6 +65,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    UsersHelper.grant_xp(@user,150)
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -111,8 +112,9 @@ class UsersController < ApplicationController
     @user.follow!(params[:user])
     
     userSuivi = User.find(params[:user])
-    UsersHelper.create_activity(current_user, "suit " + userSuivi.name + " " + userSuivi.lastName)
-    #logger.info @user.following?(params[:user])
+     username = userSuivi.name + ' ' + userSuivi.lastName
+
+    UsersHelper.create_activity(current_user, "suit désormais <a href=/users/" + userSuivi.id.to_s + ">" + userSuivi.name + " " + userSuivi.lastName + " </a>" )
     respond_to do |format|
       format.html { redirect_to '/users', notice: 'User was successfully updated.' }
       format.json { head :no_content }

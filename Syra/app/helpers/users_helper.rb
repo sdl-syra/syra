@@ -10,7 +10,7 @@ module UsersHelper
   def self.create_activity(user, libelle)
       activite = Activity.new
       activite.user = user
-      activite.label = user.name + " " + libelle
+      activite.label = "<a href=/users/" + user.id.to_s + ">" + user.name + " " + user.lastName + " </a> " + libelle
       activite.date = Date.today
       activite.save
   end
