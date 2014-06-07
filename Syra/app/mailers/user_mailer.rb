@@ -16,5 +16,14 @@ class UserMailer < ActionMailer::Base
     mail :to => user.email, :subject => "Password Reset"
   end
 
+  def send_code(user,service,proposition)
+    @user = user.name
+    @service = service.title
+    @url = "http://localhost:3000/propositions/"+proposition.id.to_s
+    @code = ServicesHelper.generate_code
+    proposition.code = @code
+    proposition.save
+    mail :to => user.email, :from => "noreply@syra.com", :subject => "Le mail de ta vie"
+  end
 
 end

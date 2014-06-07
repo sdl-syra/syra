@@ -1,6 +1,6 @@
 module ServicesHelper
   
-  def generate_code
+  def self.generate_code
     chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'
     code = ''
     8.times { code << chars[rand(chars.size)] }

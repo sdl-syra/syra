@@ -171,6 +171,9 @@ class ServicesController < ApplicationController
     if not serviceProp.isGiven?
       serviceProp.user.money = serviceProp.user.money - prop.price
       serviceProp.user.save
+      UserMailer.send_code(serviceProp.user,serviceProp,prop).deliver
+    else
+      UserMailer.send_code(prop.user,serviceProp,prop).deliver
     end
     NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",prop.id.to_s)
     respond_to do |format|

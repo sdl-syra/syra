@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20140518222723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "price"
+    t.string   "code"
   end
 
   add_index "propositions", ["service_id"], name: "index_propositions_on_service_id"
