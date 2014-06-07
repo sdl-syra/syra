@@ -28,6 +28,7 @@
   background-color: #d9534f;
   border-color: #d43f3a;
 }
-.notifcustom {
-	padding-right:5px !important;
+.deletenotif {
+	position: absolute;
+	right:1px;
 }
