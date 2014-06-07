@@ -37,8 +37,11 @@ class PropositionsController < ApplicationController
         format.html { redirect_to @proposition, notice: 'Proposition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @proposition }
         NotificationsHelper.create_notif(@proposition.service.user,"Une nouvelle proposition pour '"+@proposition.service.title+"'",@proposition.id.to_s)
-        current_user.money = current_user.money - Service.find(@proposition.service).price
-        current_user.save
+        serviceProp = Service.find(@proposition.service)
+        if serviceProp.isGiven?
+          current_user.money = current_user.money - serviceProp.price
+          current_user.save
+        end
         
       else
         format.html { render action: 'new' }
@@ -65,8 +68,13 @@ class PropositionsController < ApplicationController
   # DELETE /propositions/1.json
   def destroy
     serviceprop = @proposition.service
-    @proposition.user.money = @proposition.user.money + @proposition.price
-    @proposition.user.save
+    if serviceprop.isGiven? and @proposition.isPaid != true
+      @proposition.user.money = @proposition.user.money + @proposition.price
+      @proposition.user.save
+    end
+    if @proposition.isPaid.nil?
+        NotificationsHelper.create_notif(@proposition.service.user,"Proposition pour le service '"+@proposition.service.title+"' supprimée",@proposition.id.to_s)
+      end
     @proposition.destroy
     respond_to do |format|
       format.html { redirect_to service_path(serviceprop) }

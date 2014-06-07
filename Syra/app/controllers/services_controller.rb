@@ -139,8 +139,20 @@ class ServicesController < ApplicationController
     lesPropositions = Proposition.where(service:@service)
     userService = @service.user
     lesPropositions.each do |p|
-      p.user.money = p.user.money + p.price
-      p.user.save
+      if @service.isGiven?
+        if p.isAccepted != false and p.isPaid != true
+          p.user.money = p.user.money + p.price
+          p.user.save
+        end
+      else
+        if p.isAccepted? and p.isPaid != true
+          @service.user.money = @service.user.money + p.price
+          @service.user.save
+        end
+      end
+      if p.isPaid.nil?
+        NotificationsHelper.create_notif(p.user,"Service '"+p.service.title+"' supprimé, proposition annulée",p.id.to_s)
+      end
       p.destroy
     end
     @service.destroy
@@ -155,6 +167,11 @@ class ServicesController < ApplicationController
     prop = Proposition.find(params[:prop])
     prop.isAccepted = true
     prop.save
+    serviceProp = Service.find(prop.service)
+    if not serviceProp.isGiven?
+      serviceProp.user.money = serviceProp.user.money - prop.price
+      serviceProp.user.save
+    end
     NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",prop.id.to_s)
     respond_to do |format|
       format.html { redirect_to(:back) }
@@ -168,8 +185,11 @@ class ServicesController < ApplicationController
     prop.isAccepted = false
     prop.isPaid = false
     prop.save
-    prop.user.money = prop.user.money + prop.price
-    prop.user.save
+    serviceProp = Service.find(prop.service)
+    if serviceProp.isGiven?
+      prop.user.money = prop.user.money + prop.price
+      prop.user.save
+    end
     NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",prop.id.to_s)
     respond_to do |format|
       format.html { redirect_to(:back) }

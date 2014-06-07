@@ -24,7 +24,24 @@
         </div>
     </div>
     <% end %>
-    
+    <% if not @proposition.service.isGiven? and current_user.money < @proposition.price %>
+	    <div class="modal fade" id="modalAccepter" tabindex="-1" role="dialog" aria-labelledby="modalAccepterLabel" aria-hidden="true">
+	        <div class="modal-dialog">
+	         <div class="modal-content">
+	            <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
+                </div>
+                <div class="modal-body">
+                	 	Votre solde (<%= current_user.money %>hp) est insuffisant(<%= @proposition.price %>hp).
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                </div>
+	         </div>
+	        </div>
+	    </div>
+	<% end %>
     
     
     
@@ -33,10 +50,9 @@
         	Proposition
 		</h1>
         <p class="lead">
-        	Concernant le service 
-        	<a href="<%= service_path(@proposition.service) %>">
-				"<%= @proposition.service.title %>"
-			</a>			
+        	Concernant le service "<a href="<%= service_path(@proposition.service) %>">
+				<%= @proposition.service.title %>
+			</a> "		
         </p>
         <dt><strong>
         	"<%= @proposition.comment %>"
@@ -89,11 +105,13 @@
                   :class => 'btn btn-lg btn-danger' %>
 		<% end %>
 		<% if @proposition.service.user == current_user %>
+			<% if not @proposition.service.isGiven? and current_user.money < @proposition.price %>
+				<button class="btn btn-lg btn-success" data-toggle="modal" data-target="#modalAccepter">Accepter</button>
+			<% else %>
 	            <%= link_to 'Accepter', accepter_prop_service_path(@proposition.service, :prop => @proposition), 
 	            :class => 'btn btn-lg btn-success' %>
-	            <button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#modalRefus">
-	                               Refuser
-	            </button>
+	        <% end %>
+            <button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#modalRefus">Refuser</button>
 		<% end %>
 	<% elsif @proposition.service.isFinished==false and @proposition.service.user != current_user and @proposition.isAccepted==false %>
 		 <%= link_to 'Nouvelle proposition', new_proposition_path(:service => @proposition.service.id), {:class=> "btn btn-lg btn-info"}%>

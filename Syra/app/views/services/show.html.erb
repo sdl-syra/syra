@@ -108,34 +108,40 @@
         <h1><%= @service.title %></h1>
         <p class="lead">"<%= @service.description %>"</p>
         <p>
-        <% if @service.isFinished==false %>
+        <% if not @service.isFinished? %>
           <% if signed_in?%>
             <% if @service.user != current_user %>
             	<% prop_precedente = Proposition.where(user: current_user, service:@service, isAccepted:nil) %>
-	            <% if current_user.money.to_i >= @service.price and prop_precedente.count()==0 %>
-	              <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
-	            <% elsif current_user.money < @service.price %>
-		            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
-		                   Faire une proposition
-		            </button>
-		            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		                <div class="modal-dialog">
-		                 <div class="modal-content">
-		                    <div class="modal-header">
-		                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
-		                    </div>
-		                    <div class="modal-body">
-		                    	 	Votre solde (<%= current_user.money %>hp) est insuffisant(<%= @service.price %>hp).
-		                    </div>
-		                    <div class="modal-footer">
-		                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-		                    </div>
-		                 </div>
-		                </div>
-		            </div>
-		       <% else %>
-		          <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
+            	<% if prop_precedente.count()==0 %>
+            		<% if @service.isGiven? %>
+			            <% if current_user.money.to_i >= @service.price %>
+			              <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
+			            <% else %>
+				            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
+				                   Faire une proposition
+				            </button>
+				            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				                <div class="modal-dialog">
+				                 <div class="modal-content">
+				                    <div class="modal-header">
+				                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
+				                    </div>
+				                    <div class="modal-body">
+				                    	 	Votre solde (<%= current_user.money %>hp) est insuffisant(<%= @service.price %>hp).
+				                    </div>
+				                    <div class="modal-footer">
+				                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+				                    </div>
+				                 </div>
+				                </div>
+				            </div>
+				         <% end %>
+			       <% else %>
+		              <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
+		            <% end %>
+		        <% else %> <!-- prop_precedente.count()==0 -->
+		        	<button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
 		                   Faire une proposition
 		            </button>
 		            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -158,7 +164,7 @@
 		                 </div>
 		                </div>
 		            </div>
-	            <% end %>
+		        <% end %>
 	         <% end %>
           <% else %>
             <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">

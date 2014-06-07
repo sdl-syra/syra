@@ -48,7 +48,24 @@
 				         </div>
 				        </div>
 				    </div>
-  
+				    <% if not @service.isGiven? and current_user.money < prop.price %>
+					    <div class="modal fade" id="modalAccepter<%= prop.id %>" tabindex="-1" role="dialog" aria-labelledby="modalAccepterLabel" aria-hidden="true">
+					        <div class="modal-dialog">
+					         <div class="modal-content">
+					            <div class="modal-header">
+			                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
+			                    </div>
+			                    <div class="modal-body">
+			                    	 	Votre solde (<%= current_user.money %>hp) est insuffisant(<%= prop.price %>hp).
+			                    </div>
+			                    <div class="modal-footer">
+			                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+			                    </div>
+					         </div>
+					        </div>
+					    </div>
+  					<% end %>
                     <tr>
                       <td><%= prop.id %></td>
                       <td><%= link_to prop.user.name,user_path(prop.user) %></td>
@@ -64,10 +81,12 @@
                       <td><%= link_to 'Voir', proposition_path(prop), {:class=>"btn-link"} %> 
                       <% if @service.user == current_user %>
 	                      <% if prop.isAccepted.nil? %>
-	                        <%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop), {:class=>"btn-link"} %>
-	                        <button class="btn-link" data-toggle="modal" data-target="#modalRefus<%= prop.id %>">
-                               Refuser
-            				</button>
+	                      	<% if not @service.isGiven? and current_user.money < prop.price %>
+	                      	<button class="btn-link" data-toggle="modal" data-target="#modalAccepter<%= prop.id %>">Accepter</button>
+	                      	<% else %>
+	                        	<%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop), {:class=>"btn-link"} %>
+	                        <% end %>
+	                        <button class="btn-link" data-toggle="modal" data-target="#modalRefus<%= prop.id %>">Refuser</button>
 	                        <%= # link_to 'Refuser', refuser_prop_service_path(@service, :prop => prop) 
 	                        %>
 	                      <% end %>
