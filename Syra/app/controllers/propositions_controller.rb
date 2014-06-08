@@ -42,7 +42,6 @@ class PropositionsController < ApplicationController
           current_user.money = current_user.money - serviceProp.price
           current_user.save
         end
-        
       else
         format.html { render action: 'new' }
         format.json { render json: @proposition.errors, status: :unprocessable_entity }
@@ -68,17 +67,25 @@ class PropositionsController < ApplicationController
   # DELETE /propositions/1.json
   def destroy
     serviceprop = @proposition.service
-    if serviceprop.isGiven? and @proposition.isPaid != true
-      @proposition.user.money = @proposition.user.money + @proposition.price
-      @proposition.user.save
-    end
-    if @proposition.isPaid.nil?
-        NotificationsHelper.create_notif(@proposition.service.user,"Proposition pour le service '"+@proposition.service.title+"' supprimée",@proposition.id.to_s)
+    if @proposition.isAccepted.nil? and @proposition.user == current_user
+      if serviceprop.isGiven? and @proposition.isPaid != true
+        @proposition.user.money = @proposition.user.money + @proposition.price
+        @proposition.user.save
       end
-    @proposition.destroy
-    respond_to do |format|
-      format.html { redirect_to service_path(serviceprop) }
-      format.json { head :no_content }
+      if @proposition.isPaid.nil?
+          NotificationsHelper.create_notif(@proposition.service.user,"Proposition pour le service '"+@proposition.service.title+"' supprimée",@proposition.id.to_s)
+        end
+      @proposition.destroy
+      flash[:success] = "Proposition supprimée avec succès"
+      respond_to do |format|
+        format.html { redirect_to service_path(serviceprop) }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.json { head :no_content }
+      end
     end
   end
 

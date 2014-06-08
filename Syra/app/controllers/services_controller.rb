@@ -165,19 +165,36 @@ class ServicesController < ApplicationController
 
   def accepterProp
     prop = Proposition.find(params[:prop])
-    prop.isAccepted = true
-    prop.save
     serviceProp = Service.find(prop.service)
-    if not serviceProp.isGiven?
-      serviceProp.user.money = serviceProp.user.money - prop.price
-      serviceProp.user.save
-      UserMailer.send_code(serviceProp.user,serviceProp,prop).deliver
+    if signed_in?
+      if prop.isAccepted.nil? and prop.service.user == current_user
+        if not serviceProp.isGiven?
+          if serviceProp.user.money > prop.price
+            serviceProp.user.money = serviceProp.user.money - prop.price
+            serviceProp.user.save
+            prop.isAccepted = true
+            prop.save
+            #UserMailer.send_code(serviceProp.user,serviceProp,prop).deliver
+            UsersHelper.grant_xp(serviceProp.user,75)
+            UsersHelper.grant_xp(prop.user,75)
+            NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",prop.id.to_s)
+            flash[:success] = "Proposition acceptée, l'échange est prévu pour le "+prop.proposition.to_formatted_s(:day_month_year)
+          else
+            flash[:error] = "Impossible, votre solde("+serviceProp.user.money.to_s()+"hp) est inférieur au prix de la proposition("+prop.price.to_s()+"hp)"
+          end
+        else
+          prop.isAccepted = true
+          prop.save
+          #UserMailer.send_code(prop.user,serviceProp,prop).deliver
+          UsersHelper.grant_xp(serviceProp.user,75)
+          UsersHelper.grant_xp(prop.user,75)
+          NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",prop.id.to_s)
+          flash[:success] = "Proposition acceptée, l'échange est prévu pour le "+prop.proposition.to_formatted_s(:day_month_year)
+        end
+      end
     else
-      UserMailer.send_code(prop.user,serviceProp,prop).deliver
+      flash[:errorconnexion] = true
     end
-    UsersHelper.grant_xp(serviceProp.user,75)
-    UsersHelper.grant_xp(prop.user,75)
-    NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",prop.id.to_s)
     respond_to do |format|
       format.html { redirect_to(:back) }
       format.json { head :no_content }
@@ -186,19 +203,86 @@ class ServicesController < ApplicationController
 
   def refuserProp
     prop = Proposition.find(params[:proposition][:id])
-    prop.motifCancelled = params[:proposition][:motifCancelled]
-    prop.isAccepted = false
-    prop.isPaid = false
-    prop.save
-    serviceProp = Service.find(prop.service)
-    if serviceProp.isGiven?
-      prop.user.money = prop.user.money + prop.price
-      prop.user.save
+    if signed_in?
+      if prop.isAccepted.nil? and prop.service.user == current_user
+        prop.motifCancelled = params[:proposition][:motifCancelled]
+        prop.isAccepted = false
+        prop.isPaid = false
+        prop.save
+        serviceProp = Service.find(prop.service)
+        if serviceProp.isGiven?
+          prop.user.money = prop.user.money + prop.price
+          prop.user.save
+        end
+        NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",prop.id.to_s)
+        flash[:success] = "Proposition refusée pour le motif suivant : '"+ prop.motifCancelled+"'"
+      end
+    else
+      flash[:errorconnexion] = true
     end
-    NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",prop.id.to_s)
     respond_to do |format|
       format.html { redirect_to(:back) }
       format.json { head :no_content }
+    end
+  end
+  
+  def nouvelleProp
+    serv = Service.find(params[:service])
+    if not serv.isFinished?
+      if serv.user != current_user
+        if signed_in?
+          prop_precedente = Proposition.where(user: current_user, service:serv, isAccepted:nil)
+          if prop_precedente.count()==0
+            if serv.isGiven? 
+              if current_user.money.to_i >= serv.price
+                respond_to do |format|
+                  format.html { redirect_to(new_proposition_path(:service => serv.id)) }
+                  format.json { head :no_content }
+                end
+              else
+                flash[:error] = "Action impossible, votre solde("+current_user.money.to_s()+"hp) est inférieur au prix du service("+serv.price.to_s()+"hp)"
+                respond_to do |format|
+                  format.html { redirect_to(:back) }
+                  format.json { head :no_content }
+                end
+              end
+            else
+              respond_to do |format|
+                format.html { redirect_to(new_proposition_path(:service => serv.id)) }
+                format.json { head :no_content }
+              end
+            end
+          else
+            if prop_precedente.count()==1
+              flash[:error] = "Action impossible, vous avez déjà une proposition en attente pour ce service"
+            else
+              flash[:error] = "Action impossible, vous avez déjà des propositions en attente pour ce service"
+            end
+            respond_to do |format|
+              format.html { redirect_to(:back) }
+              format.json { head :no_content }
+            end
+          end
+        else
+          flash[:errorconnexion] = true
+          respond_to do |format|
+            format.html { redirect_to(:back) }
+            format.json { head :no_content }
+          end
+        end
+      else
+        flash[:error] = "Action impossible, vous ne pouvez pas faire de proposition pour l'un de vos services"
+        respond_to do |format|
+          format.html { redirect_to(:back) }
+          format.json { head :no_content }
+        end
+      end
+    else
+      flash[:error] = "Action impossible, ce service est terminé"
+      respond_to do |format|
+        format.html { redirect_to(:back) }
+        format.json { head :no_content }
+      end
     end
   end
 

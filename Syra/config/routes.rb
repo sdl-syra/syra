@@ -58,6 +58,7 @@ Syra::Application.routes.draw do
   get '/followers', :to => 'users#followers', :as => 'followers'
   get '/services/:id/accepterProp', :to => 'services#accepterProp', :as => 'accepter_prop_service'
   get '/services/:id/refuserProp', :to => 'services#refuserProp', :as => 'refuser_prop_service'
+  get '/services/:id/nouvelleProp', :to => 'services#nouvelleProp', :as => 'nouvelle_prop_service'
 
   get '/map', :to => 'pages#map'
   

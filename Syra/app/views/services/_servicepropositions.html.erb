@@ -81,14 +81,8 @@
                       <td><%= link_to 'Voir', proposition_path(prop), {:class=>"btn-link"} %> 
                       <% if @service.user == current_user %>
 	                      <% if prop.isAccepted.nil? %>
-	                      	<% if not @service.isGiven? and current_user.money < prop.price %>
-	                      	<button class="btn-link" data-toggle="modal" data-target="#modalAccepter<%= prop.id %>">Accepter</button>
-	                      	<% else %>
-	                        	<%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop), {:class=>"btn-link"} %>
-	                        <% end %>
+                        	<%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop), {:class=>"btn-link"} %>
 	                        <button class="btn-link" data-toggle="modal" data-target="#modalRefus<%= prop.id %>">Refuser</button>
-	                        <%= # link_to 'Refuser', refuser_prop_service_path(@service, :prop => prop) 
-	                        %>
 	                      <% end %>
 	                  <% else %>
 		                  <% if prop.isAccepted.nil? %>

@@ -1,6 +1,5 @@
 
 <%- model_class = Proposition -%>
-<div class="jumbotron">
 	<% if @proposition.service.user == current_user and @proposition.isAccepted.nil? %>
     <div class="modal fade" id="modalRefus" tabindex="-1" role="dialog" aria-labelledby="modalRefusLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -24,28 +23,23 @@
         </div>
     </div>
     <% end %>
-    <% if not @proposition.service.isGiven? and current_user.money < @proposition.price %>
-	    <div class="modal fade" id="modalAccepter" tabindex="-1" role="dialog" aria-labelledby="modalAccepterLabel" aria-hidden="true">
-	        <div class="modal-dialog">
-	         <div class="modal-content">
-	            <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
-                </div>
-                <div class="modal-body">
-                	 	Votre solde (<%= current_user.money %>hp) est insuffisant(<%= @proposition.price %>hp).
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-                </div>
-	         </div>
-	        </div>
-	    </div>
-	<% end %>
-    
-    
-    
     <div class="jumbotron">
+    	<% if not flash[:errorconnexion].nil? %>
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				Vous devez d'abord vous <a href="<%= signin_path %>" class="alert-link">connecter</a>
+			</div>
+		<% elsif not flash[:error].nil? %>
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<%= flash[:error] %>
+			</div>
+		<% elsif not flash[:success].nil? %>
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<%= flash[:success] %>
+			</div>
+		<% end %>
         <h1>
         	Proposition
 		</h1>
@@ -105,16 +99,12 @@
                   :class => 'btn btn-lg btn-danger' %>
 		<% end %>
 		<% if @proposition.service.user == current_user %>
-			<% if not @proposition.service.isGiven? and current_user.money < @proposition.price %>
-				<button class="btn btn-lg btn-success" data-toggle="modal" data-target="#modalAccepter">Accepter</button>
-			<% else %>
-	            <%= link_to 'Accepter', accepter_prop_service_path(@proposition.service, :prop => @proposition), 
-	            :class => 'btn btn-lg btn-success' %>
-	        <% end %>
+            <%= link_to 'Accepter', accepter_prop_service_path(@proposition.service, :prop => @proposition), 
+            :class => 'btn btn-lg btn-success' %>
             <button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#modalRefus">Refuser</button>
 		<% end %>
-	<% elsif @proposition.service.isFinished==false and @proposition.service.user != current_user and @proposition.isAccepted==false %>
-		 <%= link_to 'Nouvelle proposition', new_proposition_path(:service => @proposition.service.id), {:class=> "btn btn-lg btn-info"}%>
+	<% elsif not @proposition.service.isFinished? and @proposition.service.user != current_user and @proposition.isAccepted==false %>
+		 <%= link_to 'Nouvelle proposition', nouvelle_prop_service_path(:service => @proposition.service.id), {:class=> "btn btn-lg btn-info"}%>
 	<% end %>
 	<%= link_to 'Retour',
 			service_path(@proposition.service), :class => 'btn btn-lg'  %>

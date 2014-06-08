@@ -102,107 +102,48 @@
 <% end %> 
 <div id="map"> </div>
 -->
-
       <!-- Jumbotron -->
       <div class="jumbotron">
+		<% if not flash[:errorconnexion].nil? %>
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				Vous devez d'abord vous <a href="<%= signin_path %>" class="alert-link">connecter</a>
+			</div>
+      	<% elsif not flash[:error].nil? %>
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<%= flash[:error] %>
+			</div>
+		<% elsif not flash[:success].nil? %>
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<%= flash[:success] %>
+			</div>
+		<% end %>
         <h1><%= @service.title %></h1>
         <p class="lead">"<%= @service.description %>"</p>
-        <p>
-        <% if not @service.isFinished? %>
-          <% if signed_in?%>
-            <% if @service.user != current_user %>
-            	<% prop_precedente = Proposition.where(user: current_user, service:@service, isAccepted:nil) %>
-            	<% if prop_precedente.count()==0 %>
-            		<% if @service.isGiven? %>
-			            <% if current_user.money.to_i >= @service.price %>
-			              <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
-			            <% else %>
-				            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
-				                   Faire une proposition
-				            </button>
-				            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				                <div class="modal-dialog">
-				                 <div class="modal-content">
-				                    <div class="modal-header">
-				                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
-				                    </div>
-				                    <div class="modal-body">
-				                    	 	Votre solde (<%= current_user.money %>hp) est insuffisant(<%= @service.price %>hp).
-				                    </div>
-				                    <div class="modal-footer">
-				                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-				                    </div>
-				                 </div>
-				                </div>
-				            </div>
-				         <% end %>
-			       <% else %>
-		              <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id), {:class=> "btn btn-lg btn-success"}%>
-		            <% end %>
-		        <% else %> <!-- prop_precedente.count()==0 -->
-		        	<button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
-		                   Faire une proposition
-		            </button>
-		            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		                <div class="modal-dialog">
-		                 <div class="modal-content">
-		                    <div class="modal-header">
-		                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
-		                    </div>
-		                    <div class="modal-body">
-		                    	<% if prop_precedente.count()==1 %>
-		                    	 	Vous avez déjà une <a href='<%= proposition_path(prop_precedente[0])%>'>proposition </a> en attente pour ce service.
-		                    	<% else %>
-		                    		Vous avez déjà des propositions en attente pour ce service.
-		                    	<% end %>
-		                    </div>
-		                    <div class="modal-footer">
-		                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-		                    </div>
-		                 </div>
-		                </div>
-		            </div>
-		        <% end %>
-	         <% end %>
-          <% else %>
-            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#myModal">
-                  Faire une proposition
-            </button>
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
-                    </div>
-                    <div class="modal-body">
-                            Vous devez être connecté(e) pour pouvoir faire une proposition.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-                    </div>
-                 </div>
-                </div>
-            </div>
-          <% end %>
-       <% end %>
-          
-</p>
-       <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p> -->
-      
-  <dt>Dans la catégorie <strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong></dt>
+        <div>
+	        <% if not @service.isFinished? and @service.user != current_user%>
+	        	<%= link_to 'Faire une proposition', nouvelle_prop_service_path(@service, :service => @service), {:class=>"btn btn-lg btn-success"} %>
+	       	<% else %>
+	      	 	<a href="#" class="btn btn-lg btn-default" disabled>Faire une proposition</a>
+	       	<% end %>
+		</div>
+  		<dt>Dans la catégorie <strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong></dt>
 
-  <dt>Ayant pour disponibilité(s) 
-  <% if @service.disponibility.blank? %>
-  	<strong> Non renseignées
-  <% else %>
-  	<%= @service.disponibility %></strong>
-  <% end %>
-  <dt>Le prix est de <strong><%= @service.price %> HP</strong></dt>  
-  
-  <dt> Proposé par 
+	  <dt>
+		  <% if not @service.disponibility.blank? %>
+		  	Ayant pour disponibilité(s) <%= @service.disponibility %></strong>
+		  <% end %> 
+	  </dt>
+		<dt>Le prix est de <strong><%= @service.price %> HP</strong></dt>  
+  <dt><% if @service.isGiven? %>
+  		Proposé par
+  	<% else %>
+  		Recherché par 
+  	<% end %>
+  </dt>
+  <dt>
   <% if @service.user.nil?  %>
   	Non renseigné
   <% else %>
@@ -217,15 +158,13 @@
   			<% logger.info @service.user.name %>
   			<%=image_tag "avatars/"+@service.user.avatar, :class => "img-circle" , height: '48', width: '48'  %>
   		<%end%>
-    
+    </dt>
   	<% username = @service.user.name + ' ' + @service.user.lastName%>
-  	<%= link_to username, user_path(@service.user) %>
-  <% end %> à 
-    <% if @service.address.nil? or @service.address.label=="" %>
-  	<dd> Non renseignée </dd>
-  <% else %>
-  	<dd><%= @service.address.label %></dd>
-  <% end %>
+  	<dt><%= link_to username, user_path(@service.user) %></dt>
+  <% end %> 
+    <% if not @service.address.blank? %>
+  		<dt>à <%= @service.address.label %></dt>
+  	<% end %>
   </dt>
   </br>
   <dt><strong>Ce service <% if @service.isFinished==true %> est terminé... dommage! <% else %> n'est pas encore terminé! Dépéchez-vous! <%end%></dt>
@@ -243,7 +182,6 @@
 	<%= link_to 'Retour',
 			services_path, :class => 'btn btn-small'  %>
 </div>
-
 <% if signed_in? %>
 <%= render :partial => 'servicepropositions' %>
 <% end %>
