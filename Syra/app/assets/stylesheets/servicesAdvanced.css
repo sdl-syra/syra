@@ -3,13 +3,13 @@
 }
 
 #avancedparams{
-	display: none;
+	display: block;
 }
 #avanced{
-	display: block;
+	display: none;
 }
 #recherche{
-	display: block;
+	display: none;
 }
 
 #regionB{
@@ -29,7 +29,7 @@
 }
 
 #avancedClose{
-	display:none;
+	display:block;
 	cursor: pointer;
 }
 

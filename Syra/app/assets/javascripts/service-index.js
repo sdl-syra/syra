@@ -8,6 +8,7 @@ $(document).ready(function(){
 	    $("#recherche").hide();
 	    $( "#avanced" ).hide();
 	    $( "#avancedClose" ).show();
+	    $( "#avancedClose" ).css("display", "block" );
 	  });
 	});
 });
@@ -18,6 +19,8 @@ $(document).ready(function(){
 	    cursor: "wait"
 	  });
 	  $( "#avanced" ).css("cursor", "pointer" );
+	  $( "#avanced" ).css("display", "block" );
+	  $( "#avancedClose" ).hide();
 	
 	  // on vide les attributs avancés
 	
@@ -66,6 +69,8 @@ $(document).ready(function(){
 	    cursor: "wait"
 	  });
 	  $("#regionB").hide();
+	  // on supprime la ville
+	  $("#ville_textfield:text").val('');
 	  if ( $( "#ville" ).is( ":hidden" ) ) {
 	  } else {
 	    $( "#ville" ).hide();
@@ -83,6 +88,9 @@ $(document).ready(function(){
 	    cursor: "wait"
 	  });
 	  $("#villeB").hide();
+	  // on supprime la région
+	  $("#q_address_region_cont option:first").attr("selected", "selected");
+
 	  if ( $( "#region" ).is( ":hidden" ) ) {
 	  } else {
 	    $( "#region" ).hide();
@@ -116,8 +124,8 @@ $(document).ready(function($){
     });
      
     // Initialisation des valeurs numériques au chargement de la page
-    $('#prix_min').html($("#slider_prix").slider("values", 0));
+    //$('#prix_min').html($("#slider_prix").slider("values", 0));
     $('#prix_max').html($("#slider_prix").slider("values", 1));
-    $('#q_price_gteq').val($("#slider_prix").slider("values", 0));
+    //$('#q_price_gteq').val($("#slider_prix").slider("values", 0));
     $('#q_price_lteq').val($("#slider_prix").slider("values", 1));
 });

@@ -6,6 +6,9 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
+    if params[:commit] == 'rechercheA' then
+      render js: "alert('Hello Rails');"
+    end
     if params[:recherche_service]
       @q = Service.where(:isGiven => true).search(params[:q])
       
