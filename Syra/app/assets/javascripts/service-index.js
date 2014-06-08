@@ -105,7 +105,7 @@ $(document).ready(function(){
 
 $(document).ready(function($){
     // On vide le champs Ville
-    $("#ville_textfield:text").val('');
+    //$("#ville_textfield:text").val('');
 
     // Création d'un slider dans l'élément id slider_prix
     $("#slider_prix").slider({

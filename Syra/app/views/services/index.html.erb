@@ -59,16 +59,16 @@
   <div class="col-xs-2 .col-sm-3">
     </br>
     <div><b> Lieu : </b></div><br/>
-    <br/><b><a id="regionB">Région </a></b>
-    <div id="region">
+    <br/><b><a id="regionB" <% if params[:q] and params[:q][:address_region_cont] and params[:q][:address_region_cont] != 'Selectionner' then%> style="display:none;"<% end %>>Région </a></b>
+    <div id="region" <% if params[:q] and params[:q][:address_region_cont] and params[:q][:address_region_cont] != 'Selectionner' then%> style="display:block;"<% end %>>
       <div><b> Region : </b></div><br/>
       <%= f.select :address_region_cont, options_for_select([['Selectionner',''],['Nord-Pas-de-Calais'],['Picardie']], 
       if params[:q] and params[:q][:address_region_cont] then params[:q][:address_region_cont] else 'Selectionner' end) %>
     </div>
 
-    <br/> <br/><B><a id="villeB">Ville</a></B>
+    <br/> <br/><B><a id="villeB" <% if params[:q] and params[:q][:address_ville_cont] and params[:q][:address_ville_cont] != '' then%> style="display:none;"<% end %>>Ville</a></B>
 
-    <div id="ville">
+    <div id="ville"  <% if params[:q] and params[:q][:address_ville_cont] and params[:q][:address_ville_cont] != '' then%> style="display:block;"<% end %>>
         <div><b> Ville : </b></div><br/>
         <%= f.text_field :address_ville_cont, :id=>'ville_textfield' %>
     </div>
