@@ -34,19 +34,19 @@ a2 = Address.create(label:'rue Nationale Lille 59000', y: 50.6328407, x: 3.05275
 l2 = Level.create(levelUser:1,XPUser:0)
 
 
-user2 = User.create!(name: 'Maxime', lastName: 'Boutrouille', password:'12345678', email:'boutrouillemaxime@gmail.com', money: '1337',
+user2 = User.create!(name: 'Maxime', lastName: 'Boutrouille', password:'12345678', email:'maxime.boutrouille@gmail.com', money: '1337',
            phone:'0601280156',biography:'Bla Bla Biographie',isPremium:false,level_id:l2.id,address_id:a2.id,
-           email_confirmation:'boutrouillemaxime@gmail.com',password_confirmation:'12345678',accept_conditions:true, isAdmin:true)
+           email_confirmation:'maxime.boutrouille@gmail.com',password_confirmation:'12345678',accept_conditions:true, isAdmin:true)
 
 a3 = Address.create(label:'83 rue Jacquemars gielee', y: 50.6341846, x: 3.054211699999996,region:'Nord-Pas-de-Calais', ville: 'Lille')
 l3 = Level.create(levelUser:1,XPUser:0)
 
 
-user3 = User.create!(name: 'Xavier', lastName: 'Koma', password:'12345678', email:'xavierkoma@gmail.com', money: '20',
+user3 = User.create!(name: 'Xavier', lastName: 'Koma', password:'12345678', email:'xavier.koma@gmail.com', money: '20',
            phone:'0601280156',biography:'Bla Bla Biographie',isPremium:false,level_id:l3.id,address_id:a3.id,
-           email_confirmation:'xavierkoma@gmail.com',password_confirmation:'12345678',accept_conditions:true, isAdmin:true)
+           email_confirmation:'xavier.koma@gmail.com',password_confirmation:'12345678',accept_conditions:true, isAdmin:true)
 
-a4 = Address.create(label:'25 rue Royale', y: 50.6394923, x: 3.0580426000000216,region:'Nord-Pas-de-Calais', ville: 'Lille')
+a4 = Address.create(label:'25 rue Royale 59150 Wattrelos', y: 50.6394923, x: 3.0580426000000216,region:'Nord-Pas-de-Calais', ville: 'Wattrelos')
 l4 = Level.create(levelUser:1,XPUser:0)
 
 
@@ -68,48 +68,50 @@ Hobby.create(label:'Lecture')
 
 
 s1 = Service.create(title: 'cours informatique',price: 4,description: 'JE SUIS UN GEEK',disponibility: 'quand tu veux bb',
-               isGiven: true, isFinished: true,
-               address_id: a1.id,category_id: c1.id,user_id:user2.id)
+               isGiven: true, isFinished: false,
+               address_id: a1.id,category_id: c1.id,user_id:user1.id)
 
 
 s2 = Service.create(title: 'cours Rails',price: 5,description: 'Ruby !!',disponibility: 'a partir de 18h',
-               isGiven: true, isFinished: false,
+               isGiven: false, isFinished: false,
                address_id: a2.id,category_id: c1.id,user_id:user2.id)
 
 
 s3 = Service.create(title: 'Jardinage',price: 2,description: 'surtout les fleurs',disponibility: 'a partir de 18h',
                isGiven: true, isFinished: false,
-               address_id: a3.id,category_id: c2.id,user_id:user1.id)
+               address_id: a3.id,category_id: c2.id,user_id:user3.id)
 
 
-Service.create(title: 'BabySitting',price: 5,description: 'serieux et disponible',disponibility: 'a partir de 18h',
+s4 = Service.create(title: 'BabySitting',price: 5,description: 'serieux et disponible',disponibility: 'a partir de 18h',
                isGiven: true, isFinished: false,
-               address_id: a4.id,category_id: c3.id,user_id:user1.id)
+               address_id: a4.id,category_id: c3.id,user_id:user4.id)
 
 
 Service.create(title: 'cours BDD',price: 3,description: 'Love Francis',disponibility: 'a partir de 18h',
-               isGiven: true, isFinished: false,
+               isGiven: false, isFinished: false,
                address_id: a4.id,category_id: c1.id,user_id:user1.id)
 
 
 Service.create(title: 'Coupe de cheveux',price: 6,description: 'Etudiant',disponibility: 'a partir de 18h',
                isGiven: true, isFinished: false,
-               address_id: a5.id,category_id: c3.id,user_id:user1.id)
+               address_id: a5.id,category_id: c3.id,user_id:user2.id)
 
 
 Service.create(title: 'cours de piano',price: 8,description: 'medaille dor',disponibility: 'a partir de 18h',
-               isGiven: true, isFinished: false,
-               address_id: a1.id,category_id: c4.id,user_id:user1.id)
+               isGiven: false, isFinished: false,
+               address_id: a1.id,category_id: c4.id,user_id:user4.id)
 
-Proposition.create(isPaid: false, isAccepted: false, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s1.id, price:1)
+Proposition.create(isPaid: false, isAccepted: false, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id, price:1)
 Proposition.create(isPaid: false, isAccepted: false, motifCancelled: 'Je ne suis pas dispo ce jour là.', proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user2.id, service_id:s1.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user3.id, service_id:s1.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s1.id, price:1)
 Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id, price:1)
-Proposition.create(isPaid: nil, isAccepted: true, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id, price:1)
-Proposition.create(isPaid: true, isAccepted: true, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id, price:1)
-Proposition.create(isPaid: false, isAccepted: true, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user3.id, service_id:s2.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s2.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s3.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user2.id, service_id:s3.id, price:1)
 Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id, price:1)
-Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id, price:1)
-Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id, price:1)
-Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id, price:1)
-Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id, price:1)
-Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user4.id, service_id:s3.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s4.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user2.id, service_id:s4.id, price:1)
+Proposition.create(isPaid: nil, isAccepted: nil, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user3.id, service_id:s4.id, price:1)

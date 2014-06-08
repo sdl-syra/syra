@@ -59,6 +59,7 @@ Syra::Application.routes.draw do
   get '/services/:id/accepterProp', :to => 'services#accepterProp', :as => 'accepter_prop_service'
   get '/services/:id/refuserProp', :to => 'services#refuserProp', :as => 'refuser_prop_service'
   get '/services/:id/nouvelleProp', :to => 'services#nouvelleProp', :as => 'nouvelle_prop_service'
+  get '/services/:id/cloturer', :to => 'services#cloturer', :as => 'cloturer_service'
   get '/propositions/:id/validerEchange', :to => 'propositions#validerEchange', :as => 'valider_proposition'
 
   get '/map', :to => 'pages#map'

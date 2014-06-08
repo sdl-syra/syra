@@ -139,28 +139,36 @@ class ServicesController < ApplicationController
   # DELETE /services/1
   # DELETE /services/1.json
   def destroy
-    lesPropositions = Proposition.where(service:@service)
-    lesPropositions.each do |p|
-      if @service.isGiven?
-        if p.isAccepted != false and p.isPaid != true
-          p.user.money = p.user.money + p.price
-          p.user.save
+    if signed_in?
+      lesPropositions = Proposition.where(service:@service)
+      lesPropositions.each do |p|
+        if @service.isGiven?
+          if p.isAccepted != false and p.isPaid != true
+            p.user.money = p.user.money + p.price
+            p.user.save
+          end
+        else
+          if p.isAccepted? and p.isPaid != true
+            @service.user.money = @service.user.money + p.price
+            @service.user.save
+          end
         end
-      else
-        if p.isAccepted? and p.isPaid != true
-          @service.user.money = @service.user.money + p.price
-          @service.user.save
+        if p.isPaid.nil?
+          NotificationsHelper.create_notif(p.user,"Service '"+p.service.title+"' supprimé, proposition annulée",proposition_path(p.id.to_s))
         end
+        p.destroy
       end
-      if p.isPaid.nil?
-        NotificationsHelper.create_notif(p.user,"Service '"+p.service.title+"' supprimé, proposition annulée",proposition_path(p.id.to_s))
+      @service.destroy
+      respond_to do |format|
+        format.html { redirect_to user_path(@service.user) }
+        format.json { head :no_content }
       end
-      p.destroy
-    end
-    @service.destroy
-    respond_to do |format|
-      format.html { redirect_to user_path(@service.user) }
-      format.json { head :no_content }
+    else
+      flash[:errorconnexion] = true
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -283,6 +291,36 @@ class ServicesController < ApplicationController
         format.html { redirect_to(:back) }
         format.json { head :no_content }
       end
+    end
+  end
+  
+  
+  def cloturer
+    if signed_in?
+      serv = Service.find(params[:id])
+      lesPropositions = Proposition.where(:isAccepted => nil)
+      lesPropositions.each do |prop|
+        if prop.service.user == current_user
+          prop.motifCancelled = "Service clôturé."
+          prop.isAccepted = false
+          prop.isPaid = false
+          prop.save
+          if prop.service.isGiven?
+            prop.user.money = prop.user.money + prop.price
+            prop.user.save
+          end
+          NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s))
+        end
+      end
+      serv.isFinished = true
+      serv.save
+      flash[:success] = "Le service a été clôturé"
+    else
+      flash[:errorconnexion] = true
+    end
+    respond_to do |format|
+      format.html { redirect_to(:back) }
+      format.json { head :no_content }
     end
   end
 

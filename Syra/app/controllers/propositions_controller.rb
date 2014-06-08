@@ -66,9 +66,8 @@ class PropositionsController < ApplicationController
   # DELETE /propositions/1
   # DELETE /propositions/1.json
   def destroy
-    serviceprop = @proposition.service
     if @proposition.isAccepted.nil? and @proposition.user == current_user
-      if serviceprop.isGiven? and not @proposition.isPaid?
+      if @proposition.service.isGiven? and not @proposition.isPaid?
         @proposition.user.money = @proposition.user.money + @proposition.price
         @proposition.user.save
       end
@@ -78,7 +77,7 @@ class PropositionsController < ApplicationController
       @proposition.destroy
       flash[:success] = "Proposition supprimée avec succès"
       respond_to do |format|
-        format.html { redirect_to service_path(serviceprop) }
+        format.html { redirect_to service_path(@proposition.service) }
         format.json { head :no_content }
       end
     else
