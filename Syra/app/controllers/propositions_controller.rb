@@ -68,7 +68,7 @@ class PropositionsController < ApplicationController
   def destroy
     serviceprop = @proposition.service
     if @proposition.isAccepted.nil? and @proposition.user == current_user
-      if serviceprop.isGiven? and @proposition.isPaid != true
+      if serviceprop.isGiven? and not @proposition.isPaid?
         @proposition.user.money = @proposition.user.money + @proposition.price
         @proposition.user.save
       end
@@ -87,6 +87,41 @@ class PropositionsController < ApplicationController
         format.json { head :no_content }
       end
     end
+  end
+  
+  def validerEchange
+    prop = Proposition.find(params[:id])
+    codeUtilisateur = params[:proposition][:code]
+    if signed_in?
+      if prop.service.isGiven? and prop.service.user == current_user
+        if codeUtilisateur == prop.code
+          prop.isPaid = true
+          prop.save
+          prop.service.user.money = prop.service.user.money + prop.price
+          prop.service.user.save
+          flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
+        else
+          flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"
+        end
+      elsif not prop.service.isGiven? and prop.user == current_user
+        if codeUtilisateur == prop.code
+          prop.isPaid = true
+          prop.save
+          prop.user.money = prop.user.money + prop.price
+          prop.user.save
+          flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
+        else
+          flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"
+        end
+      end
+    else
+      flash[:errorconnexion] = true
+    end
+    respond_to do |format|
+      format.html { redirect_to(:back) }
+      format.json { head :no_content }
+    end
+    
   end
 
   private

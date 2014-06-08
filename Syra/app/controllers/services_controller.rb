@@ -140,7 +140,6 @@ class ServicesController < ApplicationController
   # DELETE /services/1.json
   def destroy
     lesPropositions = Proposition.where(service:@service)
-    userService = @service.user
     lesPropositions.each do |p|
       if @service.isGiven?
         if p.isAccepted != false and p.isPaid != true
@@ -160,7 +159,7 @@ class ServicesController < ApplicationController
     end
     @service.destroy
     respond_to do |format|
-      format.html { redirect_to user_path(userService) }
+      format.html { redirect_to user_path(@service.user) }
       format.json { head :no_content }
     end
   end
@@ -168,28 +167,27 @@ class ServicesController < ApplicationController
 
   def accepterProp
     prop = Proposition.find(params[:prop])
-    serviceProp = Service.find(prop.service)
     if signed_in?
       if prop.isAccepted.nil? and prop.service.user == current_user
-        if not serviceProp.isGiven?
-          if serviceProp.user.money > prop.price
-            serviceProp.user.money = serviceProp.user.money - prop.price
-            serviceProp.user.save
+        if not prop.service.isGiven?
+          if prop.service.user.money > prop.price
+            prop.service.user.money = prop.service.user.money - prop.price
+            prop.service.user.save
             prop.isAccepted = true
             prop.save
-            #UserMailer.send_code(serviceProp.user,serviceProp,prop).deliver
+            UserMailer.send_code(prop.service.user,prop.service,prop).deliver
             UsersHelper.grant_xp(serviceProp.user,75)
             UsersHelper.grant_xp(prop.user,75)
             NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",prop.id.to_s)
             flash[:success] = "Proposition acceptée, l'échange est prévu pour le "+prop.proposition.to_formatted_s(:day_month_year)
           else
-            flash[:error] = "Impossible, votre solde("+serviceProp.user.money.to_s()+"hp) est inférieur au prix de la proposition("+prop.price.to_s()+"hp)"
+            flash[:error] = "Impossible, votre solde("+prop.service.user.money.to_s()+"hp) est inférieur au prix de la proposition("+prop.price.to_s()+"hp)"
           end
         else
           prop.isAccepted = true
           prop.save
-          #UserMailer.send_code(prop.user,serviceProp,prop).deliver
-          UsersHelper.grant_xp(serviceProp.user,75)
+          UserMailer.send_code(prop.user,prop.service,prop).deliver
+          UsersHelper.grant_xp(prop.service.user,75)
           UsersHelper.grant_xp(prop.user,75)
           NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",prop.id.to_s)
           flash[:success] = "Proposition acceptée, l'échange est prévu pour le "+prop.proposition.to_formatted_s(:day_month_year)
@@ -212,8 +210,7 @@ class ServicesController < ApplicationController
         prop.isAccepted = false
         prop.isPaid = false
         prop.save
-        serviceProp = Service.find(prop.service)
-        if serviceProp.isGiven?
+        if prop.service.isGiven?
           prop.user.money = prop.user.money + prop.price
           prop.user.save
         end
