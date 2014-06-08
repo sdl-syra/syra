@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
     @code = ServicesHelper.generate_code
     proposition.code = @code
     proposition.save
-    mail :to => user.email, :from => "noreply@syra.com", :subject => "Le mail de ta vie"
+    #mail :to => user.email, :from => "noreply@syra.com", :subject => "Le mail de ta vie"
   end
 
 end
