@@ -143,12 +143,12 @@ class ServicesController < ApplicationController
       lesPropositions = Proposition.where(service:@service)
       lesPropositions.each do |p|
         if @service.isGiven?
-          if p.isAccepted != false and p.isPaid != true
+          if p.isAccepted != false and not p.isPaid?
             p.user.money = p.user.money + p.price
             p.user.save
           end
         else
-          if p.isAccepted? and p.isPaid != true
+          if p.isAccepted? and not p.isPaid?
             @service.user.money = @service.user.money + p.price
             @service.user.save
           end
