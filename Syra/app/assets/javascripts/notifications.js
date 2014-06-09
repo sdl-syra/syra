@@ -20,9 +20,8 @@ $(document).ready(function() {
 		$('.dropdown-menu').dropdown('toggle');
 		$.ajax({
 		  url: "/notifications/" + $(this).attr('data-id'),
-		  type: "post",
-		  dataType: "json",
-		  data: {"_method":"delete"}
+		  type: "delete",
+		  dataType: "json"
 		});
 	});
 });
