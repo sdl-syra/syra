@@ -119,7 +119,7 @@
         <td><%= service.description %></td>
         <td><%= service.disponibility %></td>
         <td>
-          <% if service.isGiven=true then %>
+          <% if service.isGiven? %>
             Offre
           <% else %>
             Demande
