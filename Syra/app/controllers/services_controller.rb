@@ -184,7 +184,7 @@ class ServicesController < ApplicationController
             prop.isAccepted = true
             prop.save
             UserMailer.send_code(prop.service.user,prop.service,prop).deliver
-            UsersHelper.grant_xp(serviceProp.user,75)
+            UsersHelper.grant_xp(prop.service.user,75)
             UsersHelper.grant_xp(prop.user,75)
             NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s))
             flash[:success] = "Proposition acceptée, l'échange est prévu pour le "+prop.proposition.to_formatted_s(:day_month_year)
