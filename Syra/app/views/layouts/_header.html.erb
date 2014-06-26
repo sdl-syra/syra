@@ -36,7 +36,7 @@
 								<%else%>
 									<i><%=time_ago_in_words(n.created_at)%></i>
 								<%end%>
-								<%=n.label%> &nbsp;&nbsp;<span class="deletenotif" data-id="<%=n.id%>"><span class="glyphicon glyphicon-trash trashcustom"></span></span></a></li>
+								<%=n.label%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="deletenotif" data-id="<%=n.id%>"><span class="fa fa-trash-o trashcustom"></span></span></a></li>
 						<%end%>
 						<li id="toutsupprnotif"> <%= link_to 'Tout Supprimer',
 		                      delete_all_notifications_path,
