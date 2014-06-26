@@ -17,7 +17,7 @@ $(document).ready(function() {
 				$(".notifmenu").append("<li><a href=#>Aucune notification</a></li>");
 			}
 		});
-		$('.dropdown-menu').dropdown('toggle');
+		$('.notifmenu').dropdown('toggle');
 		$.ajax({
 		  url: "/notifications/" + $(this).attr('data-id'),
 		  type: "delete",
