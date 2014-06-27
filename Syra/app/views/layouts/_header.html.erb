@@ -3,11 +3,11 @@ $(document).ready(function() {
     var $lightbox = $('#allnotifs');    
     $lightbox.on('shown.bs.modal', function (e) {
         var $iframe = $lightbox.find('iframe');
-        var w = $(window).width() - ($(window).width()/4);
+        var w = $(window).width() - ($(window).width()/3);
         var h = $(window).height() - ($(window).height()/6);
         $iframe.attr("width",w);
         $iframe.attr("height",h);
-        $iframe.attr("src","http://www.eclypsia.com/fr/eclypsiatv");
+        $iframe.attr("src","/notifsuser");
         $lightbox.find('.modal-dialog').css({'width': $iframe.width()});
         $lightbox.find('.modal-dialog').css({'height': $iframe.height()});
         $lightbox.find('.close').removeClass('hidden');
@@ -48,13 +48,13 @@ $(document).ready(function() {
 		          	<%else%>
 		          		<% notifsToShow = notifsNotViewed.count>10 ? notifsNotViewed.order(created_at: :desc) : notifs.order(is_checked: :asc,created_at: :desc).take(10) %>
 						<% notifsToShow.each do |n| %>
-							<li <%if n.is_checked==false%>style='background-color:#F0E68C'<%end%>><a href="<%="http://localhost:3000/"+n.url%>" class="notifcustom">
+							<li <%if n.is_checked==false%>style='background-color:#F0E68C'<%end%>><a href="<%=n.url%>" class="notifcustom">
 								<%if time_ago_in_words(n.created_at).end_with?"h" and time_ago_in_words(n.created_at).gsub("Il y a","").sub("h","").to_i>12%>
 									<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
 								<%else%>
 									<i><%=time_ago_in_words(n.created_at)%></i>
 								<%end%>
-								<%=n.label%></a></li>
+								<%=n.label%> &nbsp;&nbsp;</a></li>
 						<%end%>
 						<li id="showallnotifs"><a href="#" data-toggle="modal" data-target="#allnotifs" class="btn btn-primary"> Afficher tout </a></li>
 			    	<%end%>

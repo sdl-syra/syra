@@ -34,7 +34,7 @@
 
 	<body data-no-turbolink> 
 		<div id="header">
-			<%= render 'layouts/header' %>
+			<%= render 'layouts/header' unless @disable_header %>
 		</div>
 		<%= yield %>
 

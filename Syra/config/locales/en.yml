@@ -35,3 +35,10 @@ en:
       x_minutes:
         one: "Il y a %{count}mn"
         other: "Il y a %{count}mn"
+  date:
+    formats: 
+      day_month_letter: '%d %B'
+    month_names: ['~','Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre']
+  time:
+    formats:
+      h_m: '%k:%M'

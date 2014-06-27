@@ -154,7 +154,7 @@ class ServicesController < ApplicationController
           end
         end
         if p.isPaid.nil?
-          NotificationsHelper.create_notif(p.user,"Service '"+p.service.title+"' supprimé, proposition annulée","/")
+          NotificationsHelper.create_notif(p.user,"Service '"+p.service.title+"' supprimé, proposition annulée","/","fa fa-exchange")
         end
         p.destroy
       end
@@ -186,7 +186,7 @@ class ServicesController < ApplicationController
             UserMailer.send_code(prop.service.user,prop.service,prop).deliver
             UsersHelper.grant_xp(prop.service.user,75)
             UsersHelper.grant_xp(prop.user,75)
-            NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s))
+            NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
             flash[:success] = "Proposition acceptée, l'échange est prévu pour le "+prop.proposition.to_formatted_s(:day_month_year)
           else
             flash[:error] = "Impossible, votre solde("+prop.service.user.money.to_s()+"hp) est inférieur au prix de la proposition("+prop.price.to_s()+"hp)"
@@ -197,7 +197,7 @@ class ServicesController < ApplicationController
           UserMailer.send_code(prop.user,prop.service,prop).deliver
           UsersHelper.grant_xp(prop.service.user,75)
           UsersHelper.grant_xp(prop.user,75)
-          NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s))
+          NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
           flash[:success] = "Proposition acceptée, l'échange est prévu pour le "+prop.proposition.to_formatted_s(:day_month_year)
         end
       end
@@ -222,7 +222,7 @@ class ServicesController < ApplicationController
           prop.user.money = prop.user.money + prop.price
           prop.user.save
         end
-        NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s))
+        NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
         flash[:success] = "Proposition refusée pour le motif suivant : '"+ prop.motifCancelled+"'"
       end
     else
@@ -309,7 +309,7 @@ class ServicesController < ApplicationController
             prop.user.money = prop.user.money + prop.price
             prop.user.save
           end
-          NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s))
+          NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
         end
       end
       serv.isFinished = true

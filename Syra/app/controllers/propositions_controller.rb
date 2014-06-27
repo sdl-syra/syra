@@ -36,7 +36,7 @@ class PropositionsController < ApplicationController
       if @proposition.save
         format.html { redirect_to @proposition, notice: 'Proposition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @proposition }
-        NotificationsHelper.create_notif(@proposition.service.user,"Une nouvelle proposition pour '"+@proposition.service.title+"'",proposition_path(@proposition.id.to_s))
+        NotificationsHelper.create_notif(@proposition.service.user,"Une nouvelle proposition pour '"+@proposition.service.title+"'",proposition_path(@proposition.id.to_s),"fa fa-exchange")
         serviceProp = Service.find(@proposition.service)
         if serviceProp.isGiven?
           current_user.money = current_user.money - serviceProp.price
@@ -72,7 +72,7 @@ class PropositionsController < ApplicationController
         @proposition.user.save
       end
       if @proposition.isPaid.nil?
-          NotificationsHelper.create_notif(@proposition.service.user,"Proposition pour le service '"+@proposition.service.title+"' supprimée",service_path(@proposition.service.id.to_s))
+          NotificationsHelper.create_notif(@proposition.service.user,"Proposition pour le service '"+@proposition.service.title+"' supprimée",service_path(@proposition.service.id.to_s),"fa fa-exchange")
         end
       @proposition.destroy
       flash[:success] = "Proposition supprimée avec succès"
@@ -98,7 +98,7 @@ class PropositionsController < ApplicationController
           prop.save
           prop.service.user.money = prop.service.user.money + prop.price
           prop.service.user.save
-          NotificationsHelper.create_notif(@proposition.user,"Echange concernant le service '"+@proposition.service.title+"' validé",proposition_path(@proposition.id.to_s))
+          NotificationsHelper.create_notif(@proposition.user,"Echange concernant le service '"+@proposition.service.title+"' validé",proposition_path(@proposition.id.to_s),"fa fa-exchange")
           flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
         else
           flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"
@@ -109,7 +109,7 @@ class PropositionsController < ApplicationController
           prop.save
           prop.user.money = prop.user.money + prop.price
           prop.user.save
-          NotificationsHelper.create_notif(@proposition.service.user,"Echange concernant le service '"+@proposition.service.title+"' validé",proposition_path(@proposition.id.to_s))
+          NotificationsHelper.create_notif(@proposition.service.user,"Echange concernant le service '"+@proposition.service.title+"' validé",proposition_path(@proposition.id.to_s),"fa fa-exchange")
           flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
         else
           flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"
