@@ -1,19 +1,21 @@
 $(document).ready(function() {
-	$('.resetbadgenotif').click(function() {  
-		$("#badgeNotif").hide();
-		$.ajax({
-		  url: "/all_notif_checked",
-		  type: "post"
-		});
+	$('.resetbadgenotif').click(function() { 
+		if ($("#badgeNotif").length==1) { 
+			$("#badgeNotif").hide();
+			$.ajax({
+			  url: "/all_notif_checked",
+			  type: "post"
+			});
+		}
 	});
 });
-$(document).ready(function() {
+/*$(document).ready(function() {
 	$('.deletenotif').click(function() {
 		var li = this.parentNode.parentNode;
 		$(li).fadeOut(400, function() {
 			li.remove();
 			if ($(".notifmenu").children().size()==1) {
-				$("#toutsupprnotif").remove();
+				$("#showallnotifs").remove();
 				$(".notifmenu").append("<li><a href=#>Aucune notification</a></li>");
 			}
 		});
@@ -24,4 +26,4 @@ $(document).ready(function() {
 		  dataType: "json"
 		});
 	});
-});
+});*/
