@@ -72,7 +72,7 @@ class PropositionsController < ApplicationController
         @proposition.user.save
       end
       if @proposition.isPaid.nil?
-          NotificationsHelper.create_notif(@proposition.service.user,"Proposition pour le service '"+@proposition.service.title+"' supprimée",proposition_path(@proposition.id.to_s))
+          NotificationsHelper.create_notif(@proposition.service.user,"Proposition pour le service '"+@proposition.service.title+"' supprimée",service_path(@proposition.service.id.to_s))
         end
       @proposition.destroy
       flash[:success] = "Proposition supprimée avec succès"

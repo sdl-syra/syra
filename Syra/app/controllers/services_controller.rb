@@ -154,7 +154,7 @@ class ServicesController < ApplicationController
           end
         end
         if p.isPaid.nil?
-          NotificationsHelper.create_notif(p.user,"Service '"+p.service.title+"' supprimé, proposition annulée",proposition_path(p.id.to_s))
+          NotificationsHelper.create_notif(p.user,"Service '"+p.service.title+"' supprimé, proposition annulée","/")
         end
         p.destroy
       end

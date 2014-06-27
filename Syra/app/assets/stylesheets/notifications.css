@@ -3,32 +3,3 @@
     max-height: 200px;
     overflow-x: hidden;
 }
-.trashcustom {
-  display: inline-block;
-  padding: 4px 6px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.428571429;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-       -o-user-select: none;
-          user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;			
-}
-.trashcustom:hover {
-  color: #fff;
-  background-color: #d9534f;
-  border-color: #d43f3a;
-}
-.deletenotif {
-	position: absolute;
-	right:1px;
-}
