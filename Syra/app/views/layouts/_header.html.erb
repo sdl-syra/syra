@@ -118,14 +118,16 @@ $(document).ready(function() {
 					<h1>Notifications</h1>
 				</div>
 				<div class="toexpandnotifs">
-				<% dates = notifs.map {|n| n.date}.uniq %>
-				<% dates.sort_by {|d| d}.reverse.each do |d| %>
-					<i><%= l(d, format: :day_month_letter) %></i>
-					<% notifsSelected = notifs.select {|n| n.date == d} %>
-					<% notifsSelected.sort_by {|n| n.created_at}.reverse.each do |n| %>
-					<div>
-						<a class="thumbnail acustom" href="<%= n.url %>"><span class="<%= n.glyph_cat %> pull-left"></span> &nbsp;&nbsp; <%= n.label %> <small class="text-muted pull-right label label-default"><%= l(n.created_at, format: :h_m) %></small></a>
-					</div>
+				<% unless notifs.nil? %>
+					<% dates = notifs.map {|n| n.date}.uniq %>
+					<% dates.sort_by {|d| d}.reverse.each do |d| %>
+						<i><%= l(d, format: :day_month_letter) %></i>
+						<% notifsSelected = notifs.select {|n| n.date == d} %>
+						<% notifsSelected.sort_by {|n| n.created_at}.reverse.each do |n| %>
+						<div>
+							<a class="thumbnail acustom" href="<%= n.url %>"><span class="<%= n.glyph_cat %> pull-left"></span> &nbsp;&nbsp; <%= n.label %> <small class="text-muted pull-right label label-default"><%= l(n.created_at, format: :h_m) %></small></a>
+						</div>
+						<% end %>
 					<% end %>
 				<% end %>
 				</div>
