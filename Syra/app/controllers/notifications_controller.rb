@@ -1,6 +1,5 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
-  before_action :disable_header, only: [:notifsuser]
   
   # GET /notifications
   # GET /notifications.json

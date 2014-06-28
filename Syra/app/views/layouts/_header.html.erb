@@ -2,18 +2,22 @@
 $(document).ready(function() {
     var $lightbox = $('#allnotifs');    
     $lightbox.on('shown.bs.modal', function (e) {
-        var $iframe = $lightbox.find('iframe');
-        var w = $(window).width() - ($(window).width()/3);
-        var h = $(window).height() - ($(window).height()/6);
-        $iframe.attr("width",w);
-        $iframe.attr("height",h);
-        $iframe.attr("src","/notifsuser");
-        $lightbox.find('.modal-dialog').css({'width': $iframe.width()});
-        $lightbox.find('.modal-dialog').css({'height': $iframe.height()});
+        var w = $(window).width() - ($(window).width()/2);
+        $lightbox.find('.toexpandnotifs').css({'width': w});
         $lightbox.find('.close').removeClass('hidden');
     });
 });
 </script>
+<style type="text/css">
+ .acustom, .acustom:focus, .acustom:hover {
+  color: #333;
+  text-decoration: none;
+  background-color: transparent;
+}
+ .modal-content-notcenter {
+ 	text-align: inherit !important;
+ }
+</style>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
@@ -105,11 +109,25 @@ $(document).ready(function() {
 </nav>
 
 <div id="allnotifs" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog toexpandnotifs">
         <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
-        <div class="modal-content" >
-            <div class="modal-body" style="width:100%">
-                <iframe src="" frameborder="0"></iframe>
+        <div class="modal-content modal-content-notcenter" >
+            <div class="modal-body">
+                <div class="wrap">
+					<h1>Notifications</h1>
+				</div>
+				<div class="toexpandnotifs">
+				<% dates = notifs.map {|n| n.date}.uniq %>
+				<% dates.sort_by {|d| d}.reverse.each do |d| %>
+					<i><%= l(d, format: :day_month_letter) %></i>
+					<% notifs = notifs.select {|n| n.date == d} %>
+					<% notifs.sort_by {|n| n.created_at}.reverse.each do |n| %>
+					<div>
+						<a class="thumbnail acustom" href="<%= n.url %>"><span class="<%= n.glyph_cat %> pull-left"></span> &nbsp;&nbsp; <%= n.label %> <small class="text-muted pull-right label label-default"><%= l(n.created_at, format: :h_m) %></small></a>
+					</div>
+					<% end %>
+				<% end %>
+				</div>
             </div>
         </div>
     </div>
