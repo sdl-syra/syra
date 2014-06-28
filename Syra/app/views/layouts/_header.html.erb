@@ -38,19 +38,19 @@ $(document).ready(function() {
 
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle resetbadgenotif" data-toggle="dropdown"> <i class="fa fa-bullhorn"></i> Notifs 
-		          	<% notifsNotViewed = Notification.where(user: User.find(current_user.id),is_checked: false) %>
 		          	<% notifs = Notification.where(user: User.find(current_user.id)) %>
-		          	<% if (notifsNotViewed.count>0) %>
+		          	<% notifsNotViewed = notifs.select{|n| n.is_checked == false}%>
+		          	<% if (notifsNotViewed.length>0) %>
 		          		<span id="badgeNotif" class="badge">
 		          			<%=notifsNotViewed.count%>
 		          		</span>
 		          	<%end%>
 		          <b class="caret"></b></a>
 		          <ul class="dropdown-menu scrollable-menu notifmenu">
-		          	<% if (notifs.count==0) %>
+		          	<% if (notifs.length==0) %>
 		          		<li><a href=#>Aucune notification</a></li>
 		          	<%else%>
-		          		<% notifsToShow = notifsNotViewed.count>10 ? notifsNotViewed.order(created_at: :desc) : notifs.order(is_checked: :asc,created_at: :desc).take(10) %>
+		          		<% notifsToShow = notifsNotViewed.count>10 ? notifsNotViewed.sort_by {|n| n.created_at}.reverse : notifs.sort_by {|n| n.created_at}.reverse.take(10) %>
 						<% notifsToShow.each do |n| %>
 							<li <%if n.is_checked==false%>style='background-color:#F0E68C'<%end%>><a href="<%=n.url%>" class="notifcustom">
 								<span class="<%= n.glyph_cat %>"></span> &nbsp;
