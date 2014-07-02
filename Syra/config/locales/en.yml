@@ -42,3 +42,10 @@ en:
   time:
     formats:
       h_m: '%k:%M'
+  views:
+    pagination:
+      first: "&laquo; "
+      last: " &raquo;"
+      previous: "&lsaquo; Prec"
+      next: "Suiv &rsaquo;"
+      truncate: "&hellip;"

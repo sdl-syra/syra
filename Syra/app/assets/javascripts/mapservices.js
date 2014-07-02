@@ -11,7 +11,7 @@ function addMarkerArray( markersArray, map)
           var marker2 = new google.maps.Marker({
               position: myLatlng2,
               map: map,
-              url: $(location).attr('href').replace("/search","")+'/'+idService,
+              url: $(location).attr('href')+'/'+idService,
               title:titreService
           });
 
@@ -63,8 +63,10 @@ function GoogleMap(position) {
 {lat : 43.123434,long: 74.12343}
 ]; //Test data
 
-      var services = jQuery.parseJSON($("#json").text());
-      addMarkerArray(services,map);  
+      $.getJSON('', function(data) {
+      // you can access your data here in the "data" variable passed to this success handler
+          addMarkerArray(data,map);          
+      });  
   
 }
 

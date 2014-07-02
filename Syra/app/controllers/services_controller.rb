@@ -20,7 +20,7 @@ class ServicesController < ApplicationController
     
     #@q = Service.search(params[:q])
     if params[:q].present?
-      @services = @q.result(distinct: true).order('title')
+      @services = @q.result(distinct: true).order('title').page params[:page]
       address = []
       @services.each do |service|
         address << Address.find(service.address_id)
@@ -31,7 +31,7 @@ class ServicesController < ApplicationController
         format.json { render json: @services }
       end
     else
-      @services = Service.all
+      @services = Service.all.page params[:page]
       address = []
       @services.each do |service|
         address << Address.find(service.address_id)

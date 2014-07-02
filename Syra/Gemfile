@@ -73,6 +73,7 @@ gem "birthday"
 # For jquery-ui, not supported anymore by jquery-rails
 gem "jquery-ui-rails"
 
-
+# For pagination
+gem 'kaminari'
 
 gem 'jcrop-rails-v2'

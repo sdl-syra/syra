@@ -30,7 +30,7 @@ Syra::Application.routes.draw do
   
   resources :services do
     collection do
-      post '/search', :to => 'services#index', :as => :index
+      get '/search', :to => 'services#index', :as => :index
     end
   end
 

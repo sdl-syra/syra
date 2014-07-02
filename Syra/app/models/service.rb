@@ -1,5 +1,6 @@
 class Service < ActiveRecord::Base
   include ActiveModel::Dirty
+  paginates_per 2
 
   validates :title, presence: true ,:presence => {:message => 'Vous devez indiquer un titre'}
   validates :category_id, presence: true ,:presence => {:message => 'Vous devez choisir une catégorie'}
