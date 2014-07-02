@@ -63,10 +63,8 @@ function GoogleMap(position) {
 {lat : 43.123434,long: 74.12343}
 ]; //Test data
 
-      $.getJSON('', function(data) {
-      // you can access your data here in the "data" variable passed to this success handler
-          addMarkerArray(data,map);          
-      });  
+      var services = jQuery.parseJSON($("#json").text());
+      addMarkerArray(services,map); 
   
 }
 
