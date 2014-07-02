@@ -94,9 +94,11 @@
 </div>
 <% end %>
 
+<% unless @services.nil? %>
 <div class="text-center">
 	<%= paginate @services %>
 </div>
+<% end %>
 
 <table class="table table-striped">
   <thead>
