@@ -6,14 +6,14 @@ function getAvgPosition() {
 	var avgLng = 0;
 	for(var i = 0; i < markersArray.length ; i++) {
 		var latitude2 = markersArray[i].address.y;
-        avgLat = (avgLat + latitude2) / (i+1);
+        avgLat += latitude2;
         var longitude2 = markersArray[i].address.x;
-        avgLng = (avgLng + longitude2) / (i+1);
+        avgLng += longitude2;
 	}
 	var position = new Object();
 	position.coords = new Object();
-	position.coords.latitude = avgLat;
-	position.coords.longitude = avgLng;
+	position.coords.latitude = (avgLat/markersArray.length);
+	position.coords.longitude = (avgLng/markersArray.length);
 	return position;
 }
 
