@@ -1,3 +1,22 @@
+var showYoureHere = true;
+
+function getAvgPosition() {
+	var markersArray = jQuery.parseJSON($("#json").text());
+	var avgLat = 0;
+	var avgLng = 0;
+	for(var i = 0; i < markersArray.length ; i++) {
+		var latitude2 = markersArray[i].address.y;
+        avgLat = (avgLat + latitude2) / (i+1);
+        var longitude2 = markersArray[i].address.x;
+        avgLng = (avgLng + longitude2) / (i+1);
+	}
+	var position = new Object();
+	position.coords = new Object();
+	position.coords.latitude = avgLat;
+	position.coords.longitude = avgLng;
+	return position;
+}
+
 function addMarkerArray( markersArray, map)
     { 
         for(var i = 0; i < markersArray.length ; i++) 
@@ -11,7 +30,7 @@ function addMarkerArray( markersArray, map)
           var marker2 = new google.maps.Marker({
               position: myLatlng2,
               map: map,
-              url: $(location).attr('href')+'/'+idService,
+              url: '/services/'+idService,
               title:titreService
           });
 
@@ -48,14 +67,16 @@ function GoogleMap(position) {
         new google.maps.Point(0, 0),
         new google.maps.Point(12, 35));
 
-    var marker = new google.maps.Marker({  
-                    map: map,  
-                    position: location,  
-                    animation: google.maps.Animation.DROP,  
-                    title: "Vous êtes ici",
-                    icon: pinImage,
-                    shadow: pinShadow  
-                });  
+	if (showYoureHere) {
+	    var marker = new google.maps.Marker({  
+	                    map: map,  
+	                    position: location,  
+	                    animation: google.maps.Animation.DROP,  
+	                    title: "Vous êtes ici",
+	                    icon: pinImage,
+	                    shadow: pinShadow  
+	                });
+    }  
     map.setCenter(location);
     var myJSON = [
 {lat : 10.010232,long: 34.123232},
@@ -68,15 +89,17 @@ function GoogleMap(position) {
   
 }
 
-function showError() {  
-    console.log("Location cant be found");  
+function handleError() {  
+    console.log("Location cant be found");
+    showYoureHere = false;
+ 	GoogleMap(getAvgPosition());    
 } 
 
 
 window.onload = function() {
   if (navigator.geolocation) {
   	  $.ajaxSetup({ cache: false });
-      navigator.geolocation.getCurrentPosition(GoogleMap, showError);
+      navigator.geolocation.getCurrentPosition(GoogleMap, handleError);
       navigator.geolocation.getCurrentPosition(function(pos){
         $.post('/set_geolocation', {latitude: pos.coords.latitude, longitude: pos.coords.longitude});
         /* document.cookie = document.cookie + '; latitude=pos.coords.latitude; longitude=pos.coords.longitude' */
