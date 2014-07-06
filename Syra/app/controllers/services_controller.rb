@@ -338,7 +338,7 @@ class ServicesController < ApplicationController
       cats.each do |k|
         demandestmp = Service.where(category: Category.find(k), isGiven: false)
         demandesRegion = demandestmp.joins(:address).where(addresses: {region: current_user.address.region})
-        @suggestionsDemandes = (demandesRegion - servUser)
+        @suggestionsDemandes += (demandesRegion - servUser)
       end
       @suggestionsDemandes = @suggestionsDemandes.sample(3)
     end
