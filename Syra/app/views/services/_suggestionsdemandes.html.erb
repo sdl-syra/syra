@@ -1,0 +1,13 @@
+<% suggestions = @suggestionsDemandes.nil? ? [] : @suggestionsDemandes %>
+<% unless suggestions.empty? %>
+<div id="lessuggestionsdemandes" class="pull-right panel panel-default">
+  <div class="panel-heading">Vous pouvez peut etre aider</div>
+  <div class="panel-body">
+    <ul>
+    	<% suggestions.each do |s| %>
+    		<li> <a href="/services/<%=s.id%>"><%= s.title %></a></li>
+    	<% end %>
+    </ul>
+  </div>
+</div>
+<% end %>

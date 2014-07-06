@@ -94,6 +94,10 @@
 </div>
 <% end %>
 
+<div id="suggestionsdemandes">
+<%= render :partial => 'suggestionsdemandes' %>
+</div>
+
 <% unless @services.nil? %>
 <div class="text-center">
 	<%= paginate @services %>

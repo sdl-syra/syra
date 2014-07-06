@@ -324,32 +324,26 @@ class ServicesController < ApplicationController
     end
   end
   
-  def getSuggestionsDemandes
+  def getsuggestionsdemandes
     @suggestionsDemandes = []
     if (current_user)
-      propsUser = Proposition.where(user: User.find(current_user.id))
-      props = propsUser.select{|p| p.service.isGiven == false}
-      hash = Hash.new
+      cats = []
       servUser = []
-      props.each do
-        servUser << props.service
-        k = props.service.category.id
-        hash.has_key?(k) ? hash[k] += 1 : hash[k] = 1
+      propsUser = Proposition.where(user: User.find(current_user.id))
+      demandes = propsUser.joins(:service).where(services: {isGiven: false})
+      demandes.each do |p|
+        servUser << p.service
+        cats << p.service.category.id unless cats.include?(p.service.category.id)
       end
-      hash.sort_by {|key, value| value}.reverse
-      hash.each_key do |k|
-        servtmp = Service.where(category: Category.find(k), isGiven: false)
-        allServ = servtmp.joins(:address).where(addresses: {region: current_user.address.region})
-        @suggestionsDemandes << allServ - servUser
-        if @suggestionsDemandes.length > 3
-          @suggestionsDemandes = @suggestionsDemandes.take(3)
-          break
-        end
+      cats.each do |k|
+        demandestmp = Service.where(category: Category.find(k), isGiven: false)
+        demandesRegion = demandestmp.joins(:address).where(addresses: {region: current_user.address.region})
+        @suggestionsDemandes = (demandesRegion - servUser)
       end
+      @suggestionsDemandes = @suggestionsDemandes.sample(3)
     end
     respond_to do |format|
       format.js
-      format.html
       format.json { render json: @suggestionsDemandes }
     end 
   end
