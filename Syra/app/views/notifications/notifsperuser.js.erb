@@ -1,3 +1,5 @@
+$('#header').html("<%= j render 'layouts/header', notifsctrl: @notifsctrl %>");
+
 $(document).ready(function() {
 	$('.resetbadgenotif').click(function() { 
 		if ($("#badgeNotif").length==1) { 
@@ -17,13 +19,4 @@ $(document).ready(function() {
         $lightbox.find('.toexpandnotifs').css({'width': w});
         $lightbox.find('.close').removeClass('hidden');
     });
-});
-
-$(document).ready(function() {
-	if ($("#callnotifs").length==1) {
-		$.ajax({
-		  url: "/notifs_per_user",
-		  type: "get"
-		});
-	}
 });
