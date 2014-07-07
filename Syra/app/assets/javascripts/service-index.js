@@ -131,7 +131,7 @@ $(document).ready(function($){
 });
 
 $(document).ready(function(){
-	if ($("#lessuggestionsdemandes").length!=1) {
+	if ($("#callsuggestionsdemandes").length==1) {
 		$.ajax({
 			  url: "/get_suggestions_demandes",
 			  type: "get"

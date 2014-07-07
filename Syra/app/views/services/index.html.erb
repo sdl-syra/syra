@@ -94,8 +94,10 @@
 </div>
 <% end %>
 
-<div id="suggestionsdemandes">
-<%= render :partial => 'suggestionsdemandes' %>
+<div class="container">
+	<div class="col-md-offset-9 col-md-4" id="suggestionsdemandes">
+		<%= render :partial => 'suggestionsdemandes' %>
+	</div>
 </div>
 
 <% unless @services.nil? %>
