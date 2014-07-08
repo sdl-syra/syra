@@ -129,12 +129,3 @@ $(document).ready(function($){
     //$('#q_price_gteq').val($("#slider_prix").slider("values", 0));
     $('#q_price_lteq').val($("#slider_prix").slider("values", 1));
 });
-
-$(document).ready(function(){
-	if ($("#callsuggestionsdemandes").length==1) {
-		$.ajax({
-			  url: "/get_suggestions_demandes",
-			  type: "get"
-			});
-	}
-});

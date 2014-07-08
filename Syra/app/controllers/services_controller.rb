@@ -1,5 +1,6 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :get_suggestions_demandes, only: [:index]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:new]
   skip_before_filter :verify_authenticity_token, :only => :set_geolocation
  
@@ -323,8 +324,16 @@ class ServicesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_service
+    @service = Service.find(params[:id])
+  end
   
-  def getsuggestionsdemandes
+  def get_suggestions_demandes
     @suggestionsDemandes = []
     if (current_user)
       cats = []
@@ -342,18 +351,6 @@ class ServicesController < ApplicationController
       end
       @suggestionsDemandes = @suggestionsDemandes.sample(3)
     end
-    respond_to do |format|
-      format.js
-      format.json { render json: @suggestionsDemandes }
-    end 
-  end
-
-  private
-
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_service
-    @service = Service.find(params[:id])
   end
 
  
