@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  before_action :set_notifs_per_user
   before_filter :set_search
   protect_from_forgery with: :exception
   include SessionsHelper
@@ -14,6 +15,13 @@ class ApplicationController < ActionController::Base
 
   def set_search
     @q=Service.search(params[:q])
+  end
+  
+  def set_notifs_per_user
+    @notifsctrl = []
+    if (current_user)
+      @notifsctrl = Notification.where(user: User.find(current_user.id))
+    end
   end
 
 end

@@ -18,12 +18,3 @@ $(document).ready(function() {
         $lightbox.find('.close').removeClass('hidden');
     });
 });
-
-$(document).ready(function() {
-	if ($("#callnotifs").length==1) {
-		$.ajax({
-		  url: "/notifs_per_user",
-		  type: "get"
-		});
-	}
-});

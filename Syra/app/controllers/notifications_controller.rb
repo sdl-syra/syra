@@ -81,14 +81,6 @@ class NotificationsController < ApplicationController
      format.json { head :no_content }
     end
   end
-  
-  def notifsperuser
-    @notifsctrl = Notification.where(user: User.find(current_user.id))
-    respond_to do |format|
-     format.js
-     format.json { render json: @notifsctrl }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

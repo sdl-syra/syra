@@ -78,8 +78,6 @@ Syra::Application.routes.draw do
   
   post '/all_notif_checked', :to => 'notifications#checkedall'
   
-  get '/notifs_per_user', :to => 'notifications#notifsperuser'
-  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

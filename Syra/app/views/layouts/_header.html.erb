@@ -24,12 +24,12 @@
 		<% if signed_in? then %>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
-			<% if @notifsctrl.nil? %><input type="hidden" id="callnotifs" /><%end%>
+			
 			<ul class="nav navbar-nav">
 
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle resetbadgenotif" data-toggle="dropdown"> <i class="fa fa-bullhorn"></i> Notifs 
-		          	<% notifs = @notifsctrl.nil? ? [] : @notifsctrl %>
+		          	<% notifs = @notifsctrl %>
 		          	<% notifsNotViewed = notifs.select{|n| n.is_checked == false}%>
 		          	<% if (notifsNotViewed.length>0) %>
 		          		<span id="badgeNotif" class="badge">
