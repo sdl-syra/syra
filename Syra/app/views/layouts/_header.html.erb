@@ -33,7 +33,7 @@
 		          	<% notifsNotViewed = notifs.select{|n| n.is_checked == false}%>
 		          	<% if (notifsNotViewed.length>0) %>
 		          		<span id="badgeNotif" class="badge">
-		          			<%=notifsNotViewed.count%>
+		          			<%=notifsNotViewed.length%>
 		          		</span>
 		          	<%end%>
 		          <b class="caret"></b></a>
@@ -41,7 +41,7 @@
 		          	<% if (notifs.length==0) %>
 		          		<li><a href=#>Aucune notification</a></li>
 		          	<%else%>
-		          		<% notifsToShow = notifsNotViewed.count>10 ? notifsNotViewed.sort_by {|n| n.created_at}.reverse : notifs.sort_by {|n| n.created_at}.reverse.take(10) %>
+		          		<% notifsToShow = notifsNotViewed.length>10 ? notifsNotViewed.sort_by {|n| n.created_at}.reverse : notifs.sort_by {|n| n.created_at}.reverse.take(10) %>
 						<% notifsToShow.each do |n| %>
 							<li <%if n.is_checked==false%>style='background-color:#F0E68C'<%end%>><a href="<%=n.url%>" class="notifcustom">
 								<span class="<%= n.glyph_cat %>"></span> &nbsp;
