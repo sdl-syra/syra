@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
-  before_action :get_suggestions_demandes, only: [:index]
+  before_action :set_suggestions_demandes, only: [:index]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:new]
   skip_before_filter :verify_authenticity_token, :only => :set_geolocation
  
@@ -333,7 +333,7 @@ class ServicesController < ApplicationController
     @service = Service.find(params[:id])
   end
   
-  def get_suggestions_demandes
+  def set_suggestions_demandes
     @suggestionsDemandes = []
     if (current_user)
       cats = []
