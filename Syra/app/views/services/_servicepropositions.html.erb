@@ -1,117 +1,173 @@
-<div class="panel panel-default">
-        <div class="panel-heading">
-        	        
-        <% if @service.user == current_user %>
-			<i class="fa fa-bar-chart-o fa-fw"></i> Les propositions
-			<% @lesPropositions = @service.propositions %>
-        <% else %>
-        	<i class="fa fa-bar-chart-o fa-fw"></i> Mes propositions
-        	<% @lesPropositions = @service.propositions.where(:user => current_user) %>
-        <% end %>
-        </div>
-        <!-- /.panel-heading -->
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="table-responsive">
-              <% if @lesPropositions.size>0 %>
-                <table class="table table-bordered table-hover table-striped">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Utilisateur</th>
-                      <th>Etat</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% @lesPropositions.each do |prop| %>
-                    
-                    <div class="modal fade" id="modalRefus<%= prop.id %>" tabindex="-1" role="dialog" aria-labelledby="modalRefusLabel" aria-hidden="true">
+<hr />
+<div class="text-left">
+<% if @service.user == current_user %>
+	<% @lesPropositions = @service.propositions.order("proposition ASC") %>
+	Propositions reçues :
+<% else %>
+	<% @lesPropositions = @service.propositions.where(:user => current_user).order("proposition ASC") %>
+	Mes propositions :
+<% end %>
+</div>
+<% if @lesPropositions.where(:isPaid => nil).size>0 || @service.user == current_user%>
+	<% @lesPropositions.where(:isPaid => nil).each do |prop| %>
+		<% propusername = prop.user.name + ' ' + prop.user.lastName%>
+			<div class="panel panel-body" <% if prop.user.isPremium?%>style="border: 1px solid #f0ad4e "<% end %>>
+				<div class="col-md-2 text-left">
+					<% if not prop.user.avatar.nil? %>
+						<%=image_tag "avatars/"+prop.user.avatar, :class => "avatar-service-prop"%>
+					<% else %>
+						<%=image_tag "noavatar.png", :class => "avatar-service-prop"%>
+					<% end %>
+				</div>
+				<div class="col-md-10 text-left">
+					<strong><%= link_to propusername,user_path(prop.user) %></strong>
+					<%= prop.comment %>
+				<br/>
+					pour le <%= prop.proposition.to_s(:short)%> - 
+					<% if prop.isAccepted.nil? %>
+                        En attente
+                    <% elsif not prop.isAccepted? %>
+                        Refusée
+                    <% else %>
+                        Acceptée
+                    <% end %> -
+                    <% if prop.isAccepted? %>
+                    	<% if prop.isPaid.nil? %>
+	                        Echange en attente
+	                    <% elsif not prop.isPaid? %>
+	                        Echange non réalisé
+	                    <% else %>
+	                        Echange réalisé
+	                    <% end %> -
+                    <% end %> 
+					<%= link_to 'Voir', proposition_path(prop), {:class=>"btn-link"} %> <i class="fa fa-search"></i>
+					<% if @service.user == current_user %>
+                      <% if prop.isAccepted.nil? %>
+                    	<%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop),
+                    		:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Vous acceptez la proposition de '+propusername+'.' )) }, 
+                    		:class=>"btn-link" %>
+                        <button class="btn-link" data-toggle="modal" data-target="#modalRefus<%= prop.id %>">Refuser</button>
+                      <% end %>
+		            <% elsif prop.user == current_user && prop.isAccepted.nil? %>
+	                  	<%= link_to 'Supprimer',
+		                      proposition_path(prop),
+		                      :method => :delete,
+		                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Cette action supprimera votre proposition.')) },
+		                      :class => 'btn-link' %><i class="fa fa-times"></i>
+	                <% end %>
+				</div>
+			</div>
+			
+			
+			<% if prop.isAccepted.nil? %>
+				<!-- modal refus -->
+				<div class="modal fade" id="modalRefus<%= prop.id %>" tabindex="-1" role="dialog" aria-labelledby="modalRefusLabel" aria-hidden="true">
+			        <div class="modal-dialog">
+			         <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                <h4 class="modal-title" id="modalRefusLabel">Refuser la proposition de <%= prop.user.name %></h4>
+			            </div>
+			            <div class="modal-body">
+		            		"<%= prop.comment %>"
+			            	<%= form_for prop, :url => url_for(:controller => 'services', :action => 'refuserProp'), :html => { :class => 'form-horizontal', :role => 'form'}, method: :get do |f| %>
+							Motif de refus :
+							<%= f.hidden_field :id, value: prop.id %>
+							<%= f.text_area :motifCancelled, :class => 'form-control' %>
+			            </div>
+			            <div class="modal-footer">
+			            	<%= f.submit 'Refuser', :class => 'btn btn-danger' %>
+			            	<% end %>
+			                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+			            </div>
+			         </div>
+			        </div>
+			    </div>
+			    <% if not @service.isGiven? and current_user.money < prop.price %>
+				    <div class="modal fade" id="modalAccepter<%= prop.id %>" tabindex="-1" role="dialog" aria-labelledby="modalAccepterLabel" aria-hidden="true">
 				        <div class="modal-dialog">
 				         <div class="modal-content">
 				            <div class="modal-header">
-				                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				                <h4 class="modal-title" id="modalRefusLabel">Refuser la proposition <%= prop.id %> de <%= prop.user.name %></h4>
-				            </div>
-				            <div class="modal-body">
-				            	<%= form_for prop, :url => url_for(:controller => 'services', :action => 'refuserProp'), :html => { :class => 'form-horizontal', :role => 'form'}, method: :get do |f| %>
-								Motif de refus :
-								<%= f.hidden_field :id, value: prop.id %>
-								<%= f.text_area :motifCancelled, :class => 'form-control' %>
-				            </div>
-				            <div class="modal-footer">
-				            	<%= f.submit 'Refuser', :class => 'btn btn-danger' %>
-				            	<% end %>
-				                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-				            </div>
+		                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
+		                    </div>
+		                    <div class="modal-body">
+		                    	 	Votre solde (<%= current_user.money %>hp) est insuffisant(<%= prop.price %>hp).
+		                    </div>
+		                    <div class="modal-footer">
+		                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+		                    </div>
 				         </div>
 				        </div>
 				    </div>
-				    <% if not @service.isGiven? and current_user.money < prop.price %>
-					    <div class="modal fade" id="modalAccepter<%= prop.id %>" tabindex="-1" role="dialog" aria-labelledby="modalAccepterLabel" aria-hidden="true">
-					        <div class="modal-dialog">
-					         <div class="modal-content">
-					            <div class="modal-header">
-			                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			                        <h4 class="modal-title" id="myModalLabel">Action impossible ...</h4>
-			                    </div>
-			                    <div class="modal-body">
-			                    	 	Votre solde (<%= current_user.money %>hp) est insuffisant(<%= prop.price %>hp).
-			                    </div>
-			                    <div class="modal-footer">
-			                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-			                    </div>
-					         </div>
-					        </div>
-					    </div>
-  					<% end %>
-                    <tr>
-                      <td><%= prop.id %></td>
-                      <td><%= link_to prop.user.name,user_path(prop.user) %></td>
-                      <td>
-                        <% if prop.isAccepted == nil %>
-                            En attente
-                        <% elsif prop.isAccepted == false %>
-                            Refusée
-                        <% else %>
-                            Acceptée
-                        <% end %>
-                      </td>
-                      <td><%= link_to 'Voir', proposition_path(prop), {:class=>"btn-link"} %> 
-                      <% if @service.user == current_user %>
-	                      <% if prop.isAccepted.nil? %>
-                        	<%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop), {:class=>"btn-link"} %>
-	                        <button class="btn-link" data-toggle="modal" data-target="#modalRefus<%= prop.id %>">Refuser</button>
-	                      <% end %>
-	                  <% else %>
-		                  <% if prop.isAccepted.nil? %>
-		                  	<%= link_to 'Supprimer',
-			                      proposition_path(prop),
-			                      :method => :delete,
-			                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Êtes-vous sûr?')) },
-			                      :class => 'btn-link' %>
-			              <% end %>
-	                  <% end %>
-                      </td>
-                    </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-              <% else %>
-                Aucune proposition
-              <% end %>
-              </div>
-              <!-- /.table-responsive -->
+				<% end %>
+			<% end %>
+			
+			
+			
+			
+			
+	<% end %>
+<% else %>
+	<div class="panel panel-body">
+		Vous n'avez aucune proposition active.
+	</div>
+<% end %>
+
+
+<!-- modalHistorique -->
+<% if @lesPropositions.size>0 %>
+<div class="text-right">
+	<a href="#" data-toggle="modal" data-target="#allpropositions" class="link"> Historique </a>
+</div>
+
+		<div class="modal fade" id="allpropositions" tabindex="-1" role="dialog" aria-labelledby="modalAfficherProp" aria-hidden="true">
+	        <div class="modal-dialog">
+	         <div class="modal-content">
+	            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Historique des propositions pour le service "<%= @service.title %>"</h4>
             </div>
-            <!-- /.col-lg-4 (nested) -->
-            <div class="col-lg-8">
-            <div id="morris-bar-chart"></div>
+            <div class="modal-body">
+				<div class="toexpandpropositions">
+				<% @lesPropositions.each do |prop| %>
+					<% propusername = prop.user.name + ' ' + prop.user.lastName%>
+						<div class="panel panel-body">
+							<div class="col-md-2 text-left">
+								<% if not prop.user.avatar.nil? %>
+									<%=image_tag "avatars/"+prop.user.avatar, :class => "avatar-service-prop"%>
+								<% else %>
+									<%=image_tag "noavatar.png", :class => "avatar-service-prop"%>
+								<% end %>
+							</div>
+							<div class="col-md-10 text-left">
+								<strong><%= link_to propusername,user_path(prop.user) %></strong>
+								<%= prop.comment %>
+							<br/>
+								pour le <%= prop.proposition.to_s(:short)%> - 
+								<% if prop.isAccepted.nil? %>
+			                        En attente
+			                    <% elsif not prop.isAccepted? %>
+			                        Refusée
+			                    <% else %>
+			                        Acceptée
+			                    <% end %> -
+			                    <% if prop.isAccepted? %>
+			                    	<% if prop.isPaid.nil? %>
+				                        Echange en attente
+				                    <% elsif not prop.isPaid? %>
+				                        Echange non réalisé
+				                    <% else %>
+				                        Echange réalisé
+				                    <% end %> -
+			                    <% end %> 
+								<%= link_to 'Voir', proposition_path(prop), {:class=>"btn-link"} %> <i class="fa fa-search"></i>
+							</div>
+						</div>
+				<% end %>
+				</div>
             </div>
-            <!-- /.col-lg-8 (nested) -->
-          </div>
-          <!-- /.row -->
         </div>
-        <!-- /.panel-body -->
-      </div>
-      <!-- /.panel -->
+    </div>
+</div>
+<% end %>

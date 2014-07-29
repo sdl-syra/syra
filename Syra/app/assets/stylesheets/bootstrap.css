@@ -5842,6 +5842,41 @@ text-align: center;
 background-color: transparent;
 }
 .jumbotron .btn {
-padding: 14px 24px;
-font-size: 21px;
+padding: 10px 20px;
+font-size: 16px;
 } 
+
+
+
+
+
+.post-content {
+    background: none repeat scroll 0 0 #000;
+    opacity: 0.5;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    position: absolute;
+    bottom: 0px;
+  	margin-top: 65%;
+}
+.avatar-service {
+    position:relative;
+    width: 75%;
+    height:auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+.avatar-service-prop {
+    position:relative;
+    width: 80%;
+    height:auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+.caption{
+    text-align: center;
+    color:#FFF !important;
+    font-size: large !important;
+}

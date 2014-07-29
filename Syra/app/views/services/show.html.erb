@@ -7,99 +7,7 @@
 <%- model_class = Service -%>
 
 
-<!--
-<dl class="dl-horizontal" style="float : left">
-  <dt><%= model_class.human_attribute_name(:title) %> : </dt>
-  <dd><strong><%= @service.title %></strong></dd>
-  <dt><%= model_class.human_attribute_name(:isGiven) %> : </dt>
-  <dd><strong><%= @service.isGiven %></strong></dd>
-  <dt><%= model_class.human_attribute_name(:category) %> :</dt>
-  <dd><strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong></dd>
-  <dt><%= model_class.human_attribute_name(:description) %> : </dt>
-  <dd><strong><%= @service.description %></dd></strong>
-  <dt><%= model_class.human_attribute_name(:disponibility) %> : </dt>
-  <% if @service.disponibility.nil? or @service.disponibility=="" %>
-  	<strong><dd> Non renseignées  </dd>
-  <% else %>
-  	<dd><%= @service.disponibility %></dd></strong>
-  <% end %>
-  <dt><%= model_class.human_attribute_name(:price) %> : </dt>
-  <dd><strong><%= @service.price %></strong></dd>
-  <dt><%= model_class.human_attribute_name(:address) %> :</dt>
 
-
-
-  <!-- A modifier lors de la modif du type de l'adresse -->
-  <!--<% if @service.address.nil? or @service.address.label=="" %>
-  	<dd> Non renseignée </dd>
-  <% else %>
-  	<dd><%= @service.address.label %></dd>
-  <% end %>
-  
-  
-  
-  <dt><strong><%= model_class.human_attribute_name(:user) %> : </strong></dt>
-  <% if @service.user.nil?  %>
-  	<dd> Non renseigné  </dd>
-  <% else %>
-  	<% username = @service.user.name + ' ' + @service.user.lastName%>
-  	<dd><%= link_to username, user_path(@service.user) %></dd>
-  <% end %>
-  <dt><strong><%= model_class.human_attribute_name(:isFinished) %> : </strong></dt>
-  <dd><%= @service.isFinished %></dd>
-</dl>
-
-<div class="form-actions">
-	<% if @service.user == current_user %>
-		<%= link_to t('.edit', :default => t("helpers.links.edit")),
-			edit_service_path(@service), :class => 'btn' %>
-		<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-			service_path(@service),
-			:method => 'delete',
-			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-			:class => 'btn btn-danger' %>
-	<%end%>
-	<%= link_to t('.back', :default => t("helpers.links.back")),
-			services_path, :class => 'btn'  %>
-</div>
-
-<div class="btn btn-primary btn-lg">
-  <% if @service.user != current_user %>
-    <%= link_to 'Faire une proposition', new_proposition_path(:service => @service.id)%>
-<%end%>
-</div>
-<% if @service.address != nil then %>
-  
-  <%= javascript_tag do %>
-  
-  window.onload = function() {
-  var myLatLng = new google.maps.LatLng(<%= @service.address.y %>,<%= @service.address.x %>);
-
-  var myMapOptions = {
-    zoom:16,
-    center:myLatLng,
-    mapTypedId: google.maps.MapTypeId.ROADMAP
-  };
-
-  var myMap = new google.maps.Map(
-    document.getElementById('map'),
-    myMapOptions
-    );
-
-  var myMarker = new google.maps.Marker({
-    position: myLatLng,
-    map: myMap,
-    title: "<%= @service.title %>"
-  });
-
-  }
-
-
-
-  <% end %>
-<% end %> 
-<div id="map"> </div>
--->
       <!-- Jumbotron -->
       <div class="jumbotron">
 		<% if not flash[:errorconnexion].nil? %>
@@ -118,83 +26,123 @@
 				<%= flash[:success] %>
 			</div>
 		<% end %>
+<div class="row">
         <h1><%= @service.title %></h1>
-        <p class="lead">"<%= @service.description %>"</p>
-        <div>
-	        <% if not @service.isFinished? and @service.user != current_user%>
-	        	<%= link_to 'Faire une proposition', nouvelle_prop_service_path(@service, :service => @service), {:class=>"btn btn-lg btn-success"} %>
-	       	<% else %>
-	      	 	<a href="#" class="btn btn-lg btn-default" disabled>Faire une proposition</a>
-	       	<% end %>
-		</div>
-  		<dt>Dans la catégorie <strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong></dt>
-
-	  <dt>
-		  <% if not @service.disponibility.blank? %>
-		  	Ayant pour disponibilité(s) <%= @service.disponibility %></strong>
-		  <% end %> 
-	  </dt>
-		<dt>Le prix est de <strong><%= @service.price %> HP</strong></dt>  
-  <dt><% if @service.isGiven? %>
-  		Proposé par
-  	<% else %>
-  		Recherché par 
-  	<% end %>
-  </dt>
-  <dt>
-  <% if @service.user.nil?  %>
-  	Non renseigné
-  <% else %>
-  		
-			
-		<% if (@service.user.encrypted_password.nil?)%>
-				<img src= "<%=@service.user.avatar%>?type=large" class="img-circle" height=48 width=48> 
-		<% elsif @service.user.avatar.nil? %>
-			<%=image_tag "avatars/nopicture.png", :class => "img-circle", height: '48', width: '48' %>
-		<%else %>
-  			<% logger.info "test"%>
-  			<% logger.info @service.user.name %>
-  			<%=image_tag "avatars/"+@service.user.avatar, :class => "img-circle" , height: '48', width: '48'  %>
-  		<%end%>
-    </dt>
-  	<% username = @service.user.name + ' ' + @service.user.lastName%>
-  	<dt><%= link_to username, user_path(@service.user) %></dt>
-  <% end %> 
-    <% if not @service.address.blank? %>
-  		<dt>à <%= @service.address.label %></dt>
-  	<% end %>
-  </dt>
-  </br>
-  <dt><strong>Ce service <% if @service.isFinished? %> est terminé... dommage! <% else %> n'est pas encore terminé! Dépéchez-vous! <%end%></dt>
-	</br>
-	<div class="form-actions">
-	<% if @service.user == current_user and not @service.isFinished? %>
-		<%= link_to 'Éditer',
-			edit_service_path(@service), :class => 'btn btn-info' %>
-		<%= link_to 'Supprimer',
-			service_path(@service),
-			:method => 'delete',
-			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Êtes-vous sûr?')) },
-			:class => 'btn btn-danger' %>
-		<% prop_en_attente = Proposition.where(service:@service, isAccepted:nil) %>
-		<% if prop_en_attente.count()==0 %>
-			<%= link_to 'Clôturer',
-				cloturer_service_path(@service), :id => @service.id,
-				:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Êtes-vous sûr?')) },
-				:class => 'btn btn-danger' %>	
-		<% else %>
-			<%= link_to 'Clôturer',
-				cloturer_service_path(@service), :id => @service.id,
-				:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Il reste des propositions en attente qui seront automatiquement refusées.')) },
-				:class => 'btn btn-danger' %>	
-		<% end %>
-	<%end%>
-	<%= link_to 'Retour',
-			services_path, :class => 'btn btn-small'  %>
 </div>
-<% if signed_in? %>
-<%= render :partial => 'servicepropositions' %>
-<% end %>
+<div class="row">
+<div class="col-md-3">
+<div class="panel panel-<% if @service.user.isPremium?%>warning<% else %>info<% end %>">
+	<div class="panel-heading">
+		<h3 class="panel-title">Proposé par</h3>
+	</div>
+  <div class="panel-body">
+	<% username = @service.user.name + ' ' + @service.user.lastName%>
+
+			<div class="avatar-service">
+			<% if not @service.user.avatar.nil? %>
+				<%=image_tag "avatars/"+@service.user.avatar, :class => "style_image" %>
+			<% else %>
+				<%=image_tag "noavatar.png", :class => "style_image" %>
+			<% end %>
+			<!--
+			<div class="post-content" >
+	        	<p class="caption"><i class="fa fa-star"></i> <%= @service.user.level.levelUser %></p>
+	   		 </div>
+	   		-->
+		</div>
+	<%= link_to username, user_path(@service.user) %> <i class="fa fa-star"></i> <%= @service.user.level.levelUser %><br/>
+	<div style="color:#DAA520">
+		<% if @service.user.isPremium? %>
+			Membre premium
+		<%end%>
+	</div>
+	<div>
+		<% if current_user != @service.user %>
+			<% if current_user.following?(@service.user)%>
+	            	<button class="btn btn-warning">Ne plus suivre</button>
+		    <% else %>
+		    	<button class="btn btn-info">Suivre</button>
+		    <%end %>
+		<% end %>
+	</div>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<p class="lead">"<%= @service.description %>"</p>
+			<div>
+			    <% if not @service.isFinished? and @service.user != current_user%>
+			    	<%= link_to 'Faire une proposition', nouvelle_prop_service_path(@service, :service => @service), {:class=>"btn btn-lg btn-success"} %>
+			   	<% else %>
+			  	 	<a href="#" class="btn btn-lg btn-default" disabled>Faire une proposition</a>
+			   	<% end %>
+			</div>
+			<strong>Ce service <% if @service.isFinished? %> est terminé... dommage! <% else %> n'est pas encore terminé! Dépéchez-vous! <%end%></strong>
+		</div>
+		<!-- <div class="panel-footer"> -->
+			<div class="panel-footer"> 
+			<div class="form-actions">
+				<div class="btn-group btn-group-sm">
+				<% if @service.user == current_user and not @service.isFinished? %>
+					<%= link_to 'Éditer',
+						edit_service_path(@service), :class => 'btn btn-info' %>
+					<% prop_en_attente = Proposition.where(service:@service, isAccepted:nil) %>
+					<% if prop_en_attente.count()==0 %>
+						<%= link_to 'Clôturer',
+							cloturer_service_path(@service), :id => @service.id,
+							:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Êtes-vous sûr?')) },
+							:class => 'btn btn-warning' %>	
+					<% else %>
+						<%= link_to 'Clôturer',
+							cloturer_service_path(@service), :id => @service.id,
+							:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Il reste des propositions en attente qui seront automatiquement refusées.')) },
+							:class => 'btn btn-warning' %>	
+					<% end %>
+					<%= link_to 'Supprimer',
+						service_path(@service),
+						:method => 'delete',
+						:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Êtes-vous sûr?')) },
+						:class => 'btn btn-danger' %>
+				<%end%>
+				<%= link_to 'Retour',
+						services_path, :class => 'btn btn-default'  %>
+				</div>
+			</div>
+			<% if signed_in? %>
+				<%= render :partial => 'servicepropositions' %>
+			<% end %>
+			
+				
+			</div>
+	
+	</div>
+</div>
+<div class="col-md-3">
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h3 class="panel-title">Autres informations</h3>
+	</div>
+  	<!-- List group -->
+  <ul class="list-group">
+    <li class="list-group-item">
+	Dans la catégorie <a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></li>
+	<% if not @service.disponibility.blank? %>
+		<li class="list-group-item">Ayant pour disponibilité(s) : <br/> <%= @service.disponibility %> </li>
+	<% end %> 
+	<% if not @service.address.blank? %>
+  		<li class="list-group-item">Lieu où se déroulera l'échange : <br/><%= @service.address.label %> </li>
+  	<% end %>
+  	<li class="list-group-item">
+  	Le prix est de <%= @service.price %> <i class="fa fa-heart"></i>
+  	</li>
+  	</ul>
+</div>
+</div>
+</div>
+
+
 
 <% if @service.address != nil then %>
   
@@ -224,9 +172,11 @@
 
   <% end %>
 <% end %> 
-<dt id="map" style="text-align:center"> </dt>
-</table>
-
-<div>
-
-
+	<div class="row">
+		<!-- <div class="panel panel-default">
+			<div class="panel-body"> -->
+				<div id="map" style="border: 2px solid #e6e6e6"> </div>
+			<!-- </div>
+		</div> -->
+	</div>
+</div>
