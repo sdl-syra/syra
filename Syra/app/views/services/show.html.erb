@@ -77,10 +77,10 @@
 			<div>
 				<div class="form-actions">
 					<div class="btn-group btn-group-sm">
-			    <% if not @service.isFinished? and @service.user != current_user%>
+			    <% if not @service.isFinished? %>
+			    	<% if @service.user != current_user %>
 			    	<%= link_to 'Faire une proposition', nouvelle_prop_service_path(@service, :service => @service), {:class=>"btn btn-lg btn-success"} %>
-			   	<% elsif @service.user == current_user %>
-						<% if @service.user == current_user and not @service.isFinished? %>
+			   		<% else %>
 							<%= link_to 'Éditer',
 								edit_service_path(@service), :class => 'btn btn-info' %>
 							<% prop_en_attente = Proposition.where(service:@service, isAccepted:nil) %>
