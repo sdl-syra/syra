@@ -115,7 +115,18 @@ class UsersController < ApplicationController
 
     UsersHelper.create_activity(current_user, "suit désormais <a href=/users/" + userSuivi.id.to_s + ">" + userSuivi.name + " " + userSuivi.lastName + " </a>" )
     respond_to do |format|
-      format.html { redirect_to '/users', notice: 'User was successfully updated.' }
+      format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
+  end
+  
+  # GET /users/unfollow
+  def unfollow
+    @user = current_user
+    @user.unfollow!(params[:user])
+    
+    respond_to do |format|
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end

@@ -77,6 +77,10 @@ class User < ActiveRecord::Base
   def follow!(followed)
     relationships.create!(:followed_id => followed)
   end
+  
+  def unfollow!(followed)
+    relationships.where(:followed_id => followed).destroy_all
+  end
 
   def followedBy?(follower)
     Relationship.find_by follower_id: follower, followed_id: self.id
