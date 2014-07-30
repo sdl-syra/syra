@@ -115,7 +115,7 @@
 
 
 <!-- modalHistorique -->
-<% if @lesPropositions.size>0 %>
+<% if (@lesPropositions-@lesPropositions.where(:isPaid => nil)).size>0 %>
 <div class="text-right">
 	<a href="#" data-toggle="modal" data-target="#allpropositions" class="link"> Historique </a>
 </div>
@@ -129,7 +129,7 @@
             </div>
             <div class="modal-body">
 				<div class="toexpandpropositions">
-				<% @lesPropositions.each do |prop| %>
+				<% (@lesPropositions-@lesPropositions.where(:isPaid => nil)).each do |prop| %>
 					<% propusername = prop.user.name + ' ' + prop.user.lastName%>
 						<div class="panel panel-body">
 							<div class="col-md-2 text-left">
