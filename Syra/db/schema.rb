@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140518222723) do
+ActiveRecord::Schema.define(version: 20140731152348) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -125,6 +125,16 @@ ActiveRecord::Schema.define(version: 20140518222723) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
+  create_table "reports", force: true do |t|
+    t.string   "category"
+    t.text     "content"
+    t.integer  "service_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "guilty"
+    t.integer  "user_id"
+  end
+
   create_table "services", force: true do |t|
     t.string   "title"
     t.integer  "price"
@@ -164,7 +174,7 @@ ActiveRecord::Schema.define(version: 20140518222723) do
     t.string   "name"
     t.string   "lastName"
     t.string   "email"
-    t.integer  "money",       default: 0
+    t.integer  "money",                  default: 0
     t.string   "password"
     t.string   "phone"
     t.text     "biography"

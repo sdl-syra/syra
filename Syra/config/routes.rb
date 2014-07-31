@@ -1,4 +1,6 @@
 Syra::Application.routes.draw do
+  resources :reports
+
   resources :activities
 
   resources :notifications
@@ -78,6 +80,8 @@ Syra::Application.routes.draw do
   get '/delete_all_notifications', :to => 'notifications#deleteall'
   
   post '/all_notif_checked', :to => 'notifications#checkedall'
+  
+  get '/report/:id/judge', :to => 'reports#judge', :as => 'judge_report'
   
 
   # The priority is based upon order of creation: first created -> highest priority.

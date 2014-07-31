@@ -1,6 +1,7 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
   before_action :set_suggestions_demandes, only: [:index]
+  before_action :set_report, only: [:show]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:new]
   skip_before_filter :verify_authenticity_token, :only => :set_geolocation
  
@@ -331,6 +332,10 @@ class ServicesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_service
     @service = Service.find(params[:id])
+  end
+  
+  def set_report
+    @report = Report.new
   end
   
   def set_suggestions_demandes

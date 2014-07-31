@@ -1,0 +1,9 @@
+#buttonreport {
+	color:orange;
+}
+#buttonreport:hover {
+	cursor:pointer;
+}
+.textareareport {
+	resize:none;
+}

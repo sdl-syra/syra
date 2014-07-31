@@ -1,0 +1,57 @@
+<style type="text/css">
+.btn-group-wrap {
+    text-align: center;
+    margin-bottom: 20px;
+}
+</style>
+
+<h1></h1>
+
+<div class="btn-group-wrap">
+	<div class="btn-group text-center">
+	  <button type="button" class="btn btn-info <%= @reportCategory=='e'? "active":""%>">
+	  	<a href="/reports">A Examiner</a>
+	  </button>
+	  <button type="button" class="btn btn-danger <%= @reportCategory=='c'? "active":""%>">
+	  	<a href="/reports?toget=conf">Confirmés</a>
+	  </button>
+	  <button type="button" class="btn btn-success <%= @reportCategory=='r'? "active":""%>">
+	  	<a href="/reports?toget=rej">Rejetés</a>
+	  </button>
+	</div>
+</div>
+
+<% if @reportCategory == 'e' %>
+	<% coloralert = 'alert-info'%>
+<% elsif @reportCategory == 'c' %>
+	<% coloralert = 'alert-danger'%>
+<% else %>
+	<% coloralert = 'alert-success'%>
+<% end %>
+
+<div class="container">
+<% @mapReports.each_key do |s| %>
+	<div class="panel panel-default container">
+		<h4><a href="/services/<%=s.id%>"><%=s.title%> &nbsp; <span class="fa fa-search"></span></a> - 
+			([<%=s.user.id%>.] <%=s.user.name%> <%=s.user.lastName%>)
+		</h4>
+		<% @mapReports[s].each do |r| %>
+			<div class="alert <%=coloralert%>" style="color:#333">
+				<a href="/users/<%=r.user.id%>">
+					<span> <%=r.created_at.strftime("%d/%m/%y")%> &nbsp; - &nbsp; </span>
+					<span> [<%=r.user.id%>.] <%=r.user.name%> <%=r.user.lastName%> &nbsp; - &nbsp; </span>
+				</a>
+				<span> <%=r.category%> </span>
+				<% if r.guilty.nil? %>
+					<a href="/report/<%=r.id%>/judge?guilty=yes"><span class="fa fa-thumbs-down pull-right" style="color:red;"></span></a>
+					<a href="/report/<%=r.id%>/judge?guilty=no"><span class="fa fa-thumbs-up pull-right" style="color:green;"></span></a> <br/>
+				<% end %>
+				<% unless r.content.empty? %>
+					<span class="row" style="font-weight:normal !important"> <%=r.content%> </span>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+<% end %>
+</div>
+

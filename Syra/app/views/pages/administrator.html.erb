@@ -82,15 +82,15 @@
 							</div>
 							<div class="col-xs-6 text-right">
 								<p class="announcement-heading">
-									0
+									<%= Report.where(guilty:nil).count %>
 								</p>
 								<p class="announcement-text">
-									report(s)
+									reports non traités
 								</p>
 							</div>
 						</div>
 					</div>
-					<a href="#">
+					<a href="<%= reports_path %>">
 					<div class="panel-footer announcement-bottom">
 						<div class="row">
 							<div class="col-xs-6">
