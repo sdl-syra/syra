@@ -4,20 +4,19 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    if (params[:toget]=="conf")
-      @reportCategory = "c"
-      @reports = Report.where(guilty:true).order(:created_at)
-    elsif (params[:toget]=="rej")
-      @reportCategory = "r"
-      @reports = Report.where(guilty:false).order(:created_at)
-    else
-      @reportCategory = "e"
-      @reports = Report.where(guilty:nil).order(:created_at)
-    end
-    @services = @reports.map {|r| r.service}.uniq
-    @mapReports = {}
-    @services.each do |s|
-      @mapReports[s] = @reports.select{|r| r.service==s}
+    reports = Report.where(guilty:nil).order(:created_at)
+    reports.concat(Report.where.not(guilty:nil).order(created_at: :desc))
+    services = reports.map {|r| r.service}.uniq
+    @unsolvedCases, @criminalCases, @innocentCases = {}, {}, {}
+    services.each do |s|
+       reps = reports.select{|r| r.service==s}
+       if reps.one?{|r| r.guilty?}
+         @criminalCases[s] = reps
+       elsif reps.none?{|r| r.guilty.nil?}
+         @innocentCases[s] = reps
+       else
+         @unsolvedCases[s] = reps
+       end
     end
   end
 
@@ -97,6 +96,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:category, :content, :service_id, :user_id, :toget, :judge)
+      params.require(:report).permit(:category, :content, :service_id, :user_id, :judge)
     end
 end
