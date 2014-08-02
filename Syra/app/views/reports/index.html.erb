@@ -30,8 +30,14 @@
 $(document).ready(function(){
 	$( ".expander" ).click(function() {
 		$id=$(this).data("toexpand");
-		$('#'+$id).collapse();
-		$(this).hide();
+		$('#'+$id).collapse("toggle");
+		if ($(this).hasClass("fa-chevron-up")) {
+			$(this).removeClass("fa-chevron-up");
+			$(this).addClass("fa-chevron-down");
+		} else {
+			$(this).removeClass("fa-chevron-down");
+			$(this).addClass("fa-chevron-up");
+		}
 	});
 });
 </script>
