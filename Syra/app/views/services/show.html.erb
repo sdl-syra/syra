@@ -77,11 +77,11 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<%if current_user %>
-				<%if flash[:reported].nil? %>
+				<% if not @alreadyReported %>
 					<div class="row pull-right" style="margin-top:-15px">
 						<span id="buttonreport" data-toggle="modal" data-target="#reportModal" class="fa fa-exclamation-triangle" title="signaler ce service"></span>
 					</div>
-				<% else %>
+				<% elsif not flash[:reported].nil? %>
 					<div class="alert alert-warning alert-dismissible" role="alert">
 					  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
 					  <%= flash[:reported] %>

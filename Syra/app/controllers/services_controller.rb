@@ -337,6 +337,10 @@ class ServicesController < ApplicationController
   
   def set_report
     @report = Report.new
+    @alreadyReported = true
+    if current_user
+      @alreadyReported = Report.where(user_id:current_user.id,service_id:@service.id).length>0
+    end
   end
   
   def set_suggestions_demandes
