@@ -1,5 +1,6 @@
 class PropositionsController < ApplicationController
   before_action :set_proposition, only: [:show, :edit, :update, :destroy]
+  before_action :restrict_access_admin, only: [:admin]
 
   # GET /propositions
   # GET /propositions.json

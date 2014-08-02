@@ -4,6 +4,7 @@ class ServicesController < ApplicationController
   before_action :set_report, only: [:show]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:new]
   skip_before_filter :verify_authenticity_token, :only => :set_geolocation
+  before_action :restrict_access_admin, only: [:admin]
  
   # GET /services
   # GET /services.json

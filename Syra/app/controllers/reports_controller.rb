@@ -1,23 +1,24 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy, :judge]
+  before_action :restrict_access_admin, only: [:index]
 
   # GET /reports
   # GET /reports.json
   def index
-    reports = Report.where(guilty:nil).order(:created_at)
-    reports.concat(Report.where.not(guilty:nil).order(created_at: :desc))
-    services = reports.map {|r| r.service}.uniq
-    @unsolvedCases, @criminalCases, @innocentCases = {}, {}, {}
-    services.each do |s|
-       reps = reports.select{|r| r.service==s}
-       if reps.one?{|r| r.guilty?}
-         @criminalCases[s] = reps
-       elsif reps.none?{|r| r.guilty.nil?}
-         @innocentCases[s] = reps
-       else
-         @unsolvedCases[s] = reps
+      reports = Report.where(guilty:nil).order(:created_at)
+      reports.concat(Report.where.not(guilty:nil).order(created_at: :desc))
+      services = reports.map {|r| r.service}.uniq
+      @unsolvedCases, @criminalCases, @innocentCases = {}, {}, {}
+      services.each do |s|
+         reps = reports.select{|r| r.service==s}
+         if reps.one?{|r| r.guilty?}
+           @criminalCases[s] = reps
+         elsif reps.none?{|r| r.guilty.nil?}
+           @innocentCases[s] = reps
+         else
+           @unsolvedCases[s] = reps
+         end
        end
-    end
   end
 
   # GET /reports/1

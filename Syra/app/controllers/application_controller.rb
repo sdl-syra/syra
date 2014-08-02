@@ -23,5 +23,12 @@ class ApplicationController < ActionController::Base
       @notifsctrl = Notification.where(user: User.find(current_user.id))
     end
   end
+  
+  def restrict_access_admin
+    unless current_user
+      render :file => 'public/401.html', :status => 401, :layout => false
+      return
+    end
+  end
 
 end
