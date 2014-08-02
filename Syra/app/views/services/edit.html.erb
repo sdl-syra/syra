@@ -1,6 +1,172 @@
 <%- model_class = Service -%>
-<div class="page-header">
-  <h1><%=t 'fuck', :default => [:'helpers.titles.edit', 'Editer %{model}'], :model => model_class.model_name.human.titleize %></h1>
+
+<%
+	errorTitle =false
+	errorPrice=false
+	errorDescription=false
+%>
+
+<!-- Jumbotron -->
+<div class="jumbotron">
+	<%= form_for @service, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
+	<% if @service.errors.any? %>
+		<% @service.errors.messages.values.each do |msg| %>
+			<% msg.each do  |m| %>
+				<% 
+					if m.include? ("titre" || "title")
+						errorTitle = true
+					end
+					if m.include? ("prix" || "price")
+						errorPrice = true
+					end
+					if m.include? "description"
+						errorDescription = true
+					end
+				%>
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<%= m %>
+				</div>
+			<% end %>
+		<% end %>
+	<% end %>
+	<div class="row text-left">
+        <%= link_to 'Retour', service_path(@service), :class => 'btn btn-default'  %>
+	</div>	
+	<div class="col-md-12">
+		<div class="row">
+			<h1>
+				 <% if errorTitle %>  
+				 	<%= f.text_field :title, :style => "border: 1px solid red", :class => 'text_field text-center', :value => @service.title, :placeholder => "Titre *" %>
+				 <% else %>
+				 	<%= f.text_field :title, :class => 'text_field text-center', :value => @service.title, :placeholder => "Titre *"%>
+				 <% end %>
+				
+			</h1>
+		</div>
+	</div>
+	<div class="row">
+	<div class="col-md-3">
+		<div class="panel panel-<% if @service.user.isPremium?%>warning<% else %>info<% end %>">
+			<div class="panel-heading">
+					<% if @service.isGiven? %>
+						<h3 class="panel-title">Proposé par</h3>
+					<% else %>
+						<h3 class="panel-title">Recherché par</h3>
+					<% end %>
+					
+					<%= # f.select :isGiven, options_for_select([["Proposé", true], ["Recherché", false]]), :value => @service.isGiven 
+					%> 
+
+			</div>
+			<div class="panel-body">
+				<% username = @service.user.name + ' ' + @service.user.lastName%>
+				<div class="avatar-service">
+					<% if not @service.user.avatar.nil? %>
+						<%=image_tag "avatars/"+@service.user.avatar, :class => "style_image" %>
+					<% else %>
+						<%=image_tag "noavatar.png", :class => "style_image" %>
+					<% end %>
+				</div>
+				<%= link_to username, user_path(@service.user) %> <i class="fa fa-star"></i> <%= @service.user.level.levelUser %><br/>
+				<div style="color:#DAA520">
+					<% if @service.user.isPremium? %>
+						Membre premium
+					<%end%>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<p class="lead">
+					<% if errorDescription %>  
+						<%= f.text_area :description, :style => "border: 1px solid red", :class => 'form-control text-center', :value => @service.description, :placeholder => "Description *"%>
+					 <% else %>
+					 	<%= f.text_area :description, :class => 'form-control text-center', :value => @service.description, :placeholder => "Description *"%>
+					 <% end %>
+				</p>
+				<div class="row">
+					<div class="form-actions">
+						<div class="btn-group">
+						    <% if not @service.isFinished? %>
+						    	<%= f.submit 'Éditer', :class => 'btn btn-success' %>
+						   	<% end %>
+				   		</div>
+					</div>
+				</div>
+				<br />
+			</div>
+			<div class="panel-footer"> 
+				<div class="text-left">
+					Propositions reçues :
+				</div>
+				<div class="panel panel-body">
+					Les propositions s'affichent ici.
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">Autres informations</h3>
+			</div>
+			<!-- List group -->
+				<ul class="list-group">
+					<li class="list-group-item">
+						Dans la catégorie 
+						<%= f.collection_select :category_id, Category.all, :id, :name, :prompt => "Sélectionnez la catégorie", :value => @service.category %>
+					</li>
+					<li class="list-group-item">
+						Ayant pour disponibilité(s) : <br/> 
+						<%= f.text_area :disponibility, :placeholder => "Lundi : 18h-20h, ..etc", :value => @service.disponibility, :class => 'form-control' %> 
+					</li>
+					<li class="list-group-item">
+						Lieu où se déroulera l'échange : 
+						<%= f.text_field :address_label, :class => 'text_field', :value => f.object.address.blank? ? current_user.address.label : f.object.address.label, :id => "addresspicker_map" %>
+					</li>
+					<li class="list-group-item">
+						Le prix est de <br/>
+						<% if errorDescription %>  
+							<%= f.number_field :price, :style => "border: 1px solid red", :class => 'number_field', :value => @service.price %>
+						 <% else %>
+						 	<%= f.number_field :price, :class => 'number_field', :value => @service.price %>
+						 <% end %>
+						 <i class="fa fa-heart"></i>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+<%= f.fields_for :address,@service.address do |adr| %>
+  <%= adr.hidden_field :x %>
+  <%= adr.hidden_field :y %>
+  <%= adr.hidden_field :region %>
+  <%= adr.hidden_field :ville %>
+<% end %>
+
+<% end %>
+
+<div class='clearfix'>
+
+  <div class='map-wrapper'>
+    <label id="geo_label" for="reverseGeocode"> Activer le marqueur pour définir l'adresse du service ? </label>
+      <select type=hidden id="reverseGeocode">
+        <option value="false" selected>Non</option>
+        <option value="true">Oui</option>
+      </select>
+
+      <div id="map"></div>
+      <div id="legend">Vous pouvez deplacer le marqueur et le déposer à votre Adresse</div>
+    </div>
 </div>
-<%= render :partial => 'form' %>
+
+<div id="y" style="display:none"><%= current_user.address.y %></div>
+<div id="x" style="display:none"><%= current_user.address.x %></div>
 

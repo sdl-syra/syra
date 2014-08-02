@@ -7,7 +7,7 @@ class Service < ActiveRecord::Base
   validates :description, presence: true ,:presence => {:message => 'Vous devez indiquer une description'}
   validates :address_id, presence: true ,:presence => {:message => 'Vous devez indiquer une adresse'}
   validates :price, presence: true ,:presence => {:message => 'Vous devez indiquer un prix'}
-  validates :price, :numericality => {:only_integer => true}, :numericality => {:message => '$("input.numeric").numeric() à intégrer'}
+#  validates :price, :numericality => {:only_integer => true}, :numericality => {:message => '$("input.numeric").numeric() à intégrer'}
 
   belongs_to :address
   belongs_to :category

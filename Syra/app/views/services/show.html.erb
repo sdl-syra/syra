@@ -34,7 +34,11 @@
 <div class="col-md-3">
 <div class="panel panel-<% if @service.user.isPremium?%>warning<% else %>info<% end %>">
 	<div class="panel-heading">
-		<h3 class="panel-title">Proposé par</h3>
+		<% if @service.isGiven? %>
+			<h3 class="panel-title">Proposé par</h3>
+		<% else %>
+			<h3 class="panel-title">Recherché par</h3>
+		<% end %>
 	</div>
   <div class="panel-body">
 	<% username = @service.user.name + ' ' + @service.user.lastName%>
@@ -87,7 +91,7 @@
 			<p class="lead">"<%= @service.description %>"</p>
 			<div>
 				<div class="form-actions">
-					<div class="btn-group btn-group-sm">
+					<div class="btn-group">
 			    <% if not @service.isFinished? %>
 			    	<% if @service.user != current_user %>
 			    	<%= link_to 'Faire une proposition', nouvelle_prop_service_path(@service, :service => @service), {:class=>"btn btn-lg btn-success"} %>
