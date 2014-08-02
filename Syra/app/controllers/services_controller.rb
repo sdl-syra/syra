@@ -80,10 +80,17 @@ class ServicesController < ApplicationController
   def create
     puts service_params
     tmp = service_params[:address_label]
-    tmpx = service_params[:address][:x]
-    tmpy = service_params[:address][:y]
-    tmpr = service_params[:address][:region]
-    tmpv = service_params[:address][:ville]
+    if service_params[:address].nil?
+      tmpx = 0
+      tmpy = 0
+      tmpr = "aucune"
+      tmpv = "aucune"
+    else
+      tmpx = service_params[:address][:x]
+      tmpy = service_params[:address][:y]
+      tmpr = service_params[:address][:region]
+      tmpv = service_params[:address][:ville]
+    end
     @service = Service.new(service_params.except(:address_label, :address))
     if tmp != ""
       ad = Address.new
@@ -101,7 +108,6 @@ class ServicesController < ApplicationController
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render action: 'show', status: :created, location: @service }
         UsersHelper.create_activity(current_user, "a crée un nouveau service")
-        
       else
         format.html { render action: 'new' }
         format.json { render json: @service.errors, status: :unprocessable_entity }
@@ -114,10 +120,17 @@ class ServicesController < ApplicationController
   def update
     puts service_params
     tmp = service_params[:address_label]
-    tmpx = service_params[:address][:x]
-    tmpy = service_params[:address][:y]
-    tmpr = service_params[:address][:region]
-    tmpv = service_params[:address][:ville]
+    if service_params[:address].nil?
+      tmpx = 0
+      tmpy = 0
+      tmpr = "aucune"
+      tmpv = "aucune"
+    else
+      tmpx = service_params[:address][:x]
+      tmpy = service_params[:address][:y]
+      tmpr = service_params[:address][:region]
+      tmpv = service_params[:address][:ville]
+    end
     if tmp != ""
       ad = Address.new
       ad.x = tmpx

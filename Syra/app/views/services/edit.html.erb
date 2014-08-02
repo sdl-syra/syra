@@ -1,48 +1,62 @@
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="../../assets/jquery.ui.addresspicker.js"></script>
+<% content_for :head do %>
+	<%= javascript_include_tag "service-new" %>
+<% end %>
+
 <%- model_class = Service -%>
 
 <%
-	errorTitle =false
+	errorTitle=false
 	errorPrice=false
 	errorDescription=false
+	errorAddress=false
 %>
 
 <!-- Jumbotron -->
 <div class="jumbotron">
 	<%= form_for @service, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
 	<% if @service.errors.any? %>
-		<% @service.errors.messages.values.each do |msg| %>
-			<% msg.each do  |m| %>
-				<% 
-					if m.include? ("titre" || "title")
-						errorTitle = true
-					end
-					if m.include? ("prix" || "price")
-						errorPrice = true
-					end
-					if m.include? "description"
-						errorDescription = true
-					end
-				%>
-				<div class="alert alert-danger alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<%= m %>
-				</div>
+			<% @service.errors.messages.values.each do |msg| %>
+				<% msg.each do  |m| %>
+					<% 
+						if m.include? ("titre" || "title")
+							errorTitle = true
+						end
+						if m.include? ("prix" || "price")
+							errorPrice = true
+						end
+						if m.include? "description"
+							errorDescription = true
+						end
+						if m.include? "type"
+							errorType = true
+						end
+						if m.include? ("catégorie" || "category")
+							errorCategory = true
+						end
+						if m.include? ("adresse" || "address")
+							errorAddress = true
+						end
+					%>
+				<% end %>
 			<% end %>
-		<% end %>
 	<% end %>
 	<div class="row text-left">
         <%= link_to 'Retour', service_path(@service), :class => 'btn btn-default'  %>
 	</div>	
 	<div class="col-md-12">
 		<div class="row">
-			<h1>
-				 <% if errorTitle %>  
-				 	<%= f.text_field :title, :style => "border: 1px solid red", :class => 'text_field text-center', :value => @service.title, :placeholder => "Titre *" %>
-				 <% else %>
-				 	<%= f.text_field :title, :class => 'text_field text-center', :value => @service.title, :placeholder => "Titre *"%>
-				 <% end %>
-				
-			</h1>
+			<% if errorTitle %>  
+			 	<%= f.text_field :title, :style => "border: 1px solid red", :class => 'text_field text-center h1', :value => @service.title, :placeholder => "Titre *",
+			 	 :title =>"Ce champs est requis, choisissez bien votre titre !", :data => {:toggle=>"tooltip", :placement => "top"} %>
+			 <% else %>
+			 	<%= f.text_field :title, :class => 'text_field text-center h1', :value => @service.title, :placeholder => "Titre *",
+			 	:title =>"Ce champs est requis, choisissez bien votre titre !", :data => {:toggle=>"tooltip", :placement => "top"} %>
+			 <% end %>
 		</div>
 	</div>
 	<div class="row">
@@ -54,10 +68,6 @@
 					<% else %>
 						<h3 class="panel-title">Recherché par</h3>
 					<% end %>
-					
-					<%= # f.select :isGiven, options_for_select([["Proposé", true], ["Recherché", false]]), :value => @service.isGiven 
-					%> 
-
 			</div>
 			<div class="panel-body">
 				<% username = @service.user.name + ' ' + @service.user.lastName%>
@@ -81,13 +91,25 @@
 	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<p class="lead">
+				<%= form_for @service, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
+					<% if @service.errors.any? %>
+						<div class="alert alert-danger alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<% @service.errors.messages.values.each do |msg| %>
+								<% msg.each do  |m| %>
+									<%= m %> <br/>
+								<% end %>
+							<% end %>
+						</div>
+					<% end %>
+				<% end %>
 					<% if errorDescription %>  
-						<%= f.text_area :description, :style => "border: 1px solid red", :class => 'form-control text-center', :value => @service.description, :placeholder => "Description *"%>
+						<%= f.text_area :description, :style => "border: 1px solid red", :class => 'form-control text-center p lead', :value => @service.description, :placeholder => "Description *",
+				 	:title =>"Ce champs vous permet de décrire votre service, ses limites, vos compétences, etc.", :data => {:toggle=>"tooltip", :placement => "left"} %>
 					 <% else %>
-					 	<%= f.text_area :description, :class => 'form-control text-center', :value => @service.description, :placeholder => "Description *"%>
+					 	<%= f.text_area :description, :class => 'form-control text-center p lead', :value => @service.description, :placeholder => "Description *",
+				 	:title =>"Ce champs vous permet de décrire votre service, ses limites, vos compétences, etc.", :data => {:toggle=>"tooltip", :placement => "left"} %>
 					 <% end %>
-				</p>
 				<div class="row">
 					<div class="form-actions">
 						<div class="btn-group">
@@ -115,28 +137,38 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Autres informations</h3>
 			</div>
-			<!-- List group -->
 				<ul class="list-group">
 					<li class="list-group-item">
-						Dans la catégorie 
+						Dans la catégorie <br />
 						<%= f.collection_select :category_id, Category.all, :id, :name, :prompt => "Sélectionnez la catégorie", :value => @service.category %>
+						<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Détermine dans quelle catégorie apparaitra votre service"></i>
 					</li>
 					<li class="list-group-item">
 						Ayant pour disponibilité(s) : <br/> 
-						<%= f.text_area :disponibility, :placeholder => "Lundi : 18h-20h, ..etc", :value => @service.disponibility, :class => 'form-control' %> 
+						<%= f.text_area :disponibility, :placeholder => "Lundi : 18h-20h, ..etc", :value => @service.disponibility, :class => 'form-control',
+				 	:title =>"En précisant vos disponibilités, vous recevrez plus de propositions pertinentes", :data => {:toggle=>"tooltip", :placement => "bottom"} %> 
 					</li>
-					<li class="list-group-item">
+					<li class="list-group-item <% if errorAddress %>list-group-item-danger<% end %>">
 						Lieu où se déroulera l'échange : 
-						<%= f.text_field :address_label, :class => 'text_field', :value => f.object.address.blank? ? current_user.address.label : f.object.address.label, :id => "addresspicker_map" %>
+						<% if not @service.address.nil? %>
+							<%= f.text_field :address_label, :class => 'text_field', :style => 'width: 100%', :value => @service.address.label, :id => "addresspicker_map",
+				 	:title =>"Ce champs est requis", :data => {:toggle=>"tooltip", :placement => "bottom"} %>
+						<% else %>
+							<%= f.text_field :address_label, :class => 'text_field', :style => 'width: 100%', :value => "", :id => "addresspicker_map",
+				 	:title =>"Ce champs est requis", :data => {:toggle=>"tooltip", :placement => "bottom"} %>
+						<% end %>
 					</li>
-					<li class="list-group-item">
-						Le prix est de <br/>
-						<% if errorDescription %>  
-							<%= f.number_field :price, :style => "border: 1px solid red", :class => 'number_field', :value => @service.price %>
-						 <% else %>
-						 	<%= f.number_field :price, :class => 'number_field', :value => @service.price %>
-						 <% end %>
-						 <i class="fa fa-heart"></i>
+					<li class="list-group-item <% if errorPrice %>list-group-item-danger<% end %>">
+						Le prix est de
+						<% if @service.isGiven? %>
+							<%= f.number_field :price, :class => 'number_field', :style => 'width: 25%', :value => @service.price,
+				 	:title =>"Ce champs est requis. C'est le prix que vous demandez en échange de ce service", :data => {:toggle=>"tooltip", :placement => "bottom"} %>
+						<% else %>
+							<%= f.number_field :price, :class => 'number_field', :style => 'width: 25%', :value => @service.price,
+				 	:title =>"Ce champs est requis. C'est le prix que vous offrirez en échange de ce service", :data => {:toggle=>"tooltip", :placement => "bottom"} %>
+						<% end %>
+						
+						<i class="fa fa-heart"></i>
 					</li>
 				</ul>
 			</div>
@@ -153,20 +185,18 @@
 
 <% end %>
 
-<div class='clearfix'>
-
-  <div class='map-wrapper'>
+<div class="row">
+		
     <label id="geo_label" for="reverseGeocode"> Activer le marqueur pour définir l'adresse du service ? </label>
       <select type=hidden id="reverseGeocode">
         <option value="false" selected>Non</option>
         <option value="true">Oui</option>
       </select>
 
-      <div id="map"></div>
-      <div id="legend">Vous pouvez deplacer le marqueur et le déposer à votre Adresse</div>
+      <div id="map" style="border: 2px solid #e6e6e6"> </div>
+      <div id="legend">Vous pouvez deplacer le marqueur et le déposer à votre adresse</div>
     </div>
 </div>
 
 <div id="y" style="display:none"><%= current_user.address.y %></div>
 <div id="x" style="display:none"><%= current_user.address.x %></div>
-
