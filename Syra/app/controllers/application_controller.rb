@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
   
   def restrict_access_admin
-    unless current_user
+    unless current_user && current_user.isAdmin?
       render :file => 'public/401.html', :status => 401, :layout => false
       return
     end
