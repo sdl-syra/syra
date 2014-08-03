@@ -26,7 +26,13 @@
 		<% end %>
 <div class="row text-left">
         <%= link_to 'Retour', services_path, :class => 'btn btn-default'  %>
-</div>	
+        <% if current_user && current_user.isAdmin? %>
+			<span class="pull-right">
+		        <%= link_to ' Anéantir', @service, method: :delete, data: { confirm: 'Voulez-vous vraiment le supprimer ?' }, :class => 'btn btn-danger fa fa-trash-o'  %>
+			</span>
+		<% end %>	
+</div>
+	
 <div class="row">
         <h1><%= @service.title %></h1>
 </div>

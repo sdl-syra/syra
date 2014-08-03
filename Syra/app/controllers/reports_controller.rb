@@ -55,6 +55,9 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1
   # PATCH/PUT /reports/1.json
   def update
+    if params[:report].present? && params[:report][:guilty].present? && params[:report][:guilty]=="true"
+      NotificationsHelper.create_notif(@report.user,"Service '"+@report.service.title+"' condamné suite à votre signalement",service_path(@report.service.id),"fa fa-ban")
+    end
     respond_to do |format|
       if @report.update(report_params)
         format.html { redirect_to reports_path }
