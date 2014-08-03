@@ -328,6 +328,7 @@ class ServicesController < ApplicationController
           NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
         end
       end
+      delete_reports(serv)
       serv.isFinished = true
       serv.save
       flash[:success] = "Le service a été clôturé"
@@ -346,6 +347,11 @@ class ServicesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_service
     @service = Service.find(params[:id])
+  end
+  
+  def delete_reports(serv)
+    reports = Report.where(service_id:serv.id)
+    reports.destroy_all
   end
   
   def set_report

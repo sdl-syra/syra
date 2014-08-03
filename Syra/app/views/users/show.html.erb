@@ -1,8 +1,22 @@
 <%- model_class = User -%>
 
+<% if @user.isBanned %>
+	<%= render :partial => 'userbanned' %>
+<%else%>
+
 <% content_for :head do %>
 	<%= javascript_include_tag "profil" %>
 	 <%= stylesheet_link_tag 'profil' %>
+<% end %>
+
+<% if current_user.isAdmin %>
+	<h1></h1>
+	<%= form_for @user do |f| %>
+	  <%= f.hidden_field :isBanned, :value => "true" %>
+	  <%= f.button :submit, data: { confirm: "Le mérite t'il vraiment ?" }, class:'btn btn-danger pull-right' do %>
+	  	 <span class='fa fa-ban'></span> Bannir
+	  <%end%>
+	<% end %>
 <% end %>
 
 <div class="wrap">
@@ -12,10 +26,6 @@
 		<h1>Profil de <%= @user.name %>.</h1>
 	<% end %>
 </div>
-
-
-
-
 	
 	
 	
@@ -138,3 +148,4 @@ user_path(@user),
 	</div>
 </div>
 
+<% end %>

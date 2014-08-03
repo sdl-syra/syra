@@ -48,6 +48,7 @@ class UsersController < ApplicationController
     @user.level.levelUser = 1
     @user.level.XPUser = 0
     @user.isPremium = false
+    @user.isBanned = false
     respond_to do |format|
       if @user.save
         sign_in @user
@@ -152,7 +153,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :isPremium, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q, :accept_conditions , :birthday)
+    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :isPremium, :isBanned, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q, :accept_conditions , :birthday)
   end
 
 end

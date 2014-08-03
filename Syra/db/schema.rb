@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140731152348) do
+ActiveRecord::Schema.define(version: 20140803093901) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20140731152348) do
     t.boolean  "accept_conditions"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.boolean  "isBanned"
   end
 
   add_index "users", ["address_id"], name: "index_users_on_address_id"
