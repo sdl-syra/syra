@@ -67,8 +67,18 @@ $(document).ready(function(){
 					<span class="row" style="font-weight:normal !important"> <%=r.content%> </span>
 				<% end %>
 				<% if r.guilty.nil? %>
-					<a href="/report/<%=r.id%>/judge?guilty=yes"><button class="btn btn-danger pull-right">Condamner <span class="fa fa-thumbs-down"></span></button></a>
-					<a href="/report/<%=r.id%>/judge?guilty=no"><button class="btn btn-success pull-right">Insuffisant <span class="fa fa-thumbs-up"></span></button></a> <br/>
+					<%= form_for r do |f| %>
+					  <%= f.hidden_field :guilty, :value => "true" %>
+					  <%= f.button :submit, class:'btn btn-danger pull-right' do %>
+					  	Condamner <span class='fa fa-thumbs-down'></span>
+					  <%end%>
+					<% end %>
+					<%= form_for r do |f| %>
+					  <%= f.hidden_field :guilty, :value => "false" %>
+					  <%= f.button :submit, class:'btn btn-success pull-right' do %>
+					  	Acquitter <span class='fa fa-thumbs-up'></span>
+					  <%end%>
+					<% end %><br/>
 				<% end %>
 			</div>
 		<% end %>

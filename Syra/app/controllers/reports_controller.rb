@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :judge]
+  before_action :set_report, only: [:show, :edit, :update, :destroy]
   before_action :restrict_access_admin, only: [:index]
 
   # GET /reports
@@ -57,7 +57,7 @@ class ReportsController < ApplicationController
   def update
     respond_to do |format|
       if @report.update(report_params)
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        format.html { redirect_to reports_path }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -76,19 +76,6 @@ class ReportsController < ApplicationController
     end
   end
   
-  def judge
-    if (current_user.isAdmin?)
-      unless (params[:guilty].nil?)
-        @report.guilty = params[:guilty]=="yes"
-        @report.save
-      end
-    end
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_report
@@ -97,6 +84,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:category, :content, :service_id, :user_id, :judge)
+      params.require(:report).permit(:category, :content, :service_id, :user_id, :guilty)
     end
 end
