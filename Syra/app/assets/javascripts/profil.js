@@ -46,6 +46,12 @@ var launchModal = function() {
     });
 };
 
+$(document).ready(function(){
+	$( "#banformexpander" ).click(function() {
+		$( "#banformexpander" ).hide();
+		$('#toexpand').collapse("toggle");
+	});
+});
 
 
 $(document).ready(launchBestInPlace);

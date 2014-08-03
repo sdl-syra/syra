@@ -9,14 +9,18 @@
 	 <%= stylesheet_link_tag 'profil' %>
 <% end %>
 
-<% if current_user.isAdmin %>
+<% if  current_user && current_user.isAdmin %>
 	<h1></h1>
+	<button id="banformexpander" class="btn btn-danger pull-right" ><span class='fa fa-ban'></span> Bannir</button>
+	<div id="toexpand" class="collapse pull-right">
 	<%= form_for @user do |f| %>
 	  <%= f.hidden_field :isBanned, :value => "true" %>
+	  <%= f.text_area :banReason, size:"50x4", maxlength:200, placeholder:"Motif du ban...", class:'form-control' %>
 	  <%= f.button :submit, data: { confirm: "Le mérite t'il vraiment ?" }, class:'btn btn-danger pull-right' do %>
 	  	 <span class='fa fa-ban'></span> Bannir
 	  <%end%>
 	<% end %>
+	</div>
 <% end %>
 
 <div class="wrap">
