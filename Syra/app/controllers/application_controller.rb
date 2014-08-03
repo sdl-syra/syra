@@ -26,8 +26,8 @@ class ApplicationController < ActionController::Base
   
   def set_notifs_per_user
     @notifsctrl = []
-    if (current_user)
-      @notifsctrl = Notification.where(user: User.find(current_user.id))
+    if current_user
+      @notifsctrl = Notification.where(user: current_user)
     end
   end
   
