@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   before_action :set_notifs_per_user
   before_filter :set_search
+  before_action :handle_banned
   protect_from_forgery with: :exception
   include SessionsHelper
 
@@ -10,6 +11,12 @@ class ApplicationController < ActionController::Base
   def require_login
     unless current_user
       redirect_to signin_path
+    end
+  end
+  
+  def handle_banned
+    if current_user && current_user.isBanned
+      sign_out
     end
   end
 

@@ -12,6 +12,9 @@ class SessionsController < ApplicationController
       flash.now[:error] = "Combinaison Email/Mot de passe invalide."
       @titre = "S'identifier"
       render 'new'
+    elsif user.isBanned
+      flash[:error] = "Ce compte est suspendu"
+      redirect_to signin_path
     else
       sign_in user
       redirect_to user
