@@ -174,6 +174,7 @@ class ServicesController < ApplicationController
         end
         p.destroy
       end
+      delete_reports(@service)
       @service.destroy
       respond_to do |format|
         format.html { redirect_to user_path(@service.user) }
@@ -328,7 +329,6 @@ class ServicesController < ApplicationController
           NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
         end
       end
-      delete_reports(serv)
       serv.isFinished = true
       serv.save
       flash[:success] = "Le service a été clôturé"
