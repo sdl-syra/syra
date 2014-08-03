@@ -22,7 +22,7 @@
 							</div>
 							<div class="col-xs-6 text-right">
 								<p class="announcement-heading">
-									<strong><%= User.count %></strong>
+									<strong><%= @users.length %></strong>
 								</p>
 								<p class="announcement-text">
 									utilisateurs!
@@ -52,7 +52,7 @@
 							</div>
 							<div class="col-xs-6 text-right">
 								<p class="announcement-heading">
-									<%= Service.count %>
+									<%= @services.length %>
 								</p>
 								<p class="announcement-text">
 									services en ce moment
@@ -82,7 +82,7 @@
 							</div>
 							<div class="col-xs-6 text-right">
 								<p class="announcement-heading">
-									<%= Report.where(guilty:nil).count %>
+									<%= @unresolvedReports.length %>
 								</p>
 								<p class="announcement-text">
 									reports non traités
@@ -113,7 +113,7 @@
 							<div class="col-xs-6 text-right">
 								<p class="announcement-heading">
 									<% totalHP = 0 %>
-									<%  User.all.each do |user| %>
+									<%  @users.each do |user| %>
 										<% if not user.isAdmin?%>
 											<% totalHP = totalHP + user.money.to_i %>
 										<% end %>
@@ -126,8 +126,8 @@
 							</div>
 							<div class="col-xs-6 text-right">
 								<p class="announcement-heading">
-								<% if User.count != 0 %>
-									<%= totalHP/User.count%>
+								<% if @users.length != 0 %>
+									<%= totalHP/@users.length%>
 								<% else %>
 									0
 								<% end %>
@@ -184,7 +184,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<%  User.all.each do |user| %>
+									<%  @users.each do |user| %>
 									<%  if user.isAdmin? %>
 									<tr>
 										<td><%= link_to user.id, user_path(user) %></td>
@@ -235,7 +235,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<%  User.all.each do |user| %>
+									<%  @users.each do |user| %>
 									<%  if user.isPremium? %>
 									<tr>
 										<td><%= link_to user.id, user_path(user) %></td>
@@ -255,5 +255,52 @@
 				</div>
 			</div>
 		</div><!-- /.row -->
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-key"></i> Liste des criminels</h3>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover table-striped tablesorter">
+								<thead>
+									<tr>
+										<th> # <i class="fa fa-sort"></i></th>
+										<th>Nom</th>
+										<th>Prénom</th>
+										<th>E-mail</th>
+										<th>Motif de l'exil</th>
+										<th>Date de l'exil</th>
+									</tr>
+								</thead>
+								<tbody>
+									<%  @criminals.each do |user| %>
+									<tr>
+										<td><%= link_to user.id, user_path(user) %></td>
+										<td><%= user.name %></td>
+										<td><%= user.lastName %></td>
+										<td><%= user.email %></td>
+										<td><%= user.banReason %></td>
+										<td><%= user.updated_at.strftime("%d/%m/%y")%></td>
+										<td>
+											<%= form_for user do |f| %>
+											  <%= f.hidden_field :isBanned, :value => "false" %>
+											  <%= f.hidden_field :banReason, :value => "" %>
+											  <%= f.submit "Pardonner", class:'btn btn-success' %>
+											<% end %>
+										</td>
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+						<div class="text-right">
+							<a href="<%=administrator_criminals_path%>">Voir tous les criminels <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div><!-- /#page-wrapper -->
 </div>

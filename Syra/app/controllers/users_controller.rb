@@ -133,6 +133,10 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def criminals
+    @criminals = User.where(isBanned:true).order(updated_at: :desc)
+  end
 
   # DELETE /users/1
   # DELETE /users/1.json

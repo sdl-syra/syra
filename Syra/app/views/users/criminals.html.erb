@@ -1,0 +1,50 @@
+<style type="text/css">
+.centered {
+  margin: 0 auto !important;
+  float: none !important;
+}
+</style>
+
+<h1></h1>
+<div class="col-lg-9 centered">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-key"></i> Liste des criminels </h3>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover table-striped tablesorter">
+					<thead>
+						<tr>
+							<th> # <i class="fa fa-sort"></i></th>
+							<th>Nom</th>
+							<th>Prénom</th>
+							<th>E-mail</th>
+							<th>Motif de l'exil</th>
+							<th>Date de l'exil</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%  @criminals.each do |user| %>
+						<tr>
+							<td><%= link_to user.id, user_path(user) %></td>
+							<td><%= user.name %></td>
+							<td><%= user.lastName %></td>
+							<td><%= user.email %></td>
+							<td><%= user.banReason %></td>
+							<td><%= user.updated_at.strftime("%d/%m/%y")%></td>
+							<td>
+								<%= form_for user do |f| %>
+								  <%= f.hidden_field :isBanned, :value => "false" %>
+								  <%= f.hidden_field :banReason, :value => "" %>
+								  <%= f.submit "Pardonner", class:'btn btn-success' %>
+								<% end %>
+							</td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -48,6 +48,7 @@ Syra::Application.routes.draw do
   get '/administrator/services',  :to => 'services#admin'
   get '/administrator/users',  :to => 'users#admin'
   get '/administrator/propositions',  :to => 'propositions#admin'
+  get '/administrator/criminals',  :to => 'users#criminals'
   get '/administrator', :to => 'pages#administrator'
 
   get '/create_service', :to => 'services#new'
