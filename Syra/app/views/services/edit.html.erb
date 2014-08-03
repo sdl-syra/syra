@@ -51,10 +51,10 @@
 	<div class="col-md-12">
 		<div class="row">
 			<% if errorTitle %>  
-			 	<%= f.text_field :title, :style => "border: 1px solid red", :class => 'text_field text-center h1', :value => @service.title, :placeholder => "Titre *",
+			 	<%= f.text_field :title, :style => "border: 1px solid red", :class => 'text_field text-center h1', :value => @service.title, :placeholder => "Titre",
 			 	 :title =>"Ce champs est requis, choisissez bien votre titre !", :data => {:toggle=>"tooltip", :placement => "top"} %>
 			 <% else %>
-			 	<%= f.text_field :title, :class => 'text_field text-center h1', :value => @service.title, :placeholder => "Titre *",
+			 	<%= f.text_field :title, :class => 'text_field text-center h1', :value => @service.title, :placeholder => "Titre",
 			 	:title =>"Ce champs est requis, choisissez bien votre titre !", :data => {:toggle=>"tooltip", :placement => "top"} %>
 			 <% end %>
 		</div>
@@ -104,10 +104,10 @@
 					<% end %>
 				<% end %>
 					<% if errorDescription %>  
-						<%= f.text_area :description, :style => "border: 1px solid red", :class => 'form-control text-center p lead', :value => @service.description, :placeholder => "Description *",
+						<%= f.text_area :description, :style => "border: 1px solid red", :class => 'form-control text-center p lead', :value => @service.description, :placeholder => "Description",
 				 	:title =>"Ce champs vous permet de décrire votre service, ses limites, vos compétences, etc.", :data => {:toggle=>"tooltip", :placement => "left"} %>
 					 <% else %>
-					 	<%= f.text_area :description, :class => 'form-control text-center p lead', :value => @service.description, :placeholder => "Description *",
+					 	<%= f.text_area :description, :class => 'form-control text-center p lead', :value => @service.description, :placeholder => "Description",
 				 	:title =>"Ce champs vous permet de décrire votre service, ses limites, vos compétences, etc.", :data => {:toggle=>"tooltip", :placement => "left"} %>
 					 <% end %>
 				<div class="row">
@@ -144,17 +144,17 @@
 						<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Détermine dans quelle catégorie apparaitra votre service"></i>
 					</li>
 					<li class="list-group-item">
-						Ayant pour disponibilité(s) : <br/> 
-						<%= f.text_area :disponibility, :placeholder => "Lundi : 18h-20h, ..etc", :value => @service.disponibility, :class => 'form-control',
+						Ayant pour disponibilités : <br/> 
+						<%= f.text_area :disponibility, :placeholder => "Lundi : 18h-20h, etc.", :value => @service.disponibility, :class => 'form-control',
 				 	:title =>"En précisant vos disponibilités, vous recevrez plus de propositions pertinentes", :data => {:toggle=>"tooltip", :placement => "bottom"} %> 
 					</li>
 					<li class="list-group-item <% if errorAddress %>list-group-item-danger<% end %>">
 						Lieu où se déroulera l'échange : 
 						<% if not @service.address.nil? %>
-							<%= f.text_field :address_label, :class => 'text_field', :style => 'width: 100%', :value => @service.address.label, :id => "addresspicker_map",
+							<%= f.text_field :address_label, :class => 'text_field', :style => 'width: 100%', :value => @service.address.label, :id => "addresspicker_map", :placeholder => " Lieu de l'échange",
 				 	:title =>"Ce champs est requis", :data => {:toggle=>"tooltip", :placement => "bottom"} %>
 						<% else %>
-							<%= f.text_field :address_label, :class => 'text_field', :style => 'width: 100%', :value => "", :id => "addresspicker_map",
+							<%= f.text_field :address_label, :class => 'text_field', :style => 'width: 100%', :value => "", :id => "addresspicker_map", :placeholder => " Lieu de l'échange",
 				 	:title =>"Ce champs est requis", :data => {:toggle=>"tooltip", :placement => "bottom"} %>
 						<% end %>
 					</li>

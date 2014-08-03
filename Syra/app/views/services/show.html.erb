@@ -64,7 +64,7 @@
 	<div>
 		<% if current_user && current_user != @service.user %>
 			<% if current_user.following?(@service.user)%>
-	            <a class="btn btn-warning" href="<%=unfollow_user_path(@service.user, :user => @service.user)%>">Ne plus suivre</a>
+	            <a class="btn btn-default" href="<%=unfollow_user_path(@service.user, :user => @service.user)%>">Ne plus suivre</a>
 		    <% else %>
 		    	<a class="btn btn-info" href="<%=follow_user_path(@service.user, :user => @service.user)%>">Suivre</a>
 		    <%end %>
@@ -146,7 +146,7 @@
     <li class="list-group-item">
 	Dans la catégorie <a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></li>
 	<% if not @service.disponibility.blank? %>
-		<li class="list-group-item">Ayant pour disponibilité(s) : <br/> <%= @service.disponibility %> </li>
+		<li class="list-group-item">Ayant pour disponibilités : <br/> <%= @service.disponibility %> </li>
 	<% end %> 
 	<% if not @service.address.blank? %>
   		<li class="list-group-item">Lieu où se déroulera l'échange : <br/><%= @service.address.label %> </li>
