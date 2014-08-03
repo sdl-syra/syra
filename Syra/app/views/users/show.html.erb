@@ -9,7 +9,7 @@
 	 <%= stylesheet_link_tag 'profil' %>
 <% end %>
 
-<% if  current_user && current_user.isAdmin %>
+<% if  current_user && current_user.isAdmin? %>
 	<h1></h1>
 	<button id="banformexpander" class="btn btn-danger pull-right" ><span class='fa fa-ban'></span> Bannir</button>
 	<div id="toexpand" class="collapse pull-right">
