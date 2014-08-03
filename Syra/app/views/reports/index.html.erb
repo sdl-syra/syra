@@ -91,6 +91,11 @@ $(document).ready(function(){
 	<div class="panel panel-default container">
 		<h4><a href="/services/<%=s.id%>"><%=s.title%> &nbsp; <span class="fa fa-search"></span></a> - 
 			([<%=s.user.id%>.] <%=s.user.name%> <%=s.user.lastName%>)
+			<span class="pull-right">
+				<%= link_to " Résolu", resolve_reports_path(s),
+				data: { confirm: 'Dossier classé ?' }, :class => 'btn btn-success fa fa-check-circle',
+				:style => 'color:#fff' %>
+			</span>
 		</h4>
 		<div style="text-align: center;" >
 			<span class="expander text-center fa fa-chevron-down" data-toexpand="<%=s.id%>"></span>

@@ -82,6 +82,8 @@ Syra::Application.routes.draw do
   
   post '/all_notif_checked', :to => 'notifications#checkedall'
   
+  get '/services/:id/resolveReports', :to => 'services#resolveReports', :as => 'resolve_reports'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

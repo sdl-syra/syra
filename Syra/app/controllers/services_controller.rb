@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_service, only: [:show, :edit, :update, :destroy, :resolveReports]
   before_action :set_suggestions_demandes, only: [:index]
   before_action :set_report, only: [:show]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:new]
@@ -337,6 +337,16 @@ class ServicesController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to(:back) }
+      format.json { head :no_content }
+    end
+  end
+  
+  def resolveReports
+    if current_user && current_user.isAdmin?
+      delete_reports(@service)
+    end
+    respond_to do |format|
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end
