@@ -368,7 +368,7 @@ class ServicesController < ApplicationController
     @report = Report.new
     @alreadyReported = true
     if current_user
-      @alreadyReported = Report.where(user_id:current_user.id,service_id:@service.id).length>0
+      @alreadyReported = Report.where(user_id:current_user.id,service_id:@service.id).length>0 || @service.user == current_user
     end
   end
   
