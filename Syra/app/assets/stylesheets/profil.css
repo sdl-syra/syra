@@ -49,3 +49,9 @@
 .avheightfix {
 	height:170px !important
 }
+
+.username {
+	z-index:200;
+	position:absolute;
+	margin-top:-30px;
+}

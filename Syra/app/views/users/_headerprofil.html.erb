@@ -10,8 +10,9 @@
 		<%=image_tag "avatars/"+@user.avatar, :class => "img-responsive img-thumbnail avheight" %>
 	<%end%>
 </div>
-
-
+<h3 class="col-lg-4 col-lg-offset-4 username">
+	<%=@user.name%> <%=@user.lastName%>
+</h3>
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid col-lg-offset-3" >
       <ul class="nav navbar-nav ">
