@@ -9,33 +9,8 @@
 	 <%= stylesheet_link_tag 'profil' %>
 <% end %>
 
-<% if  current_user && current_user.isAdmin? %>
-	<h1></h1>
-	<button id="banformexpander" class="btn btn-danger pull-right" ><span class='fa fa-ban'></span> Bannir</button>
-	<div id="toexpand" class="collapse pull-right">
-	<%= form_for @user do |f| %>
-	  <%= f.hidden_field :isBanned, :value => "true" %>
-	  <%= f.text_area :banReason, size:"50x4", maxlength:200, placeholder:"Motif du ban...", class:'form-control' %>
-	  <%= f.button :submit, data: { confirm: "Le mérite t'il vraiment ?" }, class:'btn btn-danger pull-right' do %>
-	  	 <span class='fa fa-ban'></span> Bannir
-	  <%end%>
-	<% end %>
-	</div>
-<% end %>
-
-<div class="wrap">
-	<% if @user==current_user %>
-		<h1>Bonjour, <%= @user.name %>.</h1>
-	<% else %>
-		<h1>Profil de <%= @user.name %>.</h1>
-	<% end %>
-</div>
-	
-	
-	
-	
-<div id="profilinfos">
-<%= render :partial => 'profilinfos' %>
+<div id="headerprofil">
+	<%= render :partial => 'headerprofil' %>
 </div>
 <!--
 <div>
@@ -135,21 +110,19 @@ user_path(@user),
 :class => 'btn btn-danger' %>
 </div>
 
-<% end %>-->					
+<% end %>-->	
+<br/><br/><br/>
+<div class="container">
+	<%if params[:get]=="echanges" %>
+		<%= render :partial => 'profilechanges'%>
+	<%elsif params[:get]=="profil"%>
+		<%= render :partial => 'profilechanges'%>
+	<%elsif params[:get]=="social"%>
+		<%= render :partial => 'profilechanges'%>
+	<%else%>
+		<%= render :partial => 'profilechanges'%>
+	<% end %>
+</div>				
 
-
-<div id="page-wrapper">
-	<!-- /.row -->
-	<div class="row">
-		<div class="col-lg-8">
-			
-			<%= render :partial => 'profilservices' %>
-
-			<%= render :partial => 'profilpropositions' %>
-			
-			<%= render :partial => 'profiltimeline' %>
-		</div>
-	</div>
-</div>
 
 <% end %>

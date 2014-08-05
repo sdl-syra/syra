@@ -32,7 +32,7 @@ class PropositionsController < ApplicationController
   def create
     @proposition = Proposition.new(proposition_params)
     @proposition.user = current_user
-    
+    @proposition.isPaid = false
     respond_to do |format|
       if @proposition.save
         format.html { redirect_to @proposition, notice: 'Proposition was successfully created.' }

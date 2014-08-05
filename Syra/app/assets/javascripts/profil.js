@@ -27,7 +27,6 @@ function readURL(input) {
         var reader = new FileReader();
         reader.onload = function (e) {
             $('#imgtopreview').attr('src', e.target.result);
-            $("#imgtopreview").attr("width",$('#avatarcontainer').width());
         };
         reader.readAsDataURL(input.files[0]);
     }
@@ -53,6 +52,23 @@ $(document).ready(function(){
 	});
 });
 
+$(document).ready(function() {
+    $("#content").find("[id^='tab']").hide(); 
+    $("#tabs li:first").attr("id","current"); 
+    $("#content #tab1").fadeIn(); 
+    $('#tabs a').click(function(e) {
+        e.preventDefault();
+        if ($(this).closest("li").attr("id") == "current"){ 
+         return;       
+        }
+        else{             
+          $("#content").find("[id^='tab']").hide(); 
+          $("#tabs li").attr("id",""); 
+          $(this).parent().attr("id","current"); 
+          $('#' + $(this).attr('name')).fadeIn();
+        }
+    });
+});
 
 $(document).ready(launchBestInPlace);
 $(document).ready(toggleHobbies);

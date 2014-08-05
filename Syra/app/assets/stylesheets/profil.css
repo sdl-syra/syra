@@ -1,6 +1,5 @@
 .best_in_place, .simili_bip {
   padding: 2px;
-  cursor: hand;
   cursor: pointer;
   -moz-transition: background 0.5s linear;
   -o-transition: background 0.5s linear;
@@ -27,4 +26,26 @@
 }
 #currentavatar:hover {
 	cursor:pointer;
+}
+
+.avatarover {
+	z-index:100;
+	position:absolute;
+	margin-top:-90px;
+    display: -webkit-flexbox;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.avheight {
+	max-height:170px
+}
+
+.avheightfix {
+	height:170px !important
 }

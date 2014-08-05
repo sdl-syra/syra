@@ -21,6 +21,13 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @offered = Service.where(user:@user,isGiven:true).order(created_at: :desc, isFinished: :asc)
+    @offeredUnfinished = Service.where(user:@user,isGiven:true,isFinished:false).count
+    @asked = Service.where(user:@user,isGiven:false).order(created_at: :desc, isFinished: :asc)
+    @askedUnfinished = Service.where(user:@user,isGiven:false,isFinished:false).count
+    @propositions = Proposition.where(user:@user,isPaid:false).order(created_at: :desc)
+    @propositions = @propositions.select { |p| p.service.isFinished == false}
+    @historique = Proposition.where(user:@user, isPaid:true).order(created_at: :desc)
   end
 
   # GET /users/new

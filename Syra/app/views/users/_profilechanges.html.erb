@@ -1,0 +1,148 @@
+
+<% content_for :head do %>
+	 <%= stylesheet_link_tag 'profilechanges' %>
+<% end %>
+
+<ul id="tabs">
+    <li>
+    	<a href="#" name="tab1">Offres 
+    		<%if @offeredUnfinished>0 %>
+    			<span title="offres disponibles" class="badge"><%=@offeredUnfinished%></span>
+    		<%end%>
+    	</a>
+    </li>
+    <li>
+    	<a href="#" name="tab2">Demandes
+    		<% if @askedUnfinished>0 %>
+    			<span title="demandes disponibles" class="badge"><%=@askedUnfinished%></span>
+    		<%end%>	
+    	</a>
+    </li>
+    <%if @user==current_user%>
+    	<li>
+    		<a href="#" name="tab3">Propositions
+    			<% if @propositions.length>0 %>
+    				<span class="badge"><%=@propositions.length%></span>
+    			<% end %>
+    		</a>
+    	</li>
+    <% end %>
+    <li><a href="#" name="tab4">Historique</a></li>    
+</ul>
+
+<div id="content">
+    <div id="tab1">
+    	<% if @offered.length>0 %>
+	        <% @offered.each do |service| %>
+				<div class="post-it">
+				  <div class="note <%= service.isFinished? ? 'pinkpostit':'yellowpostit'%> col-lg-5">
+				  	<i class="pin"></i>
+				    <div>
+					    <span class="pull-left"><% if service.isFinished? %>
+		                      	Terminé
+		                      <% else %>
+		                      	En cours
+		                      <%end%>
+		                </span>
+					    <span class="pull-right"><%= service.created_at.strftime("%d/%m/%y") %></span>
+					    <div class="text-center"><%= service.category.name %></div>
+				    </div><br/>
+				    <div>
+				    	<h3 class="text-center"><a href="/services/<%= service.id %>"><%= service.title %></a></h3>
+				    </div><br/>
+				    <div class="text-center"><%= service.address.label %></div>
+				    <span><%= service.disponibility %></span>
+				    <% if @user==current_user %>
+					    <div>
+					    	<span class="pull-right"><%= link_to service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" propositions",service_path(service) %></span>
+					    </div>
+				    <%end%>
+				  </div>
+				</div>
+			<% end %>
+		  <%end%>
+    </div>
+    <div id="tab2">
+    	<% if @asked.length>0 %>
+	        <% @asked.each do |service| %>
+				<div class="post-it">
+				  <div class="note <%= service.isFinished? ? 'pinkpostit':'yellowpostit'%> col-lg-5">
+				  	<i class="pin"></i>
+				    <div>
+					    <span class="pull-left"><% if service.isFinished? %>
+		                      	Terminé
+		                      <% else %>
+		                      	En cours
+		                      <%end%>
+		                </span>
+					    <span class="pull-right"><%= service.created_at.strftime("%d/%m/%y") %></span>
+					    <div class="text-center"><%= service.category.name %></div>
+				    </div><br/>
+				    <div>
+				    	<h3 class="text-center"><a href="/services/<%= service.id %>"><%= service.title %></a></h3>
+				    </div><br/>
+				    <div class="text-center"><%= service.address.label %></div>
+				    <span><%= service.disponibility %></span>
+				    <% if @user==current_user %>
+					    <div>
+					    	<span class="pull-right"><%= link_to service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" propositions",service_path(service) %></span>
+					    </div>
+				    <% end %>
+				  </div>
+				</div>
+			<% end %>
+		  <%end%>
+    </div>
+    <% if @user==current_user %> 
+	    <div id="tab3">
+	      <% if @propositions.length>0 %>
+	        <% @propositions.each do |p| %>
+				<div class="post-it">
+				  <div class="note <% if p.isAccepted.nil? %>yellowpostit<%else%>pinkpostit<%end%> col-lg-5">
+				  	<i class="pin"></i>
+				    <div>
+					    <span class="pull-left"><% if p.isAccepted.nil? %>
+		                      	En attente
+		                      <% else %>
+		                      	Refusé
+		                      <%end%>
+		                </span>
+					    <span class="pull-right"><%= p.created_at.strftime("%d/%m/%y") %></span>
+					    <div class="text-center"><a href="/users/<%= p.service.user.id %>"><%= p.service.user.name %> <%= p.service.user.lastName %></a> </div>
+				    </div><br/>
+				    <div>
+				    	<h3 class="text-center"><a href="/services/<%= p.service.id %>"><%= p.service.title %></a></h3>
+				    	<h3 class="text-center"><%= p.proposition %></h3>
+				    </div><br/>
+				    <div class="text-center">"<%= p.comment %>"</div>
+				    <% unless p.motifCancelled.nil? %>
+				    	<div class="text-center">Motif du refus : "<%= p.motifCancelled %>"</div>
+				    <%end%>
+				  </div>
+				</div>
+			<% end %>
+		  <%end%>
+	    </div>
+    <%end%>
+    <div id="tab4">
+    	<% if @historique.length>0 %>
+	        <% @historique.each do |p| %>
+				<div class="post-it">
+				  <div class="note <%= p.service.isGiven? ? 'bluepostit':'greenpostit'%> col-lg-5">
+				  	<i class="pin"></i>
+				    <div>
+				    	<span class="pull-left"><%= p.updated_at.strftime("%d/%m/%y") %></span>
+					    <span class="pull-right"><a href="/users/<%= p.service.user.id %>"><%= p.service.user.name %> <%= p.service.user.lastName %></a></span>
+				    </div><br/>
+				    <div>
+				    	<h3 class="text-center"><%= p.service.title %></h3>
+				    </div><br/>
+				    <div class="text-center">"SwagSwagSwagSwagSwagSwagSwagSwag"</div>
+					<span class="pull-right">*****</span>
+				  </div>
+				</div>
+			<% end %>
+		  <%end%>
+    </div>
+</div>
+

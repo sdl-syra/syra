@@ -1,0 +1,63 @@
+
+<%= image_tag "header-clouds.png", class:'img-responsive' %>
+
+
+
+<div class="col-lg-2 col-lg-offset-1 avatarover avheightfix" <%if @user==current_user%>id="currentavatar"<%end%>>
+	<% if @user.avatar.nil? %>
+		<%=image_tag "noavatar.png", :class => "img-responsive img-thumbnail avheight" %>
+	<%else %>
+		<%=image_tag "avatars/"+@user.avatar, :class => "img-responsive img-thumbnail avheight" %>
+	<%end%>
+</div>
+
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid col-lg-offset-3" >
+      <ul class="nav navbar-nav ">
+        <li <%if !params[:get].present? || params[:get]=="profil"%>class='active'<%end%>><a href="/users/<%=@user.id%>?get=profil">Profil</a></li>
+        <li <%if params[:get]=="echanges"%>class='active'<%end%>><a href="/users/<%=@user.id%>?get=echanges">Echanges</a></li>
+        <li <%if params[:get]=="social"%>class='active'<%end%>><a href="/users/<%=@user.id%>?get=social">Social</a></li>
+      </ul>
+      <% if  current_user && current_user.isAdmin? %>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+			<button style="margin-top:7px" id="banformexpander" class="btn btn-danger" ><span class='fa fa-ban'></span> Bannir</button>
+			<div id="toexpand" class="collapse pull-right">
+			<%= form_for @user do |f| %>
+			  <%= f.hidden_field :isBanned, :value => "true" %>
+			  <%= f.text_area :banReason, size:"50x4", maxlength:200, placeholder:"Motif du ban...", class:'form-control' %>
+			  <%= f.button :submit, data: { confirm: "Le mérite t'il vraiment ?" }, class:'btn btn-danger pull-right' do %>
+			  	 <span class='fa fa-ban'></span> Bannir
+			  <%end%>
+			<% end %>
+			</div>
+		</li>
+      </ul>
+      <% end %>
+  </div>
+</nav>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Prévisualisation</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+	      	<div class="col-lg-4 col-lg-offset-4">
+				<img src="#" class="avheight img-responsive" id="imgtopreview" alt="avatar" onerror="this.src='/assets/noavatar.png'" />
+			</div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <%= form_for @user, method: :post, :url => url_for(:controller => 'users', :action => 'upload_avatar') do |f| %>
+		  <%= f.file_field :avatar %>
+		  <%= f.submit 'Valider', :class => 'btn btn-primary' %>
+		<% end %>
+      </div>
+    </div>
+  </div>
+</div>	
