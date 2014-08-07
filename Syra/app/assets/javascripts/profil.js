@@ -1,11 +1,8 @@
-var launchBestInPlace = function() {
-  jQuery(".best_in_place").best_in_place();
-};
 
 var toggleHobbies = function(){
     $('#currenthobbies').click(function() {  
         $('#hobbiesedit').toggle();
-        $('#currenthobbies').toggle();
+        $('.currenthobbies').toggle();
     });
 };
 
@@ -13,6 +10,13 @@ var toggleBirthday = function(){
     $('#currentbirthday').click(function() {  
         $('#birthdayedit').toggle();
         $('#currentbirthday').hide();
+    });
+};
+
+var toggleBiography = function(){
+    $('#currentbiography').click(function() {  
+        $('#biographyedit').toggle();
+        $('#currentbiography').hide();
     });
 };
 
@@ -70,7 +74,8 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(launchBestInPlace);
+
 $(document).ready(toggleHobbies);
 $(document).ready(toggleBirthday);
+$(document).ready(toggleBiography);
 $(document).ready(launchModal);

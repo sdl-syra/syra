@@ -1,4 +1,4 @@
-.best_in_place, .simili_bip {
+.simili_bip {
   padding: 2px;
   cursor: pointer;
   -moz-transition: background 0.5s linear;
@@ -12,7 +12,7 @@
   border-radius: 5px;
   display:inline-block;
 }
-.best_in_place:hover, .simili_bip:hover {
+.simili_bip:hover {
   padding-right: 1.5em;
   background: url("image/jolicrayon.png") no-repeat right;
   background-color: #bce8f1;

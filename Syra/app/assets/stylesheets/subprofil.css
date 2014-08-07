@@ -1,0 +1,124 @@
+ .align-left {
+ 	text-align: left;
+ }
+ .font-id-info {
+ 	font-weight: 400;
+ 	font-size: initial;
+ }
+ .font-id-label {
+ 	color: #3c763d;
+ }
+ .shorterpanel {
+ 	padding-bottom: 1px;
+ }
+ .shadowpanel {
+ 	box-shadow: 0 5px 5px 1px rgba(0,0,0,0.3);
+ }
+ .avidheight {
+	max-height:100px
+}
+
+.avidheightfix {
+	height:110px !important
+}
+
+.avataridover {
+	z-index:100;
+	position:absolute;
+	margin-top:-50px;
+    display: block
+}
+
+.goldiscold {
+	color: #ffd700;
+}
+
+select {
+	width: 100%;
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+}
+
+.aboutme {
+	position: relative;
+ 	font-weight: 300;
+ 	color: black;
+ 	font-size: initial;
+	padding: 10px;
+	margin: 0 auto;
+	background-color: #fff;
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+}
+.aboutme:before, .aboutme:after {
+	position: absolute;
+	width: 40%;
+	height: 10px;
+	content: ' ';
+	left: 12px;
+	bottom: 12px;
+	background: transparent;
+	-webkit-transform: skew(-5deg) rotate(-5deg);
+	-moz-transform: skew(-5deg) rotate(-5deg);
+	-ms-transform: skew(-5deg) rotate(-5deg);
+	-o-transform: skew(-5deg) rotate(-5deg);
+	transform: skew(-5deg) rotate(-5deg);
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	z-index: -1;
+}
+.aboutme:after {
+	left: auto;
+	right: 12px;
+	-webkit-transform: skew(5deg) rotate(5deg);
+	-moz-transform: skew(5deg) rotate(5deg);
+	-ms-transform: skew(5deg) rotate(5deg);
+	-o-transform: skew(5deg) rotate(5deg);
+	transform: skew(5deg) rotate(5deg);
+}
+
+.tag {
+	background: #588fe5;
+	display: inline-block;
+	color: #fff !important;
+	position: relative;
+	padding: 5px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	margin-top: 10px;
+	text-decoration: none !important;
+}
+
+.tag:hover {
+	background: #588fe5;
+}
+
+.tag:before {
+	background: #fff;
+	width: 10px;
+	height: 10px;
+	content: "";
+	display: inline-block;
+	border-radius: 20px;
+	margin: 0 5px 0 0;
+}
+
+.tag:after {
+	display: inline-block;
+	border: 15px solid;
+	border-color: transparent transparent transparent #588fe5;
+	height: 0;
+	width: 0;
+	position: absolute;
+	right: -30px;
+	top: 0;
+	content: "";
+	display: inline-block;
+}
+
+.nofloat label {
+	float:none !important;
+	text-align:left;
+}

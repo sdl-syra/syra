@@ -12,7 +12,7 @@
 										          	
 				          	<% lesActivites = Array.new %>
 				          	
-				          	<%  current_user.following.each do |follow| %>
+				          	<%  @user.following.each do |follow| %>
 				          	
 				          		<% lesActivites.concat(Activity.where(user: User.find(follow.id))) %>
 							<% end %>

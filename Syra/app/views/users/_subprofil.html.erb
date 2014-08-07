@@ -1,0 +1,154 @@
+<% content_for :head do %>
+	 <%= stylesheet_link_tag 'subprofil' %>
+<% end %>
+
+
+<div class="container">
+	
+	<div class="row">
+		
+		<div class="col-lg-5">
+		<div class="panel panel-success align-left shadowpanel">
+			<div class="panel-heading">
+		    	<h3 class="panel-title">Syra &nbsp;<small>id card</small></h3>
+		    </div>
+		    <div class="panel-body shorterpanel">
+		    	<div class="col-lg-3 col-lg-offset-8 avataridover avidheightfix text-center">
+					<% if @user.avatar.nil? %>
+						<%=image_tag "noavatar.png", :class => "img-responsive img-thumbnail avidheight" %>
+					<%else %>
+						<%=image_tag "avatars/"+@user.avatar, :class => "img-responsive img-thumbnail avidheight" %>
+					<%end%>
+					<div class="text-center">
+						<% 4.times do%>
+							<span class="fa fa-star goldiscold"></span>
+						<% end %>
+						<span class="fa fa-star-half-full goldiscold"></span>
+					</div>
+				</div>
+				<div class="row">
+					<span class="col-lg-5">
+						<div class="font-id-label">Nom:</div>
+						<div class="font-id-info"><%= @user.lastName %></div>
+					</span>
+				</div>
+				<div class="row ">
+					<span class="col-lg-4">
+						<div class="font-id-label">Prénom:</div>
+						<div class="font-id-info"><%= @user.name %></div>
+					</span>&nbsp;
+					<span class="col-lg-6">
+						<div class="font-id-label">Adresse:</div>
+						<div class="font-id-info"><%= @user.address.label %></div>
+					</span>
+				</div>
+				<div class="row ">
+					<span class="col-lg-4">
+						<div class="font-id-label">Age:</div>
+						<div class="font-id-info">
+							<div  <% if @user==current_user %>class="simili_bip" id="currentbirthday"<%end%>>
+								<% if @user.birthday.nil? %>
+									Non renseigné
+								<% else %>
+									<%= @user.birthday_age %><%= @user.birthday_age>1 ? 'ans':'an' %>
+								<% end %>
+							</div>
+							<% if @user == current_user %>
+								<div id="birthdayedit" style="display:none">
+									<%= form_for @user, remote:true do |f| %>
+									<%= f.date_select :birthday, :order => [:day, :month, :year], :use_month_names =>
+				            ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet',
+				              'Aout', 'Septembre', 'Octobre', 'Novembre','Decembre'],
+				            :start_year => Time.now.year-1, :end_year => 1920 %>
+									<%= f.submit 'Valider', class: 'btn btn-success' %>
+									<% end %>
+								</div>
+							<% end %>
+						</div>
+					</span>&nbsp;
+					<span class="col-lg-5">
+						<div class="font-id-label">Membre depuis:</div>
+						<div class="font-id-info"><%= @user.created_at.strftime('%d/%m/%y') %></div>
+					</span>
+				</div>
+				<div class="row ">
+					<span class="col-lg-12" style="margin-top: 7px">
+						<span style="float:left;" class="font-id-label">Niv.<%= @user.level.levelUser %>&nbsp; </span>
+						<div class="progress progress-striped">
+							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= @user.level.XPUser%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @user.level.XPUser%>%">
+								<span class="sr-only"><%= @user.level.XPUser%>% Complete</span>
+							</div>
+						</div>
+					</span>
+				</div>
+			</div>
+		</div>
+		</div>
+		
+		
+		<div class="col-lg-offset-1 col-lg-5">
+			<div class="aboutme ">
+				<div class="font-id-info" style="text-align:left"> A propos de moi...</div>
+				<div style="<% if @user.biography.nil? %>text-align:center<%else%>text-align:justify<%end%>">
+					<div <% if @user == current_user %>class="simili_bip" id="currentbiography"<%end%>>
+						<% if @user.biography.nil? %>
+							Non renseigné
+						<% else %>
+							<%= @user.biography %>
+						<% end %>
+					</div>
+					<% if @user==current_user%>
+						<div id="biographyedit" style="display:none">
+							<%= form_for @user, remote: true do |f| %>
+							  <%= f.text_area :biography, size:"50x6", maxlength:350, class:'form-control' %>
+							  <%= f.submit 'Mettre à jour', class:'btn btn-success pull-right' %>
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-lg-6">
+			<div style="margin-top:20px;" class="currenthobbies">
+				<span class="col-lg-offset-2"></span>
+				<% if @user.hobbies.empty? %>
+					<span <% if @user==current_user %>class="simili_bip" id="currenthobbies"<%end%>>Aucun centre d'interêt renseigné</span>
+				<%else%>
+					<% if @user==current_user %><span style="cursor:pointer;" class="fa fa-pencil pull-right" title="editer les centres d'interet"  id="currenthobbies"></span><%end%>
+					<% @user.hobbies.each do |h| %>
+						<a href="#" class="tag"><%=h.label%></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<% end %>
+				<%end%>
+			</div>
+			<% if @user==current_user %>
+				<div id="hobbiesedit" class="nofloat" style="display:none;margin-top:20px;">
+				<%= form_for @user, url: {action: "update_hobbies"}, remote:true, method: :post do |f| %>
+					<%= f.collection_check_boxes :hobby_ids, Hobby.all, :id, :label %>
+					<%= f.submit 'Valider', class:'btn btn-success' %>
+				<% end %>
+				</div>
+			<%end%>
+		</div>
+	
+	</div>
+	
+</div>
+
+<br/><br/>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-offset-2 col-lg-8">
+			<%= render :partial => 'profiltimeline'%>
+		</div>
+	</div>
+</div> 
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-offset-2 col-lg-8">
+			<h2 style="text-align:left"><small>Badges</small></h2>
+			<%= image_tag "lolbadgestest.png", class:'img-responsive img-thumbnail'%>
+		</div>
+	</div>
+</div>

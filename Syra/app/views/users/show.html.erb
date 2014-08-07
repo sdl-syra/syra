@@ -13,6 +13,7 @@
 	<%= render :partial => 'headerprofil' %>
 </div>
 <!--
+	<% if false %>
 <div>
 <strong>Biographie</strong>
 <% if @user == current_user %>
@@ -110,17 +111,20 @@ user_path(@user),
 :class => 'btn btn-danger' %>
 </div>
 
-<% end %>-->	
+<% end %>
+<%end%>	-->	
 <br/><br/><br/>
 <div class="container">
 	<%if params[:get]=="echanges" %>
 		<%= render :partial => 'profilechanges'%>
-	<%elsif params[:get]=="profil"%>
-		<%= render :partial => 'profilechanges'%>
 	<%elsif params[:get]=="social"%>
-		<%= render :partial => 'profilechanges'%>
+		<div id="subprofil">
+			<%= render :partial => 'subprofil'%>
+		</div>
 	<%else%>
-		<%= render :partial => 'profilechanges'%>
+		<div id="subprofil">
+			<%= render :partial => 'subprofil'%>
+		</div>
 	<% end %>
 </div>				
 

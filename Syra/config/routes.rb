@@ -54,7 +54,7 @@ Syra::Application.routes.draw do
   get '/create_service', :to => 'services#new'
   get '/recherche', :to=> 'services#index'
 
-  get '/users/:id/update_hobbies', :to => 'users#update_hobbies', :as => 'update_hobbies'
+  post '/users/:id/update_hobbies', :to => 'users#update_hobbies', :as => 'update_hobbies'
 
   post '/users/:id/upload_avatar' , :to => 'users#upload_avatar'
 
