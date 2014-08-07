@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :update_hobbies, :upload_avatar]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:index]
   before_action :restrict_access_admin, only: [:admin]
   
@@ -89,13 +89,24 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1/update_hobbies
   def update_hobbies
-    @user = current_user
-    @user.hobbies.delete_all
-    params[:user][:hobby_ids].reject!(&:empty?)
-    @user.hobbies = Hobby.find(params[:user][:hobby_ids])
-
+    if current_user && params[:id]==current_user.id.to_s
+      @user.hobbies.delete_all
+      params[:user][:hobby_ids].delete_if{|i| i.empty?}
+      @user.hobbies = Hobby.find(params[:user][:hobby_ids])
+    end
+    respond_to do |format|
+      format.html { redirect_to @user, notice: 'User was successfully updated.' }
+      format.json { head :no_content }
+      format.js
+    end
+  end
+  
+  def update_address
+    if current_user && params[:id]==current_user.id.to_s
+      @user.address.label = params[:user][:address]
+      @user.address.save
+    end
     respond_to do |format|
       format.html { redirect_to @user, notice: 'User was successfully updated.' }
       format.json { head :no_content }
@@ -104,16 +115,16 @@ class UsersController < ApplicationController
   end
 
   def upload_avatar
-    if (not params[:user].nil?)
+    if (not params[:user].nil? && current_user && params[:id]==current_user.id.to_s)
       uploaded_io = params[:user][:avatar]
-      File.open(Rails.root.join('app', 'assets','images/avatars', current_user.id.to_s+'avatar.png'), 'wb') do |file|
+      File.open(Rails.root.join('app', 'assets','images/avatars', @user.id.to_s+'avatar.png'), 'wb') do |file|
         file.write(uploaded_io.read)
       end
-      current_user.avatar = current_user.id.to_s+'avatar.png'
-      current_user.save
+      @user.avatar = @user.id.to_s+'avatar.png'
+      @user.save
     end
     respond_to do |format|
-      format.html { redirect_to current_user, notice: 'User was successfully updated.' }
+      format.html { redirect_to @user, notice: 'User was successfully updated.' }
       format.json { head :no_content }
     end
   end
@@ -167,7 +178,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :isPremium, :isBanned, :banReason, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q, :accept_conditions , :birthday)
+    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :address, :isPremium, :isBanned, :banReason, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q, :accept_conditions , :birthday)
   end
 
 end

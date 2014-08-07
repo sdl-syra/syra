@@ -74,8 +74,15 @@ $(document).ready(function() {
     });
 });
 
+var toggleAddress = function(){
+    $('#currentaddress').click(function() {  
+        $('#addressedit').toggle();
+        $('#currentaddress').hide();
+    });
+};
 
 $(document).ready(toggleHobbies);
 $(document).ready(toggleBirthday);
 $(document).ready(toggleBiography);
+$(document).ready(toggleAddress);
 $(document).ready(launchModal);

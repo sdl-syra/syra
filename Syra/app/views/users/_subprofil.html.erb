@@ -27,22 +27,10 @@
 					</div>
 				</div>
 				<div class="row">
-					<span class="col-lg-5">
+					<span class="col-lg-4">
 						<div class="font-id-label">Nom:</div>
 						<div class="font-id-info"><%= @user.lastName %></div>
-					</span>
-				</div>
-				<div class="row ">
-					<span class="col-lg-4">
-						<div class="font-id-label">Prénom:</div>
-						<div class="font-id-info"><%= @user.name %></div>
 					</span>&nbsp;
-					<span class="col-lg-6">
-						<div class="font-id-label">Adresse:</div>
-						<div class="font-id-info"><%= @user.address.label %></div>
-					</span>
-				</div>
-				<div class="row ">
 					<span class="col-lg-4">
 						<div class="font-id-label">Age:</div>
 						<div class="font-id-info">
@@ -65,10 +53,44 @@
 								</div>
 							<% end %>
 						</div>
+					</span>
+				</div>
+				<div class="row " >
+					<span class="col-lg-4">
+						<div class="font-id-label">Prénom:</div>
+						<div class="font-id-info"><%= @user.name %></div>
 					</span>&nbsp;
-					<span class="col-lg-5">
+					<span class="col-lg-4">
 						<div class="font-id-label">Membre depuis:</div>
 						<div class="font-id-info"><%= @user.created_at.strftime('%d/%m/%y') %></div>
+					</span>
+				</div>
+				<div class="row " style="margin-top:1px">
+					<span class="col-lg-10">
+						<div class="font-id-label">Adresse:</div>
+						<div class="font-id-info">
+							<div  <% if @user==current_user %>class="simili_bip" id="currentaddress"<%end%>>
+								<% if @user.address.nil? || @user.address.label.nil? %>
+									Non renseignée
+								<% else %>
+									<%= @user.address.label %>
+								<%end%>
+							</div>
+							<% if @user == current_user %>
+								<div id="addressedit" style="display:none">
+									<%= form_for @user, url: {action: "update_address"}, remote: true, method: :post do |f| %>
+										<div class="input-group">
+										<%= f.text_field :address, :value => @user.address.label, maxlength:45, class:'form-control'%>
+										<span class="input-group-btn">
+											<%= f.button :submit, class:'btn btn-success' do %>
+										  		<span class='fa fa-check'></span>
+										 	<%end%>
+									 	</span>
+									 	</div>
+									<%end%>
+								</div>
+							<% end %>
+						</div>
 					</span>
 				</div>
 				<div class="row ">
