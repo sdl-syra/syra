@@ -34,7 +34,7 @@ class ServicesController < ApplicationController
         format.json { render json: @services }
       end
     else
-      @services = Service.all.page params[:page]
+      @services = Service.where(private:false).page params[:page]
       address = []
       @services.each do |service|
         address << Address.find(service.address_id)
