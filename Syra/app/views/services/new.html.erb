@@ -111,6 +111,11 @@
 					 	<%= f.text_area :description, :class => 'form-control text-center p lead', :value => @service.description, :placeholder => "Description",
 				 	:title =>"Ce champs vous permet de décrire votre service, ses limites, vos compétences, etc.", :data => {:toggle=>"tooltip", :placement => "left"} %>
 					 <% end %>
+					 
+				<% if params[:private].present? || flash[:private].present? %>
+					<% private = params[:private].present? ? params[:private] : flash[:private] %>
+					<%= f.hidden_field :private, :value => private %>
+				<% end %>
 				<div class="row">
 					<div class="form-actions">
 						<div class="btn-group">

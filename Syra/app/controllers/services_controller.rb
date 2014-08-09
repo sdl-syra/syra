@@ -79,6 +79,7 @@ class ServicesController < ApplicationController
   # POST /services.json
   def create
     puts service_params
+    private = service_params[:private].present? ? service_params[:private] : nil
     tmp = service_params[:address_label]
     if service_params[:address].nil?
       tmpx = 0
@@ -91,7 +92,8 @@ class ServicesController < ApplicationController
       tmpr = service_params[:address][:region]
       tmpv = service_params[:address][:ville]
     end
-    @service = Service.new(service_params.except(:address_label, :address))
+    @service = Service.new(service_params.except(:address_label, :address, :private))
+    @service.private = !private.nil?
     if tmp != ""
       ad = Address.new
       ad.x = tmpx
@@ -106,10 +108,14 @@ class ServicesController < ApplicationController
     @service.isFinished = false
     respond_to do |format|
       if @service.save
+        if !private.nil? && !User.find_by_id(private).nil?
+          NotificationsHelper.create_notif(User.find(private),"Vous avez une nouvelle demande privée '"+@service.title+"'",service_path(@service),"fa fa-exchange")
+        end
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render action: 'show', status: :created, location: @service }
         UsersHelper.create_activity(current_user, "a crée un nouveau service")
       else
+        flash[:private] = private
         format.html { render action: 'new' }
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
@@ -396,7 +402,7 @@ class ServicesController < ApplicationController
  
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :isFinished, :address_label, :category_id, :user_id,address: [:x,:y,:region,:ville])
+      params.require(:service).permit(:title, :price, :description, :disponibility, :isGiven, :private, :isFinished, :address_label, :category_id, :user_id,address: [:x,:y,:region,:ville])
     end
 
 end

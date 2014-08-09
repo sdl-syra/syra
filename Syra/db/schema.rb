@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140809170313) do
+ActiveRecord::Schema.define(version: 20140809192747) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20140809170313) do
     t.datetime "updated_at"
     t.string   "image"
     t.string   "address"
+    t.boolean  "private"
   end
 
   add_index "services", ["address_id"], name: "index_services_on_address_id"
