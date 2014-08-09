@@ -68,37 +68,37 @@ Hobby.create(label:'Lecture')
 
 
 s1 = Service.create(title: 'cours informatique',price: 4,description: 'JE SUIS UN GEEK',disponibility: 'quand tu veux bb',
-               isGiven: true, isFinished: false,
+               isGiven: true, isFinished: false, private: false,
                address_id: a1.id,category_id: c1.id,user_id:user1.id)
 
 
 s2 = Service.create(title: 'cours Rails',price: 5,description: 'Ruby !!',disponibility: 'a partir de 18h',
-               isGiven: false, isFinished: false,
+               isGiven: false, isFinished: false, private: false,
                address_id: a2.id,category_id: c1.id,user_id:user2.id)
 
 
 s3 = Service.create(title: 'Jardinage',price: 2,description: 'surtout les fleurs',disponibility: 'a partir de 18h',
-               isGiven: true, isFinished: false,
+               isGiven: true, isFinished: false, private: false,
                address_id: a3.id,category_id: c2.id,user_id:user3.id)
 
 
 s4 = Service.create(title: 'BabySitting',price: 5,description: 'serieux et disponible',disponibility: 'a partir de 18h',
-               isGiven: true, isFinished: false,
+               isGiven: true, isFinished: false, private: false,
                address_id: a4.id,category_id: c3.id,user_id:user4.id)
 
 
 Service.create(title: 'cours BDD',price: 3,description: 'Love Francis',disponibility: 'a partir de 18h',
-               isGiven: false, isFinished: false,
+               isGiven: false, isFinished: false, private: false,
                address_id: a4.id,category_id: c1.id,user_id:user1.id)
 
 
 Service.create(title: 'Coupe de cheveux',price: 6,description: 'Etudiant',disponibility: 'a partir de 18h',
-               isGiven: true, isFinished: false,
+               isGiven: true, isFinished: false, private: false,
                address_id: a5.id,category_id: c3.id,user_id:user2.id)
 
 
 Service.create(title: 'cours de piano',price: 8,description: 'medaille dor',disponibility: 'a partir de 18h',
-               isGiven: false, isFinished: false,
+               isGiven: false, isFinished: false, private: false,
                address_id: a1.id,category_id: c4.id,user_id:user4.id)
 
 Proposition.create(isPaid: false, isAccepted: false, motifCancelled: nil, proposition: Time.now, comment: 'Je suis très intéressé !', user_id:user1.id, service_id:s2.id, price:1)
