@@ -23,7 +23,7 @@
       <% if current_user && current_user != @user %>
       <ul class="nav navbar-nav navbar-right">
       	<li>
-      		<%= link_to new_service_path(:private => @user.id.to_s), style: 'padding: 0px 0px;' do %>
+      		<%= link_to new_service_path(:to => @user.id.to_s), style: 'padding: 0px 0px;' do %>
       			<button class="btn btn-info" style="margin-top:7px"><span class="fa fa-edit"></span> Envoyer une demande</button>
       		<% end %>
       	</li>

@@ -66,8 +66,17 @@
 		<div class="panel panel-<% if errorType %>danger <% elsif current_user.isPremium?%>warning<% else %>info<% end %>">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-				 	<%= f.select :isGiven, options_for_select([["Je propose", true], ["Je recherche", false]]), :value => @service.isGiven, :prompt => "Sélectionnez le type" %>
-					<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Est-ce que vous proposez ce service ou est-ce que vous êtes à la recherche de personnes qui pourront réaliser ce service pour vous? Vous ne pourrez pas modifier ce choix par la suite"></i>
+					<% if params[:to].present? || flash[:to].present? %>
+				 		<%= f.select :isGiven, options_for_select([["Je propose", true]]), :value => @service.isGiven%>
+				 	<% else %>
+				 		<%= f.select :isGiven, options_for_select([["Je propose", true], ["Je recherche", false]]), :value => @service.isGiven, :prompt => "Sélectionnez le type" %>
+				 	<% end %>
+					<% if params[:to].present? || flash[:to].present? %>
+						Privé <%= f.check_box :private, :checked => "checked" %>
+					<% else %>
+						<%= f.hidden_field :private, :value => "false" %>
+					<% end %><br/>
+					<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Si coché, votre annonce ne pourra être recherchée par les autres membres"></i>
 				</h3>
 			</div>
 			<div class="panel-body">
@@ -112,9 +121,9 @@
 				 	:title =>"Ce champs vous permet de décrire votre service, ses limites, vos compétences, etc.", :data => {:toggle=>"tooltip", :placement => "left"} %>
 					 <% end %>
 					 
-				<% if params[:private].present? || flash[:private].present? %>
-					<% private = params[:private].present? ? params[:private] : flash[:private] %>
-					<%= f.hidden_field :private, :value => private %>
+				<% if params[:to].present? || flash[:to].present? %>
+					<% goto = params[:to].present? ? params[:to] : flash[:to] %>
+					<%= f.hidden_field :to, :value => goto %>
 				<% end %>
 				<div class="row">
 					<div class="form-actions">
