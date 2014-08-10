@@ -67,7 +67,7 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					<% if params[:to].present? || flash[:to].present? %>
-				 		<%= f.select :isGiven, options_for_select([["Je propose", true]]), :value => @service.isGiven%>
+				 		<%= f.select :isGiven, options_for_select([["Je recherche", false]]), :value => @service.isGiven%>
 				 	<% else %>
 				 		<%= f.select :isGiven, options_for_select([["Je propose", true], ["Je recherche", false]]), :value => @service.isGiven, :prompt => "Sélectionnez le type" %>
 				 	<% end %>
