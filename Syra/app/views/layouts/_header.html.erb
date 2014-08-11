@@ -30,7 +30,7 @@
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle resetbadgenotif" data-toggle="dropdown"> <i class="fa fa-bullhorn"></i> Notifs 
 		          	<% notifs = @notifsctrl %>
-		          	<% notifsNotViewed = notifs.select{|n| n.is_checked == false}%>
+		          	<% notifsNotViewed = notifs.select{|n| !n.is_checked?}%>
 		          	<% if (notifsNotViewed.length>0) %>
 		          		<span id="badgeNotif" class="badge">
 		          			<%=notifsNotViewed.length%>
@@ -43,7 +43,7 @@
 		          	<%else%>
 		          		<% notifsToShow = notifsNotViewed.length>10 ? notifsNotViewed.sort_by {|n| n.created_at}.reverse : notifs.sort_by {|n| n.created_at}.reverse.take(10) %>
 						<% notifsToShow.each do |n| %>
-							<li <%if n.is_checked==false%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
+							<li <%if !n.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
 								<span class="<%= n.glyph_cat %>"></span> &nbsp;
 								<%if time_ago_in_words(n.created_at).end_with?"j"%>
 									<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
