@@ -35,6 +35,9 @@ en:
       x_minutes:
         one: "Il y a %{count}mn"
         other: "Il y a %{count}mn"
+      x_days:
+        one: "Il y a %{count}j"
+        other: "Il y a %{count}j"
   date:
     formats: 
       day_month_letter: '%d %B'

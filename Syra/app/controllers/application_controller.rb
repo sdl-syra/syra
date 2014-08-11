@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   def set_notifs_per_user
     @notifsctrl = []
     if current_user
-      @notifsctrl = Notification.where(user: current_user).order(created_at: :desc).take(50)
+      @notifsctrl = Notification.where(user: current_user).order(created_at: :desc).limit(50)
     end
   end
   

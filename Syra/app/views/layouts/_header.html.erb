@@ -45,7 +45,7 @@
 						<% notifsToShow.each do |n| %>
 							<li <%if n.is_checked==false%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
 								<span class="<%= n.glyph_cat %>"></span> &nbsp;
-								<%if time_ago_in_words(n.created_at).end_with?"h" and time_ago_in_words(n.created_at).gsub("Il y a","").sub("h","").to_i>12%>
+								<%if time_ago_in_words(n.created_at).end_with?"j"%>
 									<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
 								<%else%>
 									<i><%=time_ago_in_words(n.created_at)%></i>
