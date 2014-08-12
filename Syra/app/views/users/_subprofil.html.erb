@@ -139,7 +139,7 @@
 				<%else%>
 					<% if @user==current_user %><span style="cursor:pointer;" class="fa fa-pencil pull-right" title="editer les centres d'interet"  id="currenthobbies"></span><%end%>
 					<% @user.hobbies.each do |h| %>
-						<a href="#" class="tag"><%=h.label%></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/hobbies/<%=h.id%>" class="tag"><%=h.label%></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<% end %>
 				<%end%>
 			</div>

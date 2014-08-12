@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140809192747) do
+ActiveRecord::Schema.define(version: 20140812094133) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -125,6 +125,14 @@ ActiveRecord::Schema.define(version: 20140809192747) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
+  create_table "replies", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tread_id"
+  end
+
   create_table "reports", force: true do |t|
     t.string   "category"
     t.text     "content"
@@ -167,6 +175,14 @@ ActiveRecord::Schema.define(version: 20140809192747) do
   end
 
   add_index "successes", ["user_id"], name: "index_successes_on_user_id"
+
+  create_table "treads", force: true do |t|
+    t.text     "subject"
+    t.integer  "user_id"
+    t.integer  "hobby_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "user_hobbies", force: true do |t|
   end

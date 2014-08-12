@@ -1,0 +1,29 @@
+<%= form_for(@tread) do |f| %>
+  <% if @tread.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tread.errors.count, "error") %> prohibited this tread from being saved:</h2>
+
+      <ul>
+      <% @tread.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :subject %><br>
+    <%= f.text_area :subject %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :hobby_id %><br>
+    <%= f.number_field :hobby_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

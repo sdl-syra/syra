@@ -10,6 +10,9 @@ class HobbiesController < ApplicationController
   # GET /hobbies/1
   # GET /hobbies/1.json
   def show
+    @tread = Tread.new
+    @reply = Reply.new
+    @treads = Tread.where(hobby:@hobby).order(updated_at: :desc)
   end
 
   # GET /hobbies/new

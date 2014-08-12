@@ -1,4 +1,8 @@
 Syra::Application.routes.draw do
+  resources :treads
+
+  resources :replies
+
   resources :reports
 
   resources :activities
