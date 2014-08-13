@@ -142,7 +142,7 @@
 	<% elsif not @proposition.service.isFinished? and @proposition.service.user != current_user and @proposition.isAccepted==false %>
 		 <%= link_to 'Nouvelle proposition', nouvelle_prop_service_path(:service => @proposition.service.id), {:class=> "btn btn-lg btn-info"}%>
 	<% end %>
-	<% if @proposition.isAccepted? and @proposition.isPaid.nil? %>
+	<% if @proposition.isAccepted? && !@proposition.isPaid? %>
 		<% if (@proposition.service.isGiven? and current_user == @proposition.service.user) or (not @proposition.service.isGiven? and current_user == @proposition.user) %>
 			<button class="btn btn-lg btn-success" data-toggle="modal" data-target="#modalCode">Valider l'&eacute;change</button>
 		<% end %>

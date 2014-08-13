@@ -114,7 +114,7 @@
 				    </div><br/>
 				    <div>
 				    	<h3 class="text-center"><a href="/services/<%= p.service.id %>"><%= p.service.title %></a></h3>
-				    	<h3 class="text-center"><%= p.proposition %></h3>
+				    	<h3 class="text-center"><a href="/propositions/<%= p.id %>"><%= p.proposition %></a></h3>
 				    </div><br/>
 				    <div class="text-center">"<%= p.comment %>"</div>
 				    <% unless p.motifCancelled.nil? %>
