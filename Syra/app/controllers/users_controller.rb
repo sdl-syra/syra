@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       @asked = Service.where(user:@user,isGiven:false).order(created_at: :desc, isFinished: :asc)
       @askedUnfinished = Service.where(user:@user,isGiven:false,isFinished:false).count
       @propositions = Proposition.where(user:@user,isPaid:false).order(created_at: :desc)
-      @propositions = @propositions.select { |p| p.service.isFinished == false}
+      @propositions = @propositions.select { |p| !p.service.isFinished?}
       @historique = Proposition.where(user:@user, isPaid:true).order(created_at: :desc)
     end
   end

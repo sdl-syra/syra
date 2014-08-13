@@ -98,13 +98,15 @@
 	      <% if @propositions.length>0 %>
 	        <% @propositions.each do |p| %>
 				<div class="post-it">
-				  <div class="note <% if p.isAccepted.nil? %>yellowpostit<%else%>pinkpostit<%end%> col-lg-5">
+				  <div class="note <% if p.isAccepted.nil? %>yellowpostit<%elsif p.isAccepted? %>greenpostit<%else%>pinkpostit<%end%> col-lg-5">
 				  	<i class="pin"></i>
 				    <div>
 					    <span class="pull-left"><% if p.isAccepted.nil? %>
 		                      	En attente
-		                      <% else %>
-		                      	Refusé
+		                      <% elsif p.isAccepted? %>
+		                      	Validée
+		                      <%else%>
+		                      	Refusée
 		                      <%end%>
 		                </span>
 					    <span class="pull-right"><%= p.created_at.strftime("%d/%m/%y") %></span>
