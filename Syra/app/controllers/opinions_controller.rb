@@ -10,6 +10,7 @@ class OpinionsController < ApplicationController
   # GET /opinions/1
   # GET /opinions/1.json
   def show
+
   end
 
   # GET /opinions/new
@@ -28,7 +29,8 @@ class OpinionsController < ApplicationController
 
     respond_to do |format|
       if @opinion.save
-        format.html { redirect_to @opinion, notice: 'Opinion was successfully created.' }
+       flash[:success] = "Votre avis est bien enregistré !"
+        format.html {redirect_to :back}
         format.json { render action: 'show', status: :created, location: @opinion }
       else
         format.html { render action: 'new' }
@@ -42,7 +44,8 @@ class OpinionsController < ApplicationController
   def update
     respond_to do |format|
       if @opinion.update(opinion_params)
-        format.html { redirect_to @opinion, notice: 'Opinion was successfully updated.' }
+        flash[:success] = "Votre avis est bien enregistré !"
+        format.html :back
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -69,6 +72,6 @@ class OpinionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def opinion_params
-      params.require(:opinion).permit(:avis, :note, :service_id)
+      params.require(:opinion).permit(:avis, :note, :service_id, :user_id)
     end
 end

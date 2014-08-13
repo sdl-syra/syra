@@ -1,13 +1,12 @@
 class PropositionsController < ApplicationController
   before_action :set_proposition, only: [:show, :edit, :update, :destroy]
   before_action :restrict_access_admin, only: [:admin]
-
   # GET /propositions
   # GET /propositions.json
   def index
     @propositions = Proposition.all
   end
-  
+
   # GET /admin/propositions
   def admin
     @propositions = Proposition.all
@@ -16,6 +15,14 @@ class PropositionsController < ApplicationController
   # GET /propositions/1
   # GET /propositions/1.json
   def show
+    @opinion = Opinion.new
+    unless signed_in?
+      @rightUser = false
+    else
+      @rightUser = @proposition.service.isGiven? ? (current_user == @proposition.user) : (current_user == @proposition.service.user) 
+    end
+    @alreadyDone = Opinion.where(service:@proposition.service,user:current_user).count > 0
+
   end
 
   # GET /propositions/new
@@ -69,12 +76,12 @@ class PropositionsController < ApplicationController
   def destroy
     if @proposition.isAccepted.nil? and @proposition.user == current_user
       if @proposition.service.isGiven? and not @proposition.isPaid?
-        @proposition.user.money = @proposition.user.money + @proposition.price
-        @proposition.user.save
+      @proposition.user.money = @proposition.user.money + @proposition.price
+      @proposition.user.save
       end
       if @proposition.isPaid.nil?
-          NotificationsHelper.create_notif(@proposition.service.user,"Proposition pour le service '"+@proposition.service.title+"' supprimée",service_path(@proposition.service.id.to_s),"fa fa-exchange")
-        end
+        NotificationsHelper.create_notif(@proposition.service.user,"Proposition pour le service '"+@proposition.service.title+"' supprimée",service_path(@proposition.service.id.to_s),"fa fa-exchange")
+      end
       @proposition.destroy
       flash[:success] = "Proposition supprimée avec succès"
       respond_to do |format|
@@ -88,7 +95,7 @@ class PropositionsController < ApplicationController
       end
     end
   end
-  
+
   def validerEchange
     prop = Proposition.find(params[:id])
     codeUtilisateur = params[:proposition][:code]
@@ -113,7 +120,7 @@ class PropositionsController < ApplicationController
           prop.user.save
           NotificationsHelper.create_notif(prop.service.user,"Echange concernant le service '"+prop.service.title+"' validé",proposition_path(prop.id.to_s),"fa fa-exchange")
           NotificationsHelper.create_notif(prop.service.user,"Donnez votre avis sur : '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
-          
+
           flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
         else
           flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"
@@ -126,17 +133,18 @@ class PropositionsController < ApplicationController
       format.html { redirect_to(:back) }
       format.json { head :no_content }
     end
-    
+
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_proposition
-      @proposition = Proposition.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def proposition_params
-      params.require(:proposition).permit(:isPaid, :isAccepted, :motifCancelled, :proposition, :comment, :user_id, :service_id, :price)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_proposition
+    @proposition = Proposition.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def proposition_params
+    params.require(:proposition).permit(:isPaid, :isAccepted, :motifCancelled, :proposition, :comment, :user_id, :service_id, :price)
+  end
 end

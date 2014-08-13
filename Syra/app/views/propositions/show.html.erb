@@ -1,4 +1,7 @@
 
+
+<% unless flash[:success].nil? %> <div class="alert alert-danger alert-dismissable"> <%= flash[:success] %> <%end%>
+
 <%- model_class = Proposition -%>
 	<% if @proposition.service.user == current_user and @proposition.isAccepted.nil? %>
     <div class="modal fade" id="modalRefus" tabindex="-1" role="dialog" aria-labelledby="modalRefusLabel" aria-hidden="true">
@@ -23,7 +26,6 @@
         </div>
     </div>
     <% end %>
-    
     
     
     
@@ -55,7 +57,40 @@
         </div>
     </div>
     
-    
+    <% if @proposition.isPaid? &&  @rightUser && !@alreadyDone%>
+    <script type="text/javascript"> $(document).ready(function() { $('#modalAvis').modal('show') ; }); </script>
+	
+    <h1> <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAvis"> Déposer votre avis ! </button> </h1>
+        <div class="modal fade" id="modalAvis" tabindex="-1" role="dialog" aria-labelledby="modalAvisLabel" aria-hidden="true">
+        <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modalAvisLabel">
+                	Donnez votre avis sur l'échange avec 
+                	<% if @proposition.service.isGiven? %>
+                		<%= @proposition.user.name %>
+                	<% else %>
+                		<%= @proposition.service.user.name %>
+                	<% end %>
+                </h4>
+            </div>
+            <div class="modal-body">
+            	<%= form_for @opinion do |f| %>
+				<%= f.hidden_field :service_id, value: @proposition.service.id %>
+				<%= f.hidden_field :user_id, value: current_user.id %>
+				<%= f.text_area :avis, size:"50x4", maxlength:300, :class => 'form-control', :placeholder => "Votre commentaire", value: ""%>
+				<%= f.text_field :note, :class => 'form-control', :placeholder => "Note", value: ""%>
+            </div>
+            <div class="modal-footer">
+            	<%= f.submit 'Valider votre avis', :class => 'btn btn-success' %>
+            	<% end %>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+            </div>
+         </div>
+        </div>
+    </div>
+     <% end %>
     
     
     

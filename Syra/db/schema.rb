@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812094133) do
+ActiveRecord::Schema.define(version: 20140813195845) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 20140812094133) do
     t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "opinions", ["service_id"], name: "index_opinions_on_service_id"

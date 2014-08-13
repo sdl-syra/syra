@@ -23,6 +23,7 @@ Syra::Application.routes.draw do
 
   resources :propositions
 
+  resources :opinions
 
   resources :successes
 
