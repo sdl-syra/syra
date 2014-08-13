@@ -100,6 +100,7 @@ class PropositionsController < ApplicationController
           prop.service.user.money = prop.service.user.money + prop.price
           prop.service.user.save
           NotificationsHelper.create_notif(prop.user,"Echange concernant le service '"+prop.service.title+"' validé",proposition_path(prop.id.to_s),"fa fa-exchange")
+          NotificationsHelper.create_notif(prop.user,"Donnez votre avis sur : '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
           flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
         else
           flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"
@@ -111,6 +112,8 @@ class PropositionsController < ApplicationController
           prop.user.money = prop.user.money + prop.price
           prop.user.save
           NotificationsHelper.create_notif(prop.service.user,"Echange concernant le service '"+prop.service.title+"' validé",proposition_path(prop.id.to_s),"fa fa-exchange")
+          NotificationsHelper.create_notif(prop.service.user,"Donnez votre avis sur : '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
+          
           flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
         else
           flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"

@@ -98,6 +98,16 @@ ActiveRecord::Schema.define(version: 20140812094133) do
 
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
+  create_table "opinions", force: true do |t|
+    t.text     "avis"
+    t.integer  "note"
+    t.integer  "service_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "opinions", ["service_id"], name: "index_opinions_on_service_id"
+
   create_table "propositions", force: true do |t|
     t.boolean  "isPaid"
     t.boolean  "isAccepted"
