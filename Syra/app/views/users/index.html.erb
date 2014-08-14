@@ -48,6 +48,9 @@
               <% if user.followedBy?(current_user) == nil %>
                <%= link_to 'Suivre',
                  follow_user_path(user, :user => user), :class => 'btn btn-primary' %>
+              <% else %>
+              	<%= link_to 'Ne plus suivre',
+                 unfollow_user_path(user, :user => user), :class => 'btn btn-danger' %>
               <% end %>
               <%= link_to 'Voir',
                       user_path(user), :class => 'btn btn-info' %>

@@ -1,4 +1,6 @@
 Syra::Application.routes.draw do
+  resources :badges
+
   resources :treads
 
   resources :replies

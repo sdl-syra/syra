@@ -21,6 +21,11 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    if (!params[:get].present? || params[:get]=="profil")
+      @badges = Badge.all
+      @userBadges = []
+      @userBadges += @user.badges
+    end
     if (params[:get].present? && params[:get]=="echanges")
       @offered = Service.where(user:@user,isGiven:true).order(created_at: :desc, isFinished: :asc)
       @offeredUnfinished = Service.where(user:@user,isGiven:true,isFinished:false).count
@@ -133,6 +138,8 @@ class UsersController < ApplicationController
   def follow
     @user = current_user
     @user.follow!(params[:user])
+    
+    BadgesHelper.tryUnlock(Badge.find(6),current_user) if current_user
     
     userSuivi = User.find(params[:user])
      username = userSuivi.name + ' ' + userSuivi.lastName

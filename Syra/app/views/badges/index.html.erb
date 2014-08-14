@@ -1,0 +1,29 @@
+<h1>Listing badges</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th>Locked</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @badges.each do |badge| %>
+      <tr>
+        <td><%= badge.label %></td>
+        <td><%= badge.locked %></td>
+        <td><%= link_to 'Show', badge %></td>
+        <td><%= link_to 'Edit', edit_badge_path(badge) %></td>
+        <td><%= link_to 'Destroy', badge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Badge', new_badge_path %>
