@@ -33,7 +33,7 @@
 	color: #ffd700;
 }
 
-select {
+#birthdayedit select {
 	width: 100%;
     border: 1px solid #cccccc;
     background-color: #ffffff;
