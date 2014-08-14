@@ -29,7 +29,7 @@ class OpinionsController < ApplicationController
 
     respond_to do |format|
       if @opinion.save
-       flash[:success] = "Votre avis est bien enregistré !"
+       flash[:avisSsuccess] = "Votre avis est bien enregistré !"
         format.html {redirect_to :back}
         format.json { render action: 'show', status: :created, location: @opinion }
       else

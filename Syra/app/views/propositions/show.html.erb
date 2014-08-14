@@ -1,6 +1,6 @@
 
 
-<% unless flash[:success].nil? %> <div class="alert alert-danger alert-dismissable"> <%= flash[:success] %> <%end%>
+<% unless flash[:avisSuccess].nil? %> <div class="alert alert-danger alert-dismissable"> <%= flash[:avisSuccess] %> <%end%>
 
 <%- model_class = Proposition -%>
 	<% if @proposition.service.user == current_user and @proposition.isAccepted.nil? %>
@@ -57,10 +57,10 @@
         </div>
     </div>
     
-    <% if @proposition.isPaid? &&  @rightUser && !@alreadyDone%>
+    <% if @proposition.isPaid? && @rightUser && !@alreadyDone%>
     <script type="text/javascript"> $(document).ready(function() { $('#modalAvis').modal('show') ; }); </script>
 	
-    <h1> <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAvis"> Déposer votre avis ! </button> </h1>
+    <h1></h1> <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAvis"> Déposer votre avis ! </button>
         <div class="modal fade" id="modalAvis" tabindex="-1" role="dialog" aria-labelledby="modalAvisLabel" aria-hidden="true">
         <div class="modal-dialog">
          <div class="modal-content">
@@ -121,15 +121,18 @@
         </p>
         <dt><strong>
         	"<%= @proposition.comment %>"
+        	</strong>
         </dt>
         <dt><strong>
         	Proposée par 
         	<a href="<%= user_path(@proposition.user) %>">
 				<%= @proposition.user.name %> <%= @proposition.user.lastName %>
 			</a>
+			</strong>
         </dt>
         <dt><strong>
         	pour le <%= @proposition.proposition %>
+        	</strong>
         </dt>
         <dt><strong>
         	Cette proposition 
@@ -146,6 +149,7 @@
 			<% else %>
 				a été acceptée!
 			<% end %>
+			</strong>
         </dt>
         <% if @proposition.isAccepted == true %>
         <dt><strong>
@@ -157,6 +161,7 @@
 			<% else %>
 				s'est réalisé.
 			<% end %>
+			</strong>
         </dt>
 		<% end %>
   	</br>
@@ -185,8 +190,7 @@
 	<%= link_to 'Retour',
 			service_path(@proposition.service), :class => 'btn btn-lg'  %>
 </div>
-    
-    
+</div>
     
     
     
