@@ -18,7 +18,7 @@
     		<%end%>	
     	</a>
     </li>
-    <%if @user==current_user%>
+    <%if current_user && @user==current_user%>
     	<li>
     		<a href="#" name="tab3">Propositions
     			<% if @propositions.length>0 %>
@@ -51,11 +51,13 @@
 				    	<h3 class="text-center"><a href="/services/<%= service.id %>"><%= service.title %></a></h3>
 				    </div><br/>
 				    <div class="text-center"><%= service.address.label %></div>
-				    <span><%= service.disponibility %></span>
-				    <% if @user==current_user %>
-					    <div>
-					    	<span class="pull-right"><%= link_to service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" propositions",service_path(service) %></span>
-					    </div>
+				    <% if current_user && @user==current_user %>
+				    	<% echangesPrevus = service.propositions.select {|p| p.isAccepted.nil? && p.isPaid.nil?} %>
+				    	<% if echangesPrevus.length>0 %> <div class="text-center"> <%= echangesPrevus.length %> échanges à venir </div> <% end %>
+				    <% end %>
+				    <span class="col-lg-5"><%= service.disponibility.length>15 ? service.disponibility[0..15]+" [...]" : service.disponibility %></span>
+				    <% if current_user && @user==current_user %>
+					    <span class="pull-right"><%= service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" propositions" %></span>
 				    <%end%>
 				  </div>
 				</div>
@@ -82,18 +84,20 @@
 				    	<h3 class="text-center"><a href="/services/<%= service.id %>"><%= service.title %></a></h3>
 				    </div><br/>
 				    <div class="text-center"><%= service.address.label %></div>
-				    <span><%= service.disponibility %></span>
-				    <% if @user==current_user %>
-					    <div>
-					    	<span class="pull-right"><%= link_to service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" propositions",service_path(service) %></span>
-					    </div>
+				    <% if current_user && @user==current_user %>
+				    	<% echangesPrevus = service.propositions.select {|p| p.isAccepted.nil? && p.isPaid.nil?} %>
+				    	<% if echangesPrevus.length>0 %> <div class="text-center"> <%= echangesPrevus.length %> échanges à venir </div> <% end %>
 				    <% end %>
+				    <span class="col-lg-5"><%= service.disponibility.length>15 ? service.disponibility[0..15]+" [...]" : service.disponibility %></span>
+				    <% if current_user && @user==current_user %>
+					    <span class="pull-right"><%= service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" propositions" %></span>
+				    <%end%>
 				  </div>
 				</div>
 			<% end %>
 		  <%end%>
     </div>
-    <% if @user==current_user %> 
+    <% if current_user && @user==current_user %> 
 	    <div id="tab3">
 	      <% if @propositions.length>0 %>
 	        <% @propositions.each do |p| %>
