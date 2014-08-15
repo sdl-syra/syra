@@ -1,0 +1,20 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-offset-2 col-lg-8">
+			<h2 style="text-align:left"><small>Badges</small></h2>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<% @badges.each do |b|%>
+						<span class="col-lg-2">
+							<% if @userBadges.include?(b)%>
+								<%= image_tag "SYRA-BADGE/SYRA-BADGE-"+b.id.to_s+".png", class:'img-responsive', title:b.label%>
+							<% else %>
+								<%= image_tag "SYRA-BADGE/SYRA-BADGE-locked.png", class:'img-responsive', title:b.label%>
+							<% end %>
+						</span>
+					<%end%>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

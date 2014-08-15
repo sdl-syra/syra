@@ -28,6 +28,7 @@ class TreadsController < ApplicationController
     @tread.user = current_user
     respond_to do |format|
       if @tread.save
+        BadgesHelper.tryUnlock(Badge.find(11),current_user) if current_user
         format.html { redirect_to :back }
         format.json { render action: 'show', status: :created, location: @tread }
       else

@@ -208,6 +208,7 @@ class ServicesController < ApplicationController
             prop.service.user.save
             prop.isAccepted = true
             prop.save
+            BadgesHelper.tryUnlock(Badge.find(9),current_user) if current_user && current_user.money<=0
             UserMailer.send_code(prop.service.user,prop.service,prop).deliver
             UsersHelper.grant_xp(prop.service.user,75)
             UsersHelper.grant_xp(prop.user,75)

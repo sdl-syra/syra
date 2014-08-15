@@ -48,7 +48,9 @@ class PropositionsController < ApplicationController
         if serviceProp.isGiven?
           current_user.money = current_user.money - serviceProp.price
           current_user.save
+          BadgesHelper.tryUnlock(Badge.find(9),current_user) if current_user && current_user.money<=0
         end
+        unlock_badges_x_responses
       else
         format.html { render action: 'new' }
         format.json { render json: @proposition.errors, status: :unprocessable_entity }
@@ -107,6 +109,7 @@ class PropositionsController < ApplicationController
           prop.service.user.save
           NotificationsHelper.create_notif(prop.user,"Echange concernant le service '"+prop.service.title+"' validé",proposition_path(prop.id.to_s),"fa fa-exchange")
           NotificationsHelper.create_notif(prop.user,"Donnez votre avis sur : '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
+          BadgesHelper.tryUnlock(Badge.find(15),current_user) if current_user
           flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
         else
           flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"
@@ -119,7 +122,7 @@ class PropositionsController < ApplicationController
           prop.user.save
           NotificationsHelper.create_notif(prop.service.user,"Echange concernant le service '"+prop.service.title+"' validé",proposition_path(prop.id.to_s),"fa fa-exchange")
           NotificationsHelper.create_notif(prop.service.user,"Donnez votre avis sur : '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
-
+          BadgesHelper.tryUnlock(Badge.find(15),current_user) if current_user
           flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
         else
           flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"
@@ -136,6 +139,12 @@ class PropositionsController < ApplicationController
   end
 
   private
+  
+  def unlock_badges_x_responses
+    BadgesHelper.tryUnlock(Badge.find(25),current_user) if current_user && current_user.propositions.count == 1
+    BadgesHelper.tryUnlock(Badge.find(26),current_user) if current_user && current_user.propositions.count == 10
+    BadgesHelper.tryUnlock(Badge.find(27),current_user) if current_user && current_user.propositions.count == 100
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_proposition

@@ -52,12 +52,12 @@
 				    </div><br/>
 				    <div class="text-center"><%= service.address.label %></div>
 				    <% if current_user && @user==current_user %>
-				    	<% echangesPrevus = service.propositions.select {|p| p.isAccepted.nil? && p.isPaid.nil?} %>
-				    	<% if echangesPrevus.length>0 %> <div class="text-center"> <%= echangesPrevus.length %> échanges à venir </div> <% end %>
+				    	<% echangesPrevus = service.propositions.select {|p| p.isAccepted? && p.isPaid.nil?} %>
+				    	<% if echangesPrevus.length>0 %> <div class="text-center"> <%= echangesPrevus.length %> échange(s) à venir </div> <% end %>
 				    <% end %>
 				    <span class="col-lg-5"><%= service.disponibility.length>15 ? service.disponibility[0..15]+" [...]" : service.disponibility %></span>
 				    <% if current_user && @user==current_user %>
-					    <span class="pull-right"><%= service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" propositions" %></span>
+					    <span class="pull-right"><%= service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" proposition(s)" %></span>
 				    <%end%>
 				  </div>
 				</div>
@@ -85,12 +85,12 @@
 				    </div><br/>
 				    <div class="text-center"><%= service.address.label %></div>
 				    <% if current_user && @user==current_user %>
-				    	<% echangesPrevus = service.propositions.select {|p| p.isAccepted.nil? && p.isPaid.nil?} %>
-				    	<% if echangesPrevus.length>0 %> <div class="text-center"> <%= echangesPrevus.length %> échanges à venir </div> <% end %>
+				    	<% echangesPrevus = service.propositions.select {|p| p.isAccepted? && p.isPaid.nil?} %>
+				    	<% if echangesPrevus.length>0 %> <div class="text-center"> <%= echangesPrevus.length %> échange(s) à venir </div> <% end %>
 				    <% end %>
 				    <span class="col-lg-5"><%= service.disponibility.length>15 ? service.disponibility[0..15]+" [...]" : service.disponibility %></span>
 				    <% if current_user && @user==current_user %>
-					    <span class="pull-right"><%= service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" propositions" %></span>
+					    <span class="pull-right"><%= service.propositions.select {|p| p.isAccepted.nil?}.length.to_s+" proposition(s)" %></span>
 				    <%end%>
 				  </div>
 				</div>

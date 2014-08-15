@@ -31,6 +31,7 @@ class RepliesController < ApplicationController
         @reply.tread.updated_at = @reply.created_at
         @reply.tread.save
         send_notifs_new_reply(@reply)
+        BadgesHelper.tryUnlock(Badge.find(11),current_user) if current_user
         format.html { redirect_to :back }
         format.json { render action: 'show', status: :created, location: @reply }
       else
