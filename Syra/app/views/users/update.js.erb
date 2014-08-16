@@ -1,12 +1,5 @@
 $('#subprofil').html("<%= j render 'subprofil' %>");
 
-var toggleHobbies = function(){
-    $('#currenthobbies').click(function() {  
-        $('#hobbiesedit').toggle();
-        $('.currenthobbies').toggle();
-    });
-};
-
 var toggleBirthday = function(){
     $('#currentbirthday').click(function() {  
         $('#birthdayedit').toggle();
@@ -28,7 +21,6 @@ var toggleAddress = function(){
     });
 };
 
-$(document).ready(toggleHobbies);
 $(document).ready(toggleBirthday);
 $(document).ready(toggleBiography);
 $(document).ready(toggleAddress);

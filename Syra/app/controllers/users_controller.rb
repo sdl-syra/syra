@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :update_hobbies, :upload_avatar]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:index]
   before_action :restrict_access_admin, only: [:admin]
   
@@ -25,6 +25,8 @@ class UsersController < ApplicationController
       @badges = Badge.all
       @userBadges = []
       @userBadges += @user.badges
+      @hobby = Hobby.new
+      @hobbies = Hobby.all
     end
     if (params[:get].present? && params[:get]=="echanges")
       @offered = Service.where(user:@user,isGiven:true).order(created_at: :desc, isFinished: :asc)
@@ -90,19 +92,6 @@ class UsersController < ApplicationController
         format.html { render action: 'edit' }
         format.json { render json: @user.errors.full_messages, status: :unprocessable_entity }
       end
-      format.js
-    end
-  end
-
-  def update_hobbies
-    if current_user && params[:id]==current_user.id.to_s
-      @user.hobbies.delete_all
-      params[:user][:hobby_ids].delete_if{|i| i.empty?}
-      @user.hobbies = Hobby.find(params[:user][:hobby_ids])
-    end
-    respond_to do |format|
-      format.html { redirect_to @user, notice: 'User was successfully updated.' }
-      format.json { head :no_content }
       format.js
     end
   end

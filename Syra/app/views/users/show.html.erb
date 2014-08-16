@@ -119,12 +119,33 @@ user_path(@user),
 		<%= render :partial => 'profilechanges'%>
 	<%elsif params[:get]=="social"%>
 		<div id="subprofil">
-			<%= render :partial => 'subprofil'%>
+			<div class="container">
+				<div class="row">
+					<%= render :partial => 'subprofil'%>
+				</div>
+			</div>
 		</div>
 	<%else%>
-		<div id="subprofil">
-			<%= render :partial => 'subprofil'%>
+		
+		<div class="container">
+			<div class="row">
+				<div id="subprofil">
+					<%= render :partial => 'subprofil'%>
+				</div>
+				<div id="subprofil">
+					<%= render :partial => 'hobbiesprofil'%>
+				</div>
+			</div>
 		</div>
+		
+		<br/><br/>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-offset-2 col-lg-8">
+					<%= render :partial => 'profiltimeline'%>
+				</div>
+			</div>
+		</div> 
 		<div id="badgesprofil">
 			<%= render :partial => 'badgesprofil'%>
 		</div>

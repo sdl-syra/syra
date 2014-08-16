@@ -64,6 +64,26 @@ class HobbiesController < ApplicationController
     end
   end
 
+  def update_hobbies
+    if current_user && params[:id]==current_user.id.to_s && (params[:hobby][:label] =~ /^\s*$/).nil?
+      @user = current_user
+      searched = params[:hobby][:label].titleize
+      hobby = Hobby.where(label: searched)
+      if hobby.empty?
+        newHobby = Hobby.new
+        newHobby.label = searched
+        newHobby.save
+        @user.hobbies << newHobby
+      else
+        @user.hobbies += hobby if !@user.hobbies.include?(hobby)
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to @user, notice: 'User was successfully updated.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hobby

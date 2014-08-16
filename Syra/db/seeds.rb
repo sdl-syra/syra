@@ -60,9 +60,9 @@ l5 = Level.create(levelUser:1,XPUser:0)
            
 Hobby.create(label:'Informatique')
 Hobby.create(label:'Natation')
-Hobby.create(label:'MANGER')
-Hobby.create(label:'Les légendes de la ligue')
-Hobby.create(label:'Champs de bataille 4')
+Hobby.create(label:'Manger')
+Hobby.create(label:'Les Légendes De La Ligue')
+Hobby.create(label:'Champs De Bataille 4')
 Hobby.create(label:'Mécanique')
 Hobby.create(label:'Lecture')
 

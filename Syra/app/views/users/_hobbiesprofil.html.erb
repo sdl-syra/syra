@@ -1,0 +1,71 @@
+<style type="text/css">
+.tt-dropdown-menu {
+  max-height: 150px;
+  overflow-y: auto;
+  font-weight: 400;
+  font-size: initial;
+}
+.tt-input {
+  font-weight: 400 !important;
+}
+</style>
+
+
+<% content_for :head do %>
+	<%= javascript_include_tag "typeahead" %>
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substrRegex;
+    matches = [];
+    substrRegex = new RegExp(q, 'i');
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push({ value: str });
+      }
+    });
+    cb(matches);
+  };
+};
+ 
+var hobbies = <%= raw @hobbies.map {|h| h.label} %>;
+ 
+$('.typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'hobbies',
+  displayKey: 'value',
+  source: substringMatcher(hobbies)
+});
+});
+</script>
+
+
+
+<div class="col-lg-6">
+	<div style="margin-top:20px;" class="currenthobbies">
+		<span class="col-lg-offset-2"></span>
+		<% if @user.hobbies.empty? %>
+			<span <% if @user==current_user %>class="simili_bip" id="currenthobbies"<%end%>>Aucun centre d'interêt renseigné</span>
+		<%else%>
+			<% if @user==current_user %><span style="cursor:pointer;" class="fa fa-pencil pull-right" title="editer les centres d'interet"  id="currenthobbies"></span><%end%>
+			<% @user.hobbies.each do |h| %>
+				<a href="/hobbies/<%=h.id%>" class="tag"><%=h.label%></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<% end %>
+		<%end%>
+	</div>
+	<% if @user==current_user %>
+		<div id="hobbiesedit" class="nofloat" style="display:none;margin-top:20px;">
+		<%= form_for @hobby, url: {action: "update_hobbies", controller: "hobbies"}, method: :post do |f| %>
+			<%= f.text_field :label, class:'typeahead form-control', placeholder:'Votre interet...'%>
+			<%= f.submit 'Valider', class:'btn btn-success' %>
+		<% end %>
+		</div>
+	<%end%>
+</div>
