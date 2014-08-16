@@ -1,5 +1,5 @@
 class HobbiesController < ApplicationController
-  before_action :set_hobby, only: [:show, :edit, :update, :destroy]
+  before_action :set_hobby, only: [:show, :edit, :update, :destroy, :toggle_inscription]
 
   # GET /hobbies
   # GET /hobbies.json
@@ -13,6 +13,7 @@ class HobbiesController < ApplicationController
     @tread = Tread.new
     @reply = Reply.new
     @treads = Tread.where(hobby:@hobby).order(updated_at: :desc)
+    @canReply = current_user && current_user.hobbies.include?(@hobby)
   end
 
   # GET /hobbies/new
@@ -51,6 +52,20 @@ class HobbiesController < ApplicationController
         format.html { render action: 'edit' }
         format.json { render json: @hobby.errors, status: :unprocessable_entity }
       end
+    end
+  end
+  
+  def toggle_inscription
+    if current_user
+      if current_user.hobbies.include?(@hobby)
+        current_user.hobbies.delete(@hobby)
+      else
+        current_user.hobbies << @hobby  
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to @hobby, notice: 'Hobby was successfully updated.' }
+      format.json { head :no_content }
     end
   end
 

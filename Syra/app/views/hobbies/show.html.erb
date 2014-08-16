@@ -25,7 +25,21 @@ body {
 
 <h1><%= @hobby.label %></h1>
 
-<% if current_user %>
+<% if @canReply %>
+	<%= form_for @hobby, url: {action: "toggle_inscription"}, method: :post do |f| %>
+	  <%= f.button :submit, class:'btn btn-danger pull-right' do %>
+	  	 Se desinscrire
+	  <% end %>
+	<% end %>
+<% else %>
+	<%= form_for @hobby, url: {action: "toggle_inscription"}, method: :post do |f| %>
+	  <%= f.button :submit, class:'btn btn-success pull-right' do %>
+	  	 S'inscrire
+	  <% end %>
+	<% end %>
+<% end %>
+
+<% if @canReply %>
 	<div class="container">	
 		<div class="form-group col-lg-7">
 			<%= form_for(@tread) do |f| %>
@@ -81,7 +95,7 @@ body {
 				<% end %>
 			</ul>
 			<hr>
-			<% if current_user %>
+			<% if @canReply %>
 			<div class="col-lg-8">
 				<%= form_for(@reply) do |f| %>
 				    <%= f.text_area :content, size:"30x3", maxlength:400, placeholder:"Votre message...",

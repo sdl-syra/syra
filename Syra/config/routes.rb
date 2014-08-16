@@ -63,6 +63,7 @@ Syra::Application.routes.draw do
 
   post '/hobbies/:id/update_hobbies', :to => 'hobbies#update_hobbies', :as => 'update_hobbies'
   post '/users/:id/update_address', :to => 'users#update_address', :as => 'update_address'
+  post '/hobbies/:id/toggle_inscription', :to => 'hobbies#toggle_inscription', :as => 'toggle_inscription'
 
   post '/users/:id/upload_avatar' , :to => 'users#upload_avatar'
 
