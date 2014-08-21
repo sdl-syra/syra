@@ -67,16 +67,14 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					<% if params[:to].present? || flash[:to].present? %>
-				 		<%= f.select :isGiven, options_for_select([["Je recherche", false]]), :value => @service.isGiven%>
+				 		<%= f.select :isGiven, options_for_select([["Je recherche", false]]), :value => @service.isGiven%> <br/>
+				 		Privé <%= f.check_box :private, :checked => "checked" %>
+						<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Si coché, votre annonce ne pourra être recherchée par les autres membres"></i>
 				 	<% else %>
+				 		<%= f.hidden_field :private, :value => "false" %>
 				 		<%= f.select :isGiven, options_for_select([["Je propose", true], ["Je recherche", false]]), :value => @service.isGiven, :prompt => "Sélectionnez le type" %>
+				 		<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Est-ce que vous proposez ce service ou est-ce que vous êtes à la recherche de personnes qui pourront réaliser ce service pour vous? Vous ne pourrez pas modifier ce choix par la suite"></i>
 				 	<% end %>
-					<% if params[:to].present? || flash[:to].present? %>
-						Privé <%= f.check_box :private, :checked => "checked" %>
-					<% else %>
-						<%= f.hidden_field :private, :value => "false" %>
-					<% end %><br/>
-					<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Si coché, votre annonce ne pourra être recherchée par les autres membres"></i>
 				</h3>
 			</div>
 			<div class="panel-body">

@@ -249,7 +249,11 @@ class ServicesController < ApplicationController
           prop.user.save
         end
         NotificationsHelper.create_notif(prop.user,"Proposition refusée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
-        flash[:success] = "Proposition refusée pour le motif suivant : '"+ prop.motifCancelled+"'"
+        if prop.motifCancelled.blank?
+          flash[:success] = "Proposition refusée sans motif particulier"
+        else
+          flash[:success] = "Proposition refusée pour le motif suivant : '"+ prop.motifCancelled+"'"
+        end
       end
     else
       flash[:errorconnexion] = true
