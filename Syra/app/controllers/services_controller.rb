@@ -107,6 +107,8 @@ class ServicesController < ApplicationController
     @service.isFinished = false
     respond_to do |format|
       if @service.save
+        UsersHelper.grant_xp(current_user,150) if current_user
+        BadgesHelper.tryUnlockLvls(current_user) if current_user
         toUser = User.find_by_id(tosomeone)
         if !tosomeone.nil? && !toUser.nil?
           NotificationsHelper.create_notif(toUser,"Vous avez une nouvelle demande privée '"+@service.title+"'",service_path(@service),"fa fa-exchange")
@@ -211,8 +213,10 @@ class ServicesController < ApplicationController
             prop.save
             BadgesHelper.tryUnlock(Badge.find(9),current_user) if current_user && current_user.money<=0
             UserMailer.send_code(prop.service.user,prop.service,prop).deliver
-            UsersHelper.grant_xp(prop.service.user,75)
-            UsersHelper.grant_xp(prop.user,75)
+            UsersHelper.grant_xp(prop.user,100)
+            BadgesHelper.tryUnlockLvls(prop.user)
+            UsersHelper.grant_xp(prop.service.user,100)
+            BadgesHelper.tryUnlockLvls(prop.service.user)
             NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
             flash[:success] = "Proposition acceptée, l'échange est prévu pour le "+prop.proposition.to_formatted_s(:day_month_year)
           else
@@ -222,8 +226,10 @@ class ServicesController < ApplicationController
           prop.isAccepted = true
           prop.save
           UserMailer.send_code(prop.user,prop.service,prop).deliver
-          UsersHelper.grant_xp(prop.service.user,75)
-          UsersHelper.grant_xp(prop.user,75)
+          UsersHelper.grant_xp(prop.user,100)
+          BadgesHelper.tryUnlockLvls(prop.user)
+          UsersHelper.grant_xp(prop.service.user,100)
+          BadgesHelper.tryUnlockLvls(prop.service.user)
           NotificationsHelper.create_notif(prop.user,"Proposition acceptée pour '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
           flash[:success] = "Proposition acceptée, l'échange est prévu pour le "+prop.proposition.to_formatted_s(:day_month_year)
         end

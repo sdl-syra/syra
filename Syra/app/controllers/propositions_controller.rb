@@ -41,6 +41,8 @@ class PropositionsController < ApplicationController
     @proposition.user = current_user
     respond_to do |format|
       if @proposition.save
+        UsersHelper.grant_xp(current_user,70) if current_user
+        BadgesHelper.tryUnlockLvls(current_user) if current_user
         format.html { redirect_to @proposition, notice: 'Proposition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @proposition }
         NotificationsHelper.create_notif(@proposition.service.user,"Une nouvelle proposition pour '"+@proposition.service.title+"'",proposition_path(@proposition.id.to_s),"fa fa-exchange")
@@ -110,6 +112,10 @@ class PropositionsController < ApplicationController
           NotificationsHelper.create_notif(prop.user,"Echange concernant le service '"+prop.service.title+"' validé",proposition_path(prop.id.to_s),"fa fa-exchange")
           NotificationsHelper.create_notif(prop.user,"Donnez votre avis sur : '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
           BadgesHelper.tryUnlock(Badge.find(15),current_user) if current_user
+          UsersHelper.grant_xp(prop.user,150)
+          BadgesHelper.tryUnlockLvls(prop.user)
+          UsersHelper.grant_xp(prop.service.user,150)
+          BadgesHelper.tryUnlockLvls(prop.service.user)
           flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
         else
           flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"
@@ -123,6 +129,10 @@ class PropositionsController < ApplicationController
           NotificationsHelper.create_notif(prop.service.user,"Echange concernant le service '"+prop.service.title+"' validé",proposition_path(prop.id.to_s),"fa fa-exchange")
           NotificationsHelper.create_notif(prop.service.user,"Donnez votre avis sur : '"+prop.service.title+"'",proposition_path(prop.id.to_s),"fa fa-exchange")
           BadgesHelper.tryUnlock(Badge.find(15),current_user) if current_user
+          UsersHelper.grant_xp(prop.user,150)
+          BadgesHelper.tryUnlockLvls(prop.user)
+          UsersHelper.grant_xp(prop.service.user,150)
+          BadgesHelper.tryUnlockLvls(prop.service.user)
           flash[:success] = "Le code saisi est correct. La transaction est désormais complète. Merci d'avoir utilisé Syra !"
         else
           flash[:error] = "Le code saisi n'est pas correct, veuillez réessayer"

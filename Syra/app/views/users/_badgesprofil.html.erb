@@ -12,7 +12,7 @@
 								<% if current_user && current_user.isAdmin? %>
 									<%= form_for @user, url: {action: "unlock_badge"}, method: :post do |f| %>
 										<%= f.hidden_field :badge, :value => b.id %>
-										<%= f.submit 'Déverouiller', :confirm => "Débloquer ce badge ?", :src => "/assets/SYRA-BADGE/SYRA-BADGE-locked.png", 
+										<%= f.submit 'Déverouiller', data: {confirm: 'Déverouiller ce badge ?'}, :src => "/assets/SYRA-BADGE/SYRA-BADGE-locked.png", 
 											:type => "image", class:'img-responsive', title:b.label %>
 									<% end %>
 								<% else %>

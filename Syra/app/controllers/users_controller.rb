@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar, :unlock_badge]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar, :update_hobbies, :unlock_badge]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:index]
   before_action :restrict_access_admin, only: [:admin]
   
@@ -27,6 +27,7 @@ class UsersController < ApplicationController
       @userBadges += @user.badges
       @hobby = Hobby.new
       @hobbies = Hobby.all
+      @percentXP = UsersHelper.getPercent(@user.level.XPUser)
     end
     if (params[:get].present? && params[:get]=="echanges")
       @offered = Service.where(user:@user,isGiven:true).order(created_at: :desc, isFinished: :asc)
@@ -65,6 +66,7 @@ class UsersController < ApplicationController
     @user.level.XPUser = 0
     @user.isPremium = false
     @user.isBanned = false
+    BadgesHelper.tryUnlockLvls(@user)
     respond_to do |format|
       if @user.save
         sign_in @user
@@ -122,16 +124,6 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  def unlock_badge
-    if current_user && current_user.isAdmin? && params[:user].present? && params[:user][:badge].present?
-      BadgesHelper.tryUnlock(Badge.find(params[:user][:badge].to_i),@user)
-    end
-    respond_to do |format|
-      format.html { redirect_to @user, notice: 'User was successfully updated.' }
-      format.json { head :no_content }
-    end
-  end
 
   # GET /users/follow
   def follow
@@ -146,6 +138,16 @@ class UsersController < ApplicationController
     UsersHelper.create_activity(current_user, "suit désormais <a href=/users/" + userSuivi.id.to_s + ">" + userSuivi.name + " " + userSuivi.lastName + " </a>" )
     respond_to do |format|
       format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
+  end
+  
+   def unlock_badge
+    if current_user && current_user.isAdmin? && params[:user].present? && params[:user][:badge].present?
+      BadgesHelper.tryUnlock(Badge.find(params[:user][:badge].to_i),@user)
+    end
+    respond_to do |format|
+      format.html { redirect_to @user, notice: 'User was successfully updated.' }
       format.json { head :no_content }
     end
   end
@@ -174,6 +176,19 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def update_hobbies
+    if current_user && params[:id]==current_user.id.to_s
+      @user.hobbies.delete_all
+      params[:user][:hobby_ids].delete_if{|i| i.empty?}
+      @user.hobbies = Hobby.find(params[:user][:hobby_ids])
+    end
+    respond_to do |format|
+      format.html { redirect_to @user, notice: 'User was successfully updated.' }
+      format.json { head :no_content }
+      format.js
+    end
+  end
 
   private
 
@@ -184,7 +199,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :address, :isPremium, :isBanned, :banReason, :badge, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q, :accept_conditions , :birthday)
+    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :address, :isPremium, :isBanned, :banReason, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q, :accept_conditions , :birthday)
   end
 
 end
