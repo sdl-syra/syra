@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar, :unlock_badge]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:index]
   before_action :restrict_access_admin, only: [:admin]
   
@@ -122,6 +122,16 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def unlock_badge
+    if current_user && current_user.isAdmin? && params[:user].present? && params[:user][:badge].present?
+      BadgesHelper.tryUnlock(Badge.find(params[:user][:badge].to_i),@user)
+    end
+    respond_to do |format|
+      format.html { redirect_to @user, notice: 'User was successfully updated.' }
+      format.json { head :no_content }
+    end
+  end
 
   # GET /users/follow
   def follow
@@ -174,7 +184,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :address, :isPremium, :isBanned, :banReason, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q, :accept_conditions , :birthday)
+    params.require(:user).permit(:name, :lastName, :email, :money, :password, :biography, :address, :isPremium, :isBanned, :banReason, :badge, :level_id, :success_id, :address_id, :email_confirmation, :password_confirmation, :phone,:q, :accept_conditions , :birthday)
   end
 
 end

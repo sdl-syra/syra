@@ -115,6 +115,7 @@ class ServicesController < ApplicationController
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render action: 'show', status: :created, location: @service }
         UsersHelper.create_activity(current_user, "a crée un nouveau service")
+        BadgesHelper.tryUnlock(Badge.find(19),current_user) if current_user
       else
         flash[:to] = tosomeone
         format.html { render action: 'new' }

@@ -9,7 +9,15 @@
 							<% if @userBadges.include?(b)%>
 								<%= image_tag "SYRA-BADGE/SYRA-BADGE-"+b.id.to_s+".png", class:'img-responsive', title:b.label%>
 							<% else %>
-								<%= image_tag "SYRA-BADGE/SYRA-BADGE-locked.png", class:'img-responsive', title:b.label%>
+								<% if current_user && current_user.isAdmin? %>
+									<%= form_for @user, url: {action: "unlock_badge"}, method: :post do |f| %>
+										<%= f.hidden_field :badge, :value => b.id %>
+										<%= f.submit 'Déverouiller', :confirm => "Débloquer ce badge ?", :src => "/assets/SYRA-BADGE/SYRA-BADGE-locked.png", 
+											:type => "image", class:'img-responsive', title:b.label %>
+									<% end %>
+								<% else %>
+									<%= image_tag "SYRA-BADGE/SYRA-BADGE-locked.png", class:'img-responsive', title:b.label%>
+								<% end %>
 							<% end %>
 						</span>
 					<%end%>

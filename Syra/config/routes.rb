@@ -66,6 +66,8 @@ Syra::Application.routes.draw do
   post '/hobbies/:id/toggle_inscription', :to => 'hobbies#toggle_inscription', :as => 'toggle_inscription'
 
   post '/users/:id/upload_avatar' , :to => 'users#upload_avatar'
+  
+  post '/users/:id/unlock_badge', :to => 'users#unlock_badge', :as => 'unlock_badge'
 
   get '/users/:id/follow', :to => 'users#follow', :as => 'follow_user'
   get '/users/:id/unfollow', :to => 'users#unfollow', :as => 'unfollow_user'
