@@ -80,6 +80,17 @@
 				<%= f.hidden_field :service_id, value: @proposition.service.id %>
 				<%= f.hidden_field :user_id, value: current_user.id %>
 				<%= f.text_area :avis, size:"50x4", maxlength:300, :class => 'form-control', :placeholder => "Votre commentaire", value: ""%>
+				
+				<%= f.hidden_field :note_int, value: @proposition.service.id %>
+				
+				
+				<% (1..5).each do |i| %>
+					<span class="rating_star fa fa-star-o" data-star="<%=i%>">
+				<% end %>
+				
+			
+				
+				
 				<%= f.text_field :note, :class => 'form-control', :placeholder => "Note", value: ""%>
             </div>
             <div class="modal-footer">
@@ -92,8 +103,18 @@
     </div>
      <% end %>
     
-    
-    
+<script type="text/javascript">
+$(document).ready(function() {
+	 $('.rating_star').click(function() {
+	 	 var star = $(this).data("star");
+	 	 $( ".rating_star" ).removeClass("fa-star").addClass("fa-star-o"); 
+	 	 for(var i = 1 ; i <= star ; i++) {
+	 	 	 alert($(".rating_star").get(i).data("star")); 
+	 	 	 $(".rating_star").get(i).removeClass("fa-star-o").addClass("fa-star"); 
+	 	 } 
+	 }); 
+});
+    </script>
     <div class="jumbotron">
     	<% if not flash[:errorconnexion].nil? %>
 			<div class="alert alert-danger alert-dismissable">
