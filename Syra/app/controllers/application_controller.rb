@@ -33,10 +33,10 @@ class ApplicationController < ActionController::Base
         @notifsHeader = Notification.where(user: current_user).order(created_at: :desc).limit(10)
       end
       @hashNotifs = {}
-      notifs = Notification.where(user: current_user).order(created_at: :desc)
-      datesNotifs = (notifs.map {|n| n.date}.uniq).sort_by {|d| d}.reverse
+      @notifs = Notification.where(user: current_user).order(created_at: :desc).page params[:page]
+      datesNotifs = (@notifs.map {|n| n.date}.uniq).sort_by {|d| d}.reverse
       datesNotifs.each do |d|
-        @hashNotifs[d] = (notifs.select {|n| n.date == d}).sort_by {|n| n.created_at}.reverse
+        @hashNotifs[d] = (@notifs.select {|n| n.date == d}).sort_by {|n| n.created_at}.reverse
       end
     end
   end

@@ -107,13 +107,13 @@
 				</div>
 				<div class="toexpandnotifs">
 				<% unless @hashNotifs.empty? %>
-					<% @hashNotifs.each_key do |d| %>
-						<i><%= l(d, format: :day_month_letter) %></i>
-						<% @hashNotifs[d].each do |n| %>
-						<div>
-							<a class="thumbnail acustom" href="/<%= n.url %>"><span class="<%= n.glyph_cat %> pull-left"></span> &nbsp;&nbsp; <%= n.label %> <small class="text-muted pull-right label label-default"><%= l(n.created_at, format: :h_m) %></small></a>
-						</div>
-						<% end %>
+					<div id="showMoreNotifs">
+						<%= render 'layouts/notifs' %>
+					</div>
+					<% if @notifs.current_page < @notifs.num_pages %>
+						<div class="text-center">
+							<a id="moreNotifsButton" class="btn btn-primary" style="color:white;" data-remote="true" href="<%=root_url%>loadMoreNotifs?page=<%= @notifs.current_page+1 %>">Voir plus</a>
+						</div>	
 					<% end %>
 				<% end %>
 				</div>

@@ -1,0 +1,8 @@
+<% @hashNotifs.each_key do |d| %>
+	<i><%= l(d, format: :day_month_letter) %></i>
+	<% @hashNotifs[d].each do |n| %>
+	<div>
+		<a class="thumbnail acustom" href="/<%= n.url %>"><span class="<%= n.glyph_cat %> pull-left"></span> &nbsp;&nbsp; <%= n.label %> <small class="text-muted pull-right label label-default"><%= l(n.created_at, format: :h_m) %></small></a>
+	</div>
+	<% end %>
+<% end %>

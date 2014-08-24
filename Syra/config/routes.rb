@@ -77,6 +77,8 @@ Syra::Application.routes.draw do
   get '/services/:id/nouvelleProp', :to => 'services#nouvelleProp', :as => 'nouvelle_prop_service'
   get '/services/:id/cloturer', :to => 'services#cloturer', :as => 'cloturer_service'
   get '/propositions/:id/validerEchange', :to => 'propositions#validerEchange', :as => 'valider_proposition'
+  
+  get 'loadMoreNotifs', :to => 'notifications#loadMore'
 
   get '/map', :to => 'pages#map'
   
