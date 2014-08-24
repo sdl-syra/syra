@@ -21,7 +21,7 @@
 			<a class="navbar-brand" href="/"><strong>Syra</strong> <em>beta</em></a>
 		</div>
 		
-		<% if signed_in? then %>
+		<% if signed_in? %>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
 			
@@ -29,21 +29,18 @@
 
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle resetbadgenotif" data-toggle="dropdown"> <i class="fa fa-bullhorn"></i> Notifs 
-		          	<% notifs = @notifsctrl %>
-		          	<% notifsNotViewed = notifs.select{|n| !n.is_checked?}%>
-		          	<% if (notifsNotViewed.length>0) %>
+		          	<% if (@nbNewNotifs>0) %>
 		          		<span id="badgeNotif" class="badge">
-		          			<%=notifsNotViewed.length%>
+		          			<%=@nbNewNotifs%>
 		          		</span>
 		          	<%end%>
 		          <b class="caret"></b></a>
 		          <ul class="dropdown-menu scrollable-menu notifmenu">
-		          	<% if (notifs.length==0) %>
+		          	<% if (@notifsHeader.empty?) %>
 		          		<li><a href=#>Aucune notification</a></li>
 		          	<%else%>
-		          		<% notifsToShow = notifsNotViewed.length>10 ? notifsNotViewed.sort_by {|n| n.created_at}.reverse : notifs.sort_by {|n| n.created_at}.reverse.take(10) %>
-						<% notifsToShow.each do |n| %>
-							<li <%if !n.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
+						<% @notifsHeader.each do |n| %>
+							<li <%unless n.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
 								<span class="<%= n.glyph_cat %>"></span> &nbsp;
 								<%if time_ago_in_words(n.created_at).end_with?"j"%>
 									<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
@@ -109,12 +106,10 @@
 					<h1>Notifications</h1>
 				</div>
 				<div class="toexpandnotifs">
-				<% unless notifs.nil? %>
-					<% dates = notifs.map {|n| n.date}.uniq %>
-					<% dates.sort_by {|d| d}.reverse.each do |d| %>
+				<% unless @hashNotifs.empty? %>
+					<% @hashNotifs.each_key do |d| %>
 						<i><%= l(d, format: :day_month_letter) %></i>
-						<% notifsSelected = notifs.select {|n| n.date == d} %>
-						<% notifsSelected.sort_by {|n| n.created_at}.reverse.each do |n| %>
+						<% @hashNotifs[d].each do |n| %>
 						<div>
 							<a class="thumbnail acustom" href="/<%= n.url %>"><span class="<%= n.glyph_cat %> pull-left"></span> &nbsp;&nbsp; <%= n.label %> <small class="text-muted pull-right label label-default"><%= l(n.created_at, format: :h_m) %></small></a>
 						</div>

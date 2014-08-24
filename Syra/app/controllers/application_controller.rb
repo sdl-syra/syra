@@ -27,7 +27,18 @@ class ApplicationController < ActionController::Base
   def set_notifs_per_user
     @notifsctrl = []
     if current_user
-      @notifsctrl = Notification.where(user: current_user).order(created_at: :desc).limit(50)
+      @nbNewNotifs = Notification.where(user: current_user, is_checked: false).count
+      if @nbNewNotifs > 10
+        @notifsHeader = Notification.where(user: current_user, is_checked: false).order(created_at: :desc)
+      else
+        @notifsHeader = Notification.where(user: current_user).order(created_at: :desc).limit(10)
+      end
+      @hashNotifs = {}
+      notifs = Notification.where(user: current_user).order(created_at: :desc)
+      datesNotifs = (notifs.map {|n| n.date}.uniq).sort_by {|d| d}.reverse
+      datesNotifs.each do |d|
+        @hashNotifs[d] = (notifs.select {|n| n.date == d}).sort_by {|n| n.created_at}.reverse
+      end
     end
   end
   
