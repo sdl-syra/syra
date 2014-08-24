@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
   end
   
   def set_notifs_per_user
-    @notifsctrl = []
     if current_user
       @nbNewNotifs = Notification.where(user: current_user, is_checked: false).count
       if @nbNewNotifs > 10
