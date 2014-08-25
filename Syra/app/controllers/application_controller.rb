@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
   end
   
   def set_notifs_per_user
-    @hashNotifs = {}
     if current_user
       @nbNewNotifs = Notification.where(user: current_user, is_checked: false).count
       if @nbNewNotifs > 10
@@ -33,6 +32,7 @@ class ApplicationController < ActionController::Base
       else
         @notifsHeader = Notification.where(user: current_user).order(created_at: :desc).limit(10)
       end
+      @hashNotifs = {}
       @notifs = Notification.where(user: current_user).order(created_at: :desc).page params[:page]
       datesNotifs = (@notifs.map {|n| n.date}.uniq).sort_by {|d| d}.reverse
       datesNotifs.each do |d|

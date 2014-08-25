@@ -97,6 +97,7 @@
 	<!-- /.container -->
 </nav>
 
+<% if current_user %>
 <div id="allnotifs" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog toexpandnotifs">
         <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
@@ -121,3 +122,4 @@
         </div>
     </div>
 </div>
+<% end %>
