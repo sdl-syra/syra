@@ -27,8 +27,6 @@ Syra::Application.routes.draw do
 
   resources :opinions
 
-  resources :successes
-
   resources :levels
 
   resources :users

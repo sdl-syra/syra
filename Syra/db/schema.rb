@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140822101626) do
+ActiveRecord::Schema.define(version: 20140827113540) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 20140822101626) do
     t.datetime "updated_at"
   end
 
+  create_table "conversations", force: true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id"
+  add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id"
+
   create_table "evaluations", force: true do |t|
     t.integer  "note"
     t.text     "comment"
@@ -96,6 +106,17 @@ ActiveRecord::Schema.define(version: 20140822101626) do
   end
 
   add_index "levels", ["user_id"], name: "index_levels_on_user_id"
+
+  create_table "messages", force: true do |t|
+    t.text     "content"
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
 
   create_table "notifications", force: true do |t|
     t.string   "label"
