@@ -141,6 +141,20 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def favor
+    @user = current_user
+    @user.favor!(params[:user])
+
+    userSuivi = User.find(params[:user])
+     username = userSuivi.name + ' ' + userSuivi.lastName
+
+    UsersHelper.create_activity(current_user, "a <a href=/users/" + userSuivi.id.to_s + ">" + userSuivi.name + " " + userSuivi.lastName + " </a> en favoris" )
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
+  end    
   
    def unlock_badge
     if current_user && current_user.isAdmin? && params[:user].present? && params[:user][:badge].present?

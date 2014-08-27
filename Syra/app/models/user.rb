@@ -76,7 +76,16 @@ class User < ActiveRecord::Base
   end
 
   def follow!(followed)
-    relationships.create!(:followed_id => followed)
+    rs = relationships.create!(:followed_id => followed)
+    rs.favorite = false
+    rs.save
+  end
+
+  def favor!(followed)
+    rs = relationships.where(:followed_id => followed,:follower_id => self.id).first
+    rs.favorite = true
+    rs.save
+
   end
   
   def unfollow!(followed)

@@ -64,12 +64,15 @@
 	<thead>
 	</thead>
 	<tbody>
-		<%  @user.following.each do |follow| %>
+		<%  @user.following.order("favorite DESC").each do |follow| %>
 			<tr>
 				<% username = follow.name + ' ' + follow.lastName %>
 				<td>
 					<div class="text-center">
 					<%= link_to username, user_path(follow) %>
+					<%= link_to 'Mettre en favoris',
+                 	favor_user_path(:user => follow), :class => 'btn btn-primary' 
+                 	%>
 					</div>
 				</td>
 			</tr>
@@ -97,7 +100,22 @@
 
 </div>
 </div>
+
+	<br />
+	<br />
+	<div class="row">
+		<div class="col-md-8">
+
+			<div class="span7 text-center">
+				<h4>Ca pourrait vous interesser !</h4>
+
+			</div>
+		</div>
+	</div>
+
+
 </div>
+
 
 <script>
 

@@ -70,6 +70,7 @@ Syra::Application.routes.draw do
   post '/users/:id/unlock_badge', :to => 'users#unlock_badge', :as => 'unlock_badge'
 
   get '/users/:id/follow', :to => 'users#follow', :as => 'follow_user'
+  get '/followers/favor', :to => 'users#favor', :as => 'favor_user'
   get '/users/:id/unfollow', :to => 'users#unfollow', :as => 'unfollow_user'
   get '/followers', :to => 'users#followers', :as => 'followers'
   get '/services/:id/accepterProp', :to => 'services#accepterProp', :as => 'accepter_prop_service'
