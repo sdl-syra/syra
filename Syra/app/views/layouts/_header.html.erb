@@ -8,18 +8,7 @@
  	text-align: left !important;
  }
 </style>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('.msgsdisplayer').click(function() {
-		if ($("#conversations_container").children().length==0) {
-			$.ajax({
-			  url: "/all_conversations",
-			  type: "get"
-			});
-		}
-	});
-});
-</script>
+
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
