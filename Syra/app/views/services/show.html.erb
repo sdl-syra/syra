@@ -160,6 +160,25 @@
   	<li class="list-group-item">
   	Le prix est de <%= @service.price %> <i class="fa fa-heart"></i>
   	</li>
+  	
+  	
+    <div id="<%=@service.id%>" >
+	<div class="info_service title"> <%=@service.title%> </div>
+	<div class="info_service author"> <%=@service.user.name%> </div>
+	<div class="info_service desc"> <%=@service.description%> </div>
+	<div class="info_service price"> <%=@service.price%> </div>
+	
+	<li class="list-group-item">
+		
+	    <a data-original-title="Facebook" rel="tooltip"  href="#" class="btn btn-facebook" data-placement="left">
+	    	<button data-id="<%=@service.id%>" class="fa-facebook"></button>
+		</a>
+		<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://localhost:3000/services/1">Tweet</a>
+	</li>
+
+  	
+  	
+  	
   	</ul>
 </div>
 </div>
@@ -232,3 +251,28 @@
 		</div> -->
 	</div>
 </div>
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	 $('.fa-facebook').click(function() {
+	 	var infos = $("#"+$(this).data("id")).find($(".info_service"));
+	 	var id = $(this).data("id");
+	 	var author = infos.filter($(".author"));
+		var title = infos.filter($(".title"));
+		var description = infos.filter($(".desc"));
+		var price = infos.filter($(".price"));
+	 	FB.ui({
+			method: 'feed',
+		     name: title.text(),
+		     link: 'http://localhost:3000/services/' + id,
+		     picture: 'http://fbrell.com/f8.jpg',
+		     description: description.text(),
+		     message: 'Profitez de ce service !'
+		}, function(response){});
+	 	
+	 	
+	 }); 
+});
+</script>

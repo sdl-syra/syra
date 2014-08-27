@@ -12,11 +12,17 @@
     </div>
     <div class="panel-body shorterpanel">
     	<div class="col-lg-3 col-lg-offset-8 avataridover avidheightfix text-center">
-			<% if @user.avatar.nil? %>
-				<%=image_tag "noavatar.png", :class => "img-responsive img-thumbnail avidheight" %>
+    	
+    		
+			<% if @user.encrypted_password.nil? %>
+				<img src=<%=@user.avatar + "?type=square" %> alt="some_text"/>
+			<% elsif @user.avatar.nil? %>
+				<%=image_tag "noavatar.png", :class => "img-responsive img-thumbnail avheight" %>
 			<%else %>
 				<%=image_tag "avatars/"+@user.avatar, :class => "img-responsive img-thumbnail avidheight" %>
 			<%end%>
+    		
+
 			<div class="text-center">
 				<% 4.times do%>
 					<span class="fa fa-star goldiscold"></span>

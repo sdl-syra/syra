@@ -3,11 +3,13 @@
 
 
 
-<div class="col-lg-2 col-lg-offset-1 avatarover avheightfix" <%if @user==current_user%>id="currentavatar"<%end%>>
-	<% if @user.avatar.nil? %>
+<div class="col-lg-2 col-lg-offset-1 avatarover avheightfix" <%if @user==current_user && !@user.encrypted_password.nil? %>id="currentavatar"<%end%>>
+	<% if @user.encrypted_password.nil? %>
+		<img src=<%=@user.avatar + "?type=normal" %> alt="some_text"/>
+	<% elsif @user.avatar.nil? %>
 		<%=image_tag "noavatar.png", :class => "img-responsive img-thumbnail avheight" %>
 	<%else %>
-		<%=image_tag "avatars/"+@user.avatar, :class => "img-responsive img-thumbnail avheight" %>
+		<%=image_tag "avatars/"+@user.avatar, :class => "img-responsive img-thumbnail avidheight" %>
 	<%end%>
 </div>
 <h3 class="col-lg-4 col-lg-offset-4 username">

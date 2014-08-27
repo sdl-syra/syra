@@ -106,6 +106,9 @@ ActiveRecord::Schema.define(version: 20140827125514) do
     t.datetime "updated_at"
   end
 
+  add_index "messages", ["recipient_id"], name: "index_messages_on_recipient_id"
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id"
+
   create_table "notifications", force: true do |t|
     t.string   "label"
     t.string   "glyph_cat"
@@ -133,7 +136,7 @@ ActiveRecord::Schema.define(version: 20140827125514) do
   create_table "propositions", force: true do |t|
     t.boolean  "isPaid"
     t.boolean  "isAccepted"
-    t.boolean  "motifCancelled"
+    t.text     "motifCancelled"
     t.date     "proposition"
     t.text     "comment"
     t.integer  "user_id"
@@ -141,6 +144,7 @@ ActiveRecord::Schema.define(version: 20140827125514) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "price"
+    t.string   "code"
   end
 
   add_index "propositions", ["service_id"], name: "index_propositions_on_service_id"
@@ -149,7 +153,6 @@ ActiveRecord::Schema.define(version: 20140827125514) do
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
-    t.boolean  "favorite"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -38,8 +38,9 @@ class User < ActiveRecord::Base
     self.lastName = auth['extra']['raw_info']['last_name']
     
     #a reparer quand l'image sera op
-    self.avatar = auth[:info][:image]
-    #self.save
+    #puts "test"
+    self.avatar = auth[:info][:image] 
+    self.save
 
     authentifications.build(:provider => auth['provider'], :uid => auth['uid'])
   end
