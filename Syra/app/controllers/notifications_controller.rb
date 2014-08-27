@@ -12,20 +12,14 @@ class NotificationsController < ApplicationController
   def show
   end
   
-  # GET /notifications/1
-  # GET /notifications/1.json
-  def loadMore
-    @notifs = Notification.where(user: current_user).order(created_at: :desc).page params[:page]
-    datesNotifs = (@notifs.map {|n| n.date}.uniq).sort_by {|d| d}.reverse
-    datesNotifs.each do |d|
-      @hashNotifs[d] = (@notifs.select {|n| n.date == d}).sort_by {|n| n.created_at}.reverse
-    end
+  def get_notifs_header
+    @notifsHeader = Notification.where(user: current_user).order(created_at: :desc).page params[:page]
     respond_to do |format|
-      format.html { redirect_to root_url }
       format.js
+      format.html { redirect_to root_url }
     end
   end
-
+  
   # GET /notifications/new
   def new
     @notification = Notification.new

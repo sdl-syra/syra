@@ -8,6 +8,18 @@
  	text-align: left !important;
  }
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.msgsdisplayer').click(function() {
+		if ($("#conversations_container").children().length==0) {
+			$.ajax({
+			  url: "/all_conversations",
+			  type: "get"
+			});
+		}
+	});
+});
+</script>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
@@ -35,22 +47,21 @@
 		          		</span>
 		          	<%end%>
 		          <b class="caret"></b></a>
-		          <ul class="dropdown-menu scrollable-menu notifmenu">
-		          	<% if (@notifsHeader.empty?) %>
-		          		<li><a href=#>Aucune notification</a></li>
-		          	<%else%>
-						<% @notifsHeader.each do |n| %>
-							<li <%unless n.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
-								<span class="<%= n.glyph_cat %>"></span> &nbsp;
-								<%if time_ago_in_words(n.created_at).end_with?"j"%>
-									<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
-								<%else%>
-									<i><%=time_ago_in_words(n.created_at)%></i>
-								<%end%>
-								&nbsp; <%=n.label%> &nbsp;&nbsp;</a></li>
-						<%end%>
-						<li id="showallnotifs"><a href="#" data-toggle="modal" data-target="#allnotifs" class="btn btn-primary"> Afficher tout </a></li>
-			    	<%end%>
+		          <ul id="notifications_container" class="dropdown-menu scrollable-menu notifmenu">
+					Loading...
+		          </ul>
+		        </li>
+		        
+				<li class="dropdown">
+		          <a href="#" class="dropdown-toggle msgsdisplayer" data-toggle="dropdown"> <i class="fa fa-envelope"></i> Messages 
+		          	<% if (@nbUnread>0) %>
+		          		<span class="badge">
+		          			<%=@nbUnread%>
+		          		</span>
+		          	<%end%>
+		          <b class="caret"></b></a>
+		          <ul id="conversations_container" class="dropdown-menu scrollable-menu notifmenu">
+		          	Loading...
 		          </ul>
 		        </li>
 		        
@@ -97,29 +108,4 @@
 	<!-- /.container -->
 </nav>
 
-<% if current_user %>
-<div id="allnotifs" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog toexpandnotifs">
-        <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
-        <div class="modal-content modal-content-notcenter" >
-            <div class="modal-body">
-                <div class="wrap">
-					<h1>Notifications</h1>
-				</div>
-				<div class="toexpandnotifs">
-				<% unless @hashNotifs.empty? %>
-					<div id="showMoreNotifs">
-						<%= render 'layouts/notifs' %>
-					</div>
-					<% if @notifs.current_page < @notifs.num_pages %>
-						<div class="text-center">
-							<a id="moreNotifsButton" class="btn btn-primary" style="color:white;" data-remote="true" href="<%=root_url%>loadMoreNotifs?page=<%= @notifs.current_page+1 %>">Voir plus</a>
-						</div>	
-					<% end %>
-				<% end %>
-				</div>
-            </div>
-        </div>
-    </div>
-</div>
-<% end %>
+

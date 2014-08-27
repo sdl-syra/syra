@@ -1,0 +1,13 @@
+<% if (@conversations.empty?) %>
+	<li><a href=#>Aucun message :( </a></li>
+<%else%>
+	<% @conversations.each do |m| %>
+		<li <%unless n.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
+			<%if time_ago_in_words(m.created_at).end_with?"j"%>
+				<i><%=m.created_at.to_formatted_s(:day_month_year)%></i>
+			<%else%>
+				<i><%=time_ago_in_words(m.created_at)%></i>
+			<%end%>
+			&nbsp; <%=m.content%> &nbsp;&nbsp;</a></li>
+	<%end%>
+<%end%>

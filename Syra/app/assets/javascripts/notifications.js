@@ -1,5 +1,11 @@
 $(document).ready(function() {
-	$('.resetbadgenotif').click(function() { 
+	$('.resetbadgenotif').click(function() {
+		if ($("#notifications_container").children().length==0) {
+			$.ajax({
+			  url: "/get_notifs_header",
+			  type: "get"
+			});
+		}
 		if ($("#badgeNotif").length==1) { 
 			$("#badgeNotif").hide();
 			$.ajax({
@@ -8,13 +14,4 @@ $(document).ready(function() {
 			});
 		}
 	});
-});
-
-$(document).ready(function() {
-    var $lightbox = $('#allnotifs');    
-    $lightbox.on('shown.bs.modal', function (e) {
-        var w = $(window).width() - ($(window).width()/2);
-        $lightbox.find('.toexpandnotifs').css({'width': w});
-        $lightbox.find('.close').removeClass('hidden');
-    });
 });

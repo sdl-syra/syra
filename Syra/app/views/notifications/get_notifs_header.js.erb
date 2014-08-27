@@ -1,0 +1,6 @@
+if ($('.moreNotifsButton').length>0) {
+	$('.moreNotifsButton').remove();
+	$('#notifications_container').append("<%= j render 'layouts/notifs_header' %>");
+} else {
+	$('#notifications_container').html("<%= j render 'layouts/notifs_header' %>");
+}

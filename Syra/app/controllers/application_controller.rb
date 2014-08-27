@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   before_action :set_notifs_per_user
+  before_action :set_nbunread_messages
   before_filter :set_search
   before_action :handle_banned
   protect_from_forgery with: :exception
@@ -24,21 +25,12 @@ class ApplicationController < ActionController::Base
     @q=Service.search(params[:q])
   end
   
+  def set_nbunread_messages
+    @nbUnread = Message.where(recipient:current_user,is_checked:false).group("sender_id,recipient_id").length if current_user
+  end
+  
   def set_notifs_per_user
-    if current_user
-      @nbNewNotifs = Notification.where(user: current_user, is_checked: false).count
-      if @nbNewNotifs > 10
-        @notifsHeader = Notification.where(user: current_user, is_checked: false).order(created_at: :desc)
-      else
-        @notifsHeader = Notification.where(user: current_user).order(created_at: :desc).limit(10)
-      end
-      @hashNotifs = {}
-      @notifs = Notification.where(user: current_user).order(created_at: :desc).page params[:page]
-      datesNotifs = (@notifs.map {|n| n.date}.uniq).sort_by {|d| d}.reverse
-      datesNotifs.each do |d|
-        @hashNotifs[d] = (@notifs.select {|n| n.date == d}).sort_by {|n| n.created_at}.reverse
-      end
-    end
+    @nbNewNotifs = Notification.where(user: current_user, is_checked: false).count if current_user
   end
   
   def restrict_access_admin

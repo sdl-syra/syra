@@ -1,2 +1,0 @@
-$('#showMoreNotifs').append("<%= j render 'layouts/notifs' %>");
-$('#moreNotifsButton').replaceWith("<% if @notifs.current_page < @notifs.num_pages %><a id='moreNotifsButton' class='btn btn-primary' style='color:white;' data-remote='true' href='<%=root_url%>loadMoreNotifs?page=<%= @notifs.current_page+1 %>'>Voir plus</a><%end%>");

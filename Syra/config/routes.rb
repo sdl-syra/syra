@@ -77,7 +77,10 @@ Syra::Application.routes.draw do
   get '/services/:id/cloturer', :to => 'services#cloturer', :as => 'cloturer_service'
   get '/propositions/:id/validerEchange', :to => 'propositions#validerEchange', :as => 'valider_proposition'
   
-  get 'loadMoreNotifs', :to => 'notifications#loadMore'
+  get '/all_conversations', :to => 'messages#all_conversations', :as => 'all_conversations'
+  get '/messages/:id/show_conversation', :to => 'messages#show_conversation', :as => 'show_conversation'
+  
+  get '/get_notifs_header', :to => 'notifications#get_notifs_header', :as => 'get_notifs_header'
 
   get '/map', :to => 'pages#map'
   

@@ -1,0 +1,19 @@
+<% if @notifsHeader.nil? || @notifsHeader.empty? %>
+	<li><a href="#">Aucune notification</a></li>
+<%else%>
+	<% @notifsHeader.each do |n| %>
+		<li <%unless n.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
+			<span class="<%= n.glyph_cat %>"></span> &nbsp;
+			<%if time_ago_in_words(n.created_at).end_with?"j"%>
+				<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>
+			<%else%>
+				<i><%=time_ago_in_words(n.created_at)%></i>
+			<%end%>
+			&nbsp; <%=n.label%> &nbsp;&nbsp;</a></li>
+	<%end%>
+	<% if @notifsHeader.current_page < @notifsHeader.num_pages %>
+		<li class="moreNotifsButton text-center">
+			<a class="btn btn-primary" style="color:white;" data-remote="true" href="<%=root_url%>get_notifs_header?page=<%= @notifsHeader.current_page+1 %>">Voir plus</a>
+		</li>
+	<% end %>
+<%end%>
