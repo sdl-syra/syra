@@ -3,8 +3,9 @@ class CreateMessages < ActiveRecord::Migration
     create_table :messages do |t|
       t.integer :sender_id
       t.integer :recipient_id
-      t.boolean :is_checked
       t.text :content
+      t.boolean :is_checked
+      t.string :conv_code
 
       t.timestamps
     end

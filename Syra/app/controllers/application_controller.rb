@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_nbunread_messages
-    @nbUnread = Message.where(recipient:current_user,is_checked:false).group("sender_id,recipient_id").length if current_user
+    @nbUnread = Message.where(recipient:current_user,is_checked:false).group("conv_code").length if current_user
   end
   
   def set_notifs_per_user

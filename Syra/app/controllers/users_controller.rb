@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @message = Message.new
     if (!params[:get].present? || params[:get]=="profil")
       @badges = Badge.all
       @userBadges = []

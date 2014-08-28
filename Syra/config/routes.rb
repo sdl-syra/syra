@@ -33,6 +33,8 @@ Syra::Application.routes.draw do
 
   resources :sessions, :only => [:new, :create, :destroy]
   
+  resources :messages, :only => [:create]
+  
   resources :password_resets
   
   resources :services do

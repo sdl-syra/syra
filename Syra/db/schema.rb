@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827125514) do
+ActiveRecord::Schema.define(version: 20140828150131) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -61,6 +61,11 @@ ActiveRecord::Schema.define(version: 20140827125514) do
     t.datetime "updated_at"
   end
 
+  create_table "conversations", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "evaluations", force: true do |t|
     t.integer  "note"
     t.text     "comment"
@@ -100,8 +105,9 @@ ActiveRecord::Schema.define(version: 20140827125514) do
   create_table "messages", force: true do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
-    t.boolean  "is_checked"
     t.text     "content"
+    t.boolean  "is_checked"
+    t.string   "conv_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

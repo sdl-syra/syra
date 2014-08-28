@@ -1,0 +1,91 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#closeChat').click(function() {
+		$('#chatcontainer').remove();
+	});
+})
+</script>
+
+<div class="container" id="chatcontainer">
+    <div class="row">
+        <div class="col-md-5 pull-right">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> <%= @recipient.name %> <%= @recipient.lastName %>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default btn-xs" href="/messages/<%=current_user.id%>w<%=@recipient.id%>/show_conversation" data-remote="true">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                        </a>
+                        <button id="closeChat" type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                </div>
+                <div id="body-chat" class="panel-body">
+                    <ul class="chat">
+                    	<% if !@conversation.nil? && !@conversation.empty? %>
+                    	<% @conversation.each do |msg| %>
+                    		<% if msg.sender!=current_user %>
+		                        <li class="left clearfix">
+		                        	<span class="chat-img pull-left">
+		                            	<img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+		                        	</span>
+		                            <div class="chat-body clearfix">
+		                                <div class="header">
+		                                    <strong class="primary-font"><a href="/users/<%=msg.sender.id%>"><%=msg.sender.name%> <%=msg.sender.lastName%></a></strong>
+		                                    <small class="pull-right text-muted">
+		                                        <span class="glyphicon glyphicon-time"></span>
+												<%if time_ago_in_words(msg.created_at).end_with?"j"%>
+													<%=msg.created_at.to_formatted_s(:day_month_year)%>
+												<%else%>
+													<%=time_ago_in_words(msg.created_at)%>
+											<%end%></small>
+		                                </div>
+		                                <p>
+											<%=msg.content%>
+		                                </p>
+		                            </div>
+		                        </li>
+                        	<% else %>
+		                        <li class="right clearfix">
+		                        	<span class="chat-img pull-right">
+		                            	<img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+		                        	</span>
+		                            <div class="chat-body clearfix">
+		                                <div class="header">
+		                                    <small class=" text-muted">
+		                                    	<span class="glyphicon glyphicon-time"></span>
+												<%if time_ago_in_words(msg.created_at).end_with?"j"%>
+													<%=msg.created_at.to_formatted_s(:day_month_year)%>
+												<%else%>
+													<%=time_ago_in_words(msg.created_at)%>
+											<%end%></small>
+		                                    <strong class="pull-right primary-font"><a href="/users/<%=msg.sender.id%>"><%=msg.sender.name%> <%=msg.sender.lastName%></a></strong>
+		                                </div>
+		                                <p>
+											<%=msg.content%>
+		                                </p>
+		                            </div>
+		                        </li>
+		                    <% end %>
+	                    <% end %>
+	                    <% end %>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                    	<%= form_for @message, remote:true do |f| %>
+    						<%= f.hidden_field :recipient_id, :value => @recipient.id %>
+    						<div class="input-group">
+	                    		<%= f.text_field :content, class:"form-control input-sm", maxlength:300, placeholder:"Votre message..." %>
+	                    		<span class="input-group-btn">
+	                    			<%= f.submit 'Envoyer', class:'btn btn-success btn-sm', id:'btn-chat' %>
+	                    		</span>
+                    		</div>
+                    	<% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

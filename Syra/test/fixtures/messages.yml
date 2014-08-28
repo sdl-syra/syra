@@ -3,11 +3,13 @@
 one:
   sender_id: 1
   recipient_id: 1
-  is_checked: false
   content: MyText
+  is_checked: false
+  conv_code: MyString
 
 two:
   sender_id: 1
   recipient_id: 1
-  is_checked: false
   content: MyText
+  is_checked: false
+  conv_code: MyString

@@ -2,12 +2,16 @@
 	<li><a href=#>Aucun message :( </a></li>
 <%else%>
 	<% @conversations.each do |m| %>
-		<li <%unless n.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
+		<li <%unless m.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/messages/<%=m.conv_code%>/show_conversation" data-remote="true" class="notifcustom">
+			<span class="glyphicon glyphicon-time"></span>
 			<%if time_ago_in_words(m.created_at).end_with?"j"%>
 				<i><%=m.created_at.to_formatted_s(:day_month_year)%></i>
 			<%else%>
 				<i><%=time_ago_in_words(m.created_at)%></i>
 			<%end%>
-			&nbsp; <%=m.content%> &nbsp;&nbsp;</a></li>
+			&nbsp; <i>avec</i>
+			<% with = m.sender==current_user ? m.recipient : m.sender %>
+			&nbsp; <%= with.name %> <%= with.lastName%>
+			<br/> <%=m.content.length > 30 ? m.content[0..30]+"..." : m.content%> &nbsp;&nbsp;</a></li>
 	<%end%>
 <%end%>

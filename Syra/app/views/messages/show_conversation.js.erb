@@ -1,0 +1,7 @@
+$('#chaton').html("<%= j render 'chat' %>");
+if ($('#badgeMsg').length>0) {
+	var value = parseInt($('#badgeMsg').html());
+	$('#badgeMsg').html(value-1);
+	if (value==1) $('#badgeMsg').remove();
+}
+$('#body-chat').scrollTop($('#body-chat')[0].scrollHeight)
