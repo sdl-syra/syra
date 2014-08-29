@@ -1,8 +1,10 @@
 $(document).ready(function(){
-	$('.msgsdisplayer').on('shown.bs.dropdown', function() {
-		$.ajax({
-		  url: "/all_conversations",
-		  type: "get"
-		});
+	$('.msgsdisplayer').click(function() {
+		if ($("#conversations_container").children().length==0) {
+			$.ajax({
+			  url: "/all_conversations",
+			  type: "get"
+			});
+		}
 	});
 });
