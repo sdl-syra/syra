@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   
   def all_conversations
     @conversations = Message.where("conv_code like ? or conv_code like ?","%w"+current_user.id.to_s,current_user.id.to_s+"w%").
-    group(:conv_code).having("max(created_at)").order(created_at: :desc).page params[:page]
+    group(:conv_code).having("max(created_at)").order(created_at: :desc).page(params[:page]).per(5)
     respond_to do |format|
       format.js
       format.html { redirect_to root_url }
@@ -10,10 +10,26 @@ class MessagesController < ApplicationController
   end
   
   def show_conversation
-    @conversation = seek_conversation(params[:id])
-    @conversation.where(recipient:current_user,is_checked:false).update_all(is_checked:true)
+    conv = seek_conversation(params[:id])
+    conv.where(recipient:current_user,is_checked:false).update_all(is_checked:true)
+    @conversation = conv.page params[:page]
+    @nb_pages = @conversation.total_pages
+    @conversation = @conversation.reverse
     @message = Message.new
     @recipient = find_recipient(params[:id])
+    respond_to do |format|
+      format.js
+      format.html { redirect_to :back }
+    end
+  end
+  
+  def more_msgs
+    conv = seek_conversation(params[:id])
+    conv.where(recipient:current_user,is_checked:false).update_all(is_checked:true)
+    @conversation = conv.page params[:page]
+    @current_page = params[:page]
+    @num_pages = @conversation.num_pages
+    @conversation = @conversation.reverse
     respond_to do |format|
       format.js
       format.html { redirect_to :back }
@@ -33,8 +49,8 @@ class MessagesController < ApplicationController
   private
   
   def seek_conversation(id)
-    m = Message.where(conv_code:id).order(:created_at)
-    m = Message.where(conv_code:swap(id)).order(:created_at) if m.empty?
+    m = Message.where(conv_code:id).order(created_at: :desc)
+    m = Message.where(conv_code:swap(id)).order(created_at: :desc) if m.empty?
     return m
   end
   

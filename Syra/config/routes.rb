@@ -81,6 +81,8 @@ Syra::Application.routes.draw do
   
   get '/all_conversations', :to => 'messages#all_conversations', :as => 'all_conversations'
   get '/messages/:id/show_conversation', :to => 'messages#show_conversation', :as => 'show_conversation'
+  get '/messages/:id/more_msgs', :to => 'messages#more_msgs', :as => 'more_msgs'
+
   
   get '/get_notifs_header', :to => 'notifications#get_notifs_header', :as => 'get_notifs_header'
 

@@ -17,6 +17,11 @@
                 <div id="body-chat" class="panel-body">
                     <ul class="chat">
                     	<% if !@conversation.nil? && !@conversation.empty? %>
+                    	<% if @nb_pages > 1 %>
+							<li class="moreMsgsButton text-center">
+								<a class="btn btn-primary" style="color:white;" data-remote="true" href="<%=root_url%>/messages/<%=@conversation[0].conv_code%>/more_msgs?page=2">Voir plus</a>
+							</li>
+						<% end %>
                     	<% @conversation.each do |msg| %>
                     		<% if msg.sender!=current_user %>
 		                        <li class="left clearfix">

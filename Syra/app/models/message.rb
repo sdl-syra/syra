@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
-  paginates_per 10
+  paginates_per 15
   belongs_to :sender, :foreign_key => :sender_id, class_name: 'User'
   belongs_to :recipient, :foreign_key => :recipient_id, class_name: 'User'
 end
