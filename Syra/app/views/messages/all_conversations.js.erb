@@ -1,1 +1,6 @@
-$('#conversations_container').html("<%= j render 'layouts/conversations' %>");
+if ($('.moreConvsButton').length>0) {
+	$('.moreConvsButton').remove();
+	$('#conversations_container').append("<%= j render 'layouts/conversations' %>");
+} else {
+	$('#conversations_container').html("<%= j render 'layouts/conversations' %>");
+}

@@ -1,8 +1,8 @@
 class MessagesController < ApplicationController
   
   def all_conversations
-    @conversations = Message.where("messages.sender_id =? OR messages.recipient_id =?",current_user.id,current_user.id)
-    .group("conv_code").having("MAX(created_at)").order(created_at: :desc)
+    @conversations = Message.where("conv_code like ? or conv_code like ?","%w"+current_user.id.to_s,current_user.id.to_s+"w%").
+    group(:conv_code).having("max(created_at)").order(created_at: :desc).page params[:page]
     respond_to do |format|
       format.js
       format.html { redirect_to root_url }

@@ -37,12 +37,12 @@
 		          	<%end%>
 		          <b class="caret"></b></a>
 		          <ul id="notifications_container" class="dropdown-menu scrollable-menu notifmenu">
-					Loading...
+					Chargement...
 		          </ul>
 		        </li>
 		        
-				<li class="dropdown">
-		          <a href="#" class="dropdown-toggle msgsdisplayer" data-toggle="dropdown"> <i class="fa fa-envelope"></i> Messages 
+				<li class="dropdown msgsdisplayer">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-envelope"></i> Messages 
 		          	<% if (@nbUnread>0) %>
 		          		<span id="badgeMsg" class="badge">
 		          			<%=@nbUnread%>
@@ -50,7 +50,7 @@
 		          	<%end%>
 		          <b class="caret"></b></a>
 		          <ul id="conversations_container" class="dropdown-menu scrollable-menu notifmenu">
-		          	Loading...
+		          	Chargement...
 		          </ul>
 		        </li>
 		        

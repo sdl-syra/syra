@@ -2,7 +2,8 @@
 	<li><a href=#>Aucun message :( </a></li>
 <%else%>
 	<% @conversations.each do |m| %>
-		<li <%unless m.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/messages/<%=m.conv_code%>/show_conversation" data-remote="true" class="notifcustom">
+		<li <%if m.sender!=current_user && !m.is_checked?%>style='background-color:#F0E68C'<%end%>>
+			<a href="/messages/<%=m.conv_code%>/show_conversation" data-remote="true" class="notifcustom">
 			<span class="glyphicon glyphicon-time"></span>
 			<%if time_ago_in_words(m.created_at).end_with?"j"%>
 				<i><%=m.created_at.to_formatted_s(:day_month_year)%></i>
@@ -12,6 +13,13 @@
 			&nbsp; <i>avec</i>
 			<% with = m.sender==current_user ? m.recipient : m.sender %>
 			&nbsp; <%= with.name %> <%= with.lastName%>
-			<br/> <%=m.content.length > 30 ? m.content[0..30]+"..." : m.content%> &nbsp;&nbsp;</a></li>
+			<br/> <%=m.content.length > 30 ? m.content[0..30]+"..." : m.content%> &nbsp;&nbsp;</a>
+		</li>
+		<li class="divider"></li>
 	<%end%>
+	<% if @conversations.current_page < @conversations.num_pages %>
+		<li class="moreConvsButton text-center">
+			<a class="btn btn-primary" style="color:white;" data-remote="true" href="<%=root_url%>/all_conversations?page=<%= @conversations.current_page+1 %>">Voir plus</a>
+		</li>
+	<% end %>
 <%end%>

@@ -45,7 +45,7 @@
 		<% end %>
 		<% if current_user!=@user%>
 			<li>
-				<a data-remote="true" href="/messages/<%=current_user.id%>w<%=@user.id%>/show_conversation/">Envoyer un fuckin msg</a>
+				<a class="btn btn-primary btn-mini" style="color:white;" data-remote="true" href="/messages/<%=current_user.id%>w<%=@user.id%>/show_conversation/">Envoyer un message</a>
 			</li>
 		<% end %>
       </ul>
