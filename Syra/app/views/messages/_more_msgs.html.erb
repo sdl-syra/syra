@@ -1,4 +1,4 @@
-<% if @current_page.to_i < @num_pages.to_i %>
+<% if @current_page.to_i < @nb_pages.to_i %>
 	<li class="moreMsgsButton text-center">
 		<a class="btn btn-primary" style="color:white;" data-remote="true" href="<%=root_url%>/messages/<%=@conversation[0].conv_code%>/more_msgs?page=<%= @current_page.to_i+1 %>">Voir plus</a>
 	</li>

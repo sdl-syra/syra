@@ -10,11 +10,7 @@ class MessagesController < ApplicationController
   end
   
   def show_conversation
-    conv = seek_conversation(params[:id])
-    conv.where(recipient:current_user,is_checked:false).update_all(is_checked:true)
-    @conversation = conv.page params[:page]
-    @nb_pages = @conversation.total_pages
-    @conversation = @conversation.reverse
+    set_messages(params[:id],params[:page])
     @message = Message.new
     @recipient = find_recipient(params[:id])
     respond_to do |format|
@@ -24,12 +20,7 @@ class MessagesController < ApplicationController
   end
   
   def more_msgs
-    conv = seek_conversation(params[:id])
-    conv.where(recipient:current_user,is_checked:false).update_all(is_checked:true)
-    @conversation = conv.page params[:page]
-    @current_page = params[:page]
-    @num_pages = @conversation.num_pages
-    @conversation = @conversation.reverse
+    set_messages(params[:id],params[:page])
     respond_to do |format|
       format.js
       format.html { redirect_to :back }
@@ -52,6 +43,15 @@ class MessagesController < ApplicationController
     m = Message.where(conv_code:id).order(created_at: :desc)
     m = Message.where(conv_code:swap(id)).order(created_at: :desc) if m.empty?
     return m
+  end
+  
+  def set_messages(id,p)
+    conv = seek_conversation(id)
+    conv.where(recipient:current_user,is_checked:false).update_all(is_checked:true)
+    @conversation = conv.page p
+    @current_page = @conversation.current_page
+    @nb_pages = @conversation.total_pages
+    @conversation = @conversation.reverse
   end
   
   def find_recipient(code)

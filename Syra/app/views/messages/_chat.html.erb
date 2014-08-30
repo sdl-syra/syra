@@ -17,56 +17,7 @@
                 <div id="body-chat" class="panel-body">
                     <ul class="chat">
                     	<% if !@conversation.nil? && !@conversation.empty? %>
-                    	<% if @nb_pages > 1 %>
-							<li class="moreMsgsButton text-center">
-								<a class="btn btn-primary" style="color:white;" data-remote="true" href="<%=root_url%>/messages/<%=@conversation[0].conv_code%>/more_msgs?page=2">Voir plus</a>
-							</li>
-						<% end %>
-                    	<% @conversation.each do |msg| %>
-                    		<% if msg.sender!=current_user %>
-		                        <li class="left clearfix">
-		                        	<span class="chat-img pull-left">
-		                            	<img src="#" alt="User Avatar" class="img-circle" />
-		                        	</span>
-		                            <div class="chat-body clearfix">
-		                                <div class="header">
-		                                    <strong class="primary-font"><a href="/users/<%=msg.sender.id%>"><%=msg.sender.name%> <%=msg.sender.lastName%></a></strong>
-		                                    <small class="pull-right text-muted">
-		                                        <span class="glyphicon glyphicon-time"></span>
-												<%if time_ago_in_words(msg.created_at).end_with?"j"%>
-													<%=msg.created_at.to_formatted_s(:day_month_year)%>
-												<%else%>
-													<%=time_ago_in_words(msg.created_at)%>
-											<%end%></small>
-		                                </div>
-		                                <p>
-											<%=msg.content%>
-		                                </p>
-		                            </div>
-		                        </li>
-                        	<% else %>
-		                        <li class="right clearfix">
-		                        	<span class="chat-img pull-right">
-		                            	<img src="#" alt="User Avatar" class="img-circle" />
-		                        	</span>
-		                            <div class="chat-body clearfix">
-		                                <div class="header">
-		                                    <small class=" text-muted">
-		                                    	<span class="glyphicon glyphicon-time"></span>
-												<%if time_ago_in_words(msg.created_at).end_with?"j"%>
-													<%=msg.created_at.to_formatted_s(:day_month_year)%>
-												<%else%>
-													<%=time_ago_in_words(msg.created_at)%>
-											<%end%></small>
-		                                    <strong class="pull-right primary-font"><a href="/users/<%=msg.sender.id%>"><%=msg.sender.name%> <%=msg.sender.lastName%></a></strong>
-		                                </div>
-		                                <p>
-											<%=msg.content%>
-		                                </p>
-		                            </div>
-		                        </li>
-		                    <% end %>
-	                    <% end %>
+                    		<%= render "messages/more_msgs"%>
 	                    <% end %>
                     </ul>
                 </div>

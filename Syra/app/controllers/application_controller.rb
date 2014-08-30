@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_notifs_per_user
-    @nbNewNotifs = Notification.where(user: current_user, is_checked: false).count if current_user
+    @nbNewNotifs = Notification.where(user: current_user, is_checked: false).length if current_user
   end
   
   def restrict_access_admin

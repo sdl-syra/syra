@@ -19,7 +19,7 @@
 	<%end%>
 	<% if @conversations.current_page < @conversations.num_pages %>
 		<li class="moreConvsButton text-center">
-			<a class="btn btn-primary" style="color:white;" data-remote="true" href="<%=root_url%>/all_conversations?page=<%= @conversations.current_page+1 %>">Voir plus</a>
+			<a class="btn btn-primary" style="color:white;" data-remote="true" href="/all_conversations?page=<%= @conversations.current_page+1 %>">Voir plus</a>
 		</li>
 	<% end %>
 <%end%>
