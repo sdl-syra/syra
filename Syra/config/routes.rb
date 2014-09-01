@@ -1,9 +1,9 @@
 Syra::Application.routes.draw do
+  resources :comments
+
+  resources :articles
+
   resources :badges
-
-  resources :treads
-
-  resources :replies
 
   resources :reports
 
