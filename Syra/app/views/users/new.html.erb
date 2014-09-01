@@ -1,5 +1,151 @@
-<%- model_class = User -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.new', 'Créez votre compte en moins de 60 secondes! '], :model => model_class.model_name.human.titleize %></h1>
+<script type="text/javascript">
+	$(document).ready(function() {if ($("#errors_completion").length>0) $('#gotoProfile').tab('show');})
+</script>
+
+<% unless @user.errors.messages.empty? %>
+	<div id="errors_completion" class="container">
+		<div class="row col-lg-5 pull-right">
+			<% unless @user.errors.values.select{|a| a.include?("can't be blank")}.empty? %>
+				<div class="alert alert-danger alert-dismissible">Veuillez remplir tous les champs</div>
+			<%end%>
+			<% if @user.errors.added? :password, :too_short, {count:8} %>
+				<div class="alert alert-danger alert-dismissible">Mot de passe trop court (minimum 8 caractères)</div>
+			<% end %>
+			<% if @user.errors.added? :email, :taken %>
+				<div class=" alert alert-danger alert-dismissible">Cet email est déjà pris</div>
+			<% end %>
+			<%if @user.errors.has_key?(:accept_conditions)%>
+				<div class=" alert alert-danger alert-dismissible">Vous devez accepter les conditions d'utilisation</div>
+			<%end%>
+		</div>
+	</div>
+<%end%>
+
+<div class="board">
+	<%= form_for @user, :html => { :class => 'form-signin', :role => 'form' } do |f| %>
+                    <!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
+	<div class="board-inner">
+		<ul class="nav nav-tabs" id="myTab">
+            <div class="liner"></div>
+             <li class="active">
+             	<a href="#home" data-toggle="tab" title="welcome">
+                  <span class="round-tabs one">
+                          <i class="glyphicon glyphicon-home"></i>
+                  </span> 
+                </a>
+             </li>
+
+              <li><a href="#profile" id="gotoProfile" data-toggle="tab" title="profile">
+                 <span class="round-tabs two">
+                     <i class="glyphicon glyphicon-user"></i>
+                 </span> 
+           		</a>
+             </li>
+             <li><a href="#messages" data-toggle="tab" title="bootsnipp goodies">
+                 <span class="round-tabs three">
+                      <i class="glyphicon glyphicon-gift"></i>
+                 </span> </a>
+             </li>
+
+             <li>
+             	<a href="#settings" data-toggle="tab" title="blah blah">
+                 <span class="round-tabs four">
+                      <i class="glyphicon glyphicon-comment"></i>
+                 </span> 
+            	 </a>
+             </li>
+
+             <li><a href="#doner" data-toggle="tab" title="completed">
+                 <span class="round-tabs five">
+                      <i class="glyphicon glyphicon-ok"></i>
+                 </span> </a>
+             </li>
+                     
+         </ul></div>
+
+         <div class="tab-content">
+              <div class="tab-pane fade in active" id="home">
+
+                  <h3 class="head text-center">Bienvenue sur Syra<sup>™</sup> <span style="color:#f48260;">♥</span></h3>
+                      <p class="narrow text-center">
+                          Bienvenue sur Syra! Première application de système d'échanges de services local, <strong>100% gratuite</strong>.
+                          Vous pourrez proposer à la communautée Syra les services que vous êtes prêt à faire, recevoir votre dû et choisir en retour un service qui pourrait vous interesser. 
+                      </p>
+                          
+                      <p class="text-center">
+                   		 <a href="" class="btn btn-success btn-outline-rounded green"> Commencer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+               		 </p>
+              </div>
+              <div class="tab-pane fade" id="profile">
+                  <h3 class="head text-center">Creer votre profil Syra<sup>™</sup></h3>
+                      <div class="container center_div">
+                      	
+                          <div class="form-group <%if @user.errors.has_key?(:lastName)%> has-error <%end%>"> 
+							    <label for="lastName">Nom</label>
+							    <%= f.text_field :lastName, :class=>"form-control", :placeholder => "Nom" %>
+							  </div>
+						    <div class="form-group <%if @user.errors.has_key?(:name)%> has-error <%end%>">
+							    <label for="name">Prénom</label>
+							    <%= f.text_field :name, :class=>"form-control", :placeholder => "Prénom" %>
+							  </div>
+							  <div class="form-group <%if @user.errors.has_key?(:email)%> has-error <%end%>">
+							    <label for="email">E-mail</label>
+							    <%= f.text_field :email, :class=>"form-control", :placeholder => "E-mail" %>
+							  </div>
+							  <div class="form-group <%if @user.errors.has_key?(:password)%> has-error <%end%>">
+							    <label for="password">Mot de passe</label>
+							    <%= f.password_field :password, :class=>"form-control", :placeholder => "Mot de passe" %>
+							  </div>
+  							  <div class="form-group">
+							  	<%= f.check_box :accept_conditions, :as => :boolean, input_html: {checked:   false} %>
+								J'accepte les <a href="#"> conditions générales</a> et la <a href="#">charte d'utilisation</a>
+							  </div>
+					</div>
+	                  <p class="narrow text-center">
+	                      Une fois votre compte créé, n'hésitez pas à compléter votre profil pour gagner de l'expérience et recevoir des cadeaux. N'oubliez pas profil complet est plus acceuillant pour les membres qu'un profil sans informations.
+	                  </p>
+                          
+                      <p class="text-center">
+                		<a href="" class="btn btn-success btn-outline-rounded green"> Créer votre profil <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+	                </p>
+                          
+              </div>
+              <div class="tab-pane fade" id="messages">
+                  <h3 class="head text-center">Recevez des cadeaux!</h3>
+                  <p class="narrow text-center">
+                      Pour votre première inscription sur l'application, Syra vous offre 30HP, ainsi qu'un mois premium!
+                  </p>
+                  
+                  <p class="text-center">
+                    	<a href="" class="btn btn-success btn-outline-rounded green"> Recevez vos cadeaux <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                	</p>
+              </div>
+              <div class="tab-pane fade" id="settings">
+                  <h3 class="head text-center">Publiez un service</h3>
+                  <p class="narrow text-center">
+                      Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
+                  </p>
+                          
+                      <p class="text-center">
+                    	<a href="" class="btn btn-success btn-outline-rounded green"> Continuer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+	                </p>
+              </div>
+              <div class="tab-pane fade" id="doner">
+				  <div class="text-center">
+				    <i class="img-intro icon-checkmark-circle"></i>
+				</div>
+				<h3 class="head text-center">Merci! Vous êtes super! <span style="color:#f48260;">♥</span></h3>
+				<p class="narrow text-center">
+				  N'oubliez pas, poster vos propres services, faites des propositions aux autres services, partager, débloquez des niveaux, des badges, ... Entre-aidez vous!
+				</p>
+	              <p class="text-center">
+	              <%= f.button :submit, class:'btn btn-success btn-outline-rounded green' do %>
+				  	 C'est parti! <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span>
+				  <%end%>
+                </p>
+			</div>
+			<div class="clearfix"></div>
+			</div>
+
+	<% end %>
 </div>
-<%= render :partial => 'form' %>

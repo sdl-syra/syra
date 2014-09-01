@@ -67,11 +67,10 @@ class UsersController < ApplicationController
     @user.level.XPUser = 0
     @user.isPremium = false
     @user.isBanned = false
-    BadgesHelper.tryUnlockLvls(@user)
     respond_to do |format|
       if @user.save
         sign_in @user
-          
+        BadgesHelper.tryUnlockLvls(@user)
         UserMailer.registration_confirmation(@user).deliver
         #UserMailer.welcome_email(@user).deliver
         format.html { redirect_to @user, notice: 'User was successfully created.' }

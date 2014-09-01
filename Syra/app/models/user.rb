@@ -12,14 +12,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   attr_accessor :password
-  validates :name, presence: true ,:presence => {:message => 'Vous devez indiquer un prénom'}
-  validates :lastName, presence: true ,:presence => {:message => 'Vous devez indiquer un nom'}
-  validates :password, confirmation: true, :confirmation => {:message => 'Les mots de passe ne correspondent pas'}
-  validates :password_confirmation, presence: true , :presence => {:on => :create, :message => 'Vous devez confirmer votre mot de passe'}
-  validates :email, confirmation: true, :confirmation => {:message => 'Les emails ne correspondent pas'}
-  validates :email, uniqueness: true , :uniqueness => {:message => 'Votre email est déjà pris'}
-  validates :email_confirmation, presence: true , :presence => {:on => :create, :message => 'Vous devez confirmer votre email'}
-  validates :phone, allow_nil: true, numericality: { only_integer: true, :message => "Format incorrect" }, :length => { :minimum => 10, :maximum =>10, :message => "Format incorrect" }
+  validates_presence_of :name
+  validates_presence_of :lastName
+  validates_presence_of :email
+  validates_uniqueness_of :email
+  validates_length_of :password, :minimum => 8
   validates :accept_conditions, :inclusion => {:in => [true]}
 
   belongs_to :level

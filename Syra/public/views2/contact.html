@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syra est un système d'échanges local SEL informatisé">
+  <meta name="author" content="Syra Labs">
+  <link rel="icon" href="img/favicon.png">
+
+  <title>Syra - Système d'échanges local informatisé</title>
+
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/team.css" rel="stylesheet">
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    </head>
+
+    <body>
+
+      <div class="navbar navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="img/logo-syra.png" class="img-rounded img-responsive"/></a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-center">
+              <li class="centrer-li"><a href="#"><div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="left" title="Taper sur la touche Entrée une fois votre saisie terminée"></span></div>
+                <input class="form-control" type="text" placeholder="Rechercher des personnes, des services, des hobbies, ..." style="width:400px;">
+              </div></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#post"><span class="glyphicon glyphicon-plus-sign" style="font-size:35px;"></span></a></li>
+              <li><a href="#notif"><span class="glyphicon glyphicon-bell" style="font-size:35px;"></span></a></li>
+              <li><a href="#profil"><img src="img/profil.svg" alt="profil" class="img-circle img-responsive"></a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+        </div>
+        <div class="navbar navbar-default navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".main-nav">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse main-nav">
+              <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-home"></span>  Acceuil<span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Amis</a></li>
+                    <li><a href="#">Évenements</a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">À propos de Syra</li>
+                    <li><a href="#">Magasin</a></li>
+                    <li><a href="#">Tutoriel</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Paramètres</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <!-- Ne pas oublier de mettre en Strong et un span avec la class blacky ^^ dans le menu où l'on se trouve-->
+              <ul class="nav navbar-nav navbar-center">
+                <li><a href="#"><span class="blacky"><strong>Timeline</strong></span></a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="service.html">Mes services</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="#about">Mes propositions</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="amis.html">Amis</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="#contact">Magasin</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#post"> <span class="colorPremium"><span class="glyphicon glyphicon-star colorPremium"></span> Premium</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container" style="padding-top:150px">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="well well-sm">
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="name">
+                        Nom</label>
+                        <input type="text" class="form-control" id="name" placeholder="Entrer nom" required="required" />
+                      </div>
+                      <div class="form-group">
+                        <label for="email">
+                          Email</label>
+                                                  <input type="text" class="form-control" id="email" placeholder="Entrer e-mail" required="required" />
+                        </div>
+                        <div class="form-group">
+                          <label for="subject">
+                            Sujet</label>
+                            <select id="subject" name="subject" class="form-control" required="required">
+                              <option value="na" selected="">Choisir:</option>
+                              <option value="service">Bug</option>
+                              <option value="suggestions">Suggestions</option>
+                              <option value="product">Service client</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="name">
+                              Message</label>
+                              <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required"
+                              placeholder="Message"></textarea>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">
+                              Envoyer le message</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <form>
+                        <legend><span class="glyphicon glyphicon-globe"></span> Contactez-nous</legend>
+                        <address>
+                          Placer le logo de la mascotte içi :)
+                        </address>
+                      </form>
+                    </div>
+                  </div>
+                  <h1>L'équipe</h1>
+                  <div class="container">
+                    <div class="row">
+                      <!-- Début d'une fiche service ;) --> 
+                      <div class="col-xs-6 col-sm-4 propositionsandservice">
+                        <div class="[ info-card ]">
+                          <img style="width: 100%" src="img/team/photo1.jpg" />
+                          <div class="[ info-card-details ] animate">
+                            <div class="[ info-card-header ]">
+                              <h1> Maxime </h1>
+                              <h3> alias Max Bla </h3>
+                            </div>
+                            <div class="[ info-card-detail ]">
+                              <!-- Description -->
+                              <p>Notre architecte. “Il a fondé la matrice, il s’attaque maintenant à quelque chose de plus gros, Syra.”<br/>
+                                Plat préféré: “Fan inconditionnel du Big Mac ... et des autres burgers.”</p>
+                                <div class="social">
+                                  <a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+                                  <a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+                                  <a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+                                  <a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+                                  <a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-4 propositionsandservice">
+                          <div class="[ info-card ]">
+                            <img style="width: 100%" src="img/team/photo2.jpg" />
+                            <div class="[ info-card-details ] animate">
+                              <div class="[ info-card-header ]">
+                                <h1> Julien </h1>
+                                <h3> alias Snake </h3>
+                              </div>
+                              <div class="[ info-card-detail ]">
+                                <!-- Description -->
+                                <p>Le penseur. “D’humeur calme, il nous apporte sagesse et réflexion lors des réunions.”
+                                  Plat préféré : “Je mets absolument tout dans mon sandwich Subway”</p>
+                                  <div class="social">
+                                    <a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+                                    <a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+                                    <a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+                                    <a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+                                    <a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xs-6 col-sm-4 propositionsandservice">
+                            <div class="[ info-card ]">
+                              <img style="width: 100%" src="img/team/photo4.jpg" />
+                              <div class="[ info-card-details ] animate">
+                                <div class="[ info-card-header ]">
+                                  <h1> Maxime </h1>
+                                  <h3> alias Olin </h3>
+                                </div>
+                                <div class="[ info-card-detail ]">
+                                  <!-- Description -->
+                                  <p>notre opérateur.
+                                    “Le Marco Polo de la géolocalisation, les latitudes et les longitudes ne lui font pas peur.”
+                                    Plat préféré : “Une bonne raclette, ça fait toujours plaisir”</p>
+                                    <div class="social">
+                                      <a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+                                      <a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+                                      <a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+                                      <a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+                                      <a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <!-- Début d'une fiche service ;) --> 
+                            <div class="col-xs-6 col-sm-4 propositionsandservice">
+                              <div class="[ info-card ]">
+                                <img style="width: 100%" src="img/team/photo3.jpg" />
+                                <div class="[ info-card-details ] animate">
+                                  <div class="[ info-card-header ]">
+                                    <h1> Terry </h1>
+                                    <h3> alias Aynnas </h3>
+                                  </div>
+                                  <div class="[ info-card-detail ]">
+                                    <!-- Description -->
+                                    <p>Terry Mainvis, alias Aynnas, notre génie.
+                                      “En revenant d’Inde, un matin, il s’est levé et il s’est dit “Syra!”
+                                      Plat préféré: Je mange pas, je me booste au café!</p>
+                                      <div class="social">
+                                        <a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+                                        <a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+                                        <a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+                                        <a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+                                        <a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xs-6 col-sm-4 propositionsandservice">
+                                <div class="[ info-card ]">
+                                  <img style="width: 100%" src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xfa1/t1.0-9/417157_4897339837183_626079670_n.jpg" />
+                                  <div class="[ info-card-details ] animate">
+                                    <div class="[ info-card-header ]">
+                                      <h1> Xavier </h1>
+                                      <h3> alias Reivax </h3>
+                                    </div>
+                                    <div class="[ info-card-detail ]">
+                                      <!-- Description -->
+                                      <p>Xavier Koma, alias Reivax, notre orateur.
+                                        Quand il se nourrit, son imagination devient incontrôlable...
+                                        Plat préféré: “Ma que, è la SpeedRabbit Pizza“</p>
+                                        <div class="social">
+                                          <a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+                                          <a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+                                          <a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+                                          <a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+                                          <a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 propositionsandservice">
+                                  <div class="[ info-card ]">
+                                    <img style="width: 100%" src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xfa1/t1.0-9/417157_4897339837183_626079670_n.jpg" />
+                                    <div class="[ info-card-details ] animate">
+                                      <div class="[ info-card-header ]">
+                                        <h1> Syra </h1>
+                                      </div>
+                                      <div class="[ info-card-detail ]">
+                                        <!-- Description -->
+                                        <p>On tenait à remercier les personnes qui ont permis de rendre ce projet possible, notre université, Anne-cécile, Nathalie, Rosalie et notre coach.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- FOOTER -->
+                          <div class="container">
+                            <hr>
+                            <div class="text-center center-block">
+                              <p class="txt-railway">- Tous droits réservés Syra-</p>
+                              <br />
+                              <a href="https://www.facebook.com/projet.syra"><i id="social" class="fa fa-facebook-square fa-3x social-fb"></i></a>
+                              <a href="https://twitter.com/Syra_project"><i id="social" class="fa fa-twitter-square fa-3x social-tw"></i></a>
+                              <a href="https://plus.google.com/113836529573693150040"><i id="social" class="fa fa-google-plus-square fa-3x social-gp"></i></a>
+                            </div>
+                          </div>
+
+                          <!-- Bootstrap core JavaScript -->
+                          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                          <script src="js/bootstrap.min.js"></script>
+                        </body>
+                        </html>

@@ -2,27 +2,15 @@
 <html>
 	<head>
 		<title>Syra</title>
-		<%= stylesheet_link_tag    "application" %>
-		<link rel="stylesheet" href="../../assets/bootstrap.css">
-		<!-- <link href="jumbotron.css" rel="stylesheet">-->
-		<!-- Custom Google Web Font -->
-		<!-- <link href="../../assets/font-awesome.min.css" rel="stylesheet"> -->
-		<%= stylesheet_link_tag    "fonts" %>
-
-		<!-- Add custom CSS here -->
-		<link href="../../assets/landing-page.css" rel="stylesheet">
-		<link href="../../assets/signin.css" rel="stylesheet">
-
-		<!-- Page-Level Plugin CSS - Dashboard -->
-		<link href="../../assets/timeline.css" rel="stylesheet">
+		<%= stylesheet_link_tag   "application" %>
+		<%= stylesheet_link_tag   "fonts" %>
 
 		<!-- SB Admin CSS - Include with every page -->
-		<link href="../../assets/sb-admin.css" rel="stylesheet">
 		<%= javascript_include_tag "application" %>
-		<%= javascript_include_tag "plusone.js" %>
-		<%= javascript_include_tag "notifications.js" %>
-		<%= javascript_include_tag "messages.js" %>
-		<link rel="stylesheet" href="../../assets/bootstrap.min.js">
+		<%= javascript_include_tag "bootstrap" %>
+		<%= javascript_include_tag "plusone" %>
+		<%= javascript_include_tag "notifications" %>
+		<%= javascript_include_tag "messages" %>
 		<%= yield :head %>
 		<%= csrf_meta_tags %>
 		<meta charset="utf-8">
@@ -87,8 +75,6 @@
 			</div>
 		</footer>
 
-		<!-- JavaScript -->
-		<script src="../../assets/javascripts/bootstrap.js"></script>
 	</body>
 </html>
 

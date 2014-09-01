@@ -21,9 +21,6 @@
 
 en:
   hello: "Hello world"
-  errors:
-    # The default format to use in full error messages.
-    format: "%{message}"
   datetime:
     distance_in_words:
       less_than_x_minutes:

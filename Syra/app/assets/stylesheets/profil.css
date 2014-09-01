@@ -1,57 +1,45 @@
-.simili_bip {
-  padding: 2px;
-  cursor: pointer;
-  -moz-transition: background 0.5s linear;
-  -o-transition: background 0.5s linear;
-  -webkit-transition: background 0.5s linear;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  border-radius: 5px;
-  display:inline-block;
-}
-.simili_bip:hover {
-  padding-right: 1.5em;
-  background: url("image/jolicrayon.png") no-repeat right;
-  background-color: #bce8f1;
-  box-shadow : 2px 2px 3px gray;
-  -moz-box-shadow : 2px 2px 3px gray;
-  -webkit-box-shadow : 2px 2px 3px gray;
-  -khtml-box-shadow : 2px 2px 3px gray;
-}
-.style_image {
-	max-width:100%
-}
-#currentavatar:hover {
-	cursor:pointer;
-}
 
-.avatarover {
-	z-index:100;
-	position:absolute;
-	margin-top:-90px;
-    display: -webkit-flexbox;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-}
 
-.avheight {
-	max-height:170px
-}
-
-.avheightfix {
-	height:170px !important
-}
-
-.username {
-	z-index:200;
-	position:absolute;
-	margin-top:-30px;
-}
+.profile 
+{
+    min-height: 355px;
+    display: inline-block;
+    }
+figcaption.ratings
+{
+    margin-top:20px;
+    }
+figcaption.ratings a
+{
+    color:#f1c40f;
+    font-size:11px;
+    }
+figcaption.ratings a:hover
+{
+    color:#f39c12;
+    text-decoration:none;
+    }
+.divider 
+{
+    border-top:1px solid rgba(0,0,0,0.1);
+    }
+.emphasis 
+{
+    border-top: 4px solid transparent;
+    }
+.emphasis:hover 
+{
+    border-top: 4px solid #1abc9c;
+    }
+.emphasis h2
+{
+    margin-bottom:0;
+    }
+span.tags 
+{
+    background: #1abc9c;
+    border-radius: 2px;
+    color: #f5f5f5;
+    font-weight: bold;
+    padding: 2px 4px;
+    }
