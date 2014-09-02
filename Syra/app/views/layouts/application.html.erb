@@ -35,7 +35,7 @@
 		    });
 		</script>
 		<div id="header">
-			<%= render 'layouts/header' %>
+			<%= render 'layouts/header' if signed_in? %>
 		</div>
 		<%= yield %>
 
