@@ -73,7 +73,7 @@ class UsersController < ApplicationController
         BadgesHelper.tryUnlockLvls(@user)
         UserMailer.registration_confirmation(@user).deliver
         #UserMailer.welcome_email(@user).deliver
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to :back, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
         @titre = "Sign up"
