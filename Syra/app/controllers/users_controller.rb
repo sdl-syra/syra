@@ -79,7 +79,6 @@ class UsersController < ApplicationController
         flash[:info] = "Veuillez consulter vos mails pour ainsi valider votre compte"
         format.html { redirect_to '/signin', notice: 'User was successfully created.' }
         #format.json { render action: 'show', status: :created, location: @user }
->>>>>>> Stashed changes
       else
         @titre = "Sign up"
         format.html { render action: 'new' }
