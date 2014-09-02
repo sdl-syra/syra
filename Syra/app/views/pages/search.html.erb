@@ -1,0 +1,21 @@
+ <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+ 
+<div class="container">
+	<div class="row col-md-offset-3 col-md-6">
+		<div class="panel panel-default"> 
+			<b>Service(s)</b><br/>
+			<% if @services.empty? %> Aucun résultat <% end %>
+			<% @services.each do |service|%>
+				<%= service.title %> <%= service.description %> <%= service.price %> etc.. <br/>
+			<% end %>
+		</div>
+		
+		<div class="panel panel-default"> 
+			<b>Utilisateur(s)</b><br/>
+			<% if @users.empty? %> Aucun résultat <% end %>
+			<% @users.each do |user|%>
+				<%= user.name %> <%= user.lastName %> etc... <br/>
+			<% end %>
+		</div>
+	</div>
+</div>

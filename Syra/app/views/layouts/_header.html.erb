@@ -13,12 +13,17 @@
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-center">
-              <li class="centrer-li"><div class="padding-searchbar"><div class="input-group">
-                <div class="input-group-addon">
-                	<span class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="left" title="Taper sur la touche Entrée une fois votre saisie terminée"></span>
-                </div>
-                <input class="form-control" type="text" placeholder="Rechercher des personnes, des services, des hobbies, ..." style="width:400px;">
-              </div></div></li>
+            	<%= form_for :search, url: header_search_path, method: :get do |f| %>
+              <li class="centrer-li">
+              	<div class="padding-searchbar">
+              		<div class="input-group">
+			                <%= f.button :submit, class:'input-group-addon pull-left', :style => 'padding-bottom:10px' do %>
+							  	 <span class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="left" title="Taper sur la touche Entrée une fois votre saisie terminée"></span> 
+							<%end%>
+						<%= f.text_field :field, :class=>"form-control", :placeholder => "Rechercher des personnes, des services, des hobbies, ...", :style => "width:400px;" %>
+              		</div>
+              	</div></li>
+              <% end %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li>

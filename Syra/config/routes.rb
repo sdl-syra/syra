@@ -104,6 +104,8 @@ Syra::Application.routes.draw do
   
   get '/services/:id/resolveReports', :to => 'services#resolveReports', :as => 'resolve_reports'
   
+  get '/header_search', :to => 'pages#header_search', :as => 'header_search'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
