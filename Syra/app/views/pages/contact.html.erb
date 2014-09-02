@@ -1,7 +1,244 @@
-</br>
-<div class="container">
-	<div class="alert alert-info">
-		En construction
+<div class="container" style="padding-top:150px">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="well well-sm">
+				<form>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name"> Nom</label>
+								<input type="text" class="form-control" id="name" placeholder="Entrer nom" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="email"> Email</label>
+								<input type="text" class="form-control" id="email" placeholder="Entrer e-mail" required="required" />
+							</div>
+							<div class="form-group">
+								<label for="subject"> Sujet</label>
+								<select id="subject" name="subject" class="form-control" required="required">
+									<option value="na" selected="">Choisir:</option>
+									<option value="service">Bug</option>
+									<option value="suggestions">Suggestions</option>
+									<option value="product">Service client</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name"> Message</label>
+								<textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required"
+                              placeholder="Message"></textarea>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<button type="submit" class="btn btn-primary pull-right" id="btnContactUs">
+								Envoyer le message
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<form>
+				<legend>
+					<span class="glyphicon glyphicon-globe"></span> Contactez-nous
+				</legend>
+				<address>
+					Placer le logo de la mascotte içi :)
+				</address>
+			</form>
+		</div>
+	</div>
+	<h1>L'équipe</h1>
+	<div class="container">
+		<div class="row">
+			<!-- Début d'une fiche service ;) -->
+			<div class="col-xs-6 col-sm-4 propositionsandservice">
+				<div class="[ info-card ]">
+					<!--<img style="width: 100%" src="img/team/photo1.jpg" />-->
+					<%= image_tag("/images/team/photo1.JPG", :alt => "max") %>
+					<div class="[ info-card-details ] animate">
+						<div class="[ info-card-header ]">
+							<h1> Maxime </h1>
+							<h3> alias Max Bla </h3>
+						</div>
+						<div class="[ info-card-detail ]">
+							<!-- Description -->
+							<p>
+								Notre architecte. “Il a fondé la matrice, il s’attaque maintenant à quelque chose de plus gros, Syra.”
+								<br/>
+								Plat préféré: “Fan inconditionnel du Big Mac ... et des autres burgers.”
+							</p>
+							<div class="social">
+								<a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+								<a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+								<a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+								<a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+								<a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 propositionsandservice">
+				<div class="[ info-card ]">
+					<img style="width: 100%" src="img/team/photo2.jpg" />
+					<div class="[ info-card-details ] animate">
+						<div class="[ info-card-header ]">
+							<h1> Julien </h1>
+							<h3> alias Snake </h3>
+						</div>
+						<div class="[ info-card-detail ]">
+							<!-- Description -->
+							<p>
+								Le penseur. “D’humeur calme, il nous apporte sagesse et réflexion lors des réunions.”
+								Plat préféré : “Je mets absolument tout dans mon sandwich Subway”
+							</p>
+							<div class="social">
+								<a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+								<a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+								<a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+								<a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+								<a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 propositionsandservice">
+				<div class="[ info-card ]">
+					<img style="width: 100%" src="img/team/photo4.jpg" />
+					<div class="[ info-card-details ] animate">
+						<div class="[ info-card-header ]">
+							<h1> Maxime </h1>
+							<h3> alias Olin </h3>
+						</div>
+						<div class="[ info-card-detail ]">
+							<!-- Description -->
+							<p>
+								notre opérateur.
+								“Le Marco Polo de la géolocalisation, les latitudes et les longitudes ne lui font pas peur.”
+								Plat préféré : “Une bonne raclette, ça fait toujours plaisir”
+							</p>
+							<div class="social">
+								<a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+								<a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+								<a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+								<a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+								<a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<!-- Début d'une fiche service ;) -->
+			<div class="col-xs-6 col-sm-4 propositionsandservice">
+				<div class="[ info-card ]">
+					<img style="width: 100%" src="img/team/photo3.jpg" />
+					<div class="[ info-card-details ] animate">
+						<div class="[ info-card-header ]">
+							<h1> Terry </h1>
+							<h3> alias Aynnas </h3>
+						</div>
+						<div class="[ info-card-detail ]">
+							<!-- Description -->
+							<p>
+								Terry Mainvis, alias Aynnas, notre génie.
+								“En revenant d’Inde, un matin, il s’est levé et il s’est dit “Syra!”
+								Plat préféré: Je mange pas, je me booste au café!
+							</p>
+							<div class="social">
+								<a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+								<a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+								<a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+								<a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+								<a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 propositionsandservice">
+				<div class="[ info-card ]">
+					<img style="width: 100%" src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xfa1/t1.0-9/417157_4897339837183_626079670_n.jpg" />
+					<div class="[ info-card-details ] animate">
+						<div class="[ info-card-header ]">
+							<h1> Xavier </h1>
+							<h3> alias Reivax </h3>
+						</div>
+						<div class="[ info-card-detail ]">
+							<!-- Description -->
+							<p>
+								Xavier Koma, alias Reivax, notre orateur.
+								Quand il se nourrit, son imagination devient incontrôlable...
+								Plat préféré: “Ma que, è la SpeedRabbit Pizza“
+							</p>
+							<div class="social">
+								<a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
+
+								<a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
+
+								<a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
+
+								<a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
+
+								<a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-4 propositionsandservice">
+				<div class="[ info-card ]">
+					<img style="width: 100%" src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xfa1/t1.0-9/417157_4897339837183_626079670_n.jpg" />
+					<div class="[ info-card-details ] animate">
+						<div class="[ info-card-header ]">
+							<h1> Syra </h1>
+						</div>
+						<div class="[ info-card-detail ]">
+							<!-- Description -->
+							<p>
+								On tenait à remercier les personnes qui ont permis de rendre ce projet possible, notre université, Anne-cécile, Nathalie, Rosalie et notre coach.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+
+<!-- FOOTER -->
+<div class="container">
+	<hr>
+	<div class="text-center center-block">
+		<p class="txt-railway">
+			- Tous droits réservés Syra-
+		</p>
+		<br />
+		<a href="https://www.facebook.com/projet.syra"><i id="social" class="fa fa-facebook-square fa-3x social-fb"></i></a>
+		<a href="https://twitter.com/Syra_project"><i id="social" class="fa fa-twitter-square fa-3x social-tw"></i></a>
+		<a href="https://plus.google.com/113836529573693150040"><i id="social" class="fa fa-google-plus-square fa-3x social-gp"></i></a>
+	</div>
+</div>
+
 
