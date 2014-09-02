@@ -67,14 +67,19 @@ class UsersController < ApplicationController
     @user.level.XPUser = 0
     @user.isPremium = false
     @user.isBanned = false
+    @user.confirmcode = UsersHelper.generate_code
     respond_to do |format|
       if @user.save
-        sign_in @user
+        #sign_in @user
         BadgesHelper.tryUnlockLvls(@user)
-        UserMailer.registration_confirmation(@user).deliver
+        #UserMailer.registration_confirmation(@user).deliver
+        UserMailer.send_code_confirmation(@user).deliver
         #UserMailer.welcome_email(@user).deliver
-        format.html { redirect_to :back, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
+
+        flash[:info] = "Veuillez consulter vos mails pour ainsi valider votre compte"
+        format.html { redirect_to '/signin', notice: 'User was successfully created.' }
+        #format.json { render action: 'show', status: :created, location: @user }
+>>>>>>> Stashed changes
       else
         @titre = "Sign up"
         format.html { render action: 'new' }

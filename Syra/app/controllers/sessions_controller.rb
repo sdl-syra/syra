@@ -15,6 +15,9 @@ class SessionsController < ApplicationController
     elsif user.isBanned
       flash[:error] = "Ce compte est suspendu"
       redirect_to signin_path
+    elsif !user.confirmcode.nil?
+      flash[:info] = "Veuillez consulter vos mails pour ainsi valider votre compte"
+      redirect_to signin_path
     else
       sign_in user
       redirect_to user

@@ -6,6 +6,8 @@
 	$(document).ready(function() {if ($("#errors_completion").length>0) $('#gotoProfile').tab('show');})
 </script>
 
+
+
 <% unless @user.errors.messages.empty? %>
 	<div id="errors_completion" class="container">
 		<div class="row col-lg-5 pull-right">

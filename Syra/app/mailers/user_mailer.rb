@@ -25,5 +25,10 @@ class UserMailer < ActionMailer::Base
     proposition.save
     #mail :to => user.email, :from => "noreply@syra.com", :subject => "Le mail de ta vie"
   end
-
+  
+  def send_code_confirmation(user)
+    @code = UsersHelper.generate_code
+    @url = "http://localhost:3000/code/" + user.confirmcode
+    mail :to => user.email, :from => "noreply@syra.com", :subject =>"Code de confirmation"
+  end
 end
