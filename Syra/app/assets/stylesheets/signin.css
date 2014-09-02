@@ -24,7 +24,7 @@ background: #fff;
 }
 
 .board .board-inner{
-    background: #fafafa url(http://subtlepatterns.com/patterns/geometry2.png);
+    background: #fafafa url(image/headersubbackground.png);
     background-size: 30%;
     top:0px;
 }
