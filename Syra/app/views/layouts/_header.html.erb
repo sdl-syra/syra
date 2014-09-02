@@ -7,21 +7,44 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
             	<%=image_tag "logo-syra.png", :class => "img-rounded img-responsive" %>
 			</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-center">
-              <li class="centrer-li"><a href="#"><div class="input-group">
-                <div class="input-group-addon"><span class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="left" title="Taper sur la touche Entrée une fois votre saisie terminée"></span></div>
+              <li class="centrer-li"><div class="padding-searchbar"><div class="input-group">
+                <div class="input-group-addon">
+                	<span class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="left" title="Taper sur la touche Entrée une fois votre saisie terminée"></span>
+                </div>
                 <input class="form-control" type="text" placeholder="Rechercher des personnes, des services, des hobbies, ..." style="width:400px;">
-              </div></a></li>
+              </div></div></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#post"><span class="glyphicon glyphicon-plus-sign" style="font-size:35px;"></span></a></li>
-              <li><a href="#notif"><span class="glyphicon glyphicon-bell" style="font-size:35px;"></span></a></li>
-              <li><a href="#profil"><%=image_tag "noavatar.png", :class => "img-circle img-responsive" %></a></li>
+              <li>
+              	<a href="<%= new_service_path %>"><span class="glyphicon glyphicon-plus-sign" style="font-size:35px;"></span></a>
+              </li>
+              <li>
+              	<a href="#notif" class="dropdown-toggle resetbadgenotif" data-toggle="dropdown">
+              		<span class="glyphicon glyphicon-bell" style="font-size:35px;"></span>
+					<% if (@nbNewNotifs>0) %>
+						<span id="badgeNotif" class="badge">
+						<%=@nbNewNotifs%>
+						</span>
+					<%end%></a>
+					<ul id="notifications_container" class="dropdown-menu scrollable-menu notifmenu" style="z-index: 1001">
+					Chargement...
+					</ul>
+              </li>
+              <li><a href="<%= user_path(current_user.id) %>">
+              	<% if @user.encrypted_password.nil? %>
+					<img src=<%=@user.avatar + "?type=normal" %> alt="some_text" class="img-circle img-responsive"/>
+				<% elsif @user.avatar.nil? %>
+					<%=image_tag "noavatar.png", :class => "img-circle img-responsive" %>
+				<%else %>
+					<%=image_tag "avatars/"+@user.avatar, :class => "img-circle img-responsive" %>
+				<%end%>
+              	</a></li>
             </ul>
           </div><!--/.nav-collapse -->
 

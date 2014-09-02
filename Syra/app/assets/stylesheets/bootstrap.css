@@ -6413,3 +6413,9 @@ button.close {
 .blacky{
   color: black;
 }
+
+.padding-searchbar{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	
+}
