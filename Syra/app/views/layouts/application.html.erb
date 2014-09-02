@@ -3,21 +3,25 @@
 	<head>
 		<title>Syra</title>
 		<%= stylesheet_link_tag   "application" %>
-		<%= stylesheet_link_tag   "fonts" %>
+		<%= stylesheet_link_tag   "bootstrap" %>
+		<%= stylesheet_link_tag   "bootstrap.min" %>
+		<%= stylesheet_link_tag   "bootstrap-theme" %>
+		<%= stylesheet_link_tag   "bootstrap-theme.min" %>
 
-		<!-- SB Admin CSS - Include with every page -->
+
 		<%= javascript_include_tag "application" %>
 		<%= javascript_include_tag "bootstrap" %>
 		<%= javascript_include_tag "plusone" %>
 		<%= javascript_include_tag "notifications" %>
 		<%= javascript_include_tag "messages" %>
+		
 		<%= yield :head %>
 		<%= csrf_meta_tags %>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Syra echande de services SEL">
 		<meta name="author" content="Maxime Boutrouille Terry Mainvis Maxime Prud'homme Julien Duquesnoy Xavier Koma">
-		<%= favicon_link_tag 'favicon.ico' %>
+		<%= favicon_link_tag 'favicon.png' %>
 	</head>
 
 	<body data-no-turbolink>

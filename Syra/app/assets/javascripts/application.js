@@ -11,15 +11,9 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
-//= require turbolinks
-
-//= require jquery.ui.all
 
 $(document).ready(function(){
     $('#carouselServices').carousel({
         interval: 4000
     });
 });
-
-//= require bootstrap
