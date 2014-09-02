@@ -37,13 +37,11 @@
 					</ul>
               </li>
               <li><a href="<%= user_path(current_user.id) %>">
-              	<% if @user.encrypted_password.nil? %>
-					<img src=<%=@user.avatar + "?type=normal" %> alt="some_text" class="img-circle img-responsive"/>
-				<% elsif @user.avatar.nil? %>
+              	<% if current_user.avatar.nil? %>
 					<%=image_tag "noavatar.png", :class => "img-circle img-responsive" %>
-				<%else %>
-					<%=image_tag "avatars/"+@user.avatar, :class => "img-circle img-responsive" %>
-				<%end%>
+				<% else %>
+					<%=image_tag "avatars/"+current_user.avatar, :class => "img-circle img-responsive" %>
+				<% end%>
               	</a></li>
             </ul>
           </div><!--/.nav-collapse -->
