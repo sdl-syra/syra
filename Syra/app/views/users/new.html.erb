@@ -77,7 +77,7 @@
                       </p>
                           
                       <p class="text-center">
-                   		 <a href="" class="btn btn-success btn-outline-rounded green"> Commencer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                   		 <a href="#profile" id="gotoProfile" data-toggle="tab" title="profile" class="btn btn-success btn-outline-rounded green"> Commencer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                		 </p>
               </div>
               <div class="tab-pane fade" id="profile">
@@ -110,7 +110,9 @@
 	                  </p>
                           
                       <p class="text-center">
-                		<a href="" class="btn btn-success btn-outline-rounded green"> Créer votre profil <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                			              <%= f.button :submit, class:'btn btn-success btn-outline-rounded green' do %>
+				  	 Créer votre profil! <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span>
+				  <%end%>
 	                </p>
                           
               </div>
@@ -121,7 +123,7 @@
                   </p>
                   
                   <p class="text-center">
-                    	<a href="" class="btn btn-success btn-outline-rounded green"> Recevez vos cadeaux <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                    	<a href="#settings" data-toggle="tab" title="blah blah" class="btn btn-success btn-outline-rounded green"> Recevez vos cadeaux <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                 	</p>
               </div>
               <div class="tab-pane fade" id="settings">
@@ -131,7 +133,7 @@
                   </p>
                           
                       <p class="text-center">
-                    	<a href="" class="btn btn-success btn-outline-rounded green"> Continuer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                    	<a href="#doner" data-toggle="tab" title="completed" class="btn btn-success btn-outline-rounded green"> Continuer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
 	                </p>
               </div>
               <div class="tab-pane fade" id="doner">
@@ -143,9 +145,7 @@
 				  N'oubliez pas, poster vos propres services, faites des propositions aux autres services, partager, débloquez des niveaux, des badges, ... Entre-aidez vous!
 				</p>
 	              <p class="text-center">
-	              <%= f.button :submit, class:'btn btn-success btn-outline-rounded green' do %>
-				  	 C'est parti! <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span>
-				  <%end%>
+	              <a href="#Aller à l'Acceuil de SYRA" class="btn btn-success btn-outline-rounded green"> C'est parti! <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                 </p>
 			</div>
 			<div class="clearfix"></div>
