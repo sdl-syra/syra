@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   validates_presence_of :lastName
   validates_presence_of :email
   validates_uniqueness_of :email
-  validates_length_of :password, :minimum => 8
+  validates_length_of :password, :minimum => 8, :on => :create
   validates :accept_conditions, :inclusion => {:in => [true]}
 
   belongs_to :level
