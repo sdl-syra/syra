@@ -106,6 +106,8 @@ Syra::Application.routes.draw do
   
   get '/header_search', :to => 'pages#header_search', :as => 'header_search'
   
+  get "code/:id", :to => 'users#unlock_user'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
