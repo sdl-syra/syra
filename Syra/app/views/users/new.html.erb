@@ -3,7 +3,12 @@
 <% end %>
 
 <script type="text/javascript">
-	$(document).ready(function() {if ($("#errors_completion").length>0) $('#gotoProfile').tab('show');})
+	$(document).ready(function() {if ($("#errors_completion").length>0) $('#form_profil').tab('show');});
+	function toggleMarker(nb) {
+		var li = $('#inscriptionTab').children('li');
+		li.removeClass('active');
+		(li.eq(nb)).addClass('active');
+	}
 </script>
 
 
@@ -12,26 +17,38 @@
 	<div id="errors_completion" class="container">
 		<div class="row col-lg-5 pull-right">
 			<% unless @user.errors.values.select{|a| a.include?("can't be blank")}.empty? %>
-				<div class="alert alert-danger alert-dismissible">Veuillez remplir tous les champs</div>
+				<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					Veuillez remplir tous les champs
+				</div>
 			<%end%>
 			<% if @user.errors.added? :password, :too_short, {count:8} %>
-				<div class="alert alert-danger alert-dismissible">Mot de passe trop court (minimum 8 caractères)</div>
+				<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					Mot de passe trop court (minimum 8 caractères)
+				</div>
 			<% end %>
 			<% if @user.errors.added? :email, :taken %>
-				<div class=" alert alert-danger alert-dismissible">Cet email est déjà pris</div>
+				<div class=" alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					Cet email est déjà pris
+				<div>
 			<% end %>
 			<%if @user.errors.has_key?(:accept_conditions)%>
-				<div class=" alert alert-danger alert-dismissible">Vous devez accepter les conditions d'utilisation</div>
+				<div class=" alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					Vous devez accepter les conditions d'utilisation
+				</div>
 			<%end%>
 		</div>
 	</div>
 <%end%>
 
 <div class="board">
-	<%= form_for @user, :html => { :class => 'form-signin', :role => 'form' } do |f| %>
+	
                     <!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
 	<div class="board-inner">
-		<ul class="nav nav-tabs" id="myTab">
+		<ul class="nav nav-tabs" id="inscriptionTab">
             <div class="liner"></div>
              <li class="active">
              	<a href="#home" data-toggle="tab" title="welcome">
@@ -41,7 +58,7 @@
                 </a>
              </li>
 
-              <li><a href="#profile" id="gotoProfile" data-toggle="tab" title="profile">
+              <li><a href="#profile" data-toggle="tab" title="profile">
                  <span class="round-tabs two">
                      <i class="glyphicon glyphicon-user"></i>
                  </span> 
@@ -61,7 +78,7 @@
             	 </a>
              </li>
 
-             <li><a href="#doner" data-toggle="tab" title="completed">
+             <li><a href="#doner" id="form_profil" data-toggle="tab" title="completed">
                  <span class="round-tabs five">
                       <i class="glyphicon glyphicon-ok"></i>
                  </span> </a>
@@ -79,11 +96,38 @@
                       </p>
                           
                       <p class="text-center">
-                   		 <a href="#profile" id="gotoProfile" data-toggle="tab" title="profile" class="btn btn-success btn-outline-rounded green"> Commencer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                   		 <a href="#profile" onclick="toggleMarker(1)" data-toggle="tab" title="profile" class="btn btn-success btn-outline-rounded green"> Commencer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                		 </p>
               </div>
               <div class="tab-pane fade" id="profile">
-                  <h3 class="head text-center">Creer votre profil Syra<sup>™</sup></h3>
+                  
+                   <p class="text-center">
+               		 <a href="#messages" onclick="toggleMarker(2)" data-toggle="tab" title="profile" class="btn btn-success btn-outline-rounded green"> Commencer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+           		 </p>  
+              </div>
+              <div class="tab-pane fade" id="messages">
+                  <h3 class="head text-center">Recevez des cadeaux!</h3>
+                  <p class="narrow text-center">
+                      Pour votre première inscription sur l'application, Syra vous offre 30HP, ainsi qu'un mois premium!
+                  </p>
+                  
+                  <p class="text-center">
+                    	<a href="#settings" onclick="toggleMarker(3)" data-toggle="tab" title="blah blah" class="btn btn-success btn-outline-rounded green"> Recevez vos cadeaux <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                	</p>
+              </div>
+              <div class="tab-pane fade" id="settings">
+                  <h3 class="head text-center">Publiez un service</h3>
+                  <p class="narrow text-center">
+                      Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
+                  </p>
+                          
+                      <p class="text-center">
+                    	<a href="#doner" onclick="toggleMarker(4)" data-toggle="tab" title="completed" class="btn btn-success btn-outline-rounded green"> Continuer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+	                </p>
+              </div>
+              <div class="tab-pane fade" id="doner"><br />
+              	<%= form_for @user, :html => { :class => 'form-signin', :role => 'form' } do |f| %>
+					<h3 class="head text-center">Creer votre profil Syra<sup>™</sup></h3>
                       <div class="container center_div">
                       	
                           <div class="form-group <%if @user.errors.has_key?(:lastName)%> has-error <%end%>"> 
@@ -112,46 +156,14 @@
 	                  </p>
                           
                       <p class="text-center">
-                			              <%= f.button :submit, class:'btn btn-success btn-outline-rounded green' do %>
-				  	 Créer votre profil! <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span>
-				  <%end%>
+			              <%= f.button :submit, class:'btn btn-success btn-outline-rounded green' do %>
+						  	 Créer votre profil! <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span>
+						  <%end%>
 	                </p>
-                          
-              </div>
-              <div class="tab-pane fade" id="messages">
-                  <h3 class="head text-center">Recevez des cadeaux!</h3>
-                  <p class="narrow text-center">
-                      Pour votre première inscription sur l'application, Syra vous offre 30HP, ainsi qu'un mois premium!
-                  </p>
-                  
-                  <p class="text-center">
-                    	<a href="#settings" data-toggle="tab" title="blah blah" class="btn btn-success btn-outline-rounded green"> Recevez vos cadeaux <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                	</p>
-              </div>
-              <div class="tab-pane fade" id="settings">
-                  <h3 class="head text-center">Publiez un service</h3>
-                  <p class="narrow text-center">
-                      Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                  </p>
-                          
-                      <p class="text-center">
-                    	<a href="#doner" data-toggle="tab" title="completed" class="btn btn-success btn-outline-rounded green"> Continuer <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-	                </p>
-              </div>
-              <div class="tab-pane fade" id="doner">
-				  <div class="text-center">
-				    <i class="img-intro icon-checkmark-circle"></i>
-				</div>
-				<h3 class="head text-center">Merci! Vous êtes super! <span style="color:#f48260;">♥</span></h3>
-				<p class="narrow text-center">
-				  N'oubliez pas, poster vos propres services, faites des propositions aux autres services, partager, débloquez des niveaux, des badges, ... Entre-aidez vous!
-				</p>
-	              <p class="text-center">
-	              <a href="#Aller à l'Acceuil de SYRA" class="btn btn-success btn-outline-rounded green"> C'est parti! <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                </p>
+        		<% end %>
 			</div>
 			<div class="clearfix"></div>
 			</div>
 
-	<% end %>
+
 </div>

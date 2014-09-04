@@ -43,6 +43,12 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    if signed_in?
+     respond_to do |format|
+      format.html { redirect_to root_path }
+      format.json { head :no_content }
+    end
+    end
   end
 
   # GET /users/1/edit
@@ -61,25 +67,18 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.address = Address.new
-    @user.level = Level.new
-    @user.level.levelUser = 1
-    @user.level.XPUser = 0
+    @user.level = Level.new(levelUser:1,XPUser:0)
     @user.isPremium = false
     @user.isBanned = false
     @user.confirmcode = UsersHelper.generate_code
     respond_to do |format|
       if @user.save
-        #sign_in @user
         BadgesHelper.tryUnlockLvls(@user)
-        #UserMailer.registration_confirmation(@user).deliver
+        UserMailer.registration_confirmation(@user).deliver
         UserMailer.send_code_confirmation(@user).deliver
-        #UserMailer.welcome_email(@user).deliver
-
         flash[:info] = "Veuillez consulter vos mails pour ainsi valider votre compte"
         format.html { redirect_to '/signin', notice: 'User was successfully created.' }
-      #format.json { render action: 'show', status: :created, location: @user }
       else
-        @titre = "Sign up"
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

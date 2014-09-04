@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('.resetbadgenotif').click(function() {
+	$('.handlenotifs').click(function() {
 		if ($("#notifications_container").children().length==0) {
 			$.ajax({
 			  url: "/get_notifs_header",

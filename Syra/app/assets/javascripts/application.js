@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
 
 $(document).ready(function(){
     $('#carouselServices').carousel({

@@ -1,3 +1,5 @@
+
+
 <div class="navbar navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -30,7 +32,7 @@
               	<a href="<%= new_service_path %>"><span class="glyphicon glyphicon-plus-sign" style="font-size:35px;"></span></a>
               </li>
               <li>
-              	<a href="#notif" class="dropdown-toggle resetbadgenotif" data-toggle="dropdown">
+              	<a href="#notif" class="dropdown-toggle handlenotifs" data-toggle="dropdown">
               		<span class="glyphicon glyphicon-bell" style="font-size:35px;"></span>
 					<% if (@nbNewNotifs>0) %>
 						<span id="badgeNotif" class="badge">
@@ -75,6 +77,7 @@
                     <li><a href="#">Tutoriel</a></li>
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">Paramètres</a></li>
+                    <li><%= link_to "Déconnexion", signout_path, :method => :delete %></li>
                   </ul>
                 </li>
               </ul>
