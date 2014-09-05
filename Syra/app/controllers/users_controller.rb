@@ -66,11 +66,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    @user.address = Address.new
-    @user.level = Level.new(levelUser:1,XPUser:0)
-    @user.isPremium = false
-    @user.isBanned = false
-    @user.confirmcode = UsersHelper.generate_code
+    @user.assign_attributes(address:Address.new, level:Level.new(levelUser:1, XPUser:0),
+    isPremium:false, isBanned:false, confirmcode:UsersHelper.generate_code)
     respond_to do |format|
       if @user.save
         BadgesHelper.tryUnlockLvls(@user)
