@@ -107,10 +107,7 @@ class UsersController < ApplicationController
   end
 
   def update_address
-    if current_user && params[:id]==current_user.id.to_s
-      @user.address.label = params[:user][:address]
-    @user.address.save
-    end
+    @user.address.update_attribute(:label,params[:user][:address]) if current_user && params[:id]==current_user.id.to_s
     respond_to do |format|
       format.html { redirect_to @user, notice: 'User was successfully updated.' }
       format.json { head :no_content }
@@ -119,13 +116,12 @@ class UsersController < ApplicationController
   end
 
   def upload_avatar
-    if (not params[:user].nil? && current_user && params[:id]==current_user.id.to_s)
+    if (!params[:user].nil? && current_user && params[:id]==current_user.id.to_s)
       uploaded_io = params[:user][:avatar]
       File.open(Rails.root.join('app', 'assets','images/avatars', @user.id.to_s+'avatar.png'), 'wb') do |file|
         file.write(uploaded_io.read)
       end
-      @user.avatar = @user.id.to_s+'avatar.png'
-    @user.save
+      @user.update_attribute(:avatar,@user.id.to_s+'avatar.png')
     end
     respond_to do |format|
       format.html { redirect_to @user, notice: 'User was successfully updated.' }
