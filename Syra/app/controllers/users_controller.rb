@@ -83,15 +83,12 @@ class UsersController < ApplicationController
   end
 
   def unlock_user
-    #get le user grace au code ( il est dans params[:id] )
-    @newuser = User.where("confirmcode = ? ", params[:id]).first
-    
-    if !@newuser.nil?
+    @newuser = User.where(confirmcode:params[:id]).first
+    unless @newuser.nil?
       @newuser.update_attribute(:confirmcode, nil)
-      flash[:info] = "Votre compte est bien activé !"
-      redirect_to signin_path
+      flash[:info] = "Votre compte est désormais activé !"
     end
-    
+    redirect_to signin_path
   end
 
   # PATCH/PUT /users/1
