@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar, :update_hobbies, :unlock_badge]
-  before_filter :redirect_signup, unless: :signed_in?, :only => [:index]
+  before_action :redirect_signup, unless: :signed_in?, except: [:new,:create]
   before_action :restrict_access_admin, only: [:admin]
   # GET /users
   # GET /users.json
@@ -57,9 +57,6 @@ class UsersController < ApplicationController
 
   def followers
     @user=current_user
-    if not signed_in?
-      redirect_to '/signup'
-    end
   end
 
   # POST /users
@@ -107,7 +104,7 @@ class UsersController < ApplicationController
   end
 
   def update_address
-    @user.address.update_attribute(:label,params[:user][:address]) if current_user && params[:id]==current_user.id.to_s
+    @user.address.update_attribute(:label,params[:user][:address]) if params[:id]==current_user.id.to_s
     respond_to do |format|
       format.html { redirect_to @user, notice: 'User was successfully updated.' }
       format.json { head :no_content }
@@ -116,7 +113,7 @@ class UsersController < ApplicationController
   end
 
   def upload_avatar
-    if (!params[:user].nil? && current_user && params[:id]==current_user.id.to_s)
+    if !params[:user].nil? && params[:id]==current_user.id.to_s
       uploaded_io = params[:user][:avatar]
       File.open(Rails.root.join('app', 'assets','images/avatars', @user.id.to_s+'avatar.png'), 'wb') do |file|
         file.write(uploaded_io.read)
@@ -134,7 +131,7 @@ class UsersController < ApplicationController
     @user = current_user
     @user.follow!(params[:user])
 
-    BadgesHelper.tryUnlock(Badge.find(6),current_user) if current_user
+    BadgesHelper.tryUnlock(Badge.find(6),current_user)
 
     userSuivi = User.find(params[:user])
     username = userSuivi.name + ' ' + userSuivi.lastName
@@ -161,7 +158,7 @@ class UsersController < ApplicationController
   end
 
   def unlock_badge
-    if current_user && current_user.isAdmin? && params[:user].present? && params[:user][:badge].present?
+    if current_user.isAdmin? && params[:user].present? && params[:user][:badge].present?
       BadgesHelper.tryUnlock(Badge.find(params[:user][:badge].to_i),@user)
     end
     respond_to do |format|
@@ -196,7 +193,7 @@ class UsersController < ApplicationController
   end
 
   def update_hobbies
-    if current_user && params[:id]==current_user.id.to_s
+    if params[:id]==current_user.id.to_s
       @user.hobbies.delete_all
       params[:user][:hobby_ids].delete_if{|i| i.empty?}
       @user.hobbies = Hobby.find(params[:user][:hobby_ids])
