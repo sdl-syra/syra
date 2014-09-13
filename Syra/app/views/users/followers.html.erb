@@ -1,64 +1,41 @@
-<div class="page-header">
-  <h1>Social</h1>
+<div class="container" style="padding-top:200px">
+      <!-- Une ligne contenant 3 fiches service ;) --> 
+      <div class="row">
+      	<%  @user.following.order("favorite DESC").each do |follow| %>
+        <!-- Début d'une fiche service ;) --> 
+        <div class="col-xs-6 col-sm-4 propositionsandservice">
+          <!-- Lors de l'intégration à rails, il faut limiter le nombre de caractère au titre, en sortie, on ne voudra que 14 caractères par exemple, pour ne pas que la taille en hauteur de la fiche déborde. Contacter Xav-->
+          <div class="centrage">
+          	<% if @user.avatar.nil? %>
+				<%=image_tag "noavatar.png", :class => "img-circle-cat" %>
+			<%else %>
+				<%=image_tag "avatars/"+follow.avatar, :class => "img-circle-cat" %>
+			<%end%>
+			<h3><%= follow.name + ' ' + follow.lastName %></h3>
+		  <div>
+            <hr/>
+          </div>
+          <a href="<%= favor_user_path(:user => follow)%>">
+          	<div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiFavorites" title="Mettre en favoris">
+          	<span class="glyphicon glyphicon-star-empty"></span>
+          	</div>
+          </a>
+          <div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiSocial" title="Voir le profil">
+          	<%= link_to favor_user_path(:user => follow) %>
+
+          	<span class="glyphicon glyphicon-eye-open"></span></div>
+          <div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiTrash" title="Ne plus suivre le membre"><span class="glyphicon glyphicon-remove"></span></div>
+        </div>
+      </div>
+      <%end %>
+      
+  </div>
 </div>
 
-<nav class="navbar-default navbar-static-side" role="navigation">
-	<div class="sidebar-collapse">
-	<ul class="nav" id="side-menu">
-		<li>
-				<a id="avatarcontainer" class="text-center">
-				<span class="text-center" <%if @user==current_user%>id="currentavatar"<%end%>>
-					<% if @user.avatar.nil? %>
-						Aucune image
-					<%else %>
-						<%=image_tag "avatars/"+@user.avatar, :class => "style_image" %>
-					<%end%>
-				</span>
-				</a>
-		</li>
-		<li>
-			<h5 class="text-center">Le top 3</h5>
-			<% top3 = User.joins(:level).order('levelUser DESC').limit(3) %>
-				<% top3.each_with_index do |top,index| %>
-					<% username = top.name + ' ' + top.lastName %>
-					<div class="text-center">
-						<%= index+1 %> -
-						<%= link_to username, user_path(top) %>
-					</div>
-				<% end %>
-		</li>
-		<li>
-				<h5 class="text-center">Les derniers utilisateurs enregistrés</h5>
-				<% last5 = User.order('created_at DESC').limit(5) %>
-				<% last5.each_with_index do |last,index| %>
-					<% username = last.name + ' ' + last.lastName %>
-					<div class="text-center">
-						<%= index+1 %> -
-						<%= link_to username, user_path(last) %>
-					</div>
-				<% end %>
-		</li>
-	</ul>
-	</div>
-</nav>
 
 
-<div id="page-wrapper">
-	<!-- /.row -->
-	<div class="row">
-		<div class="col-md-8">
 
-			<div class="span7 text-center">
-				<h4>Les utilisateurs</h4>
-			</div>
-			<div class="row">
-				<div class="col-md-2 col-md-offset-4">
-					<a id="followerB" class="btn btn-default"> Que je suis </a>
-				</div>
-				<div class="col-md-6">
-					<a id="followingB" class="btn btn-default"> Qui me suivent </a>
-				</div>
-			</div>
+
 
 <table class="table table-hover" id="followertable">
 	<thead>
@@ -79,71 +56,3 @@
 		<%end %>
 	</tbody>
 </table>
-
-<table class="table table-hover" id="followingtable">
-	<thead>
-	</thead>
-	<tbody>
-		<%  @user.follower.each do |follow| %>
-		<tr>
-			<% username = follow.name + ' ' + follow.lastName %>
-			<td>
-				<div class="text-center">
-					<%= link_to username, user_path(follow) %>
-				</div>
-			</td>
-		</tr>
-		<%end %>
-	</tbody>
-	</table>
-
-
-</div>
-</div>
-
-	<br />
-	<br />
-	<div class="row">
-		<div class="col-md-8">
-
-			<div class="span7 text-center">
-				<h4>Ca pourrait vous interesser !</h4>
-
-			</div>
-		</div>
-	</div>
-
-
-</div>
-
-
-<script>
-
-$(document).ready(function(){
-	$("#followerB").click(function() {
-	$("#followingtable").hide();
-	$("#followingB").attr('class', 'btn btn-default')
-	$("#followerB").attr('class', 'btn btn-info')
-	  $( "#followertable" ).slideDown( "fast", function() {
-	  	
-	    $( "#followertable" ).show();
-
-	  });
-	});
-});
-
-$(document).ready(function(){
-	$("#followingB").click(function() {
-	  $("#followertable").hide();
-	  $("#followerB").attr('class', 'btn btn-default')
-	  $("#followingB").attr('class', 'btn btn-info')
-	  $( "#followingtable" ).slideDown( "fast", function() {
-	    
-	    $( "#followingtable" ).show();
-	  });
-	});
-});
-
-
-
-</script>

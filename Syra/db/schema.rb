@@ -82,11 +82,6 @@ ActiveRecord::Schema.define(version: 20140902090610) do
   add_index "comments", ["article_id"], name: "index_comments_on_article_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
-  create_table "conversations", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "evaluations", force: true do |t|
     t.integer  "note"
     t.text     "comment"
@@ -163,7 +158,7 @@ ActiveRecord::Schema.define(version: 20140902090610) do
   create_table "propositions", force: true do |t|
     t.boolean  "isPaid"
     t.boolean  "isAccepted"
-    t.text     "motifCancelled"
+    t.boolean  "motifCancelled"
     t.date     "proposition"
     t.text     "comment"
     t.integer  "user_id"
@@ -171,7 +166,6 @@ ActiveRecord::Schema.define(version: 20140902090610) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "price"
-    t.string   "code"
   end
 
   add_index "propositions", ["service_id"], name: "index_propositions_on_service_id"
@@ -180,6 +174,7 @@ ActiveRecord::Schema.define(version: 20140902090610) do
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
+    t.boolean  "favorite"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
