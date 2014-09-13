@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140913143323) do
+ActiveRecord::Schema.define(version: 20140913152435) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -83,6 +83,11 @@ ActiveRecord::Schema.define(version: 20140913143323) do
   add_index "comments", ["article_id"], name: "index_comments_on_article_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
+  create_table "conversations", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "evaluations", force: true do |t|
     t.integer  "note"
     t.text     "comment"
@@ -147,11 +152,11 @@ ActiveRecord::Schema.define(version: 20140913143323) do
 
   create_table "opinions", force: true do |t|
     t.text     "avis"
-    t.integer  "note"
     t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "note"
   end
 
   add_index "opinions", ["service_id"], name: "index_opinions_on_service_id"
@@ -216,6 +221,7 @@ ActiveRecord::Schema.define(version: 20140913143323) do
     t.string   "image"
     t.string   "address"
     t.boolean  "private"
+    t.float    "note"
   end
 
   add_index "services", ["address_id"], name: "index_services_on_address_id"

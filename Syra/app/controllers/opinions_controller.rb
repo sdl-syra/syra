@@ -26,7 +26,8 @@ class OpinionsController < ApplicationController
   # POST /opinions.json
   def create
     @opinion = Opinion.new(opinion_params)
-
+    opinions = Opinion.where(service_id:@opinion.service.id)
+    @opinion.note = get_moyenne(opinions << @opinion)
     respond_to do |format|
       if @opinion.save
        flash[:avisSuccess] = "Votre avis est bien enregistré !"
@@ -65,6 +66,12 @@ class OpinionsController < ApplicationController
   end
 
   private
+  
+    def get_moyenne(opinions)
+      notes = opinions.select{|o| o.note}
+      return notes.inject{ |sum, note| sum + note }.to_f / opinions.size
+    end
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_opinion
       @opinion = Opinion.find(params[:id])
