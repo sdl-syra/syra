@@ -4,6 +4,8 @@ class PagesController < ApplicationController
   
   def accueil
     redirect_to current_user if signed_in?
+    nbServicesDansCarousel = 12
+    @lesServices = Service.where(isFinished: false).limit(nbServicesDansCarousel).order("RANDOM()")
   end
   
   def header_search
