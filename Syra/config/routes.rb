@@ -90,7 +90,7 @@ Syra::Application.routes.draw do
 
   get '/map', :to => 'pages#map'
   
-  get '/equipe', :to => 'pages#equipe'
+  get '/market', :to => 'pages#market'
   
   get '/contact', :to => 'pages#contact'
   
