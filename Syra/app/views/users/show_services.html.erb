@@ -1,0 +1,36 @@
+  
+  
+  <div class="container" style="padding-top:200px">
+      <!-- Une ligne contenant 3 fiches service ;) -->
+      <div class="row">
+        <!-- Début d'une fiche service ;) --> 
+        
+        
+        <%  @user.services.each do |s| %>
+        <div class="col-xs-6 col-sm-4 propositionsandservice">
+          <!-- Lors de l'intégration à rails, il faut limiter le nombre de caractère au titre, en sortie, on ne voudra que 14 caractères par exemple, pour ne pas que la taille en hauteur de la fiche déborde. Contacter Xav-->
+	        <div class="centrage"><%=image_tag "pictocategories/picto-cat-bri.png", :class => "img-circle-cat" %>
+	        <h3>   <%= truncate(s.title, :length => 20) %> </h3>
+	        <div>
+	            <hr/>
+	        </div>
+         		 <div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiSocial" title="Partager votre service"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+         		 <div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiEdit" title="Editer votre service"><span class="glyphicon glyphicon-edit"></span></div>
+          		 <a href="<%= service_path(s)%>">
+          		 	  <div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiTrash" title="Supprimer votre service"><span class="glyphicon glyphicon-trash"></span></div>
+          		 </a>
+        	</div>
+     	 </div>
+      	<!-- Fin d'une fiche service ;) --> 
+		<%end%>
+
+  		</div>
+
+  </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+  </html>
