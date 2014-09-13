@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   before_action :set_user, only: [:header_search]
   
   def accueil
+    redirect_to current_user if signed_in?
   end
   
   def header_search
