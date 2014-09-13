@@ -11,7 +11,13 @@
 			<%else %>
 				<%=image_tag "avatars/"+follow.avatar, :class => "img-circle-cat" %>
 			<%end%>
-			<h3><%= follow.name + ' ' + follow.lastName %></h3>
+			<h3><% username = follow.name + ' ' + follow.lastName %>
+				<% if username.length <= 20 %>
+					<%= username %>
+				<% else %>
+					<%= follow.name + ' ' + follow.lastName.first() %>
+				<% end %>
+			</h3>
 		  <div>
             <hr/>
           </div>
