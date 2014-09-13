@@ -61,6 +61,8 @@ Syra::Application.routes.draw do
   get '/create_service', :to => 'services#new'
   get '/recherche', :to=> 'services#index'
 
+  get '/users/:id/show_services', :to => 'users#show_services'
+
   post '/users/:id/update_hobbies', :to => 'users#update_hobbies', :as => 'update_hobbies'
   post '/users/:id/update_address', :to => 'users#update_address', :as => 'update_address'
   post '/hobbies/:id/toggle_inscription', :to => 'hobbies#toggle_inscription', :as => 'toggle_inscription'

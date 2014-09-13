@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar, :update_hobbies, :unlock_badge]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar, :update_hobbies, :unlock_badge, :show_services]
   before_action :require_login, unless: :signed_in?, except: [:new,:create]
   before_action :restrict_access_admin, only: [:admin]
   # GET /users
