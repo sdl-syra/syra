@@ -20,39 +20,18 @@
           	<span class="glyphicon glyphicon-star-empty"></span>
           	</div>
           </a>
-          <div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiSocial" title="Voir le profil">
-          	<%= link_to favor_user_path(:user => follow) %>
-
+          <a href="<%= user_path(follow) %>">
+          	<div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiSocial" title="Voir le profil">
           	<span class="glyphicon glyphicon-eye-open"></span></div>
-          <div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiTrash" title="Ne plus suivre le membre"><span class="glyphicon glyphicon-remove"></span></div>
+          </a>
+          <a href="<%= unfollow_user_path(follow,:user=>follow)%>">
+          <div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiTrash" title="Ne plus suivre le membre">
+          	<span class="glyphicon glyphicon-remove"></span>
+          </div>
+      	  </a>
         </div>
       </div>
       <%end %>
       
   </div>
 </div>
-
-
-
-
-
-
-<table class="table table-hover" id="followertable">
-	<thead>
-	</thead>
-	<tbody>
-		<%  @user.following.order("favorite DESC").each do |follow| %>
-			<tr>
-				<% username = follow.name + ' ' + follow.lastName %>
-				<td>
-					<div class="text-center">
-					<%= link_to username, user_path(follow) %>
-					<%= link_to 'Mettre en favoris',
-                 	favor_user_path(:user => follow), :class => 'btn btn-primary' 
-                 	%>
-					</div>
-				</td>
-			</tr>
-		<%end %>
-	</tbody>
-</table>
