@@ -16,10 +16,12 @@ Category.delete_all
 Proposition.delete_all
 
 
-c1 = Category.create(name: 'informatique')
-c2 = Category.create(name: 'jardinage')
-c3 = Category.create(name: 'aide a domicile')
-c4 = Category.create(name: 'musique')
+c1 = Category.create(name: 'Informatique',image: 'picto-cat-inf.png')
+c2 = Category.create(name: 'Cours',image: 'picto-cat-cou.png')
+c3 = Category.create(name: 'Jardinage',image: 'picto-cat-jar.png')
+c4 = Category.create(name: 'Musique')
+c5 = Category.create(name: 'Aide a domicile')
+c6 = Category.create(name: 'Bricolage',image: 'picto-cat-bri.png')
 
 a1 = Address.create(label:'185 Residence Sophora 59283 Moncheaux', y: 50.4528437, x: 3.0832348999999795,region:'Nord-Pas-de-Calais', ville: 'Moncheaux')
 l1 = Level.create(levelUser:1,XPUser:0)

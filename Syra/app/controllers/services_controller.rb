@@ -1,6 +1,7 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy, :resolveReports]
   before_action :set_suggestions_demandes, only: [:index]
+  before_action :require_login, unless: :signed_in?
   before_action :set_report, only: [:show]
   before_filter :redirect_signup, unless: :signed_in?, :only => [:new]
   skip_before_filter :verify_authenticity_token, :only => :set_geolocation

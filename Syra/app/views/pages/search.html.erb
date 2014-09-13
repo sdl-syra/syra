@@ -1,21 +1,43 @@
- <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
- 
-<div class="container">
-	<div class="row col-md-offset-3 col-md-6">
-		<div class="panel panel-default"> 
-			<b>Service(s)</b><br/>
-			<% if @services.empty? %> Aucun résultat <% end %>
-			<% @services.each do |service|%>
-				<%= service.title %> <%= service.description %> <%= service.price %> etc.. <br/>
-			<% end %>
-		</div>
-		
-		<div class="panel panel-default"> 
-			<b>Utilisateur(s)</b><br/>
-			<% if @users.empty? %> Aucun résultat <% end %>
+
+ <div class="container" style="padding-top:150px">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <table class="table">
+          <thead>
+            <h3>Membres</h3>
+          </thead>
+          <tbody>
+          	<% if @users.empty? %><tr><td> Aucun résultat </td></tr><% end %>
 			<% @users.each do |user|%>
-				<%= user.name %> <%= user.lastName %> etc... <br/>
-			<% end %>
-		</div>
-	</div>
-</div>
+	            <tr>
+	              <td>
+	              	<% unless user.avatar.nil? %>
+	              		<%=image_tag "avatars/"+user.avatar, :class => "img-circle img-responsive" %>
+	              	<% else %>
+	              		<%=image_tag "noavatar.png", :class => "img-circle img-responsive" %>
+	              	<% end %>
+	              </td>
+	              <td><%= link_to user.name+" "+user.lastName, user_path(user.id) %></td>
+	            </tr>
+	        <% end %>
+          </tbody>
+        </table>
+        <table class="table">
+          <thead>
+            <h3>Services</h3>
+          </thead>
+          <tbody>
+          	<% if @services.empty? %><tr></tr> Aucun résultat <% end %>
+          	<% @services.each do |service|%>
+	            <tr>
+	            <% unless service.category.image.nil? %>
+	              <td><%=image_tag "pictocategories/"+service.category.image, :class => "img-circle img-responsive" %> </td>
+	            <% end %>
+	              <td><%= link_to service.title, service_path(service.id) %></td>
+	            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
