@@ -87,9 +87,11 @@
           <div class="block-text rel zmin">
             <a title="<%= s.title %>" href="<%= service_path(s) %>"><%= truncate(s.title, :length => 20) %></a>
             <div class="mark">
-            	<% if !s.note.nil? %> 
+            	<% if 1==1 #!s.note.nil? 
+            		%> 
             	Note moyenne : 
-            		<% noteService=s.note.round(1) %>
+            		<% noteService=3 #noteService=s.note.round(1) 
+            		%>
             		<% if noteService>=5 %>
 						<span class="rating-input">
 		            		<span class="glyphicon glyphicon-star"></span>
@@ -165,17 +167,17 @@
       <% i+=1 %>
         
       <% end %>
-        
-        
-        
-                   
->>>>>>> Stashed changes
-      </div>
-    </div>
+
   </div>
-<<<<<<< Updated upstream
-=======
+		<a class="left carousel-control" href="#carousel-reviews" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-reviews" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
 </div>
 </div>
 <% end %>
->>>>>>> Stashed changes
+      </div>
+    </div>
+  </div>
