@@ -27,7 +27,7 @@ class OpinionsController < ApplicationController
   def create
     @opinion = Opinion.new(opinion_params)
     opinions = Opinion.where(service_id:@opinion.service.id)
-    @opinion.note = get_moyenne(opinions << @opinion)
+    @opinion.service.update_attribute(:note,get_moyenne(opinions << @opinion))
     respond_to do |format|
       if @opinion.save
        flash[:avisSuccess] = "Votre avis est bien enregistré !"
