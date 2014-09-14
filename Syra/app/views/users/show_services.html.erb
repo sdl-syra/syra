@@ -1,5 +1,4 @@
-  
-  
+
   <div class="container" style="padding-top:200px">
       <!-- Une ligne contenant 3 fiches service ;) -->
       <div class="row">
@@ -7,6 +6,40 @@
         
         
         <%  @user.services.each do |s| %>
+            <div id="<%=s.id%>" >
+            	
+     		<div style="display:none">
+				<div class="info_service title"> <%=s.title%> </div>
+				<div class="info_service author"> <%=s.user.name%> </div>
+				<div class="info_service desc"> <%=s.description%> </div>
+				<div class="info_service price"> <%=s.price%> </div>
+       		</div>
+        	
+              <div class="modal fade" id="modalshare" tabindex="-1" role="dialog" aria-labelledby="modalshareLabel" aria-hidden="true">
+        <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modalshareLabel">
+                	Partager ce service avec :
+                </h4>
+            </div>
+            <div class="modal-body">
+            	
+            	
+            		<div class="btn-group facebook fa fa-facebook"></div>
+        	   	    <a data-original-title="Facebook" rel="tooltip"  href="#" class="btn btn-facebook" data-placement="left">
+        	   	    	
+				    	<button data-id="<%=s.id%>" class="fa-facebook">Facebook</button>
+					</a>
+					<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://localhost:3000/services/1">Tweet</a>
+
+            </div>
+         </div>
+        </div>
+    </div>
+        
+
         <div class="col-xs-6 col-sm-4 propositionsandservice">
           <!-- Lors de l'intégration à rails, il faut limiter le nombre de caractère au titre, en sortie, on ne voudra que 14 caractères par exemple, pour ne pas que la taille en hauteur de la fiche déborde. Contacter Xav-->
 	        <div class="centrage"><%=image_tag "pictocategories/picto-cat-bri.png", :class => "img-circle-cat" %>
@@ -27,3 +60,25 @@
   		</div>
 
   </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	 $('.fa-facebook').click(function() {
+	 	var infos = $("#"+$(this).data("id")).find($(".info_service"));
+	 	var id = $(this).data("id");
+	 	var author = infos.filter($(".author"));
+		var title = infos.filter($(".title"));
+		var description = infos.filter($(".desc"));
+		var price = infos.filter($(".price"));
+	 	FB.ui({
+			method: 'feed',
+		     name: title.text(),
+		     link: 'http://localhost:3000/services/' + id,
+		     picture: 'http://fbrell.com/f8.jpg',
+		     description: description.text(),
+		     message: 'Profitez de ce service !'
+		}, function(response){});
+	 	
+	 	
+	 }); 
+});
+</script>
