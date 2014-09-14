@@ -19,23 +19,40 @@
 					<%= s.price%>
 				</div>
 			</div>
-			<div class="modal fade" id="modalshare" tabindex="-1" role="dialog" aria-labelledby="modalshareLabel" aria-hidden="true">
+			<div class="modal fade" id="modalshare" tabindex="1" role="dialog" aria-labelledby="modalshareLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 								&times;
 							</button>
-							<h4 class="modal-title" id="modalshareLabel"> Partager ce service avec : </h4>
+							<h4 class="modal-title" id="modalshareLabel"> C'est trop cool ? Faites le savoir ! </h4>
 						</div>
 						<div class="modal-body">
-							<div class="col-md-offset-3 col-md-5">
-							 <a class="btn btn-block btn-social btn-facebook">
-							    <i data-id="<%= s.id%>" class="fa fa-facebook"></i> Partager sur facebook
-							  </a>
+							
+								<div class="container">
+									
+									<div class="row col-md-offset-1 col-md-4">
+										 <a data-id="<%= s.id%>" class="btn btn-block btn-social btn-facebook">
+										    <i  class="fa fa-facebook"></i> Partager sur facebook
+										 </a>
+										 
+										<!--<a class="btn btn-block btn-social btn-twitter" href="http://twitter.com/share"  data-url="http://localhost:3000/services/1" >
+										    <i class="fa fa-twitter"></i> Partager sur Twitter
+										</a>-->
+										  
+										  <!-- Twitter -->
+
+																	  
+										  
+										<a class="btn btn-block btn-social btn-twitter twitter-share-button" href="http://twitter.com/share" data-url="http://localhost:3000/services/1">
+											 <i class="fa fa-twitter"></i> Partager sur Twitter
+										</a>
+									  </div>
+								</div>
 							</div>
 							  
-							<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://localhost:3000/services/1">Tweet</a>
+
 						</div>
 					</div>
 				</div>
@@ -83,4 +100,21 @@
 				});
 			});
 		});
+		
+		
+function centerModal() {
+    $(this).css('display', 'block');
+    var $dialog = $(this).find(".modal-dialog");
+    var offset = ($(window).height() - $dialog.height()) / 2;
+    // Center modal vertically in window
+    $dialog.css("margin-top", offset);
+}
+
+$('.modal').on('show.bs.modal', centerModal);
+$(window).on("resize", function () {
+    $('.modal:visible').each(centerModal);
+});
+		
+window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));		
+		
 	</script>
