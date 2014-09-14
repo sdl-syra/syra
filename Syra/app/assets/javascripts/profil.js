@@ -5,13 +5,6 @@ var toggleHobbies = function(){
     });
 };
 
-var toggleBirthday = function(){
-    $('#currentbirthday').click(function() {  
-        $('#birthdayedit').toggle();
-        $('#currentbirthday').hide();
-    });
-};
-
 var toggleBiography = function(){
     $('#currentbiography').click(function() {  
         $('#biographyedit').toggle();
@@ -49,15 +42,6 @@ var launchModal = function() {
     });
 };
 
-var toggleAddress = function(){
-    $('#currentaddress').click(function() {  
-        $('#addressedit').toggle();
-        $('#currentaddress').hide();
-    });
-};
-
 $(document).ready(toggleHobbies);
-$(document).ready(toggleBirthday);
 $(document).ready(toggleBiography);
-$(document).ready(toggleAddress);
 $(document).ready(launchModal);

@@ -64,9 +64,6 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# Use birthday for birthday dates
-gem "birthday"
-
 # For jquery-ui, not supported anymore by jquery-rails
 gem "jquery-ui-rails"
 
