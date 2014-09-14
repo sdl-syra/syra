@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "plugins/social-buttons/social-buttons" %>
 <div class="container" style="padding-top:200px">
 	<!-- Une ligne contenant 3 fiches service ;) -->
 	<div class="row">
@@ -28,10 +29,16 @@
 							<h4 class="modal-title" id="modalshareLabel"> Partager ce service avec : </h4>
 						</div>
 						<div class="modal-body">
-							<a data-original-title="Facebook" rel="tooltip" href="#" class="btn btn-facebook" data-placement="left">
+							
+							
+
+							
+							<a class="btn btn-block btn-social btn-facebook" >
 							<button data-id="<%= s.id%>" class="fa-facebook">
 								Facebook
 							</button> </a>
+							
+
 							<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://localhost:3000/services/1">Tweet</a>
 						</div>
 					</div>
