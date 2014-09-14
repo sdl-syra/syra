@@ -28,7 +28,7 @@
     .onoffswitch-inner:before {
       content: "Voir propositions reçues";
       padding-left: 7px;
-      background-color: #2FFF3D;
+      background-color: #4099FF;
       color: #FFFFFF;
     }
     .onoffswitch-inner:after {
