@@ -73,8 +73,7 @@
         <!-- Début d'une fiche service ;) --> 
         
         <div class="row">
-        <% propMap = @user.services.map { |s| s.propositions} %>
-        <% propMap.each do |servs| %>
+        <% @propMap.each do |servs| %>
         <%  servs.each do |p| %>
         <% userName = p.service.user.name + " "  + p.service.user.lastName %>
           <!-- Début d'une fiche service ;) --> 

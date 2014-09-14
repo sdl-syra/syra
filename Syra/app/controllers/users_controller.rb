@@ -205,6 +205,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show_propositions
+    @propMap = @user.services.map { |s| s.propositions}
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
