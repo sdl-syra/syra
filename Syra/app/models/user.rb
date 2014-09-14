@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   
   
   has_many :authentifications, :dependent => :delete_all
-  acts_as_birthday :birthday
+
   def apply_omniauth(auth)
 
     self.email = auth['extra']['raw_info']['email']
