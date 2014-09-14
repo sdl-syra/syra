@@ -65,6 +65,17 @@
 			                </div>
                        </figcaption>
                     </figure>
+                    <% if @user!=current_user %>
+                      <% if @user.followedBy?(current_user) == nil %>
+                        <a href="<%=follow_user_path(@user, :user => @user)%>">
+                        <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Suivre </button>
+                        </a>
+                      <% else %>
+                        <a href="<%=unfollow_user_path(@user, :user => @user)%>">
+                        <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Ne plus suivre </button>
+                        </a>
+                      <% end %>
+                    <% end %>
                 </div>
             </div>            
             <div class="col-xs-12 divider text-center">
@@ -87,12 +98,12 @@
             <div class="col-xs-12 divider text-center">
                 <div class="col-xs-12 col-sm-4 emphasis">
                     <h2><strong> 12 </strong></h2>                    
-                    <p><small>Followers</small></p>
-                    <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Suivre </button>
+                    <p><small>Abonnés</small></p>
+                    <button class="btn btn-primary btn-block"><span class="fa fa-plus-circle"></span> Visualiser </button>
                 </div>
                 <div class="col-xs-12 col-sm-4 emphasis">
                     <h2><strong>30</strong></h2>                    
-                    <p><small>following</small></p>
+                    <p><small>Abonnements</small></p>
                     <button class="btn btn-primary btn-block"><span class="fa fa-users"></span> Visualiser</button>
                 </div>
                 <div class="col-xs-12 col-sm-4 emphasis">
