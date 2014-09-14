@@ -1,0 +1,38 @@
+<div class="container" style="padding-top:200px">
+      <!-- Une ligne contenant 3 fiches service ;) --> 
+      <div class="row">
+      	<%  @user.follower.each do |follow| %>
+        <!-- Début d'une fiche service ;) --> 
+        <div class="col-xs-6 col-sm-4 propositionsandservice">
+          <!-- Lors de l'intégration à rails, il faut limiter le nombre de caractère au titre, en sortie, on ne voudra que 14 caractères par exemple, pour ne pas que la taille en hauteur de la fiche déborde. Contacter Xav-->
+          <div class="centrage">
+          	<% if @user.avatar.nil? %>
+				<%=image_tag "noavatar.png", :class => "img-circle-cat" %>
+			<%else %>
+				<%=image_tag "avatars/"+follow.avatar, :class => "img-circle-cat" %>
+			<%end%>
+			<h3><% username = follow.name + ' ' + follow.lastName %>
+				<% if username.length <= 20 %>
+					<%= username %>
+				<% else %>
+					<%= follow.name + ' ' + follow.lastName.first() %>
+				<% end %>
+			</h3>
+		  <div>
+            <hr/>
+          </div>
+          <a href="<%= user_path(follow) %>">
+          	<div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiSocial" title="Voir le profil">
+          	<span class="glyphicon glyphicon-eye-open"></span></div>
+          </a>
+          <a href="<%= unfollow_user_path(follow,:user=>follow)%>">
+          <div class="col-xs-6 col-sm-4 propositionsandserviceInside pasiTrash" title="Ne plus suivre le membre">
+          	<span class="glyphicon glyphicon-remove"></span>
+          </div>
+      	  </a>
+        </div>
+      </div>
+      <%end %>
+      
+  </div>
+</div>

@@ -88,7 +88,9 @@
                 <li class="divider-vertical"></li>
                 <li><%= link_to "Mes propositions", show_propositions_path(current_user.id) %></li>
                 <li class="divider-vertical"></li>
-                <li><%= link_to "Amis", followers_path %></li>
+                <li><%= link_to "Abonnements", followers_path %></li>
+                <li class="divider-vertical"></li>
+                <li><%= link_to "Abonnés", followed_path %></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li><a href="<%= market_path%>"> <span class="glyphicon glyphicon-star"></span> Premium</a></li>

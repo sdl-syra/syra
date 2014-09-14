@@ -76,6 +76,7 @@ Syra::Application.routes.draw do
   get '/followers/favor', :to => 'users#favor', :as => 'favor_user'
   get '/users/:id/unfollow', :to => 'users#unfollow', :as => 'unfollow_user'
   get '/followers', :to => 'users#followers', :as => 'followers'
+  get '/followed', :to => 'users#followed', :as => 'followed'
   get '/services/:id/accepterProp', :to => 'services#accepterProp', :as => 'accepter_prop_service'
   get '/services/:id/refuserProp', :to => 'services#refuserProp', :as => 'refuser_prop_service'
   get '/services/:id/nouvelleProp', :to => 'services#nouvelleProp', :as => 'nouvelle_prop_service'

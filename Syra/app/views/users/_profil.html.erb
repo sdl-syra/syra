@@ -97,14 +97,14 @@
             </div>
             <div class="col-xs-12 divider text-center">
                 <div class="col-xs-12 col-sm-4 emphasis">
-                    <h2><strong> 12 </strong></h2>                    
-                    <p><small>Abonnés</small></p>
-                    <button class="btn btn-primary btn-block"><span class="fa fa-plus-circle"></span> Visualiser </button>
+                    <h2><strong><%= @user.follower.length %></strong></h2>                    
+                    <p><small>Abonné(s)</small></p>
+                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modalAbonnes"><span class="fa fa-plus-circle"></span> Visualiser </button>
                 </div>
                 <div class="col-xs-12 col-sm-4 emphasis">
-                    <h2><strong>30</strong></h2>                    
-                    <p><small>Abonnements</small></p>
-                    <button class="btn btn-primary btn-block"><span class="fa fa-users"></span> Visualiser</button>
+                    <h2><strong><%= @user.following.length %></strong></h2>                    
+                    <p><small>Abonnement(s)</small></p>
+                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modalAbonnements"><span class="fa fa-plus-circle"></span> Visualiser</button>
                 </div>
                 <div class="col-xs-12 col-sm-4 emphasis">
                     <h2><strong>34</strong></h2>                    
@@ -151,6 +151,102 @@
 		  <%= f.file_field :avatar %>
 		  <%= f.submit 'Valider', :class => 'btn btn-primary' %>
 		<% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ABONNEMENTS -->
+<div class="modal fade" id="modalAbonnements" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Abonnement(s) de <%= @user.name + " " + @user.lastName %></h4>
+      </div>
+      <div class="modal-body">
+            <%  @user.following.order("favorite DESC").each do |follow| %>
+            <div class="row">
+          <div class="col-md-2 col-md-offset-2">
+            <% if @user.avatar.nil? %>
+              <%=image_tag "noavatar.png" , :size => "40" %>
+            <%else %>
+              <%=image_tag "avatars/"+follow.avatar, :class => "img-circle-cat", :size => "40" %>
+            <%end%>
+          </div>
+          <div class="col-md-8">
+            <h4>
+            <% username = follow.name + ' ' + follow.lastName %>
+             <% if username.length <= 20 %>
+                <%= username %>
+             <% else %>
+                <%= follow.name + ' ' + follow.lastName.first() %>
+              <% end %>
+           </h4>
+          </div>
+        <div>
+            <hr/>
+        </div>
+
+      </div>
+         
+      <%end %>
+      
+  </div>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- MODAL ABONNES -->
+<!-- MODAL ABONNEMENTS -->
+<div class="modal fade" id="modalAbonnes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Abonné(s) de <%= @user.name + " " + @user.lastName %></h4>
+      </div>
+      <div class="modal-body">
+            <%  @user.follower.each do |follow| %>
+            <div class="row">
+          <div class="col-md-2 col-md-offset-2">
+            <% if @user.avatar.nil? %>
+              <%=image_tag "noavatar.png" , :size => "40" %>
+            <%else %>
+              <%=image_tag "avatars/"+follow.avatar, :class => "img-circle-cat", :size => "40" %>
+            <%end%>
+          </div>
+          <div class="col-md-8">
+            <h4>
+            <% username = follow.name + ' ' + follow.lastName %>
+             <% if username.length <= 20 %>
+                <%= username %>
+             <% else %>
+                <%= follow.name + ' ' + follow.lastName.first() %>
+              <% end %>
+           </h4>
+          </div>
+        <div>
+            <hr/>
+        </div>
+
+      </div>
+         
+      <%end %>
+      
+  </div>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

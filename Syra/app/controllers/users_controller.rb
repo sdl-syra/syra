@@ -59,6 +59,10 @@ class UsersController < ApplicationController
     @user=current_user
   end
 
+  def followed
+    @user=current_user
+  end
+
   # POST /users
   # POST /users.json
   def create
