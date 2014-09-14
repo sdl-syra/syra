@@ -2,7 +2,7 @@
 	<li><a href="#">Aucune notification</a></li>
 <%else%>
 	<% @notifsHeader.each do |n| %>
-		<li <%unless n.is_checked?%>style='background-color:#F0E68C'<%end%>><a href="/<%=n.url%>" class="notifcustom">
+		<li <%unless n.is_checked?%>style='background-color:lightblue'<%end%>><a href="/<%=n.url%>" class="notifcustom">
 			<span class="<%= n.glyph_cat %>"></span> &nbsp;
 			<%if time_ago_in_words(n.created_at).end_with?"j"%>
 				<i><%=n.created_at.to_formatted_s(:day_month_year)%></i>

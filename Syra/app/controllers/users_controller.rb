@@ -20,24 +20,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @message = Message.new
-    if (!params[:get].present? || params[:get]=="profil")
-      @badges = Badge.all
-      @userBadges = []
-      @userBadges += @user.badges
-      @hobby = Hobby.new
-      @hobbies = Hobby.all
-      @percentXP = UsersHelper.getPercent(@user.level.XPUser)
-    end
-    if (params[:get].present? && params[:get]=="echanges")
-      @offered = Service.where(user:@user,isGiven:true).order(created_at: :desc, isFinished: :asc)
-      @offeredUnfinished = Service.where(user:@user,isGiven:true,isFinished:false).count
-      @asked = Service.where(user:@user,isGiven:false).order(created_at: :desc, isFinished: :asc)
-      @askedUnfinished = Service.where(user:@user,isGiven:false,isFinished:false).count
-      @propositions = Proposition.where("user_id = ? AND (isPaid is NULL OR isPaid = ?)", @user.id, false).order(created_at: :desc)
-      @propositions = @propositions.select { |p| !p.service.isFinished?}
-      @historique = Proposition.where(user:@user, isPaid:true).order(created_at: :desc)
-    end
+    @badges = Badge.all
   end
 
   # GET /users/new

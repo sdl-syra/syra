@@ -1,15 +1,15 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-offset-2 col-lg-8">
-			<h2 style="text-align:left"><small>Badges</small></h2>
+			<h2><small>Badges</small></h2>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<% @badges.each do |b|%>
 						<span class="col-lg-2">
-							<% if @userBadges.include?(b)%>
+							<% if @user.badges.include?(b)%>
 								<%= image_tag "SYRA-BADGE/SYRA-BADGE-"+b.id.to_s+".png", class:'img-responsive', title:b.label%>
 							<% else %>
-								<% if current_user && current_user.isAdmin? %>
+								<% if signed_in? && current_user.isAdmin? %>
 									<%= form_for @user, url: {action: "unlock_badge"}, method: :post do |f| %>
 										<%= f.hidden_field :badge, :value => b.id %>
 										<%= f.submit 'Déverouiller', data: {confirm: 'Déverouiller ce badge ?'}, :src => "/assets/SYRA-BADGE/SYRA-BADGE-locked.png", 
