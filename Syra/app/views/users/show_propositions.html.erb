@@ -1,6 +1,22 @@
   
-  
-  <div class="container" style="padding-top:200px">
+  <%= stylesheet_link_tag 'propositions' %>
+
+  <div style="padding-top:100px">
+  <div class="row">
+    <div class="col-md-2 col-md-offset-5">
+    <div class="onoffswitch">
+      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+      <label class="onoffswitch-label" for="myonoffswitch">
+        <div class="onoffswitch-inner"></div>
+        <div class="onoffswitch-switch"></div>
+      </label>
+    </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="container" style="padding-top:20px" id="emises">
+    
       <!-- Une ligne contenant 3 fiches service ;) -->
       <div class="row">
         <!-- Début d'une fiche service ;) --> 
@@ -48,3 +64,81 @@
   		</div>
 
   </div>
+
+
+  <div class="container" style="padding-top:20px" id="recues">
+    
+      <!-- Une ligne contenant 3 fiches service ;) -->
+      <div class="row">
+        <!-- Début d'une fiche service ;) --> 
+        
+        <div class="row">
+        <% propMap = @user.services.map { |s| s.propositions} %>
+        <% propMap.each do |servs| %>
+        <%  servs.each do |p| %>
+        <% userName = p.service.user.name + " "  + p.service.user.lastName %>
+          <!-- Début d'une fiche service ;) --> 
+          <div class="col-xs-6 col-sm-4 propositionsandservice">
+           <!-- Lors de l'intégration à rails, il faut limiter le nombre de caractère au titre, en sortie, on ne voudra que 14 caractères par exemple, pour ne pas que la taille en hauteur de la fiche déborde. Contacter Xav-->
+          <div class="centrage">
+            <h4 class="timeline-title">Pour <em><%= p.service.title %></em></h4>
+            <%=image_tag "pictocategories/picto-cat-bri.png", :class => "img-circle-cat" %>
+                    <p><small class="text-muted"><i class="glyphicon glyphicon-user"></i>
+                      <a href="<%= user_path(p.service.user) %>"><%= userName %> </a></small>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>    <%= p.updated_at.strftime("%F") %></small></p>
+
+            <hr/>
+          </div>
+
+          <%= link_to(service_path(p.service)) do%>
+          <button class="col-xs-6 col-sm-4 propositionsandserviceInside pasiSocial" title="Voir le service">
+            <span class="glyphicon glyphicon-eye-open"></span>
+          </button>
+          <% end %>
+
+          <a href="<%=edit_proposition_path(p,:service=>p.service.id)%>">
+          <button class="col-xs-6 col-sm-4 propositionsandserviceInside pasiEdit" title="Editer votre proposition">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          </a >
+
+          <%= link_to(proposition_path(p), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Etes-vous sûr ?')) }) do %>
+          <button class="col-xs-6 col-sm-4 propositionsandserviceInside pasiTrash" title="Supprimer la demande">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+          <% end %>
+        </div>
+      
+      
+        <!-- Fin d'une fiche service ;) --> 
+    <%end%>
+    <% end %>
+  </div>
+
+      </div>
+
+  </div>
+
+  <script>
+
+$('#myonoffswitch').on('change', function() {
+    if ($(this).is(':checked')) {
+         /* on affiche les propositions émises */
+         $( "#recues").hide();
+         $("#emises").slideDown( "slow", function() {
+      
+            $( "#emises" ).show();
+        });   
+    } else {
+         /* on affiche les propositions recues */  
+         $("#emises").hide(); 
+         $("#recues").slideDown( "slow", function() {
+      
+            $( "#recues" ).show();
+        });
+    }
+});
+
+
+
+</script>
