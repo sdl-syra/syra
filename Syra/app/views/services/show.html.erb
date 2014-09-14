@@ -163,11 +163,12 @@
   	
   	
     <div id="<%=@service.id%>" >
-	<div class="info_service title"> <%=@service.title%> </div>
-	<div class="info_service author"> <%=@service.user.name%> </div>
-	<div class="info_service desc"> <%=@service.description%> </div>
-	<div class="info_service price"> <%=@service.price%> </div>
-	
+    <div style="display:none">
+		<div class="info_service title"> <%=@service.title%> </div>
+		<div class="info_service author"> <%=@service.user.name%> </div>
+		<div class="info_service desc"> <%=@service.description%> </div>
+		<div class="info_service price"> <%=@service.price%> </div>
+	</div>
 	<li class="list-group-item">
 		
 	    <a data-original-title="Facebook" rel="tooltip"  href="#" class="btn btn-facebook" data-placement="left">
