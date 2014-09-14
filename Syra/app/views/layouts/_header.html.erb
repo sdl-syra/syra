@@ -84,9 +84,9 @@
               <ul class="nav navbar-nav navbar-center">
                 <li><a href="#">Timeline</a></li>
                 <li class="services"></li>
-                <li><a href="#">Mes services</a></li>
+                <li><%= link_to 'Mes Services', show_services_path(current_user.id) %></li>
                 <li class="divider-vertical"></li>
-                <li><a href="#propositions">Mes propositions</a></li>
+                <li><%= link_to "Mes propositions", show_propositions_path(current_user.id) %></li>
                 <li class="divider-vertical"></li>
                 <li><%= link_to "Amis", followers_path %></li>
               </ul>
