@@ -29,16 +29,12 @@
 							<h4 class="modal-title" id="modalshareLabel"> Partager ce service avec : </h4>
 						</div>
 						<div class="modal-body">
-							
-							
-
-							
-							<a class="btn btn-block btn-social btn-facebook" >
-							<button data-id="<%= s.id%>" class="fa-facebook">
-								Facebook
-							</button> </a>
-							
-
+							<div class="col-md-offset-3 col-md-5">
+							 <a class="btn btn-block btn-social btn-facebook">
+							    <i data-id="<%= s.id%>" class="fa fa-facebook"></i> Partager sur facebook
+							  </a>
+							</div>
+							  
 							<a class="twitter-share-button" href="http://twitter.com/share" data-url="http://localhost:3000/services/1">Tweet</a>
 						</div>
 					</div>
@@ -69,7 +65,7 @@
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('.fa-facebook').click(function() {
+			$('.btn-facebook').click(function() {
 				var infos = $("#" + $(this).data("id")).find($(".info_service"));
 				var id = $(this).data("id");
 				var author = infos.filter($(".author"));
