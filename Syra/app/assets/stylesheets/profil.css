@@ -43,3 +43,32 @@ span.tags
     font-weight: bold;
     padding: 2px 4px;
     }
+    
+.simili_bip {
+  padding: 2px;
+  cursor: hand;
+  cursor: pointer;
+  -moz-transition: background 0.5s linear;
+  -o-transition: background 0.5s linear;
+  -webkit-transition: background 0.5s linear;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  display:inline-block;
+}
+.simili_bip:hover {
+  padding-right: 1.5em;
+  background: url("image/jolicrayon.png") no-repeat right;
+  background-color: lightblue;
+  box-shadow : 2px 2px 3px gray;
+  -moz-box-shadow : 2px 2px 3px gray;
+  -webkit-box-shadow : 2px 2px 3px gray;
+  -khtml-box-shadow : 2px 2px 3px gray;
+}
+.currenthobbies {
+	display:inline-block;
+	margin-bottom:2px;
+}

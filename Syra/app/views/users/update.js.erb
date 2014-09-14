@@ -1,11 +1,4 @@
-$('#subprofil').html("<%= j render 'subprofil' %>");
-
-var toggleBirthday = function(){
-    $('#currentbirthday').click(function() {  
-        $('#birthdayedit').toggle();
-        $('#currentbirthday').toggle();
-    });
-};
+$('#profil').html("<%= j render 'profil' %>");
 
 var toggleBiography = function(){
     $('#currentbiography').click(function() {  
@@ -14,13 +7,4 @@ var toggleBiography = function(){
     });
 };
 
-var toggleAddress = function(){
-    $('#currentaddress').click(function() {  
-        $('#addressedit').toggle();
-        $('#currentaddress').hide();
-    });
-};
-
-$(document).ready(toggleBirthday);
 $(document).ready(toggleBiography);
-$(document).ready(toggleAddress);
