@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syra est un système d'échanges local SEL informatisé">
+  <meta name="author" content="Syra Labs">
+  <link rel="icon" href="img/favicon.png">
+
+  <title>Syra - Système d'échanges local informatisé</title>
+
+  <link href="css/bootstrap.css" rel="stylesheet">
+
+  <style type="text/css">
+      .panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px; }
+    </style>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    </head>
+
+    <body>
+
+      <div class="navbar navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="img/logo-syra.png" class="img-rounded img-responsive"/></a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-center">
+              <li class="centrer-li"><a href="#"><div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="left" title="Taper sur la touche Entrée une fois votre saisie terminée"></span></div>
+                <input class="form-control" type="text" placeholder="Rechercher des personnes, des services, des hobbies, ..." style="width:400px;">
+              </div></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#post"><span class="glyphicon glyphicon-plus-sign" style="font-size:35px;"></span></a></li>
+              <li><a href="#notif"><span class="glyphicon glyphicon-bell" style="font-size:35px;"></span></a></li>
+              <li><a href="#profil"><img src="img/profil.svg" alt="profil" class="img-circle img-responsive"></a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+        </div>
+        <div class="navbar navbar-default navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".main-nav">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse main-nav">
+              <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-home"></span><strong><span class="blacky">  Acceuil</span></strong><span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Amis</a></li>
+                    <li><a href="#">Évenements</a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">À propos de Syra</li>
+                    <li><a href="#">Magasin</a></li>
+                    <li><a href="#">Tutoriel</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Paramètres</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#"><strong><span class="blacky">Administration</span></strong></a></li>
+                  </ul>
+                </li>
+              </ul>
+              <!-- Ne pas oublier de mettre en Strong et un span avec la class blacky ^^ dans le menu où l'on se trouve-->
+              <ul class="nav navbar-nav navbar-center">
+                <li><a href="#">Timeline</a></li>
+                <li class="services"></li>
+                <li><a href="#">Mes services</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="#propositions">Mes propositions</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="#Amis">Amis</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#post"><span class="glyphicon glyphicon-star"></span> Premium</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-top:150px" id="Dashboard">
+      <div class="panel panel-default">
+        <h1 class="text-center"><strong>Dashboard</strong></h1>
+      </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> Accès rapide</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-12 text-center">
+                          <a href="#Utilisateurs" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-user"></span><br/>Utilisateurs</a>
+                          <a href="#Hobbies" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-heart"></span> <br/>Hobbies</a>
+                          <a href="#Services" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-transfer"></span><br/>Services</a>
+                          <a href="#Propositions" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-comment"></span><br/>Propositions</a>
+                          <a href="#Avis" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-star-empty"></span><br/>Avis</a>
+                          <a href="#Categories" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-folder-open"></span><br/>Catégories</a>
+                          <a href="#HP" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-usd"></span><br/>HP</a>
+                          <a href="#Reports" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-bell"></span><br/>Reports</a>
+                          <a href="#Blog" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-th-list"></span><br/>blog</a>
+
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> Blog</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                      <form role="form">
+                        <input type="text" class="form-control" id="title" placeholder="Titre"><br/>
+                        <textarea class="form-control" rows="3" placeholder="Contenu"></textarea><br/>    
+                        <button type="submit" class="btn btn-default">Envoyer</button>
+                      </form>                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+     
+      
+  </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function() {
+          $('a[href^="#"]').click( function() { // Au clic sur un lien
+            var target = $(this).attr('href');
+            var offsetNavbar = 130;
+            var speed = 500; // Durée de l'animation (en ms)
+            $('html, body').animate( { scrollTop: $(target).offset().top-offsetNavbar }, speed ); // Go
+            return false;
+          });
+        });
+    </script>
+  </body>
+  </html>
