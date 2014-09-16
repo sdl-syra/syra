@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :follower, :through => :reverse_relationships, :source => :follower
   has_many :services
   has_many :propositions
+  has_many :reports
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

@@ -68,8 +68,7 @@ class OpinionsController < ApplicationController
   private
   
     def get_moyenne(opinions)
-      notes = opinions.select{|o| o.note}
-      return notes.inject { |sum, n| sum + n }.to_f / opinions.size
+      return (opinions.map{|o| o.note}.inject{|sum, n| sum + n}.to_f / opinions.length).round(2)
     end
     
     # Use callbacks to share common setup or constraints between actions.

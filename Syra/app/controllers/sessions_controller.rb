@@ -1,5 +1,6 @@
 
 class SessionsController < ApplicationController
+  
   def new
     @titre = "S'identifier"
   end
@@ -20,6 +21,7 @@ class SessionsController < ApplicationController
       redirect_to signin_path
     else
       sign_in user
+      set_last_sign_in(user)
       redirect_to user
     end
   end
@@ -34,6 +36,10 @@ class SessionsController < ApplicationController
     position << 3.17
     position << 2.0
     session[:current_position] = position
+  end
+  
+  def set_last_sign_in(user)
+    user.update_attribute(:last_sign_in_at,Time.now)
   end
 
 end

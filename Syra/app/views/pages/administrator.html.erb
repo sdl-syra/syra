@@ -1,306 +1,388 @@
-<div id="wrapper">
-	<div>
-		<div class="row">
-			<div class="col-lg-12">
-				<h1><i class="fa fa-dashboard"></i> Dashboard <small> de Syra</small></h1></br>
-				<div class="alert alert-success alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-						&times;
-					</button>
-					<strong>Bienvenue sur le dashboard de Syra!</strong> Vous trouverez toutes les infos utiles de Syra, le nombre de services proposés, le nombre de membres, les membres premium, etc.
-				</div>
-			</div>
-		</div><!-- /.row -->
+<div class="container" style="padding-top:150px" id="Dashboard">
+  <div class="panel">
+    <h1 class="text-center"><strong>Dashboard</strong></h1>
+  </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="glyphicon glyphicon-bookmark"></span> Accès rapide</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-6 col-md-12 text-center">
+                      <a href="#Utilisateurs" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-user"></span><br/>Utilisateurs</a>
+                      <a href="#Hobbies" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-heart"></span> <br/>Hobbies</a>
+                      <a href="#Services" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-transfer"></span><br/>Services</a>
+                      <a href="#Propositions" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-comment"></span><br/>Propositions</a>
+                      <a href="#Avis" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-star-empty"></span><br/>Avis</a>
+                      <a href="#Categories" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-folder-open"></span><br/>Catégories</a>
+                      <a href="#HP" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-usd"></span><br/>HP</a>
+                      <a href="#Reports" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-bell"></span><br/>Reports</a>
+                      <a href="#Blog" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-th-list"></span><br/>blog</a>
 
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-6">
-								<i class="fa fa-users fa-5x"></i>
-							</div>
-							<div class="col-xs-6 text-right">
-								<p class="announcement-heading">
-									<strong><%= @users.length %></strong>
-								</p>
-								<p class="announcement-text">
-									utilisateurs!
-								</p>
-							</div>
-						</div>
-					</div>
-					<a href="/administrator/users">
-					<div class="panel-footer announcement-bottom">
-						<div class="row">
-							<div class="col-xs-6">
-								Voir nos utilisateurs
-							</div>
-							<div class="col-xs-6 text-right">
-								<i class="fa fa-arrow-circle-right"></i>
-							</div>
-						</div>
-					</div> </a>
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="panel panel-warning">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-6">
-								<i class="fa fa-comments fa-5x"></i>
-							</div>
-							<div class="col-xs-6 text-right">
-								<p class="announcement-heading">
-									<%= @services.length %>
-								</p>
-								<p class="announcement-text">
-									services en ce moment
-								</p>
-							</div>
-						</div>
-					</div>
-					<a href="/administrator/services">
-					<div class="panel-footer announcement-bottom">
-						<div class="row">
-							<div class="col-xs-6">
-								Voir tous les services
-							</div>
-							<div class="col-xs-6 text-right">
-								<i class="fa fa-arrow-circle-right"></i>
-							</div>
-						</div>
-					</div> </a>
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="panel panel-danger">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-6">
-								<i class="fa fa-exclamation-triangle  fa-5x"></i>
-							</div>
-							<div class="col-xs-6 text-right">
-								<p class="announcement-heading">
-									<%= @unresolvedReports.length %>
-								</p>
-								<p class="announcement-text">
-									reports non traités
-								</p>
-							</div>
-						</div>
-					</div>
-					<a href="<%= reports_path %>">
-					<div class="panel-footer announcement-bottom">
-						<div class="row">
-							<div class="col-xs-6">
-								Voir les reports
-							</div>
-							<div class="col-xs-6 text-right">
-								<i class="fa fa-arrow-circle-right"></i>
-							</div>
-						</div>
-					</div> </a>
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-6">
-								<i class="fa fa-money fa-5x"></i>
-							</div>
-							<div class="col-xs-6 text-right">
-								<p class="announcement-heading">
-									<% totalHP = 0 %>
-									<%  @users.each do |user| %>
-										<% if not user.isAdmin?%>
-											<% totalHP = totalHP + user.money.to_i %>
-										<% end %>
-									<% end %>
-									<%= totalHP %>
-								</p>
-								<p class="announcement-text">
-									HP au total!
-								</p>
-							</div>
-							<div class="col-xs-6 text-right">
-								<p class="announcement-heading">
-								<% if @users.length != 0 %>
-									<%= totalHP/@users.length%>
-								<% else %>
-									0
-								<% end %>
-								</p>
-								<p class="announcement-text">
-									HP/user en moyenne
-								</p>
-							</div>
-						</div>
-					</div>
-					<a href="#">
-					<div class="panel-footer announcement-bottom">
-						<div class="row">
-							<div class="col-xs-6">
-								Injecter de l'argent
-							</div>
-							<div class="col-xs-6 text-right">
-								<i class="fa fa-arrow-circle-right"></i>
-							</div>
-						</div>
-					</div> </a>
-				</div>
-			</div>
-		</div><!-- /.row -->
-
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Statistiques</h3>
-					</div>
-					<div class="panel-body">
-						<div id="morris-chart-area"></div>
-					</div>
-				</div>
-			</div>
-		</div><!-- /.row -->
-
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-key"></i> Liste des admins</h3>
-					</div>
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table class="table table-bordered table-hover table-striped tablesorter">
-								<thead>
-									<tr>
-										<th> # <i class="fa fa-sort"></i></th>
-										<th>Nom</th>
-										<th>Prénom</th>
-										<th>E-mail</th>
-									</tr>
-								</thead>
-								<tbody>
-									<%  @users.each do |user| %>
-									<%  if user.isAdmin? %>
-									<tr>
-										<td><%= link_to user.id, user_path(user) %></td>
-										<td><%= user.name %></td>
-										<td><%= user.lastName %></td>
-										<td><%= user.email %></td>
-									</tr>
-									<% end %>
-									<% end %>
-								</tbody>
-							</table>
-						</div>
-						<div class="text-right">
-							<a href="#">Voir tous les admins <i class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-clock-o"></i> Activités récentes (à développer)</h3>
-					</div>
-					<div class="panel-body">
-						<div class="list-group">
-							<a href="#" class="list-group-item"> <span class="badge">just now</span> <i class="fa fa-calendar"></i> (à développer) </a>
-						</div>
-						<div class="text-right">
-							<a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-star "></i> Compte Premium </h3>
-					</div>
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table class="table table-bordered table-hover table-striped tablesorter">
-								<thead>
-									<tr>
-										<th> # <i class="fa fa-sort"></i></th>
-										<th>Nom</th>
-										<th>Prénom</th>
-										<th>E-mail</th>
-									</tr>
-								</thead>
-								<tbody>
-									<%  @users.each do |user| %>
-									<%  if user.isPremium? %>
-									<tr>
-										<td><%= link_to user.id, user_path(user) %></td>
-										<td><%= user.name %></td>
-										<td><%= user.lastName %></td>
-										<td><%= user.email %></td>
-									</tr>
-									<% end %>
-									<% end %>
-								</tbody>
-							</table>
-						</div>
-						<div class="text-right">
-							<a href="#">Voir tous les premiums <i class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!-- /.row -->
-		<div class="row">
-			<div class="col-lg-8">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-key"></i> Liste des criminels</h3>
-					</div>
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table class="table table-bordered table-hover table-striped tablesorter">
-								<thead>
-									<tr>
-										<th> # <i class="fa fa-sort"></i></th>
-										<th>Nom</th>
-										<th>Prénom</th>
-										<th>E-mail</th>
-										<th>Motif de l'exil</th>
-										<th>Date de l'exil</th>
-									</tr>
-								</thead>
-								<tbody>
-									<%  @criminals.each do |user| %>
-									<tr>
-										<td><%= link_to user.id, user_path(user) %></td>
-										<td><%= user.name %></td>
-										<td><%= user.lastName %></td>
-										<td><%= user.email %></td>
-										<td><%= user.banReason %></td>
-										<td><%= user.updated_at.strftime("%d/%m/%y")%></td>
-										<td>
-											<%= form_for user do |f| %>
-											  <%= f.hidden_field :isBanned, :value => "false" %>
-											  <%= f.hidden_field :banReason, :value => "" %>
-											  <%= f.submit "Pardonner", class:'btn btn-success' %>
-											<% end %>
-										</td>
-									</tr>
-									<% end %>
-								</tbody>
-							</table>
-						</div>
-						<div class="text-right">
-							<a href="<%=administrator_criminals_path%>">Voir tous les criminels <i class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div><!-- /#page-wrapper -->
-</div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-md-4" id="Utilisateurs">
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <h3 class="panel-title"> <span class="glyphicon glyphicon-bell"></span> Utilisateurs
+            <a class="pull-right" href="#Dashboard" role="button" title="Retour en haut de la page"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block" role="button">
+             Page d'administration
+          </a>
+        </div>
+         <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-stats"></span> <strong>Utilisateurs enregistrés</strong> : <%=@nbUsers%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-ban-circle"></span> <strong>Utilisateurs bannis</strong> : <%=@nbUsersBanned%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-globe"></span> <strong>Utilisateurs connectés</strong> : <%=@nbUsersConnected%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-star"></span> <strong>Utilisateurs premium</strong> : <%=@nbUsersPremium%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-user"></span> <strong>Top 5 des utilisateurs les plus actifs</strong> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+            <!-- Table -->
+            <table class="table table-hover">
+              <thead><th>#</th><th>Utilisateur</th><th>Echanges</th></thead>
+              <tbody>
+              	<% @mapMostActiveUsers.each_with_index do |(user,nbProps),i| %>
+                	<tr><td><%=i+1%></td><td><a href="#"><%=user.name%> <%=user.lastName%></a></td><td><%=nbProps%></td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4" id="Hobbies">
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <h3 class="panel-title"> <span class="glyphicon glyphicon-bell"></span> Hobbies
+            <a class="pull-right" href="#Dashboard" role="button" title="Retour en haut de la page"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block" role="button">
+             Page d'administration
+          </a>
+        </div>
+         <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-stats"></span> <strong>Hobbies enregistrés</strong> : <%=@nbHobbies%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-user"></span> <strong>Hobbies utilisés</strong> : <%=@nbHobbiesUsed%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-heart"></span> <strong>Top 5 des hobbies les plus utilisés</strong> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+            <!-- Table -->
+            <table class="table table-hover">
+              <thead><th>#</th><th>Hobby</th><th>Utilisateurs</th></thead>
+              <tbody>
+              	<% @mostActiveHobbies.each_with_index do |hobby,i| %>
+               	 <tr><td><%=i+1%></td><td><a href="#"><%=hobby.label%></a></td><td><%=hobby.users.length%></td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4" id="Services">
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <h3 class="panel-title"> <span class="glyphicon glyphicon-bell"></span> Services
+            <a class="pull-right" href="#Dashboard" role="button" title="Retour en haut de la page"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block" role="button">
+             Page d'administration
+          </a>
+        </div>
+         <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-stats"></span> <strong>Services enregistrés</strong> : <%=@nbServices%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-transfer"></span> <strong>Services actifs</strong> : <%=@nbServicesActive%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-remove"></span> <strong>Services clôturés</strong> : <%=@nbServicesFinished%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-comment"></span> <strong>Top 5 des services les plus utilisés</strong> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+            <!-- Table -->
+            <table class="table table-hover">
+              <thead><th>#</th><th>Service</th><th>Propositions</th></thead>
+              <tbody>
+              	<% @mostActiveServices.each_with_index do |service,i| %>
+               	 <tr><td><%=i+1%></td><td><a href="#"><%=service.title%></a></td><td><%=service.propositions.length%></td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-md-4" id="Propositions">
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <h3 class="panel-title"> <span class="glyphicon glyphicon-bell"></span> Propositions
+            <a class="pull-right" href="#Dashboard" role="button" title="Retour en haut de la page"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block" role="button">
+             Page d'administration
+          </a>
+        </div>
+         <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-stats"></span> <strong>Propositions enregistrées</strong> : <%=@nbPropositions%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-transfer"></span> <strong>Echanges réalisés</strong> : <%=@nbPropositionsRealised%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-question-sign"></span> <strong>Propositions en attente</strong> : <%=@nbPropositionsWaiting%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-remove"></span> <strong>Propositions refusées</strong> : <%=@nbPropositionsRefused%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-transfer"></span> <strong>Top 5 des services les plus réalisés</strong> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+            <!-- Table -->
+            <table class="table table-hover">
+              <thead><th>#</th><th>Service</th><th>Echanges</th></thead>
+              <tbody>
+              	<% @mapMostRealisedServices.each_with_index do |(service,nbEchanges),i| %>
+                	<tr><td><%=i+1%></td><td><a href="#"><%=service.title%></a></td><td><%=nbEchanges%></td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4" id="Avis">
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <h3 class="panel-title"> <span class="glyphicon glyphicon-bell"></span> Avis
+            <a class="pull-right" href="#Dashboard" role="button" title="Retour en haut de la page"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block" role="button">
+             Page d'administration
+          </a>
+        </div>
+         <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-stats"></span> <strong>Avis enregistrés</strong> : <%=@nbOpinions%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-thumbs-up"></span> <strong>Avis &gt 4</strong> : <%=@nbPositiveOpinions%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-thumbs-down"></span> <strong>Avis &lt 2</strong> : <%=@nbNegativeOpinions%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-star"></span> <strong>Top 5 des services les mieux notés</strong> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+            <!-- Table -->
+            <table class="table table-hover">
+              <thead><th>#</th><th>Service</th><th>Note</th></thead>
+              <tbody>
+         	 	<% @greatestServices.each_with_index do |service,i| %>
+               	 <tr><td><%=i+1%></td><td><a href="#"><%=service.title%></a></td><td><%=service.note%></td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4" id="Categories">
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <h3 class="panel-title"> <span class="glyphicon glyphicon-bell"></span> Categories
+            <a class="pull-right" href="#Dashboard" role="button" title="Retour en haut de la page"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block" role="button">
+             Page d'administration
+          </a>
+        </div>
+         <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-stats"></span> <strong>Catégories enregistrées</strong> : <%=@nbCategories%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-user"></span> <strong>Catégories utilisées</strong> : <%=@nbCategoriesUsed%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-heart"></span> <strong>Top 5 des catégories les plus utilisées</strong> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+            <!-- Table -->
+            <table class="table table-hover">
+              <thead><th>#</th><th>Catégorie</th><th>Services</th></thead>
+              <tbody>
+         	 	<% @mostActiveCategories.each_with_index do |category,i| %>
+               	 <tr><td><%=i+1%></td><td><a href="#"><%=category.name%></a></td><td><%=category.services.length%></td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-md-4" id="HP">
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <h3 class="panel-title"> <span class="glyphicon glyphicon-bell"></span> HP
+            <a class="pull-right" href="#Dashboard" role="button" title="Retour en haut de la page"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block" role="button">
+             Page d'administration
+          </a>
+        </div>
+         <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-stats"></span> <strong>HP enregistrés</strong> : <%=@totalMoney%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-arrow-up"></span> <strong>Prix du service le plus cher </strong> : <%=@mostExpensiveService%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-arrow-right"></span> <strong>Prix moyen des services </strong> : <%=@avgCostService%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-arrow-down"></span> <strong>Prix du service le moins cher </strong> : <%=@lessExpensiveService%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-minus"></span> <strong>Utilisateurs fauchés</strong> : <%=@nbUsersWithNoFuckinMoney%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-user"></span> <strong>Top 5 des utilisateurs les plus riches</strong> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+            <!-- Table -->
+            <table class="table table-hover">
+              <thead><th>#</th><th>Utilisateur</th><th>HP</th></thead>
+              <tbody>
+         	 	<% @FuckingRichUsers.each_with_index do |user,i| %>
+               	 <tr><td><%=i+1%></td><td><a href="#"><%=user.name%> <%=user.lastName%></a></td><td><%=user.money%></td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4" id="Reports">
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <h3 class="panel-title"> <span class="glyphicon glyphicon-bell"></span> Reports
+            <a class="pull-right" href="#Dashboard" role="button" title="Retour en haut de la page"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block" role="button">
+             Page d'administration
+          </a>
+        </div>
+         <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-stats"></span> <strong>Reports enregistrés</strong> : <%=@nbReports%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-question-sign"></span> <strong>Reports en attente</strong> : <%=@nbReportsWaiting%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-thumbs-up"></span> <strong>Reports utiles</strong> : <%=@nbReportsUsefull%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-thumbs-down"></span> <strong>Reports non concluants</strong> : <%=@nbReportsUseless%> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-user"></span> <strong>Top 5 des meilleurs reporters</strong> <a href="#"><span class="glyphicon glyphicon-eye-open"></span></a>
+            <!-- Table -->
+            <table class="table table-hover">
+              <thead><th>#</th><th>Utilisateur</th><th>Reports</th><th>Utiles</th></thead>
+              <tbody>
+         	 	<% @mapMostActiveReporters.each_with_index do |(user,nbUsefullReports),i| %>
+               	 <tr><td><%=i+1%></td><td><a href="#"><%=user.name%> <%=user.lastName%></a></td><td><%=user.reports.length%></td><td><%=nbUsefullReports%></td></tr>
+                <%end%>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4" id="Blog">
+      <div class="panel panel-default"> 
+        <div class="panel-heading">
+          <h3 class="panel-title"> <span class="glyphicon glyphicon-th-list"></span> Blog
+            <a class="pull-right" href="#Dashboard" role="button" title="Retour en haut de la page"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block" role="button">
+             Page d'administration
+          </a>
+        </div>
+         <ul class="list-group">
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-stats"></span> <strong>Nombre d'articles</strong> : <%=@nbArticles%>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-comment"></span> <strong>Nombre de commentaires</strong> : <%=@nbComments%> 
+          </li>
+          <li class="list-group-item">
+            <a href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter un article</a>
+            <!-- Table -->
+            <table class="table table-hover">
+              <thead><th>#</th><th>Titre</th><th>Editer</th><th>Supprimer</th></thead>
+              <tbody>
+                <tr><td>1</td><td><a href="#">Reduction cette semaine</a></td><td><span class="glyphicon glyphicon-edit"></span></td><td><span class="glyphicon glyphicon-remove"></span></td></tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+      
+  </div>
+  
+    <script>
+      $(document).ready(function() {
+          $('a[href^="#"]').click( function() { // Au clic sur un lien
+            var target = $(this).attr('href');
+            var offsetNavbar = 130;
+            var speed = 500; // Durée de l'animation (en ms)
+            $('html, body').animate( { scrollTop: $(target).offset().top-offsetNavbar }, speed ); // Go
+            return false;
+          });
+        });
+    </script>
