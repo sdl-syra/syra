@@ -19,8 +19,8 @@ Proposition.delete_all
 c1 = Category.create(name: 'Informatique',image: 'picto-cat-inf.png')
 c2 = Category.create(name: 'Cours',image: 'picto-cat-cou.png')
 c3 = Category.create(name: 'Jardinage',image: 'picto-cat-jar.png')
-c4 = Category.create(name: 'Musique')
-c5 = Category.create(name: 'Aide a domicile')
+c4 = Category.create(name: 'Babysitting',image: 'picto-cat-bab')
+c5 = Category.create(name: 'Aide a domicile',image: 'picto-cat-aide-dom.png')
 c6 = Category.create(name: 'Bricolage',image: 'picto-cat-bri.png')
 
 a1 = Address.create(label:'185 Residence Sophora 59283 Moncheaux', y: 50.4528437, x: 3.0832348999999795,region:'Nord-Pas-de-Calais', ville: 'Moncheaux')
@@ -99,7 +99,7 @@ Service.create(title: 'Coupe de cheveux',price: 6,description: 'Etudiant',dispon
                address_id: a5.id,category_id: c3.id,user_id:user2.id)
 
 
-Service.create(title: 'cours de piano',price: 8,description: 'medaille dor',disponibility: 'a partir de 18h',
+Service.create(title: 'garde enfants',price: 8,description: 'medaille dor',disponibility: 'a partir de 18h',
                isGiven: false, isFinished: false, private: false,
                address_id: a1.id,category_id: c4.id,user_id:user4.id)
 
