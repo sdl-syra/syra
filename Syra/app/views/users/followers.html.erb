@@ -6,7 +6,7 @@
         <div class="col-xs-6 col-sm-4 propositionsandservice">
           <!-- Lors de l'intégration à rails, il faut limiter le nombre de caractère au titre, en sortie, on ne voudra que 14 caractères par exemple, pour ne pas que la taille en hauteur de la fiche déborde. Contacter Xav-->
           <div class="centrage">
-          	<% if @user.avatar.nil? %>
+          	<% if follow.avatar.nil? %>
 				<%=image_tag "noavatar.png", :class => "img-circle-cat" %>
 			<%else %>
 				<%=image_tag "avatars/"+follow.avatar, :class => "img-circle-cat" %>
