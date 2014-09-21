@@ -83,7 +83,7 @@
                 </li>
               </ul>
               <ul class="nav navbar-nav navbar-center">
-                <li><a href="#">Timeline</a></li>
+                <li><%= link_to 'Timeline', timeline_path(current_user.id) %></li>
                 <li class="services"></li>
                 <li><%= link_to 'Mes Services', show_services_path(current_user.id) %></li>
                 <li class="divider-vertical"></li>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar, :update_hobbies, :unlock_badge, :show_services, :show_propositions]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_address, :upload_avatar, :update_hobbies, :unlock_badge, :show_services, :show_propositions, :timeline]
   before_action :require_login, unless: :signed_in?, except: [:new,:create]
   before_action :restrict_access_admin, only: [:admin]
   # GET /users
@@ -43,6 +43,10 @@ class UsersController < ApplicationController
   end
 
   def followed
+    @user=current_user
+  end
+  
+  def timeline
     @user=current_user
   end
 
@@ -195,7 +199,7 @@ class UsersController < ApplicationController
   def show_propositions
     @propMap = @user.services.map { |s| s.propositions}
   end
-
+  
   private
 
   # Use callbacks to share common setup or constraints between actions.
