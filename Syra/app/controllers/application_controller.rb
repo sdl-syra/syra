@@ -3,10 +3,15 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   before_action :set_notifs_per_user
   before_action :set_nbunread_messages
+  before_action :set_create_service
   before_filter :set_search
   before_action :handle_banned
   protect_from_forgery with: :exception
   include SessionsHelper
+
+  def set_create_service
+    @service = Service.new 
+  end
 
   private
   def require_login

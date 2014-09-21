@@ -29,7 +29,8 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li>
-              	<a href="<%= new_service_path %>"><span class="glyphicon glyphicon-plus-sign" style="font-size:35px;"></span></a>
+              	<a data-toggle="modal" data-target="#modalService"><span class="glyphicon glyphicon-plus-sign" style="font-size:35px;">
+                </span></a>
               </li>
               <li>
               	<a href="#notif" class="dropdown-toggle handlenotifs" data-toggle="dropdown">
@@ -101,3 +102,5 @@
       </div>
     </div>
 
+
+    <%= render 'layouts/modal_service' %>
