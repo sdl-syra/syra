@@ -24,6 +24,9 @@ class PagesController < ApplicationController
   end
   
   def administrator
+    if !signed_in? or !current_user.isAdmin?
+      redirect_to root_path
+    end
     set_panel_users
     set_panel_hobbies
     set_panel_services
