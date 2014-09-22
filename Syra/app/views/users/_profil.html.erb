@@ -218,7 +218,7 @@
             <%  @user.follower.each do |follow| %>
             <div class="row">
           <div class="col-md-2 col-md-offset-2">
-            <% if @user.avatar.nil? %>
+            <% if follow.avatar.nil? %>
               <%=image_tag "noavatar.png" , :size => "40" %>
             <%else %>
               <%=image_tag "avatars/"+follow.avatar, :class => "img-circle-cat", :size => "40" %>
