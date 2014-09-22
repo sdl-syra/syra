@@ -1,31 +1,44 @@
-<h1>Listing articles</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>User</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @articles.each do |article| %>
-      <tr>
-        <td><%= article.title %></td>
-        <td><%= article.content %></td>
-        <td><%= article.user %></td>
-        <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container " style="padding-top:150px">
+	<% if signed_in? && current_user.isAdmin? %>
+		<div class="row">
+			<button class="btn btn-success " data-toggle="modal" data-target="#myModalBillet" >
+			  Créer un billet
+			</button>
+		</div>
+	<% end %>
+	<% if @articles.empty? %><div class="row text-center">Aucune actualité</div><% end %>
+	<% @articles.each do |article| %>
+		<div class="panel panel-default row col-md-8 col-md-offset-2">
+			<% unless article.user.avatar.nil?%>
+				<a href="/users/<%=article.user.id%>"><%=image_tag "avatars/"+article.user.avatar, class:"img-thumbnail img-responsive pull-left", style:"height:150px; margin-right:10px;"%></a>
+			<% end %>
+			<h2><%= article.title %></h2>
+			<div><%= article.content %></div>
+			<h5><span class="glyphicon glyphicon-time"></span><small> <%= time_ago_in_words(article.created_at)%></small></h5>
+		</div>
+	<% end %>
+</div>
 
-<br>
-
-<%= link_to 'New Article', new_article_path %>
+<% if signed_in? && current_user.isAdmin? %>
+	<div class="modal fade" id="myModalBillet" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title">Création d'un billet</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>
+	        	<%= form_for @article do |f| %>
+		        	<%= f.text_field :title, class:'form-control', placeholder:'Titre' %>
+		        	<%= f.text_area :content, :rows => '5', class:'form-control', placeholder:'Contenu' %>
+		        	<%= f.submit 'Envoyer', class:'btn btn-default'%>
+	        	<% end %>
+	        </p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+<% end %>

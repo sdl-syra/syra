@@ -4,7 +4,8 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @articles = Article.all.order(created_at: :desc)
+    @article = Article.new
   end
 
   # GET /articles/1
@@ -25,11 +26,10 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
-
+    @article.user = current_user
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @article }
+        format.html {redirect_to action: 'index'}
       else
         format.html { render action: 'new' }
         format.json { render json: @article.errors, status: :unprocessable_entity }
