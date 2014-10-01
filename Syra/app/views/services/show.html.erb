@@ -7,7 +7,7 @@
 <%- model_class = Service -%>
 
       <!-- Jumbotron -->
-      <div class="jumbotron">
+      <div class="jumbotron" style="padding-top:75px;">
 		<% if not flash[:errorconnexion].nil? %>
 			<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -34,7 +34,7 @@
 </div>
 	
 <div class="row">
-        <h1><%= @service.title %></h1>
+        <h3><%= @service.title %></h3>
 </div>
 <div class="row">
 <div class="col-md-3">
@@ -51,9 +51,9 @@
 
 			<div class="avatar-service">
 			<% if not @service.user.avatar.nil? %>
-				<%=image_tag "avatars/"+@service.user.avatar, :class => "style_image" %>
+				<%=image_tag "avatars/"+@service.user.avatar, :class => "img-responsive" %>
 			<% else %>
-				<%=image_tag "noavatar.png", :class => "style_image" %>
+				<%=image_tag "noavatar.png", :class => "img-responsive" %>
 			<% end %>
 			<!--
 			<div class="post-content" >

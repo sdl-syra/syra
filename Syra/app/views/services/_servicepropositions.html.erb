@@ -13,9 +13,9 @@
 			<div class="panel panel-body" <% if prop.user==current_user%>style="border: 1px solid #5bc0de "<% elsif prop.user.isPremium?%>style="border: 1px solid #f0ad4e "<% end %>>
 				<div class="col-md-2 text-left">
 					<% if not prop.user.avatar.nil? %>
-						<%=image_tag "avatars/"+prop.user.avatar, :class => "avatar-service-prop"%>
+						<%=image_tag "avatars/"+prop.user.avatar, :class => "img-circle"%>
 					<% else %>
-						<%=image_tag "noavatar.png", :class => "avatar-service-prop"%>
+						<%=image_tag "noavatar.png", :class => "img-circle"%>
 					<% end %>
 				</div>
 				<div class="col-md-10 text-left">
