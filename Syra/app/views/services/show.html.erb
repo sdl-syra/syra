@@ -24,14 +24,6 @@
 				<%= flash[:success] %>
 			</div>
 		<% end %>
-<div class="row text-left">
-        <%= link_to 'Retour', services_path, :class => 'btn btn-default'  %>
-        <% if current_user && current_user.isAdmin? %>
-			<span class="pull-right">
-		        <%= link_to ' Anéantir', @service, method: :delete, data: { confirm: 'Voulez-vous vraiment le supprimer ?' }, :class => 'btn btn-danger fa fa-trash-o'  %>
-			</span>
-		<% end %>	
-</div>
 	
 <div class="row">
         <h3><%= @service.title %></h3>
@@ -100,7 +92,8 @@
 					<div class="btn-group">
 			    <% if not @service.isFinished? %>
 			    	<% if @service.user != current_user %>
-			    	<%= link_to 'Faire une proposition', nouvelle_prop_service_path(@service, :service => @service), {:class=>"btn btn-lg btn-success"} %>
+			    	<button class="btn btn-lg btn-success" data-toggle="modal" data-target="#modalNewProp">Faire une proposition</button>
+			    	
 			   		<% else %>
 							<%= link_to 'Éditer',
 								edit_service_path(@service), :class => 'btn btn-info' %>
@@ -253,6 +246,8 @@
 	</div>
 </div>
 
+
+    <%= render 'services/modal_new_prop' %>
 
 
 <script type="text/javascript">

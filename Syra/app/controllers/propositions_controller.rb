@@ -28,6 +28,7 @@ class PropositionsController < ApplicationController
   # GET /propositions/new
   def new
     @proposition = Proposition.new
+    redirect_to :back
   end
 
   # GET /propositions/1/edit
@@ -43,7 +44,7 @@ class PropositionsController < ApplicationController
       if @proposition.save
         UsersHelper.grant_xp(current_user,70) if current_user
         BadgesHelper.tryUnlockLvls(current_user) if current_user
-        format.html { redirect_to @proposition, notice: 'Proposition was successfully created.' }
+        format.html { redirect_to :back, notice: 'Proposition was successfully created.' }
         format.json { render action: 'show', status: :created, location: @proposition }
         NotificationsHelper.create_notif(@proposition.service.user,"Une nouvelle proposition pour '"+@proposition.service.title+"'",proposition_path(@proposition.id.to_s),"fa fa-exchange")
         serviceProp = Service.find(@proposition.service)
@@ -54,7 +55,7 @@ class PropositionsController < ApplicationController
         end
         unlock_badges_x_responses
       else
-        format.html { render action: 'new' }
+        format.html { redirect_to :back }
         format.json { render json: @proposition.errors, status: :unprocessable_entity }
       end
     end

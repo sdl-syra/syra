@@ -17,7 +17,7 @@
 %>
 
 <!-- Jumbotron -->
-<div class="jumbotron">
+<div class="jumbotron" style="padding-top:75px;">
 	<%= form_for @service, :html => { :class => 'form-horizontal', :role => 'form', :multipart => true } do |f| %>
 	<% if @service.errors.any? %>
 			<% @service.errors.messages.values.each do |msg| %>
@@ -45,9 +45,6 @@
 				<% end %>
 			<% end %>
 	<% end %>
-	<div class="row text-left">
-        <%= link_to 'Retour', service_path(@service), :class => 'btn btn-default'  %>
-	</div>	
 	<div class="col-md-12">
 		<div class="row">
 			<% if errorTitle %>  
@@ -73,9 +70,9 @@
 				<% username = @service.user.name + ' ' + @service.user.lastName%>
 				<div class="avatar-service">
 					<% if not @service.user.avatar.nil? %>
-						<%=image_tag "avatars/"+@service.user.avatar, :class => "style_image" %>
+						<%=image_tag "avatars/"+@service.user.avatar, :class => "img-responsive" %>
 					<% else %>
-						<%=image_tag "noavatar.png", :class => "style_image" %>
+						<%=image_tag "noavatar.png", :class => "img-responsive" %>
 					<% end %>
 				</div>
 				<%= link_to username, user_path(@service.user) %> <i class="fa fa-star"></i> <%= @service.user.level.levelUser %><br/>

@@ -3,10 +3,17 @@ class ServicesController < ApplicationController
   before_action :set_suggestions_demandes, only: [:index]
   before_action :require_login, unless: :signed_in?
   before_action :set_report, only: [:show]
+  before_action :set_create_proposition
   before_filter :redirect_signup, unless: :signed_in?, :only => [:new]
   skip_before_filter :verify_authenticity_token, :only => :set_geolocation
   before_action :restrict_access_admin, only: [:admin]
  
+
+
+  def set_create_proposition
+    @proposition = Proposition.new
+  end
+
   # GET /services
   # GET /services.json
   def index

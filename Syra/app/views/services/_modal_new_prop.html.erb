@@ -1,0 +1,53 @@
+<div class="modal fade" id="modalNewProp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nouvelle Proposition</h4>
+      </div>
+      <div class="modal-body">
+
+
+      <%= form_for(@proposition) do |f| %>
+        <% if @proposition.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@proposition.errors.count, "error") %> prohibited this proposition from being saved:</h2>
+
+            <ul>
+              <% @proposition.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="row text-center">
+              <%= f.date_select :proposition %>
+        </div>
+        <br />
+        <br />
+        <div clas="row text-center">
+            <div class="col-md-offset-4">
+              <%= f.text_area :comment, :class => 'text_area', :placeholder => 'Insérer un commentaire'%>
+            </div>
+        </div>
+        <br />
+        <div class="row text-center">
+                <%= f.hidden_field :service_id, value: @service.id %>
+                <%= f.hidden_field :price, value: @service.price %>
+                <%= f.submit "Proposer", :class => 'btn btn-lg btn-success' %>
+        </div>
+        
+      </div>
+
+        <% end %>
+
+            
+       
+      
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

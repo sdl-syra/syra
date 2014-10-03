@@ -20,6 +20,7 @@
 				</div>
 				<div class="col-md-10 text-left">
 					<strong><%= link_to propusername,user_path(prop.user) %></strong>
+					<br />
 					<%= prop.comment %>
 				<br/>
 					pour le <%= prop.proposition.to_s(:short)%> - 
@@ -39,7 +40,7 @@
 	                        Echange réalisé
 	                    <% end %> -
                     <% end %> 
-					<%= link_to 'Voir', proposition_path(prop), {:class=>"btn-link"} %> <i class="fa fa-search"></i>
+
 					<% if @service.user == current_user %>
                       <% if prop.isAccepted.nil? %>
                     	<%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop),
@@ -170,3 +171,5 @@
     </div>
 </div>
 <% end %>
+
+
