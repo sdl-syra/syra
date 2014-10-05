@@ -1,68 +1,108 @@
+<%= javascript_include_tag "moment" %>
+<%= stylesheet_link_tag "datepicker" %>
 <% @service = Service.find(params[:service])%>
 <%= form_for(@proposition) do |f| %>
-  <% if @proposition.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@proposition.errors.count, "error") %> prohibited this proposition from being saved:</h2>
+<% if @proposition.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@proposition.errors.count, "error") %> prohibited this proposition from being saved:</h2>
 
-      <ul>
-      <% @proposition.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<ul>
+		<% @proposition.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
 <div class="col-md-3 col-md-push-1">
 	<h1>Ma proposition</h1>
 	<div class="form-group">
-	  <div class="field">
-	    <label class="col-sm-2 control-label"> Date </label>
-	    <%= f.date_select :proposition %>
-	  </div>
-	  <div class="form-group">
-	    <label class="col-sm-2 control-label"> Commentaire </label>
-	    <%= f.text_area :comment, :class => 'text_area' %>
-	  </div>
-	  <div class="form-group">
-	  	<div class="col-sm-offset-2 col-sm-10">
-	     <%= f.hidden_field :service_id, value: @service.id %>
-	     <%= f.hidden_field :price, value: @service.price %>
-	     <%= f.submit "Proposer", :class => 'btn btn-lg btn-success' %>
-	    </div>
-	  </div>
+		<div class="field">
+			<label class="col-sm-2 control-label"> Date </label>
+
+			<div class="date-picker"  data-date="2014/09/02" data-keyboard="true">
+				<div class="date-container pull-left">
+					<h4 class="weekday"></h4>
+					<h2 class="date"></h2>
+					<h4 class="year pull-right"></h4>
+				</div>
+				<span data-toggle="datepicker" data-type="subtract" class="fa fa-angle-left"></span>
+				<span data-toggle="datepicker" data-type="add" class="fa fa-angle-right"></span>
+				<div class="input-group input-datepicker">
+					<input type="text" class="form-control" data-format="DD/MM/YYYY" placeholder="DD/MM/YYYY">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							Go!
+						</button> </span>
+				</div>
+				<span data-toggle="calendar" class="fa fa-calendar"></span>
+			</div>
+
+			<!--<%= f.date_select :proposition %>-->
+		</div>
+		</br>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"> Commentaire </label></br>
+			<%= f.text_area :comment, :class => 'text_area' %>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<%= f.hidden_field :service_id, value: @service.id %>
+				<%= f.hidden_field :price, value: @service.price %>
+				<%= f.submit "Proposer", :class => 'btn btn-lg btn-success' %>
+			</div>
+		</div>
 	</div>
 	</br>
 </div>
 
 <% end %>
 <div class="col-md-4 col-md-push-4">
- <blockquote>
- 	<a href="<%= service_path(@service) %>"><h1><%= @service.title %></h1></a>
-  <p class="lead">"<%= @service.description %>"</p>
-  <dt>Dans la catégorie <strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong></dt>
+	<blockquote>
+		<a href="<%= service_path(@service) %>"><h1><%= @service.title %></h1></a>
+		<p class="lead">
+			"<%= @service.description %>"
+		</p>
+		<dt>
+			Dans la catégorie <strong><a href="<%= category_path(@service.category) %>"><%= @service.category.name %></a></strong>
+		</dt>
 
-  <dt>Ayant pour disponibilité(s) 
-  <% if @service.disponibility.nil? or @service.disponibility=="" %>
-  	<strong> Non renseignées
-  <% else %>
-  	<%= @service.disponibility %></strong>
-  <% end %>
-  <dt>Le prix est de <strong><%= @service.price %> HP</strong></dt>  
-  
-  <dt> Proposé par 
-  <% if @service.user.nil?  %>
-  	Non renseigné
-  <% else %>
-  	<% username = @service.user.name + ' ' + @service.user.lastName%>
-  	<%= link_to username, user_path(@service.user) %>
-  <% end %> à 
-    <% if @service.address.nil? or @service.address.label=="" %>
-  	<dd> Non renseignée </dd>
-  <% else %>
-  	<dd><%= @service.address.label %></dd>
-  <% end %>
-  </dt>
-  <footer>
-  	Service concerné
-  </footer>
-  </blockquote>
+		<dt>
+			Ayant pour disponibilité(s)
+			<% if @service.disponibility.nil? or @service.disponibility=="" %>
+			<strong> Non renseignées
+			<% else %>
+			<%= @service.disponibility %></strong>
+			<% end %>
+		<dt>
+			Le prix est de <strong><%= @service.price %> HP</strong>
+		</dt>
+
+		<dt>
+			Proposé par
+			<% if @service.user.nil?  %>
+			Non renseigné
+			<% else %>
+			<% username = @service.user.name + ' ' + @service.user.lastName%>
+			<%= link_to username, user_path(@service.user) %>
+			<% end %> à
+			<% if @service.address.nil? or @service.address.label=="" %>
+			<dd>
+				Non renseignée
+			</dd>
+			<% else %>
+			<dd>
+				<%= @service.address.label %>
+			</dd>
+			<% end %>
+		</dt>
+		<footer>
+			Service concerné
+		</footer>
+	</blockquote>
 </div>
+
+<script type="text/javascript">
+
+</script>
