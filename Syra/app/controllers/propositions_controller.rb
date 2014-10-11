@@ -101,7 +101,7 @@ class PropositionsController < ApplicationController
   end
 
   def validerEchange
-    prop = Proposition.find(params[:id])
+    prop = Proposition.find(params[:proposition][:id])
     codeUtilisateur = params[:proposition][:code]
     if signed_in?
       if prop.service.isGiven? and prop.service.user == current_user

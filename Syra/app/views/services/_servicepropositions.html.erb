@@ -30,31 +30,36 @@
                         Refusée
                     <% else %>
                         Acceptée
-                    <% end %> -
-                    <% if prop.isAccepted? %>
+                    <% end %>
+                    <% if prop.isAccepted? %> - 
                     	<% if prop.isPaid.nil? %>
 	                        Echange en attente
 	                    <% elsif not prop.isPaid? %>
 	                        Echange non réalisé
 	                    <% else %>
 	                        Echange réalisé
-	                    <% end %> -
+	                    <% end %>
                     <% end %> 
 
 					<% if @service.user == current_user %>
-                      <% if prop.isAccepted.nil? %>
+                      <% if prop.isAccepted.nil? %> - 
                     	<%= link_to 'Accepter', accepter_prop_service_path(@service, :prop => prop),
                     		:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Vous acceptez la proposition de '+propusername+'.' )) }, 
                     		:class=>"btn-link" %>
                         <button class="btn-link" data-toggle="modal" data-target="#modalRefus<%= prop.id %>">Refuser</button>
                       <% end %>
-		            <% elsif prop.user == current_user && prop.isAccepted.nil? %>
+		            <% elsif prop.user == current_user && prop.isAccepted.nil? %> - 
 	                  	<%= link_to 'Supprimer',
 		                      proposition_path(prop),
 		                      :method => :delete,
 		                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Cette action supprimera votre proposition.')) },
 		                      :class => 'btn-link' %><i class="fa fa-times"></i>
 	                <% end %>
+	                <% if prop.isAccepted? && prop.isPaid.nil? %> - 
+						<% if (@service.isGiven? and current_user == @service.user) or (not @service.isGiven? and current_user == prop.user) %>
+							<button class="btn-link" data-toggle="modal" data-target="#modalCode<%= prop.id %>">Valider l'&eacute;change</button>
+						<% end %>
+					<% end %>
 				</div>
 			</div>
 			
@@ -103,9 +108,37 @@
 				<% end %>
 			<% end %>
 			
-			
-			
-			
+		<% if prop.isAccepted? && prop.isPaid.nil? %>
+			<% if (@service.isGiven? and current_user == @service.user) or (not @service.isGiven? and current_user == prop.user) %>
+				<div class="modal fade" id="modalCode<%= prop.id %>" tabindex="-1" role="dialog" aria-labelledby="modalCodeLabel" aria-hidden="true">
+		        <div class="modal-dialog">
+		         <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="modalCodeLabel">
+		                	Valider l'échange avec 
+		                	<% if @service.isGiven? %>
+		                		<%= prop.user.name %>
+		                	<% else %>
+		                		<%= @service.user.name %>
+		                	<% end %>
+		                </h4>
+		            </div>
+		            <div class="modal-body">
+		            	<%= form_for prop, :url => url_for(:controller => 'propositions', :action => 'validerEchange'), :html => { :class => 'form-horizontal', :role => 'form'}, method: :get do |f| %>
+						<%= f.hidden_field :id, value: prop.id %>
+						<%= f.text_field :code, :class => 'form-control', :placeholder => "Code de validation", value: ""%>
+		            </div>
+		            <div class="modal-footer">
+		            	<%= f.submit 'Valider un échange', :class => 'btn btn-success' %>
+		            	<% end %>
+		                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+		            </div>
+		         </div>
+		        </div>
+		    </div>
+			<% end %>
+		<% end %>
 			
 	<% end %>
 <% else %>
