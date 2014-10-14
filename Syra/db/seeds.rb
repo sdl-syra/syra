@@ -27,7 +27,7 @@ a1 = Address.create(label:'185 Residence Sophora 59283 Moncheaux', y: 50.4528437
 l1 = Level.create(levelUser:1,XPUser:0)
 
 
-user1 = User.create!(name: 'Maxime', lastName: 'Prudhomme', password:'12345678', email:'prudhommemaxime@gmail.com', money: '20',
+user1 = User.create!(name: 'Terry', lastName: 'Mainvis', password:'12345678', email:'terrymainvis@gmail.com', money: '20',
            phone:'0601280156',biography:'Bla Bla Biographie',isPremium:false,level_id:l1.id,address_id:a1.id,
            accept_conditions:true, isAdmin:true, isBanned:false)
 
@@ -36,7 +36,7 @@ a2 = Address.create(label:'rue Nationale Lille 59000', y: 50.6328407, x: 3.05275
 l2 = Level.create(levelUser:1,XPUser:0)
 
 
-user2 = User.create!(name: 'Maxime', lastName: 'Boutrouille', password:'12345678', email:'maxime.boutrouille@gmail.com', money: '1337',
+user2 = User.create!(name: 'Pamela', lastName: 'Anderson', password:'12345678', email:'panderson@gmail.com', money: '1337',
            phone:'0601280156',biography:'Bla Bla Biographie',isPremium:false,level_id:l2.id,address_id:a2.id,
            accept_conditions:true, isAdmin:true, isBanned:false)
 

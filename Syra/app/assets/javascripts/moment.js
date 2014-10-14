@@ -2879,13 +2879,13 @@ $(document).ready(function() {
 
 
     // Set default locale, other locale will inherit from English.
-    moment.locale('en', {
+    moment.locale('fr', {
         ordinal : function (number) {
             var b = number % 10,
                 output = (toInt(number % 100 / 10) === 1) ? 'th' :
-                (b === 1) ? 'st' :
-                (b === 2) ? 'nd' :
-                (b === 3) ? 'rd' : 'th';
+                (b === 1) ? '' :
+                (b === 2) ? '' :
+                (b === 3) ? '' : '';
             return number + output;
         }
     });
@@ -2895,6 +2895,16 @@ $(document).ready(function() {
     /************************************
         Exposing Moment
     ************************************/
+   
+   
+   
+   
+   $.datepicker.parseDate = function(format, value) {
+    return moment(value, format).toDate();
+	};
+	$.datepicker.formatDate = function (format, value) {
+	    return moment(value).format(format);
+	};
 
     function makeGlobal(shouldDeprecate) {
         /*global ender:false */

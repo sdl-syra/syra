@@ -21,7 +21,7 @@
           </div>
         <% end %>
         <div class="row text-center">
-              <%= f.date_select :proposition %>
+              <%= f.date_select :proposition, :order => [:day,:month,:year], class:'form-control' %>
         </div>
         <br />
         <br />
