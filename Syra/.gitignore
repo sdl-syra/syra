@@ -23,3 +23,5 @@
 
 # Ignore 
 /public/uploads
+
+/config/initializers/secret_token.rb 
