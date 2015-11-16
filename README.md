@@ -1,6 +1,6 @@
 # Syra
 ====
-Syra is bartering website based on fictive money. 
+Syra is a bartering website based on fictive money. 
 Each new user get a little amount of point when the account is created.
 Then users can "buy" services from others users with this money.
 There is also a social network aspect with a profile to fill, a gamification system and so on.
