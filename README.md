@@ -10,10 +10,10 @@ Even if the application is finished, the site never went online.
 
 * [Technologies used](#technologies-used)
 * [Samples of code](#samples-of-code)
-  * [Ruby on Rails architecture](ruby-on-rails-architecture)
-  * [Facebook authentication](facebook-authentication)
-  * [Following system](following-system)
-  * [Account activation with a code](account-activation-with-a-code)
+  * [Ruby on Rails architecture](#ruby-on-rails-architecture)
+  * [Facebook authentication](#facebook-authentication)
+  * [Following system](#following-system)
+  * [Account activation with a code](#account-activation-with-a-code)
 
 
 ## Technologies used
